@@ -1,0 +1,31 @@
+=========================================================
+
+users(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	login VARCHAR(20),
+	password VARCHAR(18),
+	nickname VARCHAR(40),
+	firstname VARCHAR(30),
+	lastname VARCHAR(30),
+	activestatus INTEGER);
+
+=========================================================
+
+=========================================================
+
+chats(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(40));
+
+=========================================================
+
+=========================================================
+
+messages(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	body VARCHAR(10000),
+	userid INTEGER,
+	charid INTEGER,
+	date TEXT);
+
+=========================================================
