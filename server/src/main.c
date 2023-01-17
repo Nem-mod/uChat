@@ -1,11 +1,4 @@
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-
+#include "../inc/server.h"
 int Socket(int domain, int type, int protocol) {
     int res = socket(domain, type, protocol);
     if (res == -1) {
@@ -60,27 +53,34 @@ void Inet_pton(int af, const char *src, void *dst) {
         perror("inet_pton failed");
         exit(EXIT_FAILURE);
     }
-} 
+}
+
+
 int main() {
-    int fd = Socket(AF_INET, SOCK_STREAM, 0);
+    int server = Socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in adr = {0};
     adr.sin_family = AF_INET;
     adr.sin_port = htons(34543);
-    Inet_pton(AF_INET, "127.0.0.1", &adr.sin_addr);
-    Connect(fd, (struct sockaddr *) &adr, sizeof adr);
-    write(fd, "Hello\n", 6);
-    char buf[256];
+    Bind(server, (struct sockaddr *) &adr, sizeof adr);
+    Listen(server, 5);
+    socklen_t adrlen = sizeof adr;
+    int fd = Accept(server, (struct sockaddr *) &adr, &adrlen);
     ssize_t nread;
+    char buf[256];
     nread = read(fd, buf, 256);
     if (nread == -1) {
         perror("read failed");
         exit(EXIT_FAILURE);
     }
     if (nread == 0) {
-        printf("EOF occured\n");
+        printf("END OF FILE occured\n");
     }
     write(STDOUT_FILENO, buf, nread);
-    sleep(10);
+    write(fd, buf, nread);
+
+    sleep(15);
+
     close(fd);
+    close(server);
     return 0;
 }
