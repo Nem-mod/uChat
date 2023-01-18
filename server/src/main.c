@@ -1,4 +1,12 @@
 #include "../inc/server.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <syslog.h>
 int Socket(int domain, int type, int protocol) {
     int res = socket(domain, type, protocol);
     if (res == -1) {
@@ -55,32 +63,95 @@ void Inet_pton(int af, const char *src, void *dst) {
     }
 }
 
+int main(int argc, char* argv[])
+{
+    
+    if(argc != 2){
+        printf("%s", "usage: ./uchat [port]\n");
+        return 0;
+    };
+    char *ip = "127.0.0.1";
+    int port = atoi(argv[1]);
 
-int main() {
-    int server = Socket(AF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in adr = {0};
-    adr.sin_family = AF_INET;
-    adr.sin_port = htons(34543);
-    Bind(server, (struct sockaddr *) &adr, sizeof adr);
-    Listen(server, 5);
-    socklen_t adrlen = sizeof adr;
-    int fd = Accept(server, (struct sockaddr *) &adr, &adrlen);
-    ssize_t nread;
-    char buf[256];
-    nread = read(fd, buf, 256);
-    if (nread == -1) {
-        perror("read failed");
-        exit(EXIT_FAILURE);
+    
+    pid_t pid = 0;
+    pid_t sid = 0;
+    FILE *fp= NULL;
+    pid = fork();// fork a new child process
+
+    if (pid < 0)
+    {
+        printf("fork failed!\n");
+        exit(1);
     }
-    if (nread == 0) {
-        printf("END OF FILE occured\n");
+
+    if (pid > 0)// its the parent process
+    {
+       printf("pid of child process %d \n", pid);
+        exit(0); //terminate the parent process succesfully
     }
-    write(STDOUT_FILENO, buf, nread);
-    write(fd, buf, nread);
 
-    sleep(15);
+    umask(0);//unmasking the file mode
 
-    close(fd);
-    close(server);
-    return 0;
+    sid = setsid();//set new session
+    if(sid < 0)
+    {
+        exit(1);
+    }
+
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+
+    fp = fopen ("mydaemonfile.txt", "w+");
+
+    int server_sock, client_sock;
+    struct sockaddr_in server_addr, client_addr;
+    socklen_t addr_size;
+    char buffer[1024];
+    int n;
+
+    server_sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_sock < 0){
+    perror("[-]Socket error");
+    exit(1);
+    }
+    printf("[+]TCP server socket created.\n");
+
+    memset(&server_addr, '\0', sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = port;
+    server_addr.sin_addr.s_addr = inet_addr(ip);
+
+    n = bind(server_sock, (struct sockaddr*)&server_addr, sizeof(server_addr));
+    if (n < 0){
+    perror("[-]Bind error");
+    exit(1);
+    }
+    printf("[+]Bind to the port number: %d\n", port);
+
+    listen(server_sock, 5);
+    printf("Listening...\n");
+    while (1)
+    {
+        sleep(1);
+        addr_size = sizeof(client_addr);
+        client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
+        printf("[+]Client connected.\n");
+
+        memset(&buffer, 0, sizeof(buffer));
+        recv(client_sock, buffer, sizeof(buffer), 0);
+        printf("Client: %s\n", buffer);
+
+        memset(&buffer, 0, sizeof(buffer));
+        strcpy(buffer, "HI, THIS IS SERVER. HAVE A NICE DAY!!!");
+        printf("Server: %s\n", buffer);
+        send(client_sock, buffer, strlen(buffer), 0);
+
+        close(client_sock);
+        printf("[+]Client disconnected.\n\n");
+    }
+    fclose(fp);
+  
+    return (0);
 }
