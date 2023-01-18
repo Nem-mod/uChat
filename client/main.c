@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include "inc/client.h"
 
 int main(){
 
@@ -15,11 +11,8 @@ int main(){
   char buffer[1024];
   int n;
 
-  sock = socket(AF_INET, SOCK_STREAM, 0);
-  if (sock < 0){
-    perror("[-]Socket error");
-    exit(1);
-  }
+  sock =  Socket(AF_INET, SOCK_STREAM, 0);
+
   printf("[+]TCP server socket created.\n");
 
   memset(&addr, '\0', sizeof(addr));

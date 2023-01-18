@@ -1,4 +1,5 @@
-NAME_SERV	=	uchat
+NAME_SERV	=uchat_server
+NAME_CLIENT = uchat
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
 COMP 	= 	clang
 
@@ -14,10 +15,13 @@ OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
 
 
-all: $(LBA) $(NAME_SERV) clean
+all: $(NAME_SERV) $(NAME_CLIENT) clean
 
 $(NAME_SERV): $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) -o $@ 
+
+$(NAME_CLINET): 
+	@$(COMP) $(CFLAGS) client/*.c -o uchat 
 
 $(OBJ_FILES): | $(OBJECTDIR)
 
@@ -31,5 +35,6 @@ clean:
 
 uninstall: clean
 	rm -rf $(NAME_SERV)
+	rm -rf $(NAME_CLIENT)
 
 reinstall: uninstall all
