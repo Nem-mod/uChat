@@ -1,31 +1,55 @@
 =========================================================
 
-users(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
+user(
+	user_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	login VARCHAR(20),
 	password VARCHAR(18),
-	nickname VARCHAR(40),
-	firstname VARCHAR(30),
-	lastname VARCHAR(30),
-	activestatus INTEGER);
+	nick_name VARCHAR(40),
+	first_name VARCHAR(30),
+	last_name VARCHAR(30));
 
 =========================================================
 
 =========================================================
 
-chats(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
+contact(
+	contact_id INTEGER,
+	nick_name VARCHAR(40),
+	first_name VARCHAR(30),
+	last_name VARCHAR(30),
+	profile_photo BLOB,
+	active_status INTEGER);
+	
+=========================================================
+
+=========================================================
+
+message(
+	group_uid INTEGER,
+	contact_id INTEGER,
+	message_text TEXT,
+	message_photo BLOB,
+	sent_datetime TEXT);
+
+=========================================================
+
+=========================================================
+
+message_group(
+	group_id INTEGER PRIMARY KEY AUTOINCREMENT
+	group_uid INTEGER,
 	name VARCHAR(40));
 
 =========================================================
 
 =========================================================
 
-messages(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	body VARCHAR(10000),
-	userid INTEGER,
-	charid INTEGER,
-	date TEXT);
+group_member(
+	contact_id INTEGER,
+	group_uid INTEGER,
+	joined_datatime TEXT,
+	left_datatime TEXT);
 
 =========================================================
+
+
