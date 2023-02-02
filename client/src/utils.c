@@ -1,4 +1,4 @@
-#include "inc/client.h"
+#include "../inc/client.h"
 
 int Socket(int domain, int type, int protocol) {
     int res = socket(domain, type, protocol);
