@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "libmx.h"
+#include "libdb.h"
 
 int Socket(int domain, int type, int protocol);
 
