@@ -5,6 +5,7 @@ user(
 	login VARCHAR(20),
 	password VARCHAR(18),
 	nick_name VARCHAR(40),
+	profile_photo BLOB,
 	first_name VARCHAR(30),
 	last_name VARCHAR(30));
 
@@ -13,11 +14,8 @@ user(
 =========================================================
 
 contact(
-	contact_id INTEGER,
-	nick_name VARCHAR(40),
-	first_name VARCHAR(30),
-	last_name VARCHAR(30),
-	profile_photo BLOB,
+	contact_id INTEGER PRIMARY KEY,
+	user_id INTEGER, 
 	active_status INTEGER);
 	
 =========================================================
@@ -35,7 +33,7 @@ message(
 
 =========================================================
 
-message_group(
+group(
 	group_id INTEGER PRIMARY KEY AUTOINCREMENT
 	group_uid INTEGER,
 	name VARCHAR(40));

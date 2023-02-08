@@ -37,10 +37,14 @@ int main(int argc, char* argv[])
     //   sqlite3_free(zErrMsg);
     // }
     // sqlite3_close(db);
+
     char *ip = "127.0.0.1";
     int port = mx_atoi(argv[1]);
 
-    
+    //SSL_CTX *ctx;
+    //ctx = create_context();
+
+    //configure_context(ctx);
     // pid_t pid = 0;
     // pid_t sid = 0;
     FILE *fp= NULL;
@@ -96,14 +100,24 @@ int main(int argc, char* argv[])
     {
         sleep(1);
         addr_size = sizeof(client_addr);
+        //SSL *ssl;
         client_sock = Accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
-        
+        //const char reply[] = "test\n";
         if ((childpid = fork()) == 0) 
         { 
             close(server_sock); 
 
             while (1)
             {
+                // ssl = SSL_new(ctx);
+                // SSL_set_fd(ssl, client_sock);
+
+                // if (SSL_accept(ssl) <= 0) {
+                //     ERR_print_errors_fp(stderr);
+                // } else {
+                //     SSL_write(ssl, reply, strlen(reply));
+                // }
+
                 mx_memset(&buffer, 0, sizeof(buffer));
                 recv(client_sock, buffer, sizeof(buffer), 0);
 
@@ -120,10 +134,15 @@ int main(int argc, char* argv[])
 
                 send(client_sock, buffer, strlen(buffer), 0);
                 mx_memset(&buffer, 0, sizeof(buffer));
+                //SSL_shutdown(ssl);
+                //SSL_free(ssl);
                 }
 
             }
+
         }
+
+        
     }
     fclose(fp);
   
