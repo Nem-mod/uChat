@@ -45,36 +45,36 @@ int main(int argc, char* argv[])
     //ctx = create_context();
 
     //configure_context(ctx);
-    // pid_t pid = 0;
-    // pid_t sid = 0;
+    pid_t pid = 0;
+    pid_t sid = 0;
     FILE *fp= NULL;
-    // pid = fork();// fork a new child process
+    pid = fork();// fork a new child process
 
-    // if (pid < 0)
-    // {
-    //     mx_printerr("fork failed!\n");
-    //     exit(1);
-    // }
+    if (pid < 0)
+    {
+        mx_printerr("fork failed!\n");
+        exit(1);
+    }
 
-    // if (pid > 0)// its the parent process
-    // {
-    //    mx_printstr("pid of child process: ");
-    //    mx_printint(pid);
-    //    mx_printstr("\n");
-    //    exit(0); //terminate the parent process succesfully
-    // }
+    if (pid > 0)// its the parent process
+    {
+       mx_printstr("pid of child process: ");
+       mx_printint(pid);
+       mx_printstr("\n");
+       exit(0); //terminate the parent process succesfully
+    }
 
-    // umask(0);//unmasking the file mode
+    umask(0);//unmasking the file mode
 
-    // sid = setsid();//set new session
-    // if(sid < 0)
-    // {
-    //     exit(1);
-    // }
+    sid = setsid();//set new session
+    if(sid < 0)
+    {
+        exit(1);
+    }
 
-    // close(STDIN_FILENO);
-    // close(STDOUT_FILENO);
-    // close(STDERR_FILENO);
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
 
     
 
