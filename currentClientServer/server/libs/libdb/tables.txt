@@ -1,0 +1,53 @@
+=========================================================
+
+user(
+	user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	login VARCHAR(20),
+	password VARCHAR(18),
+	nick_name VARCHAR(40),
+	profile_photo BLOB,
+	first_name VARCHAR(30),
+	last_name VARCHAR(30));
+
+=========================================================
+
+=========================================================
+
+contact(
+	contact_id INTEGER PRIMARY KEY,
+	user_id INTEGER, 
+	active_status INTEGER);
+	
+=========================================================
+
+=========================================================
+
+message(
+	group_uid INTEGER,
+	contact_id INTEGER,
+	message_text TEXT,
+	message_photo BLOB,
+	sent_datetime TEXT);
+
+=========================================================
+
+=========================================================
+
+group(
+	group_id INTEGER PRIMARY KEY AUTOINCREMENT
+	group_uid INTEGER,
+	name VARCHAR(40));
+
+=========================================================
+
+=========================================================
+
+group_member(
+	contact_id INTEGER,
+	group_uid INTEGER,
+	joined_datatime TEXT,
+	left_datatime TEXT);
+
+=========================================================
+
+
