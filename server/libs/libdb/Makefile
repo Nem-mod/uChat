@@ -15,7 +15,6 @@ SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
 OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
 
-
 all: $(NAME) clean
 
 $(NAME): $(OBJ_FILES)
@@ -25,7 +24,7 @@ $(NAME): $(OBJ_FILES)
 $(OBJ_FILES): | $(OBJECTDIR)
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) --debug
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) $(LBI)--debug
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 
 

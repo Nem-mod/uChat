@@ -20,24 +20,32 @@ int main(int argc, char* argv[])
         return 0;
     };
 
-    sqlite3 *db;
-    //char *zErrMsg = 0;
-    int rc;
-  
+    // sqlite3 *db;
+    // char *zErrMsg = 0;
+    // int rc;
+    // char* sql = "CREATE TABLE IF NOT EXISTS USERS(" \
+    //     "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," \
+    //     "LOGIN          VARCHAR(20)     NOT NULL," \
+    //     "PASSWORD       VARCHAR(18)     NOT NULL," \
+    //     "NICK_NAME      VARCHAR(40)     NOT NULL," \
+    //     "FIRST_NAME     VARCHAR(30)     NOT NULL," \
+    //     "LAST_NAME      VARCHAR(30)     NOT NULL," \
+    //     "PROFILE_PHOTO  BLOB)";
     
-    rc = sqlite3_open("Alodb.db", &db);
+    // rc = sqlite3_open("ALO.db", &db);
     // if( rc ){
     //   fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     //   sqlite3_close(db);
     //   return(1);
     // }
-    // rc = sqlite3_exec(db, argv[2], callback, 0, &zErrMsg);
+    // rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     // if( rc!=SQLITE_OK ){
     //   fprintf(stderr, "SQL error: %s\n", zErrMsg);
     //   sqlite3_free(zErrMsg);
     // }
-    // sqlite3_close(db);
 
+    mx_initDB();
+    
     char *ip = "127.0.0.1";
     int port = mx_atoi(argv[1]);
 
