@@ -1,8 +1,6 @@
 {
     "files.associations": {
-        "inet.h": "c",
-        "server.h": "c",
-        "socket.h": "c"
+        "server.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
