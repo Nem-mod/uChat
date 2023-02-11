@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "../../erproc.h"
+#include "erproc.h"
 
 int main() {
     int fd = Socket(AF_INET, SOCK_STREAM, 0);

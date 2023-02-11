@@ -1,0 +1,3 @@
+[submodule "newClientServer/openssl"]
+	path = newClientServer/openssl
+	url = https://github.com/openssl/openssl.git
