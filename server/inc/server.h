@@ -9,6 +9,8 @@
 #include <string.h>
 #include "libmx.h"
 #include "libdb.h"
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 int Socket(int domain, int type, int protocol);
 
