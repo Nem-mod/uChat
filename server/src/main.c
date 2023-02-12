@@ -1,16 +1,5 @@
 #include "../inc/server.h"
 
-// static int callback(void *NotUsed, int argc, char **argv, char **azColName){
-//     int i;
-//     for(i=0; i<argc; i++){
-//       printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-//     }
-//     printf("\n");
-//     NotUsed = NULL;
-
-//     return 0;
-//   }
-
 
 int main(int argc, char* argv[])
 {
@@ -20,57 +9,77 @@ int main(int argc, char* argv[])
         return 0;
     };
 
-    sqlite3 *db;
-    //char *zErrMsg = 0;
-    int rc;
-  
     
-    rc = sqlite3_open("Alodb.db", &db);
-    // if( rc ){
-    //   fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-    //   sqlite3_close(db);
-    //   return(1);
-    // }
-    // rc = sqlite3_exec(db, argv[2], callback, 0, &zErrMsg);
-    // if( rc!=SQLITE_OK ){
-    //   fprintf(stderr, "SQL error: %s\n", zErrMsg);
-    //   sqlite3_free(zErrMsg);
-    // }
-    // sqlite3_close(db);
-    char *ip = "127.0.0.1";
-    int port = mx_atoi(argv[1]);
+    sqlite3* db;
+    char* db_name = "uchat.db";
+    mx_openDB(db_name, &db);
 
-    
-    // pid_t pid = 0;
-    // pid_t sid = 0;
+
+    mx_initDB(db);
+    //Insert new user in db ;
+    // t_user user, user2;
+    // user.login = "nem";
+    // user.password = "alocv";
+    // user.nick_name = "nemdod";
+    // user.first_name = "Artem";
+    // user.last_name = "Necha";
+    // user.user_id = mx_insert_user(db, &user);
+    // user2.login = "dah";
+    // user2.password = "alocv";
+    // user2.nick_name = "nemdod";
+    // user2.first_name = "Artem";
+    // user2.last_name = "Necha";
+    // user2.user_id = mx_insert_user(db, &user2);
+    // mx_insert_contact(db, &user, &user2);
+
+    // t_group gp;
+    // gp.group_name = "mdod";
+    // gp.group_id = mx_insert_group(db, &gp);
+    // t_group_member gpm;
+    // gpm.group_id = gp.group_id;
+    // gpm.user_id = user.user_id;
+    // gpm.group_member_id = mx_insert_group_member(db, &gp, &user);
+    // t_message msg;
+    // msg.message_text = "HAHHAHAHAHH AMOGUS GUS SUS";
+    // msg.sent_datatime = "23-02-12 00:00:00";
+    // msg.message_id = mx_insert_message(db, &gp, &gpm, &msg);
+    // char *ip = "127.0.0.1";
+    // int port = mx_atoi(argv[1]);
+
+    //SSL_CTX *ctx;
+    //ctx = create_context();
+
+    //configure_context(ctx);
+    pid_t pid = 0;
+    pid_t sid = 0;
     FILE *fp= NULL;
-    // pid = fork();// fork a new child process
+    pid = fork();// fork a new child process
 
-    // if (pid < 0)
-    // {
-    //     mx_printerr("fork failed!\n");
-    //     exit(1);
-    // }
+    if (pid < 0)
+    {
+        mx_printerr("fork failed!\n");
+        exit(1);
+    }
 
-    // if (pid > 0)// its the parent process
-    // {
-    //    mx_printstr("pid of child process: ");
-    //    mx_printint(pid);
-    //    mx_printstr("\n");
-    //    exit(0); //terminate the parent process succesfully
-    // }
+    if (pid > 0)// its the parent process
+    {
+       mx_printstr("pid of child process: ");
+       mx_printint(pid);
+       mx_printstr("\n");
+       exit(0); //terminate the parent process succesfully
+    }
 
-    // umask(0);//unmasking the file mode
+    umask(0);//unmasking the file mode
 
-    // sid = setsid();//set new session
-    // if(sid < 0)
-    // {
-    //     exit(1);
-    // }
+    sid = setsid();//set new session
+    if(sid < 0)
+    {
+        exit(1);
+    }
 
-    // close(STDIN_FILENO);
-    // close(STDOUT_FILENO);
-    // close(STDERR_FILENO);
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
 
     
 
@@ -96,14 +105,24 @@ int main(int argc, char* argv[])
     {
         sleep(1);
         addr_size = sizeof(client_addr);
+        //SSL *ssl;
         client_sock = Accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
-        
+        //const char reply[] = "test\n";
         if ((childpid = fork()) == 0) 
         { 
             close(server_sock); 
 
             while (1)
             {
+                // ssl = SSL_new(ctx);
+                // SSL_set_fd(ssl, client_sock);
+
+                // if (SSL_accept(ssl) <= 0) {
+                //     ERR_print_errors_fp(stderr);
+                // } else {
+                //     SSL_write(ssl, reply, strlen(reply));
+                // }
+
                 mx_memset(&buffer, 0, sizeof(buffer));
                 recv(client_sock, buffer, sizeof(buffer), 0);
 
@@ -120,10 +139,15 @@ int main(int argc, char* argv[])
 
                 send(client_sock, buffer, strlen(buffer), 0);
                 mx_memset(&buffer, 0, sizeof(buffer));
+                //SSL_shutdown(ssl);
+                //SSL_free(ssl);
                 }
 
             }
+
         }
+
+        
     }
     fclose(fp);
   
