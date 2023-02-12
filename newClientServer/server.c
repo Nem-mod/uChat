@@ -8,6 +8,7 @@
 #include "erproc.h"
 
 int main() {
+    OPENSSL_init();
     int server = Socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in adr = {0};
     adr.sin_family = AF_INET;

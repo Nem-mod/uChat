@@ -3,6 +3,8 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 int Socket(int domain, int type, int protocol);
 
