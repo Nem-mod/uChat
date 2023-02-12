@@ -1,10 +1,4 @@
-#include "erproc.h"
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include "../inc/erproc.h"
 
 int Socket(int domain, int type, int protocol) {
     int res = socket(domain, type, protocol);

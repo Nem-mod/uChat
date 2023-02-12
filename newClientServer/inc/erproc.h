@@ -7,8 +7,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <openssl/ssl.h>
-#include <openssl/err.h>
+// #include <openssl/ssl.h>
+// #include <openssl/err.h>
+#include "../libs/libssl/include/openssl/ssl.h"
+#include "../libs/libssl/include/openssl/err.h"
 
 int Socket(int domain, int type, int protocol);
 
