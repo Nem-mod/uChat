@@ -1,7 +1,7 @@
 #include "libdb.h"
 
 void mx_create_users_table(sqlite3 *db) {
-    char* tmp = "CREATE TABLE IF NOT EXISTS USERS(" \
+    char* sql = "CREATE TABLE IF NOT EXISTS USERS(" \
         "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," \
         "LOGIN          VARCHAR(20)     NOT NULL," \
         "PASSWORD       VARCHAR(18)     NOT NULL," \
@@ -9,5 +9,5 @@ void mx_create_users_table(sqlite3 *db) {
         "FIRST_NAME     VARCHAR(30)     NOT NULL," \
         "LAST_NAME      VARCHAR(30)     NOT NULL," \
         "PROFILE_PHOTO  BLOB)";
-    mx_create_table(db, tmp, mx_callback);
+    mx_create_table(db, sql, mx_callback);
 }
