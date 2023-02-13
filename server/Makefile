@@ -19,7 +19,7 @@ LBMX = $(LIBSDIR)/libmx
 LBDB = $(LIBSDIR)/libdb
 LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc openssl/include)
 LBSSL = $(LIBSDIR)/openssl
-LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) #-lssl -lcrypto
+LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto
 
 SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
 OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))

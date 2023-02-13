@@ -43,11 +43,11 @@ int main(int argc, char* argv[])
     // msg.message_text = "HAHHAHAHAHH AMOGUS GUS SUS";
     // msg.sent_datatime = "23-02-12 00:00:00";
     // msg.message_id = mx_insert_message(db, &gp, &gpm, &msg);
-    // char *ip = "127.0.0.1";
-    // int port = mx_atoi(argv[1]);
+    char *ip = "127.0.0.1";
+    int port = mx_atoi(argv[1]);
 
-    //SSL_CTX *ctx;
-    //ctx = create_context();
+    // SSL_CTX *ctx;
+    // ctx = create_context();
 
     //configure_context(ctx);
     pid_t pid = 0;
