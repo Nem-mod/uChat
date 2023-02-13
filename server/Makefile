@@ -14,12 +14,13 @@ INCLUDEDIR = inc
 SOURCEDIR = src
 
 LIBSDIR = libs/
-LBA = $(addprefix $(LIBSDIR)/, libmx.a libdb.a)
+LBA = $(addprefix $(LIBSDIR)/, libmx.a libdb.a libjson-c.a)
 LBMX = $(LIBSDIR)/libmx
 LBDB = $(LIBSDIR)/libdb
-LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc openssl/include)
-LBSSL = $(LIBSDIR)/openssl
-LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto
+LBJSN = $(LIBSDIR)/libjson
+LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc)
+LBSSL = $(LIBSDIR)/libssl
+LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto -L$(LBJSN) -ljson-c
 
 SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
 OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))

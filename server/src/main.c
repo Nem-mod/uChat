@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
     char *ip = "127.0.0.1";
     int port = mx_atoi(argv[1]);
 
-    // SSL_CTX *ctx;
-    // ctx = create_context();
+    SSL_CTX *ctx;
+    ctx = create_context();
 
     //configure_context(ctx);
     pid_t pid = 0;

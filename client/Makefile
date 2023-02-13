@@ -8,9 +8,14 @@ OBJECTDIR = obj
 INCLUDEDIR = inc
 SOURCEDIR = src
 
-LBA = libs/libmx/libmx.a 
-LBMX = libs/libmx
-LBI = libs/libmx/inc/
+LIBSDIR = libs/
+LBA = $(addprefix $(LIBSDIR)/, libmx.a libdb.a libjson-c.a)
+LBMX = $(LIBSDIR)/libmx
+LBDB = $(LIBSDIR)/libdb
+LBJSN = $(LIBSDIR)/libjson
+LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc)
+LBSSL = $(LIBSDIR)/libssl
+LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto -L$(LBJSN) -ljson-c
 
 
 
@@ -21,7 +26,7 @@ INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
 all: $(LBA) $(NAME) clean out
 
 $(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) -L$(LBMX) -lmx -o $@ 
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -ldl -lpthread -o $@ 
 
 
 $(OBJ_FILES): | $(OBJECTDIR)
@@ -39,8 +44,9 @@ $(NAME_ROOT): $(NAME)
 	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
 
 $(LBA):
-	@make -sC libmx all
-
+	@make -sC $(LIBSDIR)/libmx all
+	@make -sC $(LIBSDIR)/libdb all
+	
 clean:
 	rm -rf obj
 
