@@ -11,7 +11,7 @@ static int select_callback(void * param, int argc, char **argv, char **azColName
     }
     return 0;
 }
-int mx_select_data(sqlite3* db, char* columns, char* from , char* sqlout) {
+int mx_select_data(sqlite3* db, char* from, char* columns, char* sqlout) {
     char sql[365];
     sprintf(sql, "SELECT %s " \
         "FROM %s;",
