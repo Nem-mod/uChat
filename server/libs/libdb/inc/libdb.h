@@ -1,6 +1,7 @@
 #include "sqlite3.h"
 #include "tables.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void mx_openDB(const char* filename, sqlite3** ppDB);
@@ -18,3 +19,4 @@ int mx_insert_contact(sqlite3* db, t_user* user, t_user* contact_user);
 int mx_insert_group(sqlite3* db, t_group* data);
 int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user);
 int mx_insert_message(sqlite3* db, t_group* group, t_group_member* user, t_message* message);
+int mx_select_data(sqlite3* db, char* columns, char* from , char* sqlout);
