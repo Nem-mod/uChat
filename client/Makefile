@@ -1,36 +1,51 @@
-NAME = uchat
+NAME	=	uchat
 NAME_ROOT = ../$(NAME)
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
+CFLAGS = -std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
 
 
+INC		=	libmx.h
+INCS	=	$(addprefix $(INCD)/, $(INC))
+
+
+LMXDIR	=	libmx
 OBJECTDIR = obj
 INCLUDEDIR = inc
 SOURCEDIR = src
 
-LBA = libs/libmx/libmx.a 
-LBMX = libs/libmx
-LBI = libs/libmx/inc/
-
-
+LIBSDIR = libs/
+LBA = $(addprefix $(LIBSDIR)/, libmx.a libdb.a)
+LBMX = $(LIBSDIR)/libmx
+LBDB = $(LIBSDIR)/libdb
+LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include)
+LBSSL = $(LIBSDIR)/libssl
+LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto
 
 SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
 OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
 
+
 all: $(LBA) $(NAME) clean out
 
 $(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) -L$(LBMX) -lmx -o $@ 
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -ldl -lpthread -o $@ --debug
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 
 
 $(OBJ_FILES): | $(OBJECTDIR)
 
-
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I$(LBI)
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) $(LBI) --debug
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
+
+
 $(OBJECTDIR):
 	@$ mkdir -p $@
+
+$(LBA):
+	@make -sC $(LIBSDIR)/libmx all
+	@make -sC $(LIBSDIR)/libdb all
 
 out: $(NAME_ROOT)
 
@@ -38,13 +53,65 @@ $(NAME_ROOT): $(NAME)
 	@cp $(NAME) ../
 	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
 
-$(LBA):
-	@make -sC libmx all
-
 clean:
-	rm -rf obj
+	rm -rf $(OBJECTDIR)
+	rm  -rf *.db
 
 uninstall: clean
 	rm -rf $(NAME)
+	@make -C $(LIBSDIR)/libmx uninstall
+	@make -C $(LIBSDIR)/libdb uninstall
 
 reinstall: uninstall all
+
+
+# NAME = uchat
+# NAME_ROOT = ../$(NAME)
+# CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
+# COMP 	= 	clang
+
+
+# OBJECTDIR = obj
+# INCLUDEDIR = inc
+# SOURCEDIR = src
+
+# LBA = libs/libmx/libmx.a 
+# LBMX = libs/libmx
+# LBI = libs/libmx/inc/
+
+
+
+# SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
+# OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
+# INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
+
+# all: $(LBA) $(NAME) clean out
+
+# $(NAME): $(OBJ_FILES)
+# 	@$(COMP) $(CFLAGS) $(OBJ_FILES) -L$(LBMX) -lmx -o $@ 
+
+
+# $(OBJ_FILES): | $(OBJECTDIR)
+
+
+# $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
+# 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I$(LBI)
+# $(OBJECTDIR):
+# 	@$ mkdir -p $@
+
+# out: $(NAME_ROOT)
+
+# $(NAME_ROOT): $(NAME)
+# 	@cp $(NAME) ../
+# 	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
+
+# $(LBA):
+# 	@make -sC libmx all
+
+# clean:
+# 	rm -rf obj
+
+# uninstall: clean
+# 	rm -rf $(NAME)
+
+# reinstall: uninstall all
