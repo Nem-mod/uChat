@@ -3,14 +3,21 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/time.h>
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-// #include <openssl/ssl.h>
-// #include <openssl/err.h>
-#include "../libs/libssl/include/openssl/ssl.h"
-#include "../libs/libssl/include/openssl/err.h"
+#include <errno.h>
+
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/bio.h>
+#include <openssl/pem.h>
+#include <openssl/x509.h>
+#include <openssl/x509_vfy.h>
+// #include "../libs/libssl/include/openssl/ssl.h"
+// #include "../libs/libssl/include/openssl/err.h"
 
 int Socket(int domain, int type, int protocol);
 

@@ -1,0 +1,2 @@
+clangW src/client.c src/erproc.c libs/libssl/libssl.a libs/libssl/libcrypto.a -I libs/libssl/include -ldl -lpthread -o client
+clangW src/server.c src/erproc.c libs/libssl/libssl.a libs/libssl/libcrypto.a -I libs/libssl/include -ldl -lpthread -o server
