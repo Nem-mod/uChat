@@ -1,3 +1,5 @@
+#pragma once
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
@@ -17,15 +19,26 @@
 #include <openssl/err.h>
 
 
-int Socket(int domain, int type, int protocol);
+int mx_create_socket(int domain, int type, int protocol);
 
-void Bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+void mx_bind_socket_to_address(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 
-void Listen(int sockfd, int backlog);
+void mx_listen_socket(int sockfd, int backlog);
 
-int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+int mx_accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
+struct sockaddr_in mx_init_address(int port, char *ip, int family);
 
-SSL_CTX *create_context();
+SSL_CTX* mx_init_context(bool is_server);
 
-void configure_context(SSL_CTX *ctx);
+void mx_use_certificate_key(SSL_CTX *ctx, char *certPath, char *keyPath);
+
+SSL* mx_init_SSL_session(SSL_CTX* ctx, int socket);
+
+void mx_SSL_print_error(SSL* ssl, int erno);
+
+int mx_handshake(SSL* ssl);
+
+int mx_SSL_write(SSL* ssl, char* buffer);
+
+int mx_SSL_read(SSL* ssl, char* buffer);
