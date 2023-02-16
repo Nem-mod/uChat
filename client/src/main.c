@@ -2,62 +2,51 @@
 
 int main(int argc, char* argv[])
 {
+    remove(SYSLOG);
     if(argc != 2){
-        mx_printerr("usage: ./uchat [port]\n");
+        mx_log_info(SYSLOG, "usage: ./uchat [port]");
         return 0;
     }
 
-    char *ip = "127.0.0.1";
-    int port = mx_atoi(argv[1]);
-    int client_sock = Socket(AF_INET, SOCK_STREAM, 0);;
+    char *ip    = IP;
+    int port    = mx_atoi(argv[1]);
+    int client_sock;
     struct sockaddr_in client_addr = {0};
 
-    SSL_CTX *ctx;
-    SSL *ssl = NULL;
+    SSL_CTX *ctx    = NULL;
+    SSL *ssl        = NULL;
 
-    char buffer[1024];
-    int result;
+    char buffer[2048];
+    int hs_result;
+
+    client_sock = mx_create_socket(AF_INET, SOCK_STREAM, 0);
+    client_addr = mx_init_address(port, ip, AF_INET);
+    // mx_bind_socket_to_address(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
 
     /* Create a TLC client context with a CA certificate */
-    SSL_library_init();
-    ctx = SSL_CTX_new(TLS_client_method());
-    SSL_CTX_use_certificate_file(ctx, "ca.srt", SSL_FILETYPE_PEM);
+    ctx = mx_init_context(CLIENT);
+    mx_use_certificate_key(ctx, "client/cert+key/client.crt", "client/cert+key/client.key");
+    // mx_use_certificate_key(ctx, "cert+key/client.crt", "cert+key/client.key");
 
-    client_addr.sin_family = AF_INET;
-    client_addr.sin_port = htons(port);
-    inet_pton(AF_INET, ip, &client_addr.sin_addr);
 
     /* Create SSL session */
-    ssl = SSL_new(ctx);
-    SSL_set_fd(ssl, client_sock);
+    ssl = mx_init_SSL_session(ctx, client_sock);
 
-    result = connect(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
-    if(result < 0) 
-    {
-        mx_printerr("[-] Error in connection\n");
-        close(client_sock);
-        exit(-1);
-    }
-    mx_printstr("Connected to the server.\n");
+    mx_connect(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
 
     /* Run the handshake */
-    result = SSL_connect(ssl);
-    // if (result != 1) {
-    //     perror("handshake failed");
-    //     exit(EXIT_FAILURE);
-    // }
+    hs_result = mx_handshake(ssl, CLIENT);
 
     while (1)
     {
-        mx_memset(&buffer, 0, sizeof(buffer));
-
+        // mx_memset(&buffer, 0, sizeof(buffer));
 
         mx_printstr("Client: ");
         scanf("%s", &buffer[0]);
         mx_printstr("\n");
 
         /* Writing to the SSL session */
-        SSL_write(ssl, buffer, mx_strlen(buffer) + 1);
+        mx_SSL_write(ssl, buffer);
 
         if(strcmp(buffer, ":exit") == 0)
         {
@@ -68,16 +57,11 @@ int main(int argc, char* argv[])
         }
 
         mx_memset(&buffer, 0, sizeof(buffer));
-        if(SSL_read(ssl, buffer, sizeof(buffer)) < 0)
-        {
-            mx_printerr("[-]Error in receiving data.\n");
-            exit(-1);
+        mx_SSL_read(ssl, buffer);
 
-        } else {
-            mx_printstr("Server:");
-            mx_printstr(buffer);
-            mx_printstr("\n");
-        }
+        mx_printstr("Server:");
+        mx_printstr(buffer);
+        mx_printstr("\n");
     }
     close(client_sock);
     SSL_free(ssl);
