@@ -21,13 +21,11 @@ int main(int argc, char* argv[])
 
     client_sock = mx_create_socket(AF_INET, SOCK_STREAM, 0);
     client_addr = mx_init_address(port, ip, AF_INET);
-    // mx_bind_socket_to_address(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
 
     /* Create a TLC client context with a CA certificate */
     ctx = mx_init_context(CLIENT);
     mx_use_certificate_key(ctx, "client/cert+key/client.crt", "client/cert+key/client.key");
     // mx_use_certificate_key(ctx, "cert+key/client.crt", "cert+key/client.key");
-
 
     /* Create SSL session */
     ssl = mx_init_SSL_session(ctx, client_sock);
@@ -39,10 +37,11 @@ int main(int argc, char* argv[])
 
     while (1)
     {
-        // mx_memset(&buffer, 0, sizeof(buffer));
-
+        mx_memset(&buffer, 0, sizeof(buffer));
         mx_printstr("Client: ");
         scanf("%s", &buffer[0]);
+        // getline(&buffer, 0, STDIN_FILENO);
+        // fgets(buffer, 2044, stdin);
         mx_printstr("\n");
 
         /* Writing to the SSL session */
@@ -59,7 +58,7 @@ int main(int argc, char* argv[])
         mx_memset(&buffer, 0, sizeof(buffer));
         mx_SSL_read(ssl, buffer);
 
-        mx_printstr("Server:");
+        mx_printstr("Server: ");
         mx_printstr(buffer);
         mx_printstr("\n");
     }

@@ -12,8 +12,6 @@
 #include <openssl/x509.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
-// #include "../libs/libssl/include/openssl/ssl.h"
-// #include "../libs/libssl/include/openssl/err.h"
 
 #define SYSLOG "client_log.txt"
 #define IP "127.0.0.1"
