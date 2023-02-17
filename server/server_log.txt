@@ -1,0 +1,4 @@
+[17.2.2023 | 18:8:16] ERROR: Unable to get certificate
+4017B9431E7F0000:error:80000002:system library:file_ctrl:No such file or directory:../openssl/crypto/bio/bss_file.c:297:calling fopen(server/cert+key/server.crt, r)
+4017B9431E7F0000:error:10080002:BIO routines:file_ctrl:system lib:../openssl/crypto/bio/bss_file.c:300:
+4017B9431E7F0000:error:0A080002:SSL routines:SSL_CTX_use_certificate_file:system lib:../openssl/ssl/ssl_rsa.c:314:
