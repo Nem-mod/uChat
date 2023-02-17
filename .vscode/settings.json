@@ -4,7 +4,8 @@
         "server.h": "c",
         "socket.h": "c",
         "libmx.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "mx_delete_data": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

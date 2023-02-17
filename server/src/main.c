@@ -17,32 +17,14 @@ int main(int argc, char* argv[])
 
     mx_initDB(db);
     //Insert new user in db ;
-    // t_user user, user2;
-    // user.login = "nem";
-    // user.password = "alocv";
-    // user.nick_name = "nemdod";
-    // user.first_name = "Artem";
-    // user.last_name = "Necha";
-    // user.user_id = mx_insert_user(db, &user);
-    // user2.login = "dah";
-    // user2.password = "alocv";
-    // user2.nick_name = "nemdod";
-    // user2.first_name = "Artem";
-    // user2.last_name = "Necha";
-    // user2.user_id = mx_insert_user(db, &user2);
-    // mx_insert_contact(db, &user, &user2);
+    // t_user* user = malloc(sizeof( t_user));
+    // mx_strcpy(user->login, "nem");
+    // mx_strcpy(user->password, "alocv");
+    // mx_strcpy(user->nick_name, "nemdod");
+    // mx_strcpy(user->first_name,"Artem");
+    // mx_strcpy(user->last_name, "Necha");
+    // user->user_id = mx_insert_user(db, user);
 
-    // t_group gp;
-    // gp.group_name = "mdod";
-    // gp.group_id = mx_insert_group(db, &gp);
-    // t_group_member gpm;
-    // gpm.group_id = gp.group_id;
-    // gpm.user_id = user.user_id;
-    // gpm.group_member_id = mx_insert_group_member(db, &gp, &user);
-    // t_message msg;
-    // msg.message_text = "HAHHAHAHAHH AMOGUS GUS SUS";
-    // msg.sent_datatime = "23-02-12 00:00:00";
-    // msg.message_id = mx_insert_message(db, &gp, &gpm, &msg);
     char *ip = "127.0.0.1";
     int port = mx_atoi(argv[1]);
 

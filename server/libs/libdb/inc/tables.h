@@ -1,11 +1,17 @@
 #include "sqlite3.h"
+#define MAX_LOGIN_LEN 32
+#define MAX_NAME_LEN 64
+#define MAX_PASSWORD_LEN 18
+#define MAX_SENT_DATATIME_LEN 19
+#define MAX_MESSAGE_TEXT_LEN 4096
+
 typedef struct s_user {
     int user_id;
-    char* login;
-    char* password;
-    char* nick_name;
-    char* first_name;
-    char* last_name;
+    char login[MAX_LOGIN_LEN + 1];
+    char password[MAX_PASSWORD_LEN + 1];
+    char nick_name[MAX_NAME_LEN + 1];
+    char first_name[MAX_NAME_LEN + 1];
+    char last_name[MAX_NAME_LEN + 1];
     sqlite3_blob* profile_photo;
 }              t_user;
 
@@ -17,7 +23,7 @@ typedef struct s_contact {
 
 typedef struct s_group {
     int group_id;
-    char* group_name;
+    char group_name[MAX_NAME_LEN + 1];
 }              t_group;
 
 typedef struct s_group_member {
@@ -30,8 +36,8 @@ typedef struct s_message {
     int message_id;
     int group_id;
     int user_id;
-    char* message_text;
-    char* sent_datatime;
+    char message_text[MAX_MESSAGE_TEXT_LEN + 1];
+    char sent_datatime[MAX_SENT_DATATIME_LEN + 1];
     sqlite3_blob* message_file;
     int file_size;
 }              t_message;
