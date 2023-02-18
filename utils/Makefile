@@ -33,27 +33,25 @@ $(LIBMX):
 	make -sC $(LIBMXDIR)
 
 $(LIBDB):
-	make -sC $(LIBMXDIR)
+	make -sC $(LIBDBDIR)
 
 $(LIBSSL):
-
-$(NAME): $(OBJ_FILES)
 
 $(OBJ_FILES): | $(OBJECTDIR)
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
 	$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) $(LIBINC)
 
-$(OBJECTDIR)
+$(OBJECTDIR):
 	mkdir -p $@
 
 uninstall: clean
-	make -sC $(LIBMX) $@
-	make -sC $(LIBDB) $@
+	make -sC $(LIBMXDIR) $@
+	make -sC $(LIBDBDIR) $@
 
 clean:
-	make -sC $(LIBMX) $@
-	make -sC $(LIBDB) $@
+	make -sC $(LIBMXDIR) $@
+	make -sC $(LIBDBDIR) $@
 	rm -rf $(OBJECTDIR)
 
 reinstall: uninstall all

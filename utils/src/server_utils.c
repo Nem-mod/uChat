@@ -1,4 +1,4 @@
-#include "../inc/server.h"
+#include "../inc/server_utils.h"
 
 void mx_init_daemon() {
     pid_t pid;
