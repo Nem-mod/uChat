@@ -3,7 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <stdint.h>
 #include "../libs/libmx/inc/libmx.h"
+#include "json.h"
 
 int Socket(int domain, int type, int protocol);
 
