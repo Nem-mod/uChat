@@ -25,14 +25,13 @@ int main(int argc, char* argv[])
 
     /* Create a TLC server context with certificates */
     ctx = mx_init_context(SERVER);
-    mx_use_certificate_key(ctx, "server/cert+key/server.crt", "server/cert+key/server.key");
-    // mx_use_certificate_key(ctx, "cert+key/server.crt", "cert+key/server.key");
+    mx_use_certificate_key(ctx, CERTPATH, KEYPATH);
 
     while (1) {
         pid_t childpid;
         struct sockaddr_in client_addr;
         socklen_t addr_size = sizeof(client_addr);
-        int client_sock = mx_accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
+        int client_sock     = mx_accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
         int hs_result;
         
         if ((childpid = fork()) == 0)  { 

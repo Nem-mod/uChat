@@ -18,4 +18,6 @@ void mx_listen_socket(int sockfd, int backlog);
 
 int mx_accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
+int mx_connect(int sockfd, struct sockaddr *addr, socklen_t addrlen);
+
 struct sockaddr_in mx_init_address(int port, char *ip, int family);

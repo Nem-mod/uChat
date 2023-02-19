@@ -1,26 +1,28 @@
 NAME_SERV	= uchat_server
 NAME_CLIENT = uchat
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
-COMP = clang
+CFLAGS 	= -std=c11 -Wall -Wextra -Werror -Wpedantic -g
+COMP 	= clang
 
-SERV_DIR = server/
-CLIENT_DIR = client/
+SERV_DIR 	= server/
+CLIENT_DIR 	= client/
 
-all: install
+all: userver uclient 
 
-install: 
-	@make all -C $(SERV_DIR)
-	@make all -C $(CLIENT_DIR)
+userver: 
+	@make -sC $(SERV_DIR)
+
+uclient: 
+	@make -sC $(CLIENT_DIR)
 	
 clean:
-	@make clean -C $(SERV_DIR)
-	@make clean -C $(CLIENT_DIR)
+	@make clean -sC $(SERV_DIR)
+	@make clean -sC $(CLIENT_DIR)
 	
 
 uninstall: clean
-	@make uninstall -C $(SERV_DIR)
-	@make uninstall -C $(CLIENT_DIR)
+	@make uninstall -sC $(SERV_DIR)
+	@make uninstall -sC $(CLIENT_DIR)
 	rm -rf $(NAME_CLIENT)
 	rm -rf $(NAME_SERV)
 	rm -rf *.db

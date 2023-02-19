@@ -28,7 +28,6 @@ INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h)
 
 all: $(LIBS) $(OBJ_FILES)
 
-
 $(LIBMX):
 	make -sC $(LIBMXDIR)
 

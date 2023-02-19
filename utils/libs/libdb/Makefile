@@ -1,15 +1,15 @@
 NAME	=	libdb.a
-CFLAGS = -std=c11 
+CFLAGS 	=	-std=c11
 COMP 	= 	clang
 
+COLOUR_GREEN	=	\033[32;1m
+# COLOUR_RED		=	\033[0;31m
+# COLOUR_BLUE		=	\033[0;34m
+COLOUR_END		=	\033[0m
 
-
-
-OBJECTDIR = obj
-INCLUDEDIR = inc
-SOURCEDIR = src
-
-
+SOURCEDIR 	=	src
+OBJECTDIR	=	obj
+INCLUDEDIR	=	inc
 
 SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
 OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
@@ -20,19 +20,12 @@ all: $(NAME) clean
 
 $(NAME): $(OBJ_FILES)
 	@ar rcs $@ $^
-	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 
-$(OBJ_FILES): | $(OBJECTDIR)
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) --debug
-	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
-
 
 $(OBJECTDIR):
-	@$ mkdir -p $@
-
-
+	@mkdir -p $@
 
 clean:
 	rm -rf $(OBJECTDIR)

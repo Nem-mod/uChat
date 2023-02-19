@@ -40,6 +40,17 @@ int mx_accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
     return res;
 }
 
+int mx_connect(int sockfd, struct sockaddr *addr, socklen_t addrlen) {
+    int res = connect(sockfd, addr, addrlen);
+
+    if (res == -1) {
+        mx_log_err(SYSLOG, "connect failed");
+        exit(EXIT_FAILURE);
+    }
+
+    return res;
+}
+
 struct sockaddr_in mx_init_address(int port, char *ip, int family) {
     struct sockaddr_in addr = {0};
 

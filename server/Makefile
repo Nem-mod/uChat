@@ -26,7 +26,7 @@ SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c $(UTILSDIR)/$(SOURCEDIR)/*.c)
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
 
-all: libs $(NAME) clean
+all: libs $(NAME) clean out
 
 libs: libmx libdb libssl
 
@@ -54,6 +54,10 @@ $(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
 $(OBJECTDIR):
 	@mkdir -p $@
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
+
+out: $(NAME)
+	@cp $(NAME) ../
+	@echo "$< $(COLOUR_GREEN)moved$(COLOUR_END)"
 
 uninstall: clean
 	@make -sC $(LIBMXDIR) $@
