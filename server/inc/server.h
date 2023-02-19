@@ -12,5 +12,3 @@
 #define IP "127.0.0.1"
 #define CERTPATH "server/cert+key/server.crt"
 #define KEYPATH "server/cert+key/server.key"
-#define SERVER 1
-#define CLIENT 0

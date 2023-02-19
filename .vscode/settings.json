@@ -8,7 +8,8 @@
         "unistd.h": "c",
         "string.h": "c",
         "err.h": "c",
-        "connect_utils.h": "c"
+        "connect_utils.h": "c",
+        "resource.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
