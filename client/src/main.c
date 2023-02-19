@@ -24,8 +24,7 @@ int main(int argc, char* argv[])
 
     /* Create a TLC client context with a CA certificate */
     ctx = mx_init_context(CLIENT);
-    mx_use_certificate_key(ctx, "client/cert+key/client.crt", "client/cert+key/client.key");
-    // mx_use_certificate_key(ctx, "cert+key/client.crt", "cert+key/client.key");
+    mx_use_certificate_key(ctx, CERTPATH, KEYPATH);
 
     /* Create SSL session */
     ssl = mx_init_SSL_session(ctx, client_sock);
@@ -47,7 +46,7 @@ int main(int argc, char* argv[])
         /* Writing to the SSL session */
         mx_SSL_write(ssl, buffer);
 
-        if(strcmp(buffer, ":exit") == 0)
+        if(mx_strcmp(buffer, ":exit") == 0)
         {
             close(client_sock);
             mx_printerr("[-]Disconnected from server.\n");
