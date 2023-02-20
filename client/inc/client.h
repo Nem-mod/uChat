@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <stdint.h>
+#include <time.h>
 #include "../libs/libmx/inc/libmx.h"
 #include "json.h"
 

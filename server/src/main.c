@@ -71,6 +71,8 @@ int main(int argc, char* argv[])
     char buffer[1024];
     pid_t childpid;
 
+    int i = 0;
+
     server_sock = Socket(AF_INET, SOCK_STREAM, 0);
     
 
@@ -108,21 +110,31 @@ int main(int argc, char* argv[])
                 mx_memset(&buffer, 0, sizeof(buffer));
                 recv(client_sock, buffer, sizeof(buffer), 0);
 
-                mx_printstr(buffer);
-                if(mx_strlen(buffer) != 0)
+                json_object *obj = json_tokener_parse(buffer);
+            
+                ++i;
+                json_object_set_int(json_object_get(json_object_object_get(obj, "Counter")), i);
+
+                mx_printstr(message_get_message(obj));
+                if(mx_strlen(message_get_message(obj)) != 0)
                 {   
-                    fprintf(fp, "Client: %s\n", buffer);
+                    fprintf(fp, "Client: %s\n", message_get_message(obj));
                 }
-                if(mx_strcmp(buffer, ":exit") == 0) 
+                if(mx_strcmp(message_get_message(obj), ":exit") == 0) 
                 {
                     close(client_sock);
                     break;
                 } else {
 
-                send(client_sock, buffer, strlen(buffer), 0);
-                mx_memset(&buffer, 0, sizeof(buffer));
-                //SSL_shutdown(ssl);
-                //SSL_free(ssl);
+                    send(
+                        client_sock, json_object_to_json_string(obj),
+                        strlen(json_object_to_json_string(obj)), 0
+                    );
+                    mx_memset(&buffer, 0, sizeof(buffer));
+                    json_object_put(obj);
+                    /* Free parsed json */
+                    //SSL_shutdown(ssl);
+                    //SSL_free(ssl);
                 }
 
             }

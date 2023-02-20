@@ -37,8 +37,10 @@ int main(){
     json_object *obj = json_object_new_object();
     json_object *msg = json_object_new_string(buffer);
     json_object_object_add(obj, "Message", msg);
+    json_object_object_add(obj, "Counter", json_object_new_int(0));
 
     // printf("Printf: %s\n", json_object_to_json_string(obj));
+
     mx_printstr("\n");
     send(
       client_sock, json_object_to_json_string(obj), 
@@ -67,7 +69,10 @@ int main(){
               json_tokener_parse(buffer), "Message"
         )));
         mx_printstr("\n");
+        printf("Counter: %d\n", json_object_get_int(json_object_object_get(obj, "Counter")));
     }
+    json_object_put(obj);
+    /* Free parsed json */
   }
   
   

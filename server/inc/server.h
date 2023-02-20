@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdint.h>
 #include "libmx.h"
 #include "libdb.h"
 #include <sys/time.h>
@@ -27,3 +28,6 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 SSL_CTX *create_context();
 
 void configure_context(SSL_CTX *ctx);
+
+
+char *message_get_message(json_object *message);
