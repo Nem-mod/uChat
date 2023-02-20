@@ -3,8 +3,13 @@
         "inet.h": "c",
         "server.h": "c",
         "socket.h": "c",
-        "libmx.h": "c",
-        "string.h": "c"
+        "types.h": "c",
+        "ssl.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "err.h": "c",
+        "connect_utils.h": "c",
+        "resource.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

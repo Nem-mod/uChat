@@ -1,14 +1,17 @@
+#pragma once
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include <arpa/inet.h>
-#include "../libs/libmx/inc/libmx.h"
 
-int Socket(int domain, int type, int protocol);
+#include "client_utils.h"
+#include "connect_utils.h"
+#include "ssl_utils.h"
+#include "log_utils.h"
+#include "libmx.h"
+#include "libdb.h"
 
-void Bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-
-void Listen(int sockfd, int backlog);
-
-int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+#define     IP "127.0.0.1"
+#define CERTPATH "client/cert+key/client.crt"
+#define KEYPATH "client/cert+key/client.key"
+#define SERVER 1
+#define CLIENT 0

@@ -1,67 +1,67 @@
 #include "../inc/client.h"
 
-int main(){
-
-  char *ip = "127.0.0.1";
-  int port = 5555;
-  int client_sock;
-  struct sockaddr_in addr;
-  //socklen_t addr_size;
-  char buffer[1024];
-  int ret;
-
-  client_sock =  Socket(AF_INET, SOCK_STREAM, 0);
-
-  mx_printstr("[+]TCP server socket created.\n");
-
-  mx_memset(&addr, '\0', sizeof(addr));
-  addr.sin_family = AF_INET;
-  addr.sin_port = htons(port);
-  addr.sin_addr.s_addr = inet_addr(ip);
-
-  ret = connect(client_sock, (struct sockaddr*)&addr, sizeof(addr));
-  if(ret < 0) 
-  {
-    mx_printerr("[-] Error in connection\n");
-    close(client_sock);
-    exit(-1);
-  }
-  mx_printstr("Connected to the server.\n");
-
-  while (1)
-  {
-    mx_memset(&buffer, 0, sizeof(buffer));
-    mx_printstr("Client: ");
-    scanf("%s", &buffer[0]);
-    mx_printstr("\n");
-    send(client_sock, buffer, strlen(buffer), 0);
-
-    if(strcmp(buffer, ":exit") == 0)
-    {
-        close(client_sock);
-        mx_printerr("[-]Disconnected from server.\n");
-        close(client_sock);
-        break;
-	}
-
-    mx_memset(&buffer, 0, sizeof(buffer));
-    if(recv(client_sock, buffer, sizeof(buffer), 0) < 0)
-    {
-        mx_printerr("[-]Error in receiving data.\n");
-        exit(-1);
-
-    } else {
-        mx_printstr("Server:");
-        mx_printstr(buffer);
-        mx_printstr("\n");
+int main(int argc, char* argv[])
+{
+    remove(SYSLOG);
+    if(argc != 2){
+        mx_log_info(SYSLOG, "usage: ./uchat [port]");
+        return 0;
     }
-  }
-  
-  
-  
 
-  
-  mx_printstr("Disconnected from the server.\n");
+    char *ip    = IP;
+    int port    = mx_atoi(argv[1]);
+    int client_sock;
+    struct sockaddr_in client_addr = {0};
 
-  return 0;
+    SSL_CTX *ctx    = NULL;
+    SSL *ssl        = NULL;
+
+    char buffer[2048];
+    int hs_result;
+
+    client_sock = mx_create_socket(AF_INET, SOCK_STREAM, 0);
+    client_addr = mx_init_address(port, ip, AF_INET);
+
+    ctx = mx_init_context(CLIENT);
+    mx_use_certificate_key(ctx, CERTPATH, KEYPATH);
+
+    ssl = mx_init_SSL_session(ctx, client_sock);
+
+    mx_connect(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
+
+    hs_result = mx_handshake(ssl, CLIENT);
+    if (hs_result != 0) {
+        while (1) {
+            mx_memset(&buffer, 0, sizeof(buffer));
+            
+            mx_printstr("Client: ");
+            scanf("%s", &buffer[0]);
+            mx_printstr("\n");
+
+            mx_SSL_write(ssl, buffer);
+
+            if(mx_strcmp(buffer, ":exit") == 0)
+            {
+                close(client_sock);
+                mx_printerr("[-]Disconnected from server.\n");
+                close(client_sock);
+                break;
+            }
+
+            mx_memset(&buffer, 0, sizeof(buffer));
+            mx_SSL_read(ssl, buffer);
+
+            mx_printstr("Server: ");
+            mx_printstr(buffer);
+            mx_printstr("\n");
+        }
+    }
+
+    close(client_sock);
+    SSL_free(ssl);
+    SSL_CTX_free(ctx);  
+    
+    mx_printstr("Disconnected from the server.\n");
+
+    return 0;
 }

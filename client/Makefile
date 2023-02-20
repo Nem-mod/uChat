@@ -1,56 +1,75 @@
-NAME = uchat
-NAME_ROOT = ../$(NAME)
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
+NAME	=	uchat
+CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
 
+COLOUR_GREEN	=	\033[32;1m
+# COLOUR_RED		=	\033[0;31m
+# COLOUR_BLUE		=	\033[0;34m
+COLOUR_END		=	\033[0m
 
-OBJECTDIR = obj
-INCLUDEDIR = inc
-SOURCEDIR = src
+UTILSDIR	=	../utils
 
-LIBSDIR = libs/
-LBA = $(addprefix $(LIBSDIR)/, libmx.a libdb.a libjson-c.a)
-LBMX = $(LIBSDIR)/libmx
-LBDB = $(LIBSDIR)/libdb
-LBJSN = $(LIBSDIR)/libjson
-LBI = $(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc)
-LBSSL = $(LIBSDIR)/libssl
-LIBLINK = -L$(LBMX) -lmx -L$(LBDB) -ldb  -L$(LBSSL) -lssl -lcrypto -L$(LBJSN) -ljson-c
+LIBSDIR		=	$(UTILSDIR)/libs
+SOURCEDIR 	=	src
+OBJECTDIR	=	obj
+INCLUDEDIR	=	inc
 
+LIBMXDIR	=	$(LIBSDIR)/libmx
+LIBDBDIR	=	$(LIBSDIR)/libdb
+LIBSSLDIR	=	$(LIBSDIR)/libssl
 
+LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include)
 
-SRC_FILES = $(wildcard $(SOURCEDIR)/*.c)
-OBJ_FILES = $(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
-INC_FILES = $(wildcard $(INCLUDEDIR)/*.h)
+LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto
 
-all: $(LBA) $(NAME) clean out
+SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c $(UTILSDIR)/$(SOURCEDIR)/*.c)
+OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
+INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
+
+all: libs $(NAME) clean out
+
+libs: libmx libdb libssl
+
+libmx:
+	@make -sC $(LIBMXDIR)
+	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
+
+libdb:
+	@make -sC $(LIBDBDIR)
+	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
+
+libssl:
 
 $(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -ldl -lpthread -o $@ 
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -ldl -lpthread -o $@ --debug
 
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
+	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
-$(OBJ_FILES): | $(OBJECTDIR)
+$(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
+	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(INC_FILES)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I$(LBI)
 $(OBJECTDIR):
-	@$ mkdir -p $@
+	@mkdir -p $@
+	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
-out: $(NAME_ROOT)
-
-$(NAME_ROOT): $(NAME)
+out: $(NAME)
 	@cp $(NAME) ../
-	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
-
-$(LBA):
-	@make -sC $(LIBSDIR)/libmx all
-	@make -sC $(LIBSDIR)/libdb all
-	
-clean:
-	rm -rf obj
+	@echo "$< $(COLOUR_GREEN)moved$(COLOUR_END)"
 
 uninstall: clean
-	rm -rf $(NAME)
+	@make -sC $(LIBMXDIR) $@
+	@make -sC $(LIBDBDIR) $@
+	@rm -rf $(NAME)
+	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
+
+clean:
+	@make -sC $(LIBMXDIR) $@
+	@make -sC $(LIBDBDIR) $@
+	@rm -rf $(OBJECTDIR)
+	@rm -rf *.txt
+	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
 
 reinstall: uninstall all
