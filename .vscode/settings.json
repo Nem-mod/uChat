@@ -9,7 +9,9 @@
         "string.h": "c",
         "err.h": "c",
         "connect_utils.h": "c",
-        "resource.h": "c"
+        "resource.h": "c",
+        "log_utils.h": "c",
+        "libmx.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
