@@ -17,14 +17,32 @@ int main(int argc, char* argv[])
 
     mx_initDB(db);
     //Insert new user in db ;
-    // t_user* user = malloc(sizeof( t_user));
-    // mx_strcpy(user->login, "nem");
-    // mx_strcpy(user->password, "alocv");
-    // mx_strcpy(user->nick_name, "nemdod");
-    // mx_strcpy(user->first_name,"Artem");
-    // mx_strcpy(user->last_name, "Necha");
-    // user->user_id = mx_insert_user(db, user);
+    // t_user user, user2;
+    // user.login = "nem";
+    // user.password = "alocv";
+    // user.nick_name = "nemdod";
+    // user.first_name = "Artem";
+    // user.last_name = "Necha";
+    // user.user_id = mx_insert_user(db, &user);
+    // user2.login = "dah";
+    // user2.password = "alocv";
+    // user2.nick_name = "nemdod";
+    // user2.first_name = "Artem";
+    // user2.last_name = "Necha";
+    // user2.user_id = mx_insert_user(db, &user2);
+    // mx_insert_contact(db, &user, &user2);
 
+    // t_group gp;
+    // gp.group_name = "mdod";
+    // gp.group_id = mx_insert_group(db, &gp);
+    // t_group_member gpm;
+    // gpm.group_id = gp.group_id;
+    // gpm.user_id = user.user_id;
+    // gpm.group_member_id = mx_insert_group_member(db, &gp, &user);
+    // t_message msg;
+    // msg.message_text = "HAHHAHAHAHH AMOGUS GUS SUS";
+    // msg.sent_datatime = "23-02-12 00:00:00";
+    // msg.message_id = mx_insert_message(db, &gp, &gpm, &msg);
     char *ip = "127.0.0.1";
     int port = mx_atoi(argv[1]);
 
@@ -71,8 +89,6 @@ int main(int argc, char* argv[])
     char buffer[1024];
     pid_t childpid;
 
-    int i = 0;
-
     server_sock = Socket(AF_INET, SOCK_STREAM, 0);
     
 
@@ -110,31 +126,21 @@ int main(int argc, char* argv[])
                 mx_memset(&buffer, 0, sizeof(buffer));
                 recv(client_sock, buffer, sizeof(buffer), 0);
 
-                json_object *obj = json_tokener_parse(buffer);
-            
-                ++i;
-                json_object_set_int(json_object_get(json_object_object_get(obj, "Counter")), i);
-
-                mx_printstr(message_get_message(obj));
-                if(mx_strlen(message_get_message(obj)) != 0)
+                mx_printstr(buffer);
+                if(mx_strlen(buffer) != 0)
                 {   
-                    fprintf(fp, "Client: %s\n", message_get_message(obj));
+                    fprintf(fp, "Client: %s\n", buffer);
                 }
-                if(mx_strcmp(message_get_message(obj), ":exit") == 0) 
+                if(mx_strcmp(buffer, ":exit") == 0) 
                 {
                     close(client_sock);
                     break;
                 } else {
 
-                    send(
-                        client_sock, json_object_to_json_string(obj),
-                        strlen(json_object_to_json_string(obj)), 0
-                    );
-                    mx_memset(&buffer, 0, sizeof(buffer));
-                    json_object_put(obj);
-                    /* Free parsed json */
-                    //SSL_shutdown(ssl);
-                    //SSL_free(ssl);
+                send(client_sock, buffer, strlen(buffer), 0);
+                mx_memset(&buffer, 0, sizeof(buffer));
+                //SSL_shutdown(ssl);
+                //SSL_free(ssl);
                 }
 
             }

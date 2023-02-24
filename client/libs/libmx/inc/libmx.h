@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <fcntl.h>
 #include <malloc.h>             // for Linux -> malloc_usable_size
-//#include <malloc/malloc.h>      // for MacOS -> malloc_size
+// #include <malloc/malloc.h>      // for MacOS -> malloc_size
 
 typedef struct s_list {
     void *data;
