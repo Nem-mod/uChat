@@ -33,8 +33,8 @@ int main(){
     mx_memset(&buffer, 0, sizeof(buffer));
     mx_printstr("Client: ");
     scanf("%s", &buffer[0]);
-    time_t t = time(NULL);
-    struct tm *tm = localtime(&t);
+    // time_t t = time(NULL);
+    // struct tm *tm = localtime(&t);
 
 
     json_object *obj = json_object_new_object();
@@ -45,7 +45,7 @@ int main(){
     );
     json_object_object_add(
       obj, "Date and time",
-      json_object_new_string(asctime(tm))
+      json_object_new_string(time_to_string())
     );
 
     mx_printstr("\n");
