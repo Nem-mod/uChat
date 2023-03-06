@@ -13,6 +13,13 @@
 #include "db_utils.h"
 #include "libmx.h"
 
+typedef struct s_requests
+{   
+    char* type;
+    int (*open)(char* type, )
+}   t_requests;
+
+
 #define IP "127.0.0.1"
 #define CERTPATH "server/cert+key/server.crt"
 #define KEYPATH "server/cert+key/server.key"
