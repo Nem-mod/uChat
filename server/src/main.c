@@ -33,6 +33,7 @@ static int create_daemon() {
 int main(int argc, char* argv[])
 {
     remove(SYSLOG);
+    
     if(argc != 2){
         mx_log_info(SYSLOG, "usage: ./uchat_server [port]");
         return 0;
@@ -56,7 +57,7 @@ int main(int argc, char* argv[])
     int port    = mx_atoi(argv[1]);
     int server_sock;
     struct sockaddr_in server_addr;
-    char buffer[1024];
+    //char buffer[1024];
 
     SSL_CTX *ctx    = NULL;
     SSL *ssl        = NULL;
@@ -76,20 +77,9 @@ int main(int argc, char* argv[])
         int client_sock     = mx_accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
         
         ssl = mx_init_SSL_session(ctx, client_sock);
-        if (pthread_create(&thread_id, NULL, mx_create_server_client_session, (void*)ssl) == 0) {
-            while (true) {
-                mx_memset(&buffer, 0, sizeof(buffer));
-                mx_SSL_read(ssl, buffer);
-                mx_log_info(SYSLOG, buffer);
-                if (mx_strcmp(buffer, "break") == 0) {
-                    SSL_CTX_free(ctx);
-                    break;
-                }
-                
-                mx_SSL_write(ssl, buffer);
-            }
+        pthread_create(&thread_id, NULL, mx_create_server_client_session, (void*)ssl);
             
-        }
+        
     }
 
     close(server_sock);

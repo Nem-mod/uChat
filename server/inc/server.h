@@ -12,14 +12,17 @@
 #include "log_utils.h"
 #include "db_utils.h"
 #include "libmx.h"
+#include "validation.h"
+
 
 typedef int   (*t_vallidator)(char* req);
 typedef char* (*t_handleError)(char* req, char* res);
 typedef int   (*t_cotroller)(char* req, char* res);
-typedef int   (*rcallback)(char* type, t_vallidator validator, t_handleError handlerr, t_cotroller controller);
+typedef int   (*t_rcallback)(char* type, t_vallidator validator, t_handleError handlerr, t_cotroller controller);
 
 typedef struct s_requests {   
     char* type;
+    t_rcallback call;
 }              t_requests;
 
 

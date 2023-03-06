@@ -12,7 +12,8 @@
         "resource.h": "c",
         "log_utils.h": "c",
         "libmx.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "validation.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
