@@ -172,3 +172,55 @@ int mx_insert_message(sqlite3* db, t_group* group, t_group_member* group_member,
     last_row_id = sqlite3_last_insert_rowid(db);
     return last_row_id;
 }
+
+int mx_delete_data(sqlite3* db, char* from, char* spec) {
+    char sql[365];
+    sprintf(sql, "DELETE FROM  %s " \
+        "WHERE %s;",
+        from, spec
+    );
+    int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
+    if( rt != SQLITE_OK){
+        return 1;
+    }
+    return 0; 
+}
+
+static int select_callback(void * param, int argc, char **argv, char **azColName)
+{
+    int i;
+    if(argc == 0) return 0;
+    char temp[256];
+    for (i = 0; i < argc; i++)
+    {
+        sprintf(temp, "%s = %s;", azColName[i], argv[i]);
+        strcat(param, temp);
+    }
+    return 0;
+}
+int mx_select_data(sqlite3* db, char* from, char* columns, char* sqlout) {
+    char sql[365];
+    sprintf(sql, "SELECT %s " \
+        "FROM %s;",
+        columns, from
+    );
+    int rt = sqlite3_exec(db, sql, select_callback, sqlout, NULL);
+    if( rt != SQLITE_OK){
+        return 1;
+    }
+    return 0; 
+}
+
+int mx_update_data(sqlite3* db, char* from , char* spec, char* newData, char* sqlout) {
+    char sql[365];
+    sprintf(sql, "UPDATE    %s " \
+        "SET   %s "
+        "WHERE  %s;",
+        from, newData, spec
+    );
+    int rt = sqlite3_exec(db, sql, mx_callback, sqlout, NULL);
+    if( rt != SQLITE_OK){
+        return 1;
+    }
+    return 0; 
+}

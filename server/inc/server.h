@@ -13,11 +13,14 @@
 #include "db_utils.h"
 #include "libmx.h"
 
-typedef struct s_requests
-{   
+typedef int   (*t_vallidator)(char* req);
+typedef char* (*t_handleError)(char* req, char* res);
+typedef int   (*t_cotroller)(char* req, char* res);
+typedef int   (*rcallback)(char* type, t_vallidator validator, t_handleError handlerr, t_cotroller controller);
+
+typedef struct s_requests {   
     char* type;
-    int (*open)(char* type, )
-}   t_requests;
+}              t_requests;
 
 
 #define IP "127.0.0.1"
