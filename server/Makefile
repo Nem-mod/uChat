@@ -48,12 +48,11 @@ $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/validations/%.c $(OBJECTDIR)
+$(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
-
-$(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/validations/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 

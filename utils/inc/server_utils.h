@@ -15,6 +15,6 @@
 #define SERVER 1
 #define CLIENT 0
 
-void mx_init_daemon();
+int mx_init_daemon();
 
 void* mx_create_server_client_session(void *server_ssl);

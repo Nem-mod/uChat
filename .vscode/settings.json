@@ -13,7 +13,13 @@
         "log_utils.h": "c",
         "libmx.h": "c",
         "stdio.h": "c",
-        "validation.h": "c"
+        "validation.h": "c",
+        "json.h": "c",
+        "time.h": "c",
+        "server_utils.h": "c",
+        "ssl_utils.h": "c",
+        "db_utils.h": "c",
+        "handler.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

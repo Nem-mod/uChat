@@ -4,7 +4,6 @@
 #include <sys/time.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
-#include <json.h>
 
 #include "server_utils.h"
 #include "connect_utils.h"
@@ -12,8 +11,13 @@
 #include "log_utils.h"
 #include "db_utils.h"
 #include "libmx.h"
-#include "validation.h"
 
+#include "validations.h"
+#include "handlers.h"
+
+#define IP "127.0.0.1"
+#define CERTPATH "server/cert+key/server.crt"
+#define KEYPATH "server/cert+key/server.key"
 
 typedef int   (*t_vallidator)(char* req);
 typedef char* (*t_handleError)(char* req, char* res);
@@ -24,8 +28,3 @@ typedef struct s_requests {
     char* type;
     t_rcallback call;
 }              t_requests;
-
-
-#define IP "127.0.0.1"
-#define CERTPATH "server/cert+key/server.crt"
-#define KEYPATH "server/cert+key/server.key"

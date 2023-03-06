@@ -1,21 +1,49 @@
 #include "../inc/server_utils.h"
 
-void mx_init_daemon() {
-    pid_t pid;
-    struct rlimit flim;
+int mx_init_daemon() {
+    // pid_t pid;
+    // struct rlimit flim;
 
-    if ((pid = fork()) < 0)
-        return;
-    if (pid != 0) {
-        printf("Daemon started with PID =%d\n", pid);
-        exit(0);
-    }
-    setsid();
-    chdir("/");
+    // if ((pid = fork()) < 0)
+    //     return;
+    // if (pid != 0) {
+    //     printf("Daemon started with PID =%d\n", pid);
+    //     exit(0);
+    // }
+    // setsid();
+    // chdir("/");
     
-    getrlimit(RLIMIT_NOFILE, &flim);
-    for (rlim_t i = 0; i < flim.rlim_max; i++)
-        close(i);
+    // getrlimit(RLIMIT_NOFILE, &flim);
+    // for (rlim_t i = 0; i < flim.rlim_max; i++)
+    //     close(i);
+    pid_t pid = 0;
+    pid_t sid = 0;
+    pid = fork();
+
+    if (pid < 0)
+    {
+        mx_log_info(SYSLOG, "fork failed!\n");
+        return 1; 
+    }
+
+    if (pid > 0)
+    {
+       mx_log_info(SYSLOG, "pid of child process\n");
+       return 1; 
+    }
+
+    umask(0);
+
+    sid = setsid();
+    if(sid < 0)
+    {
+        return 1; 
+    }
+
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+    return 0;
 }
 
 void* mx_create_server_client_session(void *server_ssl) {
