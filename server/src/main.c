@@ -9,17 +9,18 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    // Init daemon process
+    // Create daemon process
 
     if(mx_init_daemon() == 1) {
         exit(1);
     }
-    // Init DATABASE
+    // Init DAYABASE
 
     sqlite3* db;
-    char* db_name = "uchat.db";
-    mx_openDB(db_name, &db);
+    mx_openDB(DATABASE_NAME, &db);
     mx_initDB(db);
+ 
+    //
     
     char *ip    = IP;
     int port    = mx_atoi(argv[1]);

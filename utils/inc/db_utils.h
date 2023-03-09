@@ -21,6 +21,3 @@ int mx_insert_group(sqlite3* db, t_group* data);
 int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user);
 int mx_insert_message(sqlite3* db, t_group* group, t_group_member* user, t_message* message);
 
-int mx_select_data(sqlite3* db, char* from, char* columns, char* sqlout);
-int mx_delete_data(sqlite3* db, char* from, char* spec);
-int mx_update_data(sqlite3* db, char* from , char* spec, char* newData, char* sqlout);
