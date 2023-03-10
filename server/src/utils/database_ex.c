@@ -26,12 +26,21 @@ static int select_callback(void * param, int argc, char **argv, char **azColName
     json_object_array_add((json_object *) param, obj);
     return 0;
 }
-int mx_select_data(sqlite3* db, char* from, char* columns, json_object* sqlout) {
+int mx_select_data(sqlite3* db, char* from, char* columns, char*  where, json_object* sqlout) {
     char sql[365];
-    sprintf(sql, "SELECT %s " \
-        "FROM %s;",
-        columns, from
-    );
+    if(where == NULL) {
+        sprintf(sql, "SELECT %s " \
+            "FROM %s;",
+            columns, from
+        );
+    } else {
+        sprintf(sql, "SELECT %s " \
+            "FROM %s " \
+            "WHERE %s;",
+            columns, from, where
+        );
+    }
+    
     int rt = sqlite3_exec(db, sql, select_callback, sqlout, NULL);
     if( rt != SQLITE_OK){
         return 1;

@@ -1,5 +1,5 @@
 NAME	=	uchat_server
-CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
+CFLAGS 	=	$(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
 
 COLOUR_GREEN	=	\033[32;1m
@@ -23,7 +23,12 @@ LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/
 
 LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -L$(LIBJSONDIR) -ljson-c
 
-SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c $(UTILSDIR)/$(SOURCEDIR)/*.c $(SOURCEDIR)/validations/*.c $(SOURCEDIR)/controllers/*.c)
+SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c \
+				$(UTILSDIR)/$(SOURCEDIR)/*.c \
+				$(SOURCEDIR)/validations/*.c \
+				$(SOURCEDIR)/controllers/*.c \
+				$(SOURCEDIR)/handlers/*.c \
+				$(SOURCEDIR)/utils/*.c \)
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
 
@@ -57,6 +62,14 @@ $(OBJECTDIR)/%.o: $(SOURCEDIR)/validations/%.c $(OBJECTDIR)
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/controllers/%.c $(OBJECTDIR)
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
+	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
+
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/utils/%.c $(OBJECTDIR)
+	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
+	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
+
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/handlers/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 

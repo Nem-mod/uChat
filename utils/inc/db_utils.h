@@ -4,6 +4,9 @@
 #include "tables.h"
 #include <stdio.h>
 #include <string.h>
+#include<string.h>
+#include <stdlib.h>
+
 
 void mx_openDB(const char* filename, sqlite3** ppDB);
 void mx_initDB(sqlite3* db);

@@ -1,3 +1,4 @@
+#pragma once
 #include "sqlite3.h"
 #define MAX_LOGIN_LEN 32
 #define MAX_NAME_LEN 64
@@ -14,6 +15,10 @@ typedef struct s_user {
     char last_name[MAX_NAME_LEN + 1];
     sqlite3_blob* profile_photo;
 }              t_user;
+
+typedef struct s_tp {
+    char login[10];
+}              t_tp;
 
 
 typedef struct s_contact {

@@ -40,11 +40,12 @@ void mx_create_table (sqlite3 *db, char *sql, int (*callback)(void*, int, char**
 void mx_create_users_table(sqlite3 *db) {
     char* sql = "CREATE TABLE IF NOT EXISTS USERS(" \
         "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "LOGIN          VARCHAR(20)     NOT NULL," \
+        "LOGIN          VARCHAR(32)     NOT NULL," \
         "PASSWORD       VARCHAR(18)     NOT NULL," \
-        "NICK_NAME      VARCHAR(40)     NOT NULL," \
-        "FIRST_NAME     VARCHAR(30)     NOT NULL," \
-        "LAST_NAME      VARCHAR(30)     NOT NULL," \
+        "NICK_NAME      VARCHAR(64)     NOT NULL," \
+        "FIRST_NAME     VARCHAR(64)     NOT NULL," \
+        "LAST_NAME      VARCHAR(64)     NOT NULL," \
+        "USER_TOKEN      VARCHAR(255)     NOT NULL,"
         "PROFILE_PHOTO  BLOB)";
     mx_create_table(db, sql, mx_callback);
 }
@@ -63,7 +64,7 @@ void mx_create_contacts_table(sqlite3 *db) {
 void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
         "GROUP_ID     INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "GROUP_NAME   VARCHAR(30)         NOT NULL)";
+        "GROUP_NAME   VARCHAR(64)         NOT NULL)";
 
     mx_create_table(db, sql, mx_callback); 
 }
@@ -103,14 +104,38 @@ void mx_create_messages_table(sqlite3* db) {
 
 /*====================Insert====================*/
 
+static char* create_token(int length) {\
+    int seed = 2454193;
+    char *string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    size_t stringLen = strlen(string);
+    char *randomString = NULL;
+
+    srand(length + ++seed);
+    if (length < 1) {
+        length = 1;
+    }
+
+    randomString = malloc(sizeof(char) * (length + 1));
+
+    short key = 0;
+    for (int n = 0;n < length;n++) {
+        key = rand() % stringLen;
+        randomString[n] = string[key];
+    }
+
+    randomString[length] = '\0';
+    return randomString;
+}
+
 int mx_insert_user(sqlite3* db, t_user* data) {
     char sql[255];
     int last_row_id = 0;
-    
-    sprintf(sql, "INSERT INTO USERS(LOGIN, PASSWORD, NICK_NAME, FIRST_NAME, LAST_NAME)"  \
-    "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\");",
+    char* token = create_token(strlen(data->login) * 10);
+    sprintf(sql, "INSERT INTO USERS(LOGIN, PASSWORD, NICK_NAME, FIRST_NAME, LAST_NAME, USER_TOKEN)"  \
+    "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");",
     data->login, data->password, 
-    data->nick_name, data->first_name, data->last_name);
+    data->nick_name, data->first_name, 
+    data->last_name, token);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return 1;

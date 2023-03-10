@@ -15,7 +15,12 @@
 #include "validation.h"
 #include "database_ex.h"
 #include "controllers.h"
+#include "tables.h"
+#define IP "127.0.0.1"
+#define CERTPATH "server/cert+key/server.crt"
+#define KEYPATH "server/cert+key/server.key"
 
+#define SEED 2454193
 #define SUCCESSFUL_RES 200
 #define BAD_REQ 400
 #define NOT_FOUND 404
@@ -38,7 +43,7 @@ typedef struct s_response {
 }              t_response;
 
 typedef int     (*t_validator)(const char* req);
-typedef int     (*t_controller)(char* res);
+typedef int     (*t_controller)(const char* req, char* res);
 typedef int   (*Http_req)(char* url, t_request* req, t_response* res, t_validator validator, t_controller  controller);
 
 
@@ -55,9 +60,6 @@ typedef struct s_SERVER_API {
 }              t_SERVER_API;
 
 
-
-//int   perform_req(t_requests* req, char* res, t_vallidator validator, t_cotroller controller);
-
 const char* main_handler(char* json); 
 
 int get(char* url, t_request* req,  t_response* res, t_validator validator, t_controller  controller);
@@ -69,6 +71,5 @@ t_request *get_req(char* json);
 t_response *init_res(char* json);
 const char* create_json_response(t_response *res);
 
-#define IP "127.0.0.1"
-#define CERTPATH "server/cert+key/server.crt"
-#define KEYPATH "server/cert+key/server.key"
+
+char* create_token(int length);
