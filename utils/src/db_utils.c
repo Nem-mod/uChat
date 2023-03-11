@@ -39,65 +39,65 @@ void mx_create_table (sqlite3 *db, char *sql, int (*callback)(void*, int, char**
 
 void mx_create_users_table(sqlite3 *db) {
     char* sql = "CREATE TABLE IF NOT EXISTS USERS(" \
-        "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "LOGIN          VARCHAR(32)     NOT NULL," \
-        "PASSWORD       VARCHAR(18)     NOT NULL," \
-        "NICK_NAME      VARCHAR(64)     NOT NULL," \
-        "FIRST_NAME     VARCHAR(64)     NOT NULL," \
-        "LAST_NAME      VARCHAR(64)     NOT NULL," \
-        "USER_TOKEN      VARCHAR(255)     NOT NULL,"
+        "user_id INTEGER PRIMARY KEY AUTOINCREMENT," \
+        "login          VARCHAR(32)     NOT NULL," \
+        "password       VARCHAR(18)     NOT NULL," \
+        "nick_name      VARCHAR(64)     NOT NULL," \
+        "first_name     VARCHAR(64)     NOT NULL," \
+        "last_name      VARCHAR(64)     NOT NULL," \
+        "user_token      VARCHAR(255)     NOT NULL,"
         "PROFILE_PHOTO  BLOB)";
     mx_create_table(db, sql, mx_callback);
 }
 
 void mx_create_contacts_table(sqlite3 *db) {
     char* sql = "CREATE TABLE IF NOT EXISTS CONTACTS(" \
-        "CONTACT_ID      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," \
-        "USER_ID         INTEGER         NOT NULL," \
-        "USER_CONTACT_ID INTEGER         NOT NULL," \
+        "contact_id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," \
+        "user_id         INTEGER         NOT NULL," \
+        "user_contact_id INTEGER         NOT NULL," \
         "CONSTRAINT FK_USERS \
-            FOREIGN KEY (USER_ID) \
-            REFERENCES USERS(USER_ID))";
+            FOREIGN KEY (user_id) \
+            REFERENCES USERS(user_id))";
     mx_create_table(db, sql, mx_callback);
 }
 
 void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
-        "GROUP_ID     INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "GROUP_NAME   VARCHAR(64)         NOT NULL)";
+        "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
+        "group_name   VARCHAR(64)         NOT NULL)";
 
     mx_create_table(db, sql, mx_callback); 
 }
 
 void mx_create_group_members_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUP_MEMBERS(" \
-        "GROUP_MEMBER_ID INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," \
-        "GROUP_ID     INTEGER       NOT NULL," \
-        "USER_ID      INTEGER       NOT NULL," \
+        "group_member_id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," \
+        "group_id     INTEGER       NOT NULL," \
+        "user_id      INTEGER       NOT NULL," \
         "CONSTRAINT FK1_GROUP_USERS \
-            FOREIGN KEY (GROUP_ID) \
-            REFERENCES GROUPS(GROUP_ID)" \
+            FOREIGN KEY (group_id) \
+            REFERENCES GROUPS(group_id)" \
         "CONSTRAINT FK2_GROUP_USERS \
-            FOREIGN KEY (USER_ID) \
-            REFERENCES USERS(USER_ID))";
+            FOREIGN KEY (user_id) \
+            REFERENCES USERS(user_id))";
     mx_create_table(db, sql, mx_callback);
 }
 
 void mx_create_messages_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS MESSAGES(" \
-        "MESSAGE_ID     INTEGER PRIMARY KEY     NOT NULL,"
-        "GROUP_ID       INTEGER     NOT NULL," \
-        "USER_ID        INTEGER     NOT NULL," \
-        "MESSAGE_TEXT   TEXT        NOT NULL," \
-        "SENT_DATATIME  TEXT        NOT NULL," \
-        "MESSAGE_FILE   BLOB," \
-        "FILE_SIZE      INTEGER,"
+        "message_id     INTEGER PRIMARY KEY     NOT NULL,"
+        "group_id       INTEGER     NOT NULL," \
+        "user_id        INTEGER     NOT NULL," \
+        "message_text   TEXT        NOT NULL," \
+        "sent_datatime  TEXT        NOT NULL," \
+        "message_file   BLOB," \
+        "file_size      INTEGER,"
         "CONSTRAINT FK1_MESSAGES \
-            FOREIGN KEY (GROUP_ID) \
-            REFERENCES GROUPS(GROUP_ID)" \
+            FOREIGN KEY (group_id) \
+            REFERENCES GROUPS(group_id)" \
         "CONSTRAINT FK2_MESSAGES \
-            FOREIGN KEY (USER_ID) \
-            REFERENCES USERS(USER_ID))";
+            FOREIGN KEY (user_id) \
+            REFERENCES USERS(user_id))";
 
     mx_create_table(db, sql, mx_callback);
 }
@@ -130,11 +130,11 @@ static char* create_token(int length) {\
 int mx_insert_user(sqlite3* db, t_user* data) {
     char sql[255];
     int last_row_id = 0;
-    char* token = create_token(strlen(data->login) * 10);
-    sprintf(sql, "INSERT INTO USERS(LOGIN, PASSWORD, NICK_NAME, FIRST_NAME, LAST_NAME, USER_TOKEN)"  \
+    char* token = create_token(strlen(data->login) * 3);
+    sprintf(sql, "INSERT INTO USERS(login, password, nick_name, first_name, last_name, user_token)"  \
     "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");",
     data->login, data->password, 
-    data->nick_name, data->first_name, 
+    data->login, data->first_name, 
     data->last_name, token);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
@@ -144,11 +144,11 @@ int mx_insert_user(sqlite3* db, t_user* data) {
     return last_row_id;
 }
 
-int mx_insert_contact(sqlite3* db, t_user* user, t_user* contact_user){
+int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id){
     char sql[255];
-    sprintf(sql, "INSERT INTO CONTACTS(USER_ID, USER_CONTACT_ID)"  \
+    sprintf(sql, "INSERT INTO CONTACTS(user_id, user_contact_id)"  \
     "VALUES(\"%d\", \"%d\");",
-    user->user_id, contact_user->user_id);
+    user_id, contact_user_id);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return 1;
@@ -159,7 +159,7 @@ int mx_insert_contact(sqlite3* db, t_user* user, t_user* contact_user){
 int mx_insert_group(sqlite3* db, t_group* data){
     char sql[255];
     int last_row_id = 0;
-    sprintf(sql, "INSERT INTO GROUPS(GROUP_NAME)"  \
+    sprintf(sql, "INSERT INTO GROUPS(group_name)"  \
     "VALUES(\"%s\");",
     data->group_name);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
@@ -170,12 +170,12 @@ int mx_insert_group(sqlite3* db, t_group* data){
     return last_row_id;
 }
 
-int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
+int mx_insert_group_member(sqlite3* db, t_group* group, int user_id){
     char sql[255];
     int last_row_id = 0;
-    sprintf(sql, "INSERT INTO GROUP_MEMBERS(GROUP_ID, USER_ID)"  \
+    sprintf(sql, "INSERT INTO GROUP_MEMBERS(group_id, user_id)"  \
     "VALUES(\"%d\", \"%d\");",
-    group->group_id, user->user_id);
+    group->group_id, user_id);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return 1;
@@ -187,7 +187,7 @@ int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
 int mx_insert_message(sqlite3* db, t_group* group, t_group_member* group_member, t_message* message) {
     char sql[255];
     int last_row_id = 0;
-    sprintf(sql, "INSERT INTO MESSAGES(GROUP_ID, USER_ID, MESSAGE_TEXT, SENT_DATATIME)"  \
+    sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \
     "VALUES(\"%d\", \"%d\", \"%s\", \"%s\");",
     group->group_id, group_member->user_id, message->message_text, message->sent_datatime);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);

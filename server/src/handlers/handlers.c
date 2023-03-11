@@ -36,8 +36,24 @@ const char* main_handler(char* json){
     api->delete = &delete;
 
     api->get("/users/", api->req, api->res, NULL, getAll_users);
-    api->get("/auth/me", api->req, api->res, NULL, login);
-    api->post("/auth/register", api->req, api->res, NULL, registration);
+    api->get("/users/name:", api->req, api->res, NULL, get_users_by_name);
+
+
+    api->post("/contact/", api->req, api->res, NULL, add_contact);
+
+    api->get("/group/", api->req, api->res, NULL, get_group);
+    api->post("/group/", api->req, api->res, NULL, create_group);
+    api->delete("/group/", api->req, api->res, NULL, delete_group);
+
+    api->get("/group/members", api->req, api->res, NULL, get_group_members);
+    // api->post("/group/members", api->req, api->res, NULL, create_group);
+
+
+    api->get("/auth/me", api->req, api->res, login_validation, login);
+    api->post("/auth/register", api->req, api->res, register_validation, registration);
+
+
     const char *json_res = create_json_response(api->res);
+
     return json_res;
 }

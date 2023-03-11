@@ -1,7 +1,7 @@
 #include "server.h"
 
 int get(char* url,  t_request* req, t_response* res, t_validator validator, t_controller  controller) {
-    if(mx_strcmp(url, req->url) || mx_strcmp(req->type, "GET")) {
+    if(mx_strncmp(url, req->url, mx_strlen(url)) || mx_strcmp(req->type, "GET")) {
         return 1;
     }
 
@@ -17,7 +17,7 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
 }
 
 int post(char* url,  t_request* req, t_response* res, t_validator validator, t_controller  controller) {
-    if(mx_strcmp(url, req->url) || mx_strcmp(req->type, "POST")) {
+   if(mx_strncmp(url, req->url, mx_strlen(url)) || mx_strcmp(req->type, "POST")) {
         return 1;
     }
 
@@ -33,7 +33,7 @@ int post(char* url,  t_request* req, t_response* res, t_validator validator, t_c
 }
 
 int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_controller  controller) {
-    if(mx_strcmp(url, req->url) || mx_strcmp(req->type, "PATCH")) {
+    if(mx_strncmp(url, req->url, mx_strlen(url)) || mx_strcmp(req->type, "PATCH")) {
         return 1;
     }
 

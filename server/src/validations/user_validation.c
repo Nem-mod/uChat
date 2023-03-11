@@ -1,6 +1,6 @@
 #include "validations.h"
 
-int registerValidation(char* req) {
+int register_validation(const char* req) {
     struct json_object *jobj;
     jobj = json_tokener_parse(req);
     struct json_object *jtemp = json_object_object_get(jobj, "login");
@@ -26,7 +26,7 @@ int registerValidation(char* req) {
     return 0;
 }
 
-int loginValidation(char* req) {
+int login_validation(const char* req) {
     struct json_object *jobj;
     jobj = json_tokener_parse(req);
     struct json_object *jtemp = json_object_object_get(jobj, "login");
@@ -41,3 +41,4 @@ int loginValidation(char* req) {
     }
     return 0;
 }
+

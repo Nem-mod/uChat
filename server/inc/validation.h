@@ -1,4 +1,4 @@
 #pragma once 
 
-int registerValidation(char* req);
-int loginValidation(char* req);
+int register_validation(const char* req);
+int login_validation(const char* req);
