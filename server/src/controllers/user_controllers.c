@@ -22,8 +22,8 @@ int get_users_by_name(const char* req, char* res){
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
-    struct json_object *jobj;
-    jobj = json_tokener_parse(req);
+    
+    struct json_object *jobj = json_tokener_parse(req);
     struct json_object *jlogin = json_object_object_get(jobj, "login"); 
     struct json_object *jnick = json_object_object_get(jobj, "nick_name"); 
 
@@ -51,8 +51,8 @@ int get_users_by_id(const char* req, char* res){
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
-    struct json_object *jobj;
-    jobj = json_tokener_parse(req);
+
+    struct json_object *jobj = json_tokener_parse(req);
     struct json_object *juser_id = json_object_object_get(jobj, "user_id"); 
 
     char temp[256];
@@ -76,8 +76,8 @@ int add_contact(const char* req, char* res){
         return 1;
     
     sqlite3* db;
-    struct json_object *jobj;
-    jobj = json_tokener_parse(req);
+
+    struct json_object *jobj = json_tokener_parse(req);
     struct json_object *juser_id= json_object_object_get(jobj, "user_id"); 
     struct json_object *juser_contact_id= json_object_object_get(jobj, "user_contact_id"); 
 

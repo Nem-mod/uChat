@@ -11,7 +11,11 @@ int get_group(const char* req, char* res);
 int create_group(const char* req, char* res);
 int delete_group(const char* req, char* res);
 int get_group_members(const char* req, char* res);
+int insert_group_members(const char* req, char* res);
 int add_group_members(const char* req, char* res);
+
+int get_messages(const char* req, char* res);
+int create_message(const char* req, char* res);
 
 int login(const char* req, char* res);
 int registration(const char* req, char* res);

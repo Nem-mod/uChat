@@ -170,12 +170,12 @@ int mx_insert_group(sqlite3* db, t_group* data){
     return last_row_id;
 }
 
-int mx_insert_group_member(sqlite3* db, t_group* group, int user_id){
+int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
     char sql[255];
     int last_row_id = 0;
     sprintf(sql, "INSERT INTO GROUP_MEMBERS(group_id, user_id)"  \
     "VALUES(\"%d\", \"%d\");",
-    group->group_id, user_id);
+    group->group_id, user->user_id);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return 1;
@@ -184,12 +184,12 @@ int mx_insert_group_member(sqlite3* db, t_group* group, int user_id){
     return last_row_id;
 }
 
-int mx_insert_message(sqlite3* db, t_group* group, t_group_member* group_member, t_message* message) {
+int mx_insert_message(sqlite3* db, t_message* message) {
     char sql[255];
     int last_row_id = 0;
     sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \
     "VALUES(\"%d\", \"%d\", \"%s\", \"%s\");",
-    group->group_id, group_member->user_id, message->message_text, message->sent_datatime);
+    message->group_id, message->user_id, message->message_text, message->sent_datatime);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return 1;

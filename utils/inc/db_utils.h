@@ -21,6 +21,6 @@ int mx_callback(void *datab, int argc, char **argv, char **azColName);
 int mx_insert_user(sqlite3* db, t_user* data);
 int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id);
 int mx_insert_group(sqlite3* db, t_group* data);
-int mx_insert_group_member(sqlite3* db, t_group* group, int user_id);
-int mx_insert_message(sqlite3* db, t_group* group, t_group_member* user, t_message* message);
+int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user);
+int mx_insert_message(sqlite3* db, t_message* message);
 

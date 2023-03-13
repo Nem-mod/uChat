@@ -46,8 +46,11 @@ const char* main_handler(char* json){
     api->delete("/group/", api->req, api->res, NULL, delete_group);
 
     api->get("/group/members", api->req, api->res, NULL, get_group_members);
-    // api->post("/group/members", api->req, api->res, NULL, create_group);
+    api->post("/group/members", api->req, api->res, NULL, insert_group_members);
 
+
+    api->get("/group/message", api->req, api->res, NULL, get_messages);
+    api->post("/group/message", api->req, api->res, NULL, create_message);
 
     api->get("/auth/me", api->req, api->res, login_validation, login);
     api->post("/auth/register", api->req, api->res, register_validation, registration);
