@@ -1,5 +1,5 @@
 NAME	=	uchat_server
-CFLAGS 	=	$(addprefix -W, all extra error pedantic) 
+CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
 
 COLOUR_GREEN	=	\033[32;1m
@@ -8,33 +8,38 @@ COLOUR_GREEN	=	\033[32;1m
 COLOUR_END		=	\033[0m
 
 UTILSDIR	=	../utils
-
 LIBSDIR		=	$(UTILSDIR)/libs
-SOURCEDIR 	=	src
+
+SOURCEDIR 	=	src \
+				src/validations \
+				src/utils \
+				src/handlers \
+				src/controllers \
+				$(UTILSDIR)/src
 OBJECTDIR	=	obj
-INCLUDEDIR	=	inc
+INCLUDEDIR	=	inc \
+				$(UTILSDIR)/inc
 
 LIBMXDIR	=	$(LIBSDIR)/libmx
 LIBDBDIR	=	$(LIBSDIR)/libdb
 LIBSSLDIR	=	$(LIBSDIR)/libssl
 LIBJSONDIR	=	$(LIBSDIR)/libjson
 
-LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc)
+INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
+LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc) #refactor
 
-LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -L$(LIBJSONDIR) -ljson-c
+LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -L$(LIBJSONDIR) -ljson-c -ldl -lpthread
 
-SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c \
-				$(UTILSDIR)/$(SOURCEDIR)/*.c \
-				$(SOURCEDIR)/validations/*.c \
-				$(SOURCEDIR)/controllers/*.c \
-				$(SOURCEDIR)/handlers/*.c \
-				$(SOURCEDIR)/utils/*.c \)
+SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
-INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
+INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 all: libs $(NAME) clean out
 
 libs: libmx libdb libssl
+
+print:
+	@echo $(INC_FILES)
 
 libmx:
 	@make -sC $(LIBMXDIR)
@@ -46,36 +51,19 @@ libdb:
 
 libssl:
 
-$(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -ldl -lpthread -o $@ --debug
+$(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
 
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-$(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/validations/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/controllers/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/utils/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/handlers/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) --debug
+$(OBJ_FILES): %.o: %.c
+	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
+
+copy:
+	@cp -f $(SRC_FILES) $(OBJECTDIR)
 
 out: $(NAME)
 	@cp $(NAME) ../

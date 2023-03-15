@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include <gtk/gtk.h>
+
 #include "client_utils.h"
 #include "connect_utils.h"
 #include "ssl_utils.h"

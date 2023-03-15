@@ -27,16 +27,11 @@ GTKINC 		= 	`pkg-config --cflags gtk+-3.0`
 LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -ldl -lpthread
 GTKLINK 	= 	`pkg-config --cflags  --libs gtk+-3.0`
 
-# SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c)
 SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
-# OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
-OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(patsubst %.c, %.o, $(SRC_FILES)))
-# INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
+OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
-# all: print
-
-all: $(NAME) libs clean out
+all: libs $(NAME) clean out
 
 libs: libmx libdb libssl
 
@@ -53,21 +48,19 @@ libdb:
 
 libssl:
 
-$(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
+$(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -o $@ --debug
 
-$(OBJ_FILES): obj/%.o: %.c $(OBJECTDIR)
-	@echo $<
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
+$(OBJ_FILES): %.o: %.c
+	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) $(GTKINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
-
-# $(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
-# 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) $(GTKINC) --debug
-# 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
+
+copy:
+	@cp -f $(SRC_FILES) $(OBJECTDIR)
 
 out: $(NAME)
 	@cp $(NAME) ../
