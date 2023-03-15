@@ -8,29 +8,40 @@ COLOUR_GREEN	=	\033[32;1m
 COLOUR_END		=	\033[0m
 
 UTILSDIR	=	../utils
-
 LIBSDIR		=	$(UTILSDIR)/libs
-SOURCEDIR 	=	src
+
+SOURCEDIR 	=	src \
+				$(UTILSDIR)/src
 OBJECTDIR	=	obj
-INCLUDEDIR	=	inc
+INCLUDEDIR	=	inc \
+				$(UTILSDIR)/inc
 
 LIBMXDIR	=	$(LIBSDIR)/libmx
 LIBDBDIR	=	$(LIBSDIR)/libdb
 LIBSSLDIR	=	$(LIBSDIR)/libssl
 
-LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include)
-GTKINC 	= 	`pkg-config --cflags gtk+-3.0`
+INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
+LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include) #refactor
+GTKINC 		= 	`pkg-config --cflags gtk+-3.0`
 
-LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto
+LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -ldl -lpthread
 GTKLINK 	= 	`pkg-config --cflags  --libs gtk+-3.0`
 
-SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c $(UTILSDIR)/$(SOURCEDIR)/*.c)
+# SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c)
+SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
+# OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
-INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
+# INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
+INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
+
+# all: print
 
 all: libs $(NAME) clean out
 
 libs: libmx libdb libssl
+
+print:
+	@echo $(INC_FILES)
 
 libmx:
 	@make -sC $(LIBMXDIR)
@@ -43,15 +54,15 @@ libdb:
 libssl:
 
 $(NAME): $(OBJ_FILES)
-	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -ldl -lpthread -o $@ --debug
+	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
 
-$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) $(GTKINC) --debug
+$(OBJECTDIR)/%.o: $(SRC_FILES) $(OBJECTDIR)
+	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
-$(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
-	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) $(GTKINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
+# $(OBJECTDIR)/%.o: $(UTILSDIR)/$(SOURCEDIR)/%.c $(OBJECTDIR)
+# 	@$(COMP) $(CFLAGS) -c $< -o $@ -I $(INCLUDEDIR) -I $(UTILSDIR)/$(INCLUDEDIR) $(LIBINC) $(GTKINC) --debug
+# 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@

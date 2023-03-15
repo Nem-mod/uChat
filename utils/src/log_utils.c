@@ -1,4 +1,4 @@
-#include "../inc/log_utils.h"
+#include "log_utils.h"
 
 char* mx_get_formatted_time() {
     time_t rawtime;

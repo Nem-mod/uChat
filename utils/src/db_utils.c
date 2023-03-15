@@ -1,4 +1,4 @@
-#include "../inc/db_utils.h"
+#include "db_utils.h"
 
 void mx_openDB(const char* filename, sqlite3** ppDB) {
     int rc = sqlite3_open(filename, ppDB);

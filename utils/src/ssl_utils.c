@@ -1,4 +1,4 @@
-#include "../inc/ssl_utils.h"
+#include "ssl_utils.h"
 
 SSL_CTX* mx_init_context(bool is_server) {
     SSL_CTX *ctx;

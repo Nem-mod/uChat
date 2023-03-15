@@ -1,4 +1,4 @@
-#include "../inc/connect_utils.h"
+#include "connect_utils.h"
 
 int mx_create_socket(int domain, int type, int protocol) {
     int res = socket(domain, type, protocol);
