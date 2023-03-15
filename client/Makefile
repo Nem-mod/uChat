@@ -30,13 +30,13 @@ GTKLINK 	= 	`pkg-config --cflags  --libs gtk+-3.0`
 # SRC_FILES	=	$(wildcard $(SOURCEDIR)/*.c)
 SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
 # OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
-OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
+OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(patsubst %.c, %.o, $(SRC_FILES)))
 # INC_FILES	=	$(wildcard $(INCLUDEDIR)/*.h $(UTILSDIR)/$(INCLUDEDIR)/*.h)
 INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 # all: print
 
-all: libs $(NAME) clean out
+all: $(NAME) libs clean out
 
 libs: libmx libdb libssl
 
@@ -56,7 +56,8 @@ libssl:
 $(NAME): $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
 
-$(OBJECTDIR)/%.o: $(SRC_FILES) $(OBJECTDIR)
+$(OBJ_FILES): obj/%.o: %.c $(OBJECTDIR)
+	@echo $<
 	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
