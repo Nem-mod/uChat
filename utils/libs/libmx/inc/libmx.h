@@ -7,8 +7,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <fcntl.h>
-#include <malloc.h>             // for Linux -> malloc_usable_size
-// #include <malloc/malloc.h>      // for MacOS -> malloc_size
+#if __linux__
+    #include <malloc.h>             // for Linux -> malloc_usable_size
+#elif __APPLE__
+    #include <malloc/malloc.h>      // for MacOS -> malloc_size
+#endif
 
 typedef struct s_list {
     void *data;

@@ -9,10 +9,13 @@ void *mx_realloc(void *ptr, size_t size) {
 		return NULL;
 	}
 
-	size_t ptr_size = malloc_usable_size(ptr); 	// For Linux
-	// size_t ptr_size = malloc_size(ptr);				// For MacOS
-
-
+	size_t ptr_size;
+	#if __linux__
+    	ptr_size = malloc_usable_size(ptr); 	// For Linux
+	#elif __APPLE__
+   		ptr_size = malloc_size(ptr);			// For MacOS
+	#endif
+	
 	if (ptr_size > size)
 		size = ptr_size;
 
