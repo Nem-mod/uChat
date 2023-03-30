@@ -1,4 +1,4 @@
-#include "validations.h"
+#include "server.h"
 
 int register_validation(const char* req) {
     struct json_object *jobj;

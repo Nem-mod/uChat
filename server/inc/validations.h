@@ -5,4 +5,6 @@
 
 #include "log_utils.h"
 
-int registerValidation(char* req);
+int register_validation(const char* req);
+int login_validation(const char* req);
+
