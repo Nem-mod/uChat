@@ -14,7 +14,7 @@
 
 #define SERVER 1
 #define CLIENT 0
-
+#define MAXSOCKETS 30000
 int mx_init_daemon();
 
 void* mx_create_server_client_session(void *server_ssl);

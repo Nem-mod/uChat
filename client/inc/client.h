@@ -9,7 +9,6 @@
 #include "connect_utils.h"
 #include "ssl_utils.h"
 #include "log_utils.h"
-#include "db_utils.h"
 #include "libmx.h"
 
 #define     IP "127.0.0.1"

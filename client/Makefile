@@ -31,7 +31,7 @@ SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
-all: libs $(NAME) clean out
+all: libs $(NAME) out
 
 libs: libmx libdb libssl
 

@@ -37,8 +37,8 @@ int main(int argc, char* argv[])
 
     ctx = mx_init_context(SERVER);
     mx_use_certificate_key(ctx, CERTPATH, KEYPATH);
-
-    while (1) {
+    int active_sock = 0;
+    while (active_sock < MAXSOCKETS) {
         pthread_t thread_id;
         struct sockaddr_in client_addr;
         socklen_t addr_size = sizeof(client_addr);
@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
         
         ssl = mx_init_SSL_session(ctx, client_sock);
         pthread_create(&thread_id, NULL, mx_create_server_client_session, (void*)ssl);
+        active_sock++;
     }
 
     close(server_sock);

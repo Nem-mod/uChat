@@ -123,7 +123,7 @@ int mx_SSL_write(SSL* ssl, char* buffer) {
 int mx_SSL_read(SSL* ssl, char* buffer) {
     int result;
 
-    result = SSL_read(ssl, buffer, sizeof(buffer));
+    result = SSL_read(ssl, buffer, MAXBUFFER);
     if (result <= 0) {
         mx_log_err(SYSLOG, "Unable to read msg");   
         mx_SSL_log_print_error(ssl, result);

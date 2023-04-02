@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     SSL_CTX *ctx    = NULL;
     SSL *ssl        = NULL;
 
-    char buffer[2048];
+    char buffer[MAXBUFFER];
     int hs_result;
 
     client_sock = mx_create_socket(AF_INET, SOCK_STREAM, 0);
@@ -30,14 +30,24 @@ int main(int argc, char* argv[])
     mx_connect(client_sock, (struct sockaddr*)&client_addr, sizeof(client_addr));
 
     hs_result = mx_handshake(ssl, CLIENT);
+    char *json = "{ \"type\": \"POST\", \
+        \"url\": \"/auth/register\", \
+        \"property\": { \"login\": \"nemmmmmmmdadmm\", \
+            \"password\": \"1223\", \
+            \"first_name\": \"1223\", \
+            \"last_name\": \"1223\" \
+        }" \
+    "}";
     if (hs_result != 0) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
             
             mx_printstr("Client: ");
-            scanf("%s", buffer);
+            mx_strcpy(buffer, json);
             mx_printstr("\n");
-
+            char temp[245];
+            scanf("%s", temp);
+            
             mx_SSL_write(ssl, buffer);
 
             if(mx_strcmp(buffer, ":exit") == 0)
