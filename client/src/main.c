@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
             mx_memset(&buffer, 0, sizeof(buffer));
             
             mx_printstr("Client: ");
-            scanf("%s", &buffer[0]);
+            scanf("%s", buffer);
             mx_printstr("\n");
 
             mx_SSL_write(ssl, buffer);
