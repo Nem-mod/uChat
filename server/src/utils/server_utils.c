@@ -1,4 +1,4 @@
-#include "server_utils.h"
+#include "server.h"
 
 int mx_init_daemon() {
     // pid_t pid;
@@ -49,7 +49,7 @@ int mx_init_daemon() {
 void* mx_create_server_client_session(void *server_ssl) {
     SSL *ssl = (SSL*)server_ssl;
     int hs_result;
-    char buffer[2048];
+    char buffer[MAXBUFFER];
     
     hs_result = mx_handshake(ssl, SERVER);
     if (hs_result != 0) {
@@ -60,11 +60,15 @@ void* mx_create_server_client_session(void *server_ssl) {
 
             mx_log_msg(SYSLOG, buffer);
 
+            
+
             if(mx_strcmp(buffer, ":exit") == 0)
                 break;
-
-            mx_SSL_write(ssl, buffer);
+            char* res = mx_strdup(main_handler(buffer));
+            mx_SSL_write(ssl, res);
+            mx_strdel(&res);
         }
+        
     }
     SSL_free(ssl);
 

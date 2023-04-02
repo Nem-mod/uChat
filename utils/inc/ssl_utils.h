@@ -10,6 +10,8 @@
 // #include <openssl/rsa.h>
 // #include <openssl/x509.h>
 // #include <openssl/evp.h>
+#define MAXBUFFER 8192
+
 
 SSL_CTX* mx_init_context(bool is_server);
 
