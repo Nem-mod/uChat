@@ -137,7 +137,7 @@ int mx_insert_user(sqlite3* db, t_user* data, char** errMsg) {
     data->login, data->first_name, 
     data->last_name, token);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, errMsg);
-    if( rt != SQLITE_OK || errMsg != NULL){
+    if( rt != SQLITE_OK){
         return -1;
     }
     last_row_id = sqlite3_last_insert_rowid(db);

@@ -44,7 +44,7 @@ int registration(const char* req, char* res) {
     strcpy(user.last_name, json_object_get_string(jlname));
 
     mx_openDB(DATABASE_NAME, &db);
-    mx_insert_user(db, &user);    
+    mx_insert_user(db, &user, NULL);    
     const char *json_str = json_object_to_json_string(jobj);
     mx_strcpy(res, json_str);
     sqlite3_close(db);
