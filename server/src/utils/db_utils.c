@@ -40,7 +40,7 @@ void mx_create_table (sqlite3 *db, char *sql, int (*callback)(void*, int, char**
 void mx_create_users_table(sqlite3 *db) {
     char* sql = "CREATE TABLE IF NOT EXISTS USERS(" \
         "user_id INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "login          VARCHAR(32)     NOT NULL," \
+        "login          VARCHAR(32)     NOT NULL UNIQUE," \
         "password       VARCHAR(18)     NOT NULL," \
         "nick_name      VARCHAR(64)     NOT NULL," \
         "first_name     VARCHAR(64)     NOT NULL," \
@@ -127,7 +127,7 @@ static char* create_token(int length) {\
     return randomString;
 }
 
-int mx_insert_user(sqlite3* db, t_user* data) {
+int mx_insert_user(sqlite3* db, t_user* data, char** errMsg) {
     char sql[255];
     int last_row_id = 0;
     char* token = create_token(strlen(data->login) * 3);
@@ -136,9 +136,9 @@ int mx_insert_user(sqlite3* db, t_user* data) {
     data->login, data->password, 
     data->login, data->first_name, 
     data->last_name, token);
-    int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
-    if( rt != SQLITE_OK){
-        return 1;
+    int rt = sqlite3_exec(db, sql, mx_callback, 0, errMsg);
+    if( rt != SQLITE_OK || errMsg != NULL){
+        return -1;
     }
     last_row_id = sqlite3_last_insert_rowid(db);
     return last_row_id;
@@ -151,7 +151,7 @@ int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id){
     user_id, contact_user_id);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     return 0;
 }
@@ -164,7 +164,7 @@ int mx_insert_group(sqlite3* db, t_group* data){
     data->group_name);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     last_row_id = sqlite3_last_insert_rowid(db);
     return last_row_id;
@@ -178,7 +178,7 @@ int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
     group->group_id, user->user_id);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     last_row_id = sqlite3_last_insert_rowid(db);
     return last_row_id;
@@ -192,7 +192,7 @@ int mx_insert_message(sqlite3* db, t_message* message) {
     message->group_id, message->user_id, message->message_text, message->sent_datatime);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     last_row_id = sqlite3_last_insert_rowid(db);
     return last_row_id;
