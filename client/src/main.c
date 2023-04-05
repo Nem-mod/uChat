@@ -1,5 +1,6 @@
 #include "client.h"
 
+
 int main(int argc, char* argv[])
 {
     remove(SYSLOG);
@@ -7,15 +8,10 @@ int main(int argc, char* argv[])
         mx_log_info(SYSLOG, "usage: ./uchat [port]");
         return 0;
     }
+    gtk_init(&argc, &argv);
+    t_UchatApplication* app = mx_create_app(argv);
+    gtk_widget_show(app->scenes->signUp_scene->w_signup);
 
-    t_serv_connection* serv = mx_init_server_conection(mx_atoi(argv[1]));
-    mx_printint(serv->port);
-    // pthread_t thread_id;
-      
-    // pthread_create(&thread_id, NULL, mx_init_server_conection, (void*)ssl);
-    // close(client_sock);
-    // SSL_CTX_free(ctx);  
-    char buffer[MAXBUFFER];
     char *json = "{ \"type\": \"POST\", \
         \"url\": \"/auth/register\", \
         \"property\": { \"login\": \"nemmmmmmmdadmm\", \
@@ -24,29 +20,28 @@ int main(int argc, char* argv[])
             \"last_name\": \"1223\" \
         }" \
     "}";
-    if (serv->hs_result != 0) {
-        while (1) {
-            mx_memset(&buffer, 0, sizeof(buffer));
-            
-            mx_printstr("Client: ");
-            mx_strcpy(buffer, json);
-            mx_printstr("\n");
-            char temp[245];
-            scanf("%s", temp);
-            
-            mx_SSL_write(serv->ssl, buffer);
 
-            
 
-            mx_memset(&buffer, 0, sizeof(buffer));
-            mx_SSL_read(serv->ssl, buffer);
 
-            mx_printstr("Server: ");
-            mx_printstr(buffer);
-            mx_printstr("\n");
-        }
-    }
-    mx_printstr("Disconnected from the server.\n");
+    mx_strcpy(app->serv_conection->wbuffer, json);
+    mx_write_to_server(app->serv_conection->ssl, app->serv_conection->wbuffer); 
+  
+    
+    char *json2 = "{ \"type\": \"POST\", \
+        \"url\": \"/auth/register\", \
+        \"property\": { \"login\": \"hema\", \
+            \"password\": \"ss\", \
+            \"first_name\": \"122Art3\", \
+            \"last_name\": \"Bruh\" \
+        }" \
+    "}";
+    
+    mx_strcpy(app->serv_conection->wbuffer, json2);
+    g_print ("%s", app->serv_conection->wbuffer);
+    mx_write_to_server(app->serv_conection->ssl, app->serv_conection->wbuffer); 
+
+    //g_signal_connect (app->scenes->signUp_scene->b_signup, "clicked", G_CALLBACK (callva), app);
+    gtk_main ();
 
     return 0;
 }
