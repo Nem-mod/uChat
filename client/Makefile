@@ -7,6 +7,10 @@ COLOUR_GREEN	=	\033[32;1m
 # COLOUR_BLUE		=	\033[0;34m
 COLOUR_END		=	\033[0m
 
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+UNAME_S 	= 	$(shell uname -s)
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
@@ -21,10 +25,13 @@ LIBDBDIR	=	$(LIBSDIR)/libdb
 LIBSSLDIR	=	$(LIBSDIR)/libssl
 
 INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
-LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include) #refactor
+LIBINC		=	$(addprefix -I, $(LIBMXDIR)/inc $(LIBDBDIR)/inc $(LIBSSLDIR)/include)
 GTKINC 		= 	`pkg-config --cflags gtk+-3.0`
 
-LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -ldl -lpthread
+LIBLINK		=	-L$(LIBMXDIR) -lmx \
+				-L$(LIBDBDIR) -ldb  \
+				-L$(LIBSSLDIR) -lssl -lcrypto \
+				-ldl -lpthread
 GTKLINK 	= 	`pkg-config --cflags  --libs gtk+-3.0`
 
 SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
@@ -33,7 +40,7 @@ INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 all: libs $(NAME) out
 
-libs: libmx libdb libssl
+libs: libmx libdb
 
 print:
 	@echo $(INC_FILES)
@@ -45,8 +52,6 @@ libmx:
 libdb:
 	@make -sC $(LIBDBDIR)
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-libssl:
 
 $(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -o $@ --debug

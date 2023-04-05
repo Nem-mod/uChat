@@ -7,6 +7,10 @@ COLOUR_GREEN	=	\033[32;1m
 # COLOUR_BLUE		=	\033[0;34m
 COLOUR_END		=	\033[0m
 
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+UNAME_S 	= 	$(shell uname -s)
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
@@ -23,23 +27,37 @@ INCLUDEDIR	=	inc \
 LIBMXDIR	=	$(LIBSDIR)/libmx
 LIBDBDIR	=	$(LIBSDIR)/libdb
 LIBSSLDIR	=	$(LIBSDIR)/libssl
-LIBJSONDIR	=	$(LIBSDIR)/libjson
+
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+LIBJSONDIR	=
+ifeq ($(UNAME_S),Linux)					
+	LIBJSONDIR	+=	$(LIBSDIR)/libjson			
+endif										
+ifeq ($(UNAME_S),Darwin)					
+	LIBJSONDIR	+=	$(LIBSDIR)/libjson_mac
+endif
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
 
 INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
-LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include libjson/inc) #refactor
+LIBINC		=	$(addprefix -I, $(LIBMXDIR)/inc $(LIBDBDIR)/inc $(LIBSSLDIR)/include $(LIBJSONDIR)/inc)
 
-LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -L$(LIBJSONDIR) -ljson-c -ldl -lpthread
+LIBLINK		=	-L$(LIBMXDIR) -lmx \
+				-L$(LIBDBDIR) -ldb  \
+				-L$(LIBSSLDIR) -lssl -lcrypto \
+				-L$(LIBJSONDIR) -ljson-c \
+				-ldl -lpthread
 
 SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
 OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
+
 all: libs $(NAME) out
 
-libs: libmx libdb libssl
+libs: libmx libdb
 
-print:
-	@echo $(INC_FILES)
+testprint:
+	@echo $(LIBJSONDIR)
 
 libmx:
 	@make -sC $(LIBMXDIR)
@@ -48,8 +66,6 @@ libmx:
 libdb:
 	@make -sC $(LIBDBDIR)
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-libssl:
 
 $(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
