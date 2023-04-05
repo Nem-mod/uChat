@@ -26,3 +26,4 @@ void mx_registratinon_callback(GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_conection->ssl,  mx_create_str_jreq("POST","/auth/register", jobj));
     (void)button;
 }
+

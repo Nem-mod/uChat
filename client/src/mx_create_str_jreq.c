@@ -7,3 +7,4 @@ char* mx_create_str_jreq(char* type, char* url, json_object* prop) {
 
     return (char*)json_object_to_json_string(jobj);
 }
+

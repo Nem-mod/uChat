@@ -22,7 +22,7 @@ void* mx_listen_server(void* data) {
 /* The function for writing to server*/
 void mx_write_to_server(SSL* ssl, char* buffer) {
 
-    if(buffer != NULL && mx_strlen(buffer) < (sizeof(char) * MAXBUFFER)){
+    if(buffer != NULL && mx_strlen(buffer) < (int)(sizeof(char) * MAXBUFFER)){
         mx_SSL_write(ssl, buffer);
         mx_strdel(&buffer);
     }

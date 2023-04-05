@@ -79,8 +79,8 @@ t_uchatScenes* mx_create_scenes();
 void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene);
 
 /* Create a json string with type, url and property */
-char* mx_create_str_jreq(char* type, char* url, json_object* prop) 
+char* mx_create_str_jreq(char* type, char* url, json_object* prop);
 
 
 /* GUI callbacks */
-mx_registratinon_callback(GtkButton *button, gpointer data);
+void mx_registratinon_callback(GtkButton *button, gpointer data);
