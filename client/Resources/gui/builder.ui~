@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <object class="GtkWindow" id="window">
+  <object class="GtkWindow" id="signup_window">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="border-width">10</property>
@@ -13,7 +13,7 @@
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkEntry" id="login_input">
+          <object class="GtkEntry" id="login_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">15</property>
@@ -29,7 +29,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="password_input">
+          <object class="GtkEntry" id="password_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">28</property>
@@ -45,7 +45,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry">
+          <object class="GtkEntry" id="r_password_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">24</property>
@@ -61,7 +61,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="fname_input">
+          <object class="GtkEntry" id="fname_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">23</property>
@@ -75,7 +75,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="lname_input">
+          <object class="GtkEntry" id="lname_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">27</property>
@@ -105,8 +105,25 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="padding">42</property>
+            <property name="padding">1</property>
             <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">signIn</property>
+            <attributes>
+              <attribute name="style" value="normal"/>
+              <attribute name="underline" value="True"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="padding">7</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>
