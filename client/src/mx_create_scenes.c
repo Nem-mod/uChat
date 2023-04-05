@@ -5,9 +5,9 @@ void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene) {
     builder = gtk_builder_new();
     GError *error = NULL;
     if (gtk_builder_add_from_file (builder, "client/Resources/gui/builder.ui", &error) == 0) {
-      g_printerr ("Error loading file: %s\n", error->message);
-      g_clear_error (&error);
-      return;
+        g_printerr ("Error loading file: %s\n", error->message);
+        g_clear_error (&error);
+        return;
     }
     
 

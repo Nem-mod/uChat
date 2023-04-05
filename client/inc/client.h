@@ -4,12 +4,16 @@
 #include <unistd.h>
 
 #include <gtk/gtk.h>
+#include <ctype.h>
+#include <strings.h>
+#include <sys/stat.h>
 
 #include "client_utils.h"
 #include "connect_utils.h"
 #include "ssl_utils.h"
 #include "log_utils.h"
 #include "libmx.h"
+#include <json.h>
 
 #define IP "127.0.0.1"
 #define CERTPATH "client/cert+key/client.crt"
@@ -28,7 +32,6 @@ typedef struct s_serv_connection {
     pthread_t listener_thread; // mutex for listening server
     char lbuffer[MAXBUFFER];        // buffer for retrive message
     //pthread_t writer_mutex;   // mutex for writing to server
-    char wbuffer[MAXBUFFER];        // buffer for writing message
 }               t_serv_connection;
 
 
@@ -74,3 +77,10 @@ t_UchatApplication* mx_create_app(char* argv[]);
 GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 t_uchatScenes* mx_create_scenes();
 void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene);
+
+/* Create a json string with type, url and property */
+char* mx_create_str_jreq(char* type, char* url, json_object* prop) 
+
+
+/* GUI callbacks */
+mx_registratinon_callback(GtkButton *button, gpointer data);
