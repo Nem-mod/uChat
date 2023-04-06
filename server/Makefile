@@ -51,11 +51,12 @@ INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 
 all: libs $(NAME) out
+# all: testprint
 
 libs: libmx libdb
 
 testprint:
-	@echo $(OS)
+	@echo $(LIBINC)
 
 libmx:
 	@make -sC $(LIBMXDIR)

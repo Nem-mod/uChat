@@ -21,7 +21,26 @@
         "db_utils.h": "c",
         "handler.h": "c",
         "client.h": "c",
-        "client_utils.h": "c"
+        "client_utils.h": "c",
+        "__config": "c",
+        "__functional_03": "c",
+        "__functional_base": "c",
+        "__hash_table": "c",
+        "__tuple": "c",
+        "array": "c",
+        "complex": "c",
+        "functional": "c",
+        "memory_resource": "c",
+        "istream": "c",
+        "locale": "c",
+        "memory": "c",
+        "mutex": "c",
+        "ostream": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "unordered_map": "c",
+        "utility": "c",
+        "vector": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
