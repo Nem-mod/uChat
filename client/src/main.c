@@ -2,15 +2,6 @@
 
 int main(int argc, char* argv[])
 {
-    int a = 5;
-    int b = 7;
-    a^=b^=a^=b;
-    mx_printint(a);
-    mx_printchar('\n');
-    mx_printint(b);
-    mx_printchar('\n');
-    return 0;
-
     remove(SYSLOG);
     if(argc != 2){
         mx_log_info(SYSLOG, "usage: ./uchat [port]");
