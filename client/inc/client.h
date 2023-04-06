@@ -96,8 +96,8 @@ void mx_write_to_server(SSL* ssl, char* buffer);
 int main_handler(char* json);
 t_UchatApplication* mx_create_app(char* argv[]);
 GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
-t_uchatScenes* mx_create_scenes();
-void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene);
+void mx_create_scenes(t_UchatApplication* app);
+void mx_init_signup(GtkBuilder *builder, t_UchatApplication* app);
 
 /* Create a json string with type, url and property */
 char* mx_create_str_jreq(char* type, char* url, json_object* prop);
