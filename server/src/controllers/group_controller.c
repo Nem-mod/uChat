@@ -1,7 +1,7 @@
 #include "server.h"
 int get_group(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
     json_object *json =  json_object_new_array();
@@ -31,7 +31,7 @@ int get_group(const char* req, char* res){
 }
 int create_group(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
 
@@ -55,7 +55,7 @@ int create_group(const char* req, char* res){
 
 int delete_group(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
     
@@ -77,7 +77,7 @@ int delete_group(const char* req, char* res){
 
 int get_group_members(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
     json_object *json_arr =  json_object_new_array();
@@ -114,7 +114,7 @@ int get_group_members(const char* req, char* res){
 
 int insert_group_members(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
 
@@ -140,7 +140,7 @@ int insert_group_members(const char* req, char* res){
 
 int get_messages(const char* req, char* res) {
     if(req == NULL)
-        return 1;
+        return -1;
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
@@ -165,7 +165,7 @@ int get_messages(const char* req, char* res) {
 
 int create_message(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
 

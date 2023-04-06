@@ -6,8 +6,11 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, res->property) == -1){
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
         controller(req->property, res->property);
@@ -41,8 +44,11 @@ int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, res->property) == -1){
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
         controller(req->property, res->property);
@@ -58,8 +64,11 @@ int delete(char* url,  t_request* req, t_response* res, t_validator validator, t
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, res->property) == -1){
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
         controller(req->property, res->property);

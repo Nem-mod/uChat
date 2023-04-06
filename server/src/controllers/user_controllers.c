@@ -2,7 +2,7 @@
 
 int getAll_users(const char* req, char* res) {
     if(req == NULL)
-        return 1;
+        return -1;
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
@@ -18,7 +18,7 @@ int getAll_users(const char* req, char* res) {
 
 int get_users_by_name(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
@@ -47,7 +47,7 @@ int get_users_by_name(const char* req, char* res){
 
 int get_users_by_id(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
@@ -73,7 +73,7 @@ int get_users_by_id(const char* req, char* res){
 
 int add_contact(const char* req, char* res){
     if(req == NULL)
-        return 1;
+        return -1;
     
     sqlite3* db;
 
