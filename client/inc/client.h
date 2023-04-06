@@ -74,7 +74,7 @@ typedef struct s_UchatApplication {
 typedef struct s_response {   
     const char* type;
     const char* url;
-    char* property;
+    const char* property;
     int status;
     
 }              t_response;
