@@ -20,8 +20,8 @@ t_response *get_res(char* json) {
 int main_handler(char* json){
     t_response* res = get_res(json);
 
-    if (res->status == 200)
-        exit(1);
+    //if (res->status == 200)
+        //exit(1);
     return res->status;
 
     // api->get("/users/", api->req, api->res, NULL, getAll_users);

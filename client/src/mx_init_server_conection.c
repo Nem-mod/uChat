@@ -14,6 +14,7 @@ void* mx_listen_server(void* data) {
             if(buffer[0] != 0) {
                 mx_strcpy(s_con->lbuffer, buffer);
                 g_print("%s\n", buffer);
+                main_handler(buffer);
             }
             // Add a hadnler for response
         }
