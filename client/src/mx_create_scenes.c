@@ -9,8 +9,6 @@ void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene) {
         g_clear_error (&error);
         return;
     }
-    
-
     signUpScene->w_signup = mx_get_widget(builder, "signup_window");
     signUpScene->e_f_login = mx_get_widget(builder, "login_entry");
     signUpScene->e_f_password = mx_get_widget(builder, "password_entry");
@@ -19,7 +17,6 @@ void mx_init_signup(GtkBuilder* builder, t_signupScene* signUpScene) {
     signUpScene->e_f_lastName = mx_get_widget(builder, "lname_entry");
     signUpScene->b_signup = mx_get_widget(builder, "register_button");
     signUpScene->bl_signin = mx_get_widget(builder, "signin_link");
-
 }
 
 t_uchatScenes* mx_create_scenes() {

@@ -13,7 +13,8 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
             res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+        mx_strcpy(res->property, "Error");
+        //controller(req->property, res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -32,7 +33,8 @@ int post(char* url,  t_request* req, t_response* res, t_validator validator, t_c
             res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+        mx_strcpy(res->property, "Error");
+        //controller(req->property, res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -51,7 +53,8 @@ int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_
             res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+        mx_strcpy(res->property, "Error");
+        //controller(req->property, res->property);
         res->status = SERVER_ERR_RES;
     }
 
@@ -71,7 +74,8 @@ int delete(char* url,  t_request* req, t_response* res, t_validator validator, t
             res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+        mx_strcpy(res->property, "Error");
+        //controller(req->property, res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;

@@ -84,3 +84,9 @@ char* mx_create_str_jreq(char* type, char* url, json_object* prop);
 
 /* GUI callbacks */
 void mx_registratinon_callback(GtkButton *button, gpointer data);
+
+
+/* Cleaning */
+void mx_clear_server_connection(t_serv_connection* s_con);
+
+void mx_clear_app(GtkWindow *window, void* data);
