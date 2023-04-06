@@ -11,8 +11,10 @@ void* mx_listen_server(void* data) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
             mx_SSL_read(s_con->ssl, buffer);
-            if(buffer[0] != 0)
+            if(buffer[0] != 0) {
                 mx_strcpy(s_con->lbuffer, buffer);
+                g_print("%s\n", buffer);
+            }
             // Add a hadnler for response
         }
     }

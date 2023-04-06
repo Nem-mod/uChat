@@ -2,7 +2,7 @@
 
 int login(const char* req, char* res) {
     if(req == NULL)
-        return 1;
+        return -1;
     json_object *json =  json_object_new_array();
     sqlite3* db;
     
@@ -29,7 +29,7 @@ int login(const char* req, char* res) {
 
 int registration(const char* req, char* res) {
     if(req == NULL)
-        return 1;
+        return -1;
     sqlite3* db;
     
     struct json_object *jobj = json_tokener_parse(req);
@@ -44,7 +44,13 @@ int registration(const char* req, char* res) {
     strcpy(user.last_name, json_object_get_string(jlname));
 
     mx_openDB(DATABASE_NAME, &db);
-    mx_insert_user(db, &user, NULL);    
+    int id = mx_insert_user(db, &user, NULL);
+    if(id < 0) {
+        mx_strcpy(res, mx_create_err_res("Registration error;"));
+        return -1;
+    }
+    struct json_object *juser_id = json_object_new_int(id);
+    json_object_object_add(jobj, "user_id", juser_id);
     const char *json_str = json_object_to_json_string(jobj);
     mx_strcpy(res, json_str);
     sqlite3_close(db);

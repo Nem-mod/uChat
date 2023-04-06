@@ -74,3 +74,4 @@ const char* create_json_response(t_response *res);
 
 
 char* create_token(int length);
+char* mx_create_err_res(char* errMsg);
