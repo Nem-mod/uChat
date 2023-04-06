@@ -1,5 +1,5 @@
 NAME	=	uchat
-CFLAGS 	=	-std=c11
+CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
 
 COLOUR_GREEN	=	\033[32;1m

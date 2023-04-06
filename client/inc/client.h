@@ -7,13 +7,14 @@
 #include <ctype.h>
 #include <strings.h>
 #include <sys/stat.h>
+#include <json.h>
 
 #include "client_utils.h"
 #include "connect_utils.h"
 #include "ssl_utils.h"
 #include "log_utils.h"
 #include "libmx.h"
-#include <json.h>
+#include "tables.h"
 
 #define IP "127.0.0.1"
 #define CERTPATH "client/cert+key/client.crt"
@@ -21,6 +22,10 @@
 
 #define RESOURCE_GUI_PATH "client/Resources/gui/"
 
+typedef enum s_SCENE {
+    REGIST,
+    LOGIN
+}            t_SCENE;
 
 /* Struct for openSSL conection */
 typedef struct s_serv_connection {
@@ -62,10 +67,25 @@ typedef struct s_UchatApplication {
     //GtkApplication* gtk_app;            // link to Gtk application 
     //GtkCssProvider *css_provider;       // link to CSS provider
     t_uchatScenes* scenes;              // link to gui scenes
-    int active_scene;                   // flag which one scene is active
+    t_SCENE active_scene;                   // flag which one scene is active
 
 }              t_UchatApplication;
 
+typedef struct s_response {   
+    const char* type;
+    const char* url;
+    const char* property;
+    int status;
+    
+}              t_response;
+
+// typedef struct s_
+
+// typedef struct s_chat {
+//     t_group* group_info;
+//     t_group_member** group_members;
+//     t_message** messages;
+// }               t_chat;
 
 
 /* Connect to server function*/
@@ -73,6 +93,7 @@ t_serv_connection *mx_init_server_conection(int port);
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
+int main_handler(char* json);
 t_UchatApplication* mx_create_app(char* argv[]);
 GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 t_uchatScenes* mx_create_scenes();
