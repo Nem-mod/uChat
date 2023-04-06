@@ -3,19 +3,19 @@
 
 void mx_registratinon_callback(GtkButton *button, gpointer data) {
     t_UchatApplication *app = (t_UchatApplication*)data;
-    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_login))) {return;}
+    if(gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_login)) < 3) {return;}
     const char *login = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signUp_scene->e_f_login));
 
-    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_password))) {return;}
+    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_password)) < 8) {return;}
     const char *password = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signUp_scene->e_f_password));
 
-    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_password2))) {return;}
+    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_password2)) < 8) {return;}
     const char *password2 = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signUp_scene->e_f_password2));
 
-    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_firstName))) {return;}
+    if(gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_firstName)) < 3) {return;}
     const char *first_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signUp_scene->e_f_firstName));
 
-    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_lastName))) {return;}
+    if(!gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signUp_scene->e_f_lastName)) < 3) {return;}
     const char *last_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signUp_scene->e_f_lastName));
  
 
