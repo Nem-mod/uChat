@@ -8,10 +8,11 @@ int main(int argc, char* argv[])
         return 0;
     }
     gtk_init(&argc, &argv);
-    t_UchatApplication* app = mx_create_app(argv);
-    gtk_widget_show(app->scenes->signUp_scene->w_signup);
+    t_uchat_application* app = mx_create_app(argv);
+    // gtk_widget_show(app->scenes->signin_scene->w_signin);
+    mx_change_scenes(app, SIGNIN);
 
-    gtk_main ();
+    // gtk_main();
 
     return 0;
 }

@@ -49,8 +49,7 @@
             <property name="can-focus">False</property>
             <child>
               <object class="GtkButton" id="signin_button">
-                <property name="label" translatable="yes">Signin
-</property>
+                <property name="label" translatable="yes">Signin</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="focus-on-click">False</property>
@@ -66,14 +65,22 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="signin_link1">
+          <object class="GtkEventBox" id="signup_event_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">signup</property>
-            <attributes>
-              <attribute name="style" value="normal"/>
-              <attribute name="underline" value="True"/>
-            </attributes>
+            <child>
+              <object class="GtkButton" id="signin_link1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">True</property>
+                <property name="label" translatable="yes">Don't have an account?</property>
+                <!-- <attributes>
+                  <attribute name="style" value="normal"/>
+                  <attribute name="underline" value="True"/>
+                </attributes> -->
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -193,14 +200,22 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="signin_link">
+          <object class="GtkEventBox" id="signin_event_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">signIn</property>
-            <attributes>
-              <attribute name="style" value="normal"/>
-              <attribute name="underline" value="True"/>
-            </attributes>
+            <child>
+              <object class="GtkButton" id="signin_link">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">True</property>
+                <property name="label" translatable="yes">Have an account?</property>
+                <!-- <attributes>
+                  <attribute name="style" value="normal"/>
+                  <attribute name="underline" value="True"/>
+                </attributes> -->
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
