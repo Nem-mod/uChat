@@ -8,6 +8,7 @@
 #include <strings.h>
 #include <sys/stat.h>
 #include <json.h>
+// #include <regex.h>
 
 #include "client_utils.h"
 #include "connect_utils.h"
@@ -29,7 +30,7 @@ typedef enum s_SCENE {
     SIGNIN
 }            t_SCENE;
 
-/* Struct for openSSL conection */
+/* Struct for openSSL connection */
 typedef struct s_serv_connection {
     int port;                       //
     int socket;                     // 
@@ -75,7 +76,7 @@ typedef struct s_uchat_scenes {
 
 /* Struct of client application where main data is stored*/
 typedef struct s_uchat_application {
-    t_serv_connection* serv_conection; // server conection
+    t_serv_connection* serv_connection; // server connection
     //GtkApplication* gtk_app;            // link to Gtk application 
     //GtkCssProvider *css_provider;       // link to CSS provider
     t_uchat_scenes* scenes;              // link to gui scenes
@@ -107,7 +108,7 @@ typedef struct s_callback_data {
 
 
 /* Connect to server function*/
-t_serv_connection *mx_init_server_conection(int port);
+void mx_init_server_connection(t_uchat_application* app, int port);
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 

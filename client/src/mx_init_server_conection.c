@@ -4,15 +4,15 @@
 void* mx_listen_server(void* data) {
     char buffer[MAXBUFFER];
     //mx_log_info("client.txt", "Listen -----\n");
-    t_serv_connection* s_con = (t_serv_connection*)data;
-    //mx_log_info("client.txt", mx_itoa(s_con->hs_result));
+    t_uchat_application* app = (t_uchat_application*)data;
+    //mx_log_info("client.txt", mx_itoa(app->serv_connection->hs_result));
 
-    if (s_con->hs_result != 0) {
+    if (app->serv_connection->hs_result != 0) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
-            mx_SSL_read(s_con->ssl, buffer);
+            mx_SSL_read(app->serv_connection->ssl, buffer);
             if(buffer[0] != 0) {
-                mx_strcpy(s_con->lbuffer, buffer);
+                mx_strcpy(app->serv_connection->lbuffer, buffer);
                 g_print("%s\n", buffer);
                 main_handler(buffer);
             }
@@ -32,24 +32,22 @@ void mx_write_to_server(SSL* ssl, char* buffer) {
  
 }
 
-t_serv_connection *mx_init_server_conection(int port){
-    char *ip    = IP;
-    t_serv_connection* serv_connection = malloc(sizeof(t_serv_connection));
-    serv_connection->port = port;
+void mx_init_server_connection(t_uchat_application* app, int port) {
+    // char *ip    = IP;
+    app->serv_connection = malloc(sizeof(t_serv_connection));
+    app->serv_connection->port = port;   // TODO: validate port
 
     struct sockaddr_in client_addr = {0};
-    serv_connection->socket = mx_create_socket(AF_INET, SOCK_STREAM, 0);
-    client_addr = mx_init_address(port, ip, AF_INET);
+    app->serv_connection->socket = mx_create_socket(AF_INET, SOCK_STREAM, 0);
+    client_addr = mx_init_address(port, IP, AF_INET);
 
-    serv_connection->ctx = mx_init_context(CLIENT);
-    mx_use_certificate_key(serv_connection->ctx, CERTPATH, KEYPATH);
+    app->serv_connection->ctx = mx_init_context(CLIENT);
+    mx_use_certificate_key(app->serv_connection->ctx, CERTPATH, KEYPATH);
 
-    serv_connection->ssl = mx_init_SSL_session(serv_connection->ctx, serv_connection->socket);
-    mx_connect(serv_connection->socket, (struct sockaddr*)&client_addr, sizeof(client_addr));
-    serv_connection->hs_result = mx_handshake(serv_connection->ssl, CLIENT);
+    app->serv_connection->ssl = mx_init_SSL_session(app->serv_connection->ctx, app->serv_connection->socket);
+    mx_connect(app->serv_connection->socket, (struct sockaddr*)&client_addr, sizeof(client_addr));
+    app->serv_connection->hs_result = mx_handshake(app->serv_connection->ssl, CLIENT);
 
-    pthread_create(&serv_connection->listener_thread, NULL, mx_listen_server, (void*)serv_connection); // Listening thread creation
-
-    return serv_connection;
+    pthread_create(&app->serv_connection->listener_thread, NULL, mx_listen_server, (void*)app); // Listening thread creation
 }
 

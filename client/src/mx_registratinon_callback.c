@@ -37,7 +37,7 @@ void mx_registratinon_callback(GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "password", json_object_new_string(password2));
     json_object_object_add(jobj, "first_name", json_object_new_string(first_name));
     json_object_object_add(jobj, "last_name", json_object_new_string(last_name));
-    mx_write_to_server(app->serv_conection->ssl,  mx_create_str_jreq("POST","/auth/register", jobj));
+    mx_write_to_server(app->serv_connection->ssl,  mx_create_str_jreq("POST","/auth/register", jobj));
     (void)button;
 }
 
