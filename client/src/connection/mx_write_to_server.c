@@ -1,6 +1,5 @@
 #include "client.h"
 
-/* The function for writing to server*/
 void mx_write_to_server(SSL* ssl, char* buffer) {
 
     if(buffer != NULL && mx_strlen(buffer) < (int)(sizeof(char) * MAXBUFFER)){

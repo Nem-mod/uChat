@@ -1,6 +1,5 @@
 #include "client.h"
 
-
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
 
