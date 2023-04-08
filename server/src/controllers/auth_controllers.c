@@ -19,8 +19,15 @@ int login(const char* req, char* res) {
     );
 
     mx_openDB(DATABASE_NAME, &db);
-    mx_select_data(db, "USERS", "*", temp, json);
+    int id = mx_select_data(db, "USERS", "*", temp, json);
     const char *json_str = json_object_to_json_string(json);
+    mx_printstr((char*)json_str);
+    if(id < 0 || mx_strcmp(json_str, "[ ]") == 0) {
+        mx_strcpy(res, mx_create_err_res("Auth error;"));
+        return -1;
+    }
+   
+    
     mx_strcpy(res, json_str);
     sqlite3_close(db);
     return 0;

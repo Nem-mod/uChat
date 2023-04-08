@@ -30,7 +30,8 @@ typedef struct s_callback_data t_callback_data;
 
 typedef enum s_SCENE {
     SIGNUP,
-    SIGNIN
+    SIGNIN,
+    CHAT
 }            t_SCENE;
 
 /* Struct for openSSL connection */
@@ -70,11 +71,32 @@ typedef struct s_signin_scene {
     t_callback_data* cbdata;
 }              t_signin_scene;
 
+/* Struct wich contains GtkWidgets for chat Scene*/
+typedef struct s_chat_scene {
+    GtkWidget *w_chat;     
+    GtkWidget *m_box;        
+    GtkWidget *e_f_chats;
+    GtkWidget *w_sc_chats;  // Window of scrollbar
+    GtkWidget *v_sc_chats;  // Viewport of scrollbar
+    GtkWidget *l_sc_chats;  // List of objects of scrollbar
+    
+    
+    
+    GtkWidget *w_sc_messages;  // Window of scrollbar
+    GtkWidget *v_sc_messages;  // Viewport of scrollbar
+    GtkWidget *l_sc_messages;  // List of objects of scrollbar
+    GtkWidget *e_f_chat;
+    GtkWidget *b_send_message;
+    
+    t_callback_data* cbdata;
+
+}              t_chat_scene;
+
 /* Struct wich contain specific app scenes */
 typedef struct s_uchat_scenes {
     t_signup_scene* signup_scene; // Sign up scene
     t_signin_scene* signin_scene; // Sign in scene
-
+    t_chat_scene* chat_scene;
 }              t_uchat_scenes;
 
 
@@ -111,36 +133,45 @@ typedef struct s_callback_data {
 // }               t_chat;
 
 
-//  ===Callbacks===
-void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
-void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
+//  ===Creators===
+t_uchat_application* mx_create_app(char* argv[]);
+t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
+void mx_create_scenes(t_uchat_application* app);
 
-//  ===Cleaners===
-void mx_clear_app(UNUSED GtkWindow *window, void* data);
-void mx_clear_server_connection(t_serv_connection* s_con);
+/* Get GtkWidget from GtkObj function */
+GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 
 //  ===Connection===
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
-//  ===Creators===
-t_uchat_application* mx_create_app(char* argv[]);
-t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
-void mx_create_scenes(t_uchat_application* app);
-GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
+// ===Init Scenes===
 void mx_init_scene_signin(GtkBuilder *builder, t_uchat_application* app);
 void mx_init_scene_signup(GtkBuilder *builder, t_uchat_application* app);
+void mx_init_scene_chat(GtkBuilder *builder, t_uchat_application* app);
 void mx_init_server_connection(t_uchat_application* app, int port);
 
 //  ===Handlers===
 gboolean mx_handler_change_scene(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
 
+//  ===Callbacks===
+void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
+void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
+void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
+
+
+//  ===Validators===
+
+
 //  ===Json===
 char* mx_create_request(char* type, char* url, json_object* prop);
 t_response *mx_get_response(char* json);
 
-//  ===Validators===
+//  ===Cleaners===
+void mx_clear_app(UNUSED GtkWindow *window, void* data);
+void mx_clear_server_connection(t_serv_connection* s_con);
+
 
 //  ===Other===
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene);

@@ -12,8 +12,7 @@ int main(int argc, char* argv[])
     t_uchat_application* app = mx_create_app(argv);
     
     mx_change_scenes(app, SIGNIN);
-
+    
     gtk_main();
-
     return 0;
 }

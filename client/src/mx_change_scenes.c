@@ -13,6 +13,9 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
         case SIGNIN:
             gtk_widget_show(app->scenes->signin_scene->w_signin);
             break;
+        case CHAT:
+            gtk_widget_show(app->scenes->chat_scene->w_chat);
+            break;
         default:
             break;
     }

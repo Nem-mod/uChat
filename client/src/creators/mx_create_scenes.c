@@ -12,6 +12,8 @@ void mx_create_scenes(t_uchat_application* app) {
     }
 
     app->scenes = malloc(sizeof(t_uchat_scenes));
+    mx_init_scene_chat(builder, app);
     mx_init_scene_signin(builder, app);
     mx_init_scene_signup(builder, app);
+
 }
