@@ -10,14 +10,17 @@
 #include <json.h>
 // #include <regex.h>
 
-#include "client_utils.h"
 #include "connect_utils.h"
 #include "ssl_utils.h"
 #include "log_utils.h"
 #include "libmx.h"
 #include "tables.h"
 
+#define UNUSED __attribute__((unused))
+
 #define IP "127.0.0.1"
+#define SERVER 1
+#define CLIENT 0
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 
@@ -108,34 +111,36 @@ typedef struct s_callback_data {
 // }               t_chat;
 
 
-/* Connect to server function*/
-void mx_init_server_connection(t_uchat_application* app, int port);
+//  ===Callbacks===
+void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
+void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
+
+//  ===Cleaners===
+void mx_clear_app(UNUSED GtkWindow *window, void* data);
+void mx_clear_server_connection(t_serv_connection* s_con);
+
+//  ===Connection===
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
-int main_handler(char* json, t_uchat_application* app);
+//  ===Creators===
 t_uchat_application* mx_create_app(char* argv[]);
-GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
+t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
 void mx_create_scenes(t_uchat_application* app);
-void mx_init_signup(GtkBuilder *builder, t_uchat_application* app);
+GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
+void mx_init_scene_signin(GtkBuilder *builder, t_uchat_application* app);
+void mx_init_scene_signup(GtkBuilder *builder, t_uchat_application* app);
+void mx_init_server_connection(t_uchat_application* app, int port);
 
-/* Create a json string with type, url and property */
-char* mx_create_str_jreq(char* type, char* url, json_object* prop);
+//  ===Handlers===
+gboolean mx_handler_change_scene(gpointer data);
+int mx_main_handler(char* json, t_uchat_application* app);
 
+//  ===Json===
+char* mx_create_request(char* type, char* url, json_object* prop);
+t_response *mx_get_response(char* json);
 
-/* GUI callbacks */
-void mx_registratinon_callback(GtkButton *button, gpointer data);
+//  ===Validators===
 
-
-/* Cleaning */
-void mx_clear_server_connection(t_serv_connection* s_con);
-
-void mx_clear_app(GtkWindow *window, void* data);
-
+//  ===Other===
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene);
-
-void mx_button_change_scenes(GtkButton *button, gpointer data);
-
-gboolean mx_gfunc_change_scenes(gpointer data);
-
-t_callback_data* mx_create_callback_data();
