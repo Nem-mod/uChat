@@ -1,6 +1,5 @@
 #include "client.h"
 
-/* The function waits the server response and copy response to lbuffer of t_serv_connection object*/
 void* mx_listen_server(void* data) {
     char buffer[MAXBUFFER];
     t_uchat_application* app = (t_uchat_application*)data;

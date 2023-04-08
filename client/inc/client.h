@@ -28,6 +28,7 @@
 
 typedef struct s_callback_data t_callback_data;
 
+/* Enum for scene representation */
 typedef enum s_SCENE {
     SIGNUP,
     SIGNIN,
@@ -36,39 +37,39 @@ typedef enum s_SCENE {
 
 /* Struct for openSSL connection */
 typedef struct s_serv_connection {
-    int port;                       //
+    int port;                       // 
     int socket;                     // 
     SSL* ssl;                       // 
-    SSL_CTX* ctx;                   // Context
-    int hs_result;                  // 
-    pthread_t listener_thread; // mutex for listening server
-    char lbuffer[MAXBUFFER];        // buffer for retrive message
-    GThread* thread;
-    //pthread_t writer_mutex;   // mutex for writing to server
+    SSL_CTX* ctx;                   // SSL Context
+    int hs_result;                  // Handshake result 
+    pthread_t listener_thread;      // Mutex for listening server
+    char lbuffer[MAXBUFFER];        // Buffer for retrive message
+    //pthread_t writer_mutex;       // Mutex for writing to server
 }               t_serv_connection;
 
 
-/* Struct wich contains GtkWidgets for SignUp Scene*/
+/* Struct which contains GtkWidgets for SignUp Scene*/
 typedef struct s_signup_scene {
-    GtkWidget *w_signup;      // window signUp
-    GtkWidget *e_f_login;     // entry field {login}
-    GtkWidget *e_f_password;  // entry field {password}
-    GtkWidget *e_f_password2; // entry field {repeat password}
-    GtkWidget *e_f_firstName; // entry field {firstName}
-    GtkWidget *e_f_lastName;  // entry field {lastName}
-    GtkWidget *b_signup;      // button signUp
-    GtkWidget *bl_signin;     // button-link on signIn window
-    t_callback_data* cbdata;
+    GtkWidget *w_signup;        // Window signUp
+    GtkWidget *e_f_login;       // Entry field {login}
+    GtkWidget *e_f_password;    // Entry field {password}
+    GtkWidget *e_f_password2;   // Entry field {repeat password}
+    GtkWidget *e_f_firstName;   // Entry field {firstName}
+    GtkWidget *e_f_lastName;    // Entry field {lastName}
+    GtkWidget *b_signup;        // Button signUp
+    GtkWidget *bl_signin;       // Button-link on signIn window
+    t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
 
+/* Struct which contains GtkWidgets for SignIn Scene*/
 typedef struct s_signin_scene {
-    GtkWidget *w_signin;        // window signIn
-    GtkWidget *e_f_login;       // enter field {login}    
-    GtkWidget *e_f_password;    // enter field {password}
-    GtkWidget *b_signin;        // buttin signIn
-    GtkWidget *bl_signup;       // button-link on signUp window
-    t_callback_data* cbdata;
+    GtkWidget *w_signin;        // Window signIn
+    GtkWidget *e_f_login;       // Enter field {login}    
+    GtkWidget *e_f_password;    // Enter field {password}
+    GtkWidget *b_signin;        // Buttin signIn
+    GtkWidget *bl_signup;       // Button-link on signUp window
+    t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
 /* Struct wich contains GtkWidgets for chat Scene*/
@@ -102,25 +103,27 @@ typedef struct s_uchat_scenes {
 
 /* Struct of client application where main data is stored*/
 typedef struct s_uchat_application {
-    t_serv_connection* serv_connection; // server connection
-    //GtkApplication* gtk_app;            // link to Gtk application 
-    //GtkCssProvider *css_provider;       // link to CSS provider
-    t_uchat_scenes* scenes;              // link to gui scenes
-    t_SCENE active_scene;                   // flag which one scene is active
+    t_serv_connection* serv_connection;     // Server connection structure
+    //GtkApplication* gtk_app;              // Link to Gtk application 
+    //GtkCssProvider *css_provider;         // Link to CSS provider
+    t_uchat_scenes* scenes;                 // Link to gui scenes
+    t_SCENE active_scene;                   // Flag which one scene is active
 
 }              t_uchat_application;
 
+/* JSON response structure */
 typedef struct s_response {   
-    const char* type;
-    const char* url;
-    const char* property;
-    int status;
+    const char* type;       // Type of response (POST, GET, PATCH, DELETE)
+    const char* url;        // Url of response (/auth/me, /auth/register and et)
+    const char* property;   // Additional Data of response
+    int status;             // Status of response (200 - OK, 400 - Bad request and et)
     
 }              t_response;
 
+/* Structure for pass data and t_uchat_application at once in callbacks*/
 typedef struct s_callback_data {
-    t_uchat_application* app;
-    void* data;
+    t_uchat_application* app;   // Application structure where main data is stored
+    void* data;                 // Additional data to transfer 
 
 }              t_callback_data;
 
@@ -133,19 +136,24 @@ typedef struct s_callback_data {
 // }               t_chat;
 
 
-//  ===Creators===
-t_uchat_application* mx_create_app(char* argv[]);
-t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
-void mx_create_scenes(t_uchat_application* app);
+//  ===Callbacks===
+void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
+void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
+void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
 
-/* Get GtkWidget from GtkObj function */
-GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
+//  ===Cleaners===
+void mx_clear_app(UNUSED GtkWindow *window, void* data);
+void mx_clear_server_connection(t_serv_connection* s_con);
 
 //  ===Connection===
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
-// ===Init Scenes===
+//  ===Creators===
+t_uchat_application* mx_create_app(char* argv[]);
+t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
+void mx_create_scenes(t_uchat_application* app);
+GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 void mx_init_scene_signin(GtkBuilder *builder, t_uchat_application* app);
 void mx_init_scene_signup(GtkBuilder *builder, t_uchat_application* app);
 void mx_init_scene_chat(GtkBuilder *builder, t_uchat_application* app);
@@ -155,23 +163,17 @@ void mx_init_server_connection(t_uchat_application* app, int port);
 gboolean mx_handler_change_scene(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
 
-//  ===Callbacks===
-void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
-void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
-void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
 
+
+//  =============================================Json=============================================
+/* Creates request for the server */
+char* mx_create_request(char* type, char* url, json_object* prop);  
+
+/* Disassemble given JSON and puts information in t_response */
+t_response *mx_get_response(char* json);    
 
 //  ===Validators===
 
-
-//  ===Json===
-char* mx_create_request(char* type, char* url, json_object* prop);
-t_response *mx_get_response(char* json);
-
-//  ===Cleaners===
-void mx_clear_app(UNUSED GtkWindow *window, void* data);
-void mx_clear_server_connection(t_serv_connection* s_con);
-
-
-//  ===Other===
-void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene);
+//  =============================================Other=============================================
+/* Hide current scene and show another */
+void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
