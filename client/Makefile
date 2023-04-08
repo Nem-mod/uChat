@@ -15,6 +15,13 @@ UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
 SOURCEDIR 	=	src \
+				src/callbacks \
+				src/cleaners \
+				src/connection \
+				src/creators \
+				src/handlers \
+				src/json \
+				src/validators \
 				$(UTILSDIR)/src
 OBJECTDIR	=	obj
 INCLUDEDIR	=	inc \
