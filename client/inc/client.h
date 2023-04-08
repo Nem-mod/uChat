@@ -39,6 +39,7 @@ typedef struct s_serv_connection {
     int hs_result;                  // 
     pthread_t listener_thread; // mutex for listening server
     char lbuffer[MAXBUFFER];        // buffer for retrive message
+    GThread* thread;
     //pthread_t writer_mutex;   // mutex for writing to server
 }               t_serv_connection;
 
@@ -112,7 +113,7 @@ void mx_init_server_connection(t_uchat_application* app, int port);
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
-int main_handler(char* json);
+int main_handler(char* json, t_uchat_application* app);
 t_uchat_application* mx_create_app(char* argv[]);
 GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 void mx_create_scenes(t_uchat_application* app);
@@ -134,5 +135,7 @@ void mx_clear_app(GtkWindow *window, void* data);
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene);
 
 void mx_button_change_scenes(GtkButton *button, gpointer data);
+
+gboolean mx_gfunc_change_scenes(gpointer data);
 
 t_callback_data* mx_create_callback_data();

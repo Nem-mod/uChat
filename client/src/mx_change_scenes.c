@@ -1,6 +1,8 @@
 #include "client.h"
 
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
+    // gdk_threads_enter();
+
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
     gtk_widget_hide(app->scenes->signup_scene->w_signup);
     
@@ -15,5 +17,6 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
         default:
             break;
     }
-    gtk_main();
+    
+    // gdk_threads_leave();
 }

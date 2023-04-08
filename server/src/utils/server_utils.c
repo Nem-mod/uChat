@@ -57,15 +57,19 @@ void* mx_create_server_client_session(void *server_ssl) {
             mx_memset(&buffer, 0, sizeof(buffer));
             
             mx_SSL_read(ssl, buffer);
-
-            mx_log_msg(SYSLOG, buffer);
+            mx_log_info(SYSLOG, "vvv Get JSON from the client vvv");
+            mx_log_info(SYSLOG, buffer);
 
             
 
             if(mx_strcmp(buffer, ":exit") == 0)
                 break;
             char* res = mx_strdup(main_handler(buffer));
+
             mx_SSL_write(ssl, res);
+            mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
+            mx_log_info(SYSLOG, res);
+
             mx_strdel(&res);
         }
         

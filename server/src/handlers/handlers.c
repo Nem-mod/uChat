@@ -57,6 +57,6 @@ const char* main_handler(char* json){
 
 
     const char *json_res = create_json_response(api->res);
-
+    
     return json_res;
 }

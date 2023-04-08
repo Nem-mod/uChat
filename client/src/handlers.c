@@ -17,11 +17,16 @@ t_response *get_res(char* json) {
     return response_s;
 }
 
-int main_handler(char* json){
+int main_handler(char* json, t_uchat_application* app) {
+    (void)app;
     t_response* res = get_res(json);
 
-    //if (res->status == 200)
-        //exit(1);
+    if (mx_strcmp(res->url, "/auth/register") == 0 && res->status == 200) {
+        mx_log_info(SYSLOG, "Registration success");
+        mx_log_info(SYSLOG, mx_itoa(*(t_SCENE*)app->scenes->signup_scene->cbdata->data));
+        gdk_threads_add_idle((GSourceFunc)mx_gfunc_change_scenes, app->scenes->signup_scene->cbdata);
+    } else if (mx_strcmp(res->url, "/auth/register") == 0)
+        mx_log_info(SYSLOG, "Registration failed");
     return res->status;
 
     // api->get("/users/", api->req, api->res, NULL, getAll_users);
