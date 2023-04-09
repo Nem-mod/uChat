@@ -1,8 +1,9 @@
 #pragma once
 
+#define _XOPEN_SOURCE 700
 #include <stdlib.h>
 #include <sys/time.h>
-
+#include <stdio.h>
 #include "log_utils.h"
 
 #include <openssl/ssl.h>
@@ -26,3 +27,6 @@ int mx_handshake(SSL* ssl, int is_server);
 int mx_SSL_write(SSL* ssl, char* buffer);
 
 int mx_SSL_read(SSL* ssl, char* buffer);
+
+int mx_SSL_sendfile(SSL* ssl, char* filename);
+int mx_SSL_readfile(SSL* ssl, char* filename);

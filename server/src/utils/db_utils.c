@@ -46,7 +46,7 @@ void mx_create_users_table(sqlite3 *db) {
         "first_name     VARCHAR(64)     NOT NULL," \
         "last_name      VARCHAR(64)     NOT NULL," \
         "user_token      VARCHAR(255)     NOT NULL,"
-        "PROFILE_PHOTO  BLOB)";
+        "PROFILE_IMG_PATH  VARCHAR(255))";
     mx_create_table(db, sql, mx_callback);
 }
 
@@ -64,7 +64,8 @@ void mx_create_contacts_table(sqlite3 *db) {
 void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
         "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "group_name   VARCHAR(64)         NOT NULL)";
+        "group_name   VARCHAR(64)         NOT NULL," \
+        "GROUP_IMG_PATH  VARCHAR(255))";
 
     mx_create_table(db, sql, mx_callback); 
 }

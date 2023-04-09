@@ -1,5 +1,6 @@
 #include "ssl_utils.h"
 
+
 SSL_CTX* mx_init_context(bool is_server) {
     SSL_CTX *ctx;
 
@@ -128,6 +129,57 @@ int mx_SSL_read(SSL* ssl, char* buffer) {
         mx_log_err(SYSLOG, "Unable to read msg");   
         mx_SSL_log_print_error(ssl, result);
     }
-
     return result;
 }
+
+int mx_SSL_sendfile(SSL* ssl, char* filename) {
+    FILE* fd = fopen(filename, "r");
+    if (fd == NULL) {
+        fclose(fd);
+        return -1;
+    }
+
+    // Send file over SSL/TLS connection
+    off_t offset = 0;
+    ssize_t bytes_sent;
+    while ((bytes_sent = SSL_sendfile(ssl, fileno(fd), offset, MAXBUFFER, 0)) > 0) {
+        // Break out of the loop if we have sent the entire file
+        if (offset == 0)
+        {
+            break;
+        }
+    }
+    fclose(fd);
+    return (int)offset;
+}
+
+int mx_SSL_readfile(SSL* ssl, char* filename) {
+    FILE* fd = fopen(filename, "w+");
+    if (fd == NULL) {
+        fclose(fd);
+        return -1;
+    }
+
+    char buffer[MAXBUFFER];
+    int bytes_received;
+    int total_bytes_received = 0;
+
+    while ((bytes_received = SSL_read(ssl, buffer, MAXBUFFER)) > 0) {
+        if ((int)fwrite(buffer, sizeof(char), bytes_received, fd) != bytes_received) {
+            fclose(fd);
+            return -1;
+        }
+        total_bytes_received += bytes_received;
+    }
+
+    if (bytes_received < 0) {
+        fclose(fd);
+        return -1;
+    }
+
+    fclose(fd);
+    return total_bytes_received;
+}
+
+
+
