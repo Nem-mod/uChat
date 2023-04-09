@@ -173,13 +173,20 @@ int create_message(const char* req, char* res){
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
     struct json_object *juser_id = json_object_object_get(jobj, "user_id"); 
     struct json_object *jmessage= json_object_object_get(jobj, "message_text"); 
-    struct json_object *jdtime = json_object_object_get(jobj, "sent_datatime"); 
+    struct json_object *jdtime = json_object_object_get(jobj, "sent_datatime");
+
 
     t_message message;
     message.group_id = json_object_get_int(jgroup_id);
     message.user_id = json_object_get_int(juser_id);
     mx_strcpy(message.message_text, json_object_get_string(jmessage));
     mx_strcpy(message.sent_datatime, json_object_get_string(jdtime));
+    if(mx_strstr(res, "message_file_path") != NULL) {
+        struct json_object *jfpath = json_object_object_get(jobj, "message_file_path");
+        mx_strcpy(message.message_file_path, json_object_get_string(jfpath));
+    }
+
+
     mx_openDB(DATABASE_NAME, &db);
     mx_insert_message(db, &message);
     

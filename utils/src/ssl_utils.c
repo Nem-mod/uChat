@@ -132,29 +132,29 @@ int mx_SSL_read(SSL* ssl, char* buffer) {
     return result;
 }
 
-int mx_SSL_sendfile(SSL* ssl, char* filename) {
-    FILE* fd = fopen(filename, "r");
+int mx_SSL_sendfile(SSL* ssl, char* path) {
+    FILE* fd = fopen(path, "r");
+    char buffer[MAXBUFFER];
+    int len;
     if (fd == NULL) {
         fclose(fd);
         return -1;
     }
 
-    // Send file over SSL/TLS connection
-    off_t offset = 0;
-    ssize_t bytes_sent;
-    while ((bytes_sent = SSL_sendfile(ssl, fileno(fd), offset, MAXBUFFER, 0)) > 0) {
-        // Break out of the loop if we have sent the entire file
-        if (offset == 0)
-        {
-            break;
-        }
+    int as = 0;
+    while ((len = fread(buffer, 1, MAXBUFFER, fd)) > 0) {
+        int sent = SSL_write(ssl, buffer, len);
+        as += sent;
+        if (sent < 0) 
+            mx_log_err("log_err.txt", "SSL_write() error");
     }
+    // mx_log_err("sent.txt", mx_itoa(as));
     fclose(fd);
-    return (int)offset;
+    return len;
 }
 
-int mx_SSL_readfile(SSL* ssl, char* filename) {
-    FILE* fd = fopen(filename, "w+");
+int mx_SSL_readfile(SSL* ssl, char* path, int size) {
+    FILE* fd = fopen(path, "w+");
     if (fd == NULL) {
         fclose(fd);
         return -1;
@@ -163,20 +163,27 @@ int mx_SSL_readfile(SSL* ssl, char* filename) {
     char buffer[MAXBUFFER];
     int bytes_received;
     int total_bytes_received = 0;
-
-    while ((bytes_received = SSL_read(ssl, buffer, MAXBUFFER)) > 0) {
+    bytes_received = SSL_read(ssl, buffer, MAXBUFFER);
+    total_bytes_received += bytes_received;
+    //mx_log_err("rec.txt", "Rec start");
+    while (total_bytes_received <= size) {
+        // mx_log_err("rec.txt", mx_itoa(bytes_received));
+        // mx_log_err("rec.txt", "\n");
         if ((int)fwrite(buffer, sizeof(char), bytes_received, fd) != bytes_received) {
             fclose(fd);
             return -1;
         }
         total_bytes_received += bytes_received;
+        // mx_log_err("rec.txt", mx_itoa(total_bytes_received));
+        // mx_log_err("rec.txt", "\n");
+        // mx_log_err("rec.txt", buffer);
     }
 
     if (bytes_received < 0) {
         fclose(fd);
         return -1;
     }
-
+    mx_log_err("rec.txt", "Rec end");
     fclose(fd);
     return total_bytes_received;
 }

@@ -13,7 +13,8 @@ typedef struct s_user {
     char nick_name[MAX_NAME_LEN + 1];
     char first_name[MAX_NAME_LEN + 1];
     char last_name[MAX_NAME_LEN + 1];
-    sqlite3_blob* profile_photo;
+    char profile_img_path[MAX_NAME_LEN + 1];
+    int size;
 }              t_user;
 
 typedef struct s_tp {
@@ -29,6 +30,8 @@ typedef struct s_contact {
 typedef struct s_group {
     int group_id;
     char group_name[MAX_NAME_LEN + 1];
+    char group_img_path[MAX_NAME_LEN + 1];
+    int size;
 }              t_group;
 
 typedef struct s_group_member {
@@ -43,8 +46,8 @@ typedef struct s_message {
     int user_id;
     char message_text[MAX_MESSAGE_TEXT_LEN + 1];
     char sent_datatime[MAX_SENT_DATATIME_LEN + 1];
-    sqlite3_blob* message_file;
-    int file_size;
+    char message_file_path[MAX_NAME_LEN + 1];
+    int size;
 }              t_message;
 
 

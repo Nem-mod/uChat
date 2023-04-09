@@ -46,28 +46,57 @@ int mx_init_daemon() {
     return 0;
 }
 
+int mx_handle_post_file(char* req, char** filename) {
+    struct json_object *jobj = json_tokener_parse(req);
+    struct json_object *jtype = json_object_object_get(jobj, "type");
+    if(mx_strcmp(json_object_get_string(jtype), "POST-FILE")){
+        return 0;
+    }
+
+    struct json_object *jfilename = json_object_object_get(jobj, "filename");
+    *filename = (char*)json_object_get_string(jfilename);
+    struct json_object *jsize = json_object_object_get(jobj, "size");
+    return json_object_get_int(jsize);
+}
+
 void* mx_create_server_client_session(void *server_ssl) {
     SSL *ssl = (SSL*)server_ssl;
     int hs_result;
     char buffer[MAXBUFFER];
-    
+    int file_flag = 0;
+    char* filename = NULL;
     hs_result = mx_handshake(ssl, SERVER);
+    int filesize;
     if (hs_result != 0) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
+            switch (file_flag)
+            {
+            case 0:
+                mx_SSL_read(ssl, buffer);
+                mx_log_info(SYSLOG, buffer);
+                break;
             
-            mx_SSL_read(ssl, buffer);
-            mx_log_info(SYSLOG, "vvv Get JSON from the client vvv");
-            mx_log_info(SYSLOG, buffer);
-
+            case 1:
+                mx_SSL_readfile(ssl, mx_strjoin("res/" , filename), filesize);
+                file_flag = 0;
+                // mx_log_info(SYSLOG, mx_itoa(file_flag));
+                continue;
+                break;
+            }
             
-
             if(mx_strcmp(buffer, ":exit") == 0)
                 break;
+            
+            if((filesize = mx_handle_post_file(buffer, &filename)) > 0) {
+                file_flag = 1;
+                // mx_log_info(SYSLOG, mx_itoa(file_flag));
+                continue;
+            }
             char* res = mx_strdup(main_handler(buffer));
 
             mx_SSL_write(ssl, res);
-            mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
+            // mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
             mx_log_info(SYSLOG, res);
 
             mx_strdel(&res);

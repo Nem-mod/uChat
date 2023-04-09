@@ -45,8 +45,9 @@ void mx_create_users_table(sqlite3 *db) {
         "nick_name      VARCHAR(64)     NOT NULL," \
         "first_name     VARCHAR(64)     NOT NULL," \
         "last_name      VARCHAR(64)     NOT NULL," \
-        "user_token      VARCHAR(255)     NOT NULL,"
-        "PROFILE_IMG_PATH  VARCHAR(255))";
+        "user_token      VARCHAR(255)     NOT NULL," \
+        "file_size      INTEGER," \
+        "profile_img_path  VARCHAR(255))";
     mx_create_table(db, sql, mx_callback);
 }
 
@@ -65,7 +66,8 @@ void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
         "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
         "group_name   VARCHAR(64)         NOT NULL," \
-        "GROUP_IMG_PATH  VARCHAR(255))";
+        "file_size      INTEGER," \
+        "group_img_path  VARCHAR(255))";
 
     mx_create_table(db, sql, mx_callback); 
 }
@@ -91,7 +93,7 @@ void mx_create_messages_table(sqlite3* db) {
         "user_id        INTEGER     NOT NULL," \
         "message_text   TEXT        NOT NULL," \
         "sent_datatime  TEXT        NOT NULL," \
-        "message_file   BLOB," \
+        "message_file_path   VARCHAR(225)," \
         "file_size      INTEGER,"
         "CONSTRAINT FK1_MESSAGES \
             FOREIGN KEY (group_id) \
@@ -188,9 +190,17 @@ int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
 int mx_insert_message(sqlite3* db, t_message* message) {
     char sql[255];
     int last_row_id = 0;
-    sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \
-    "VALUES(\"%d\", \"%d\", \"%s\", \"%s\");",
-    message->group_id, message->user_id, message->message_text, message->sent_datatime);
+    if(message->message_file_path[0] != 0) {
+        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime, message_file_path)"  \
+            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\", \"%s\");",
+            message->group_id, message->user_id, message->message_text,
+            message->sent_datatime, message->message_file_path);
+
+    } else {
+        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \
+            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\");",
+            message->group_id, message->user_id, message->message_text, message->sent_datatime);
+    }
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return -1;
