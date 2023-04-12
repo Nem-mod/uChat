@@ -39,6 +39,8 @@ typedef struct s_response {
     const char* type;
     const char* url;
     char* property;
+    char* file;
+    int file_size;
     int status;
     
 }              t_response;
@@ -61,7 +63,7 @@ typedef struct s_SERVER_API {
 }              t_SERVER_API;
 
 
-const char* main_handler(char* json); 
+const char* main_handler(SSL* ssl, char* json); 
 
 int get(char* url, t_request* req,  t_response* res, t_validator validator, t_controller  controller);
 int post(char* url, t_request* req,  t_response* res, t_validator validator, t_controller  controller);

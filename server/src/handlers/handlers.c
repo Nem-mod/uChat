@@ -26,7 +26,7 @@ t_response *init_res(char* json){
     return response_s;
 }
 
-const char* main_handler(char* json){
+const char* main_handler(SSL* ssl, char* json){
     t_SERVER_API* api = malloc(sizeof(t_SERVER_API));
     api->req = get_req(json);
     api->res = init_res(json);
@@ -57,6 +57,7 @@ const char* main_handler(char* json){
 
 
     const char *json_res = create_json_response(api->res);
+    mx_SSL_write(ssl, (char*)json_res);
     
     return json_res;
 }

@@ -3,6 +3,7 @@
 #define _XOPEN_SOURCE 700
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include "log_utils.h"
 
@@ -29,4 +30,4 @@ int mx_SSL_write(SSL* ssl, char* buffer);
 int mx_SSL_read(SSL* ssl, char* buffer);
 
 int mx_SSL_sendfile(SSL* ssl, char* path);
-int mx_SSL_readfile(SSL* ssl, char* path, int size);
+unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size);

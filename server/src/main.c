@@ -43,10 +43,10 @@ int main(int argc, char* argv[])
         struct sockaddr_in client_addr;
         socklen_t addr_size = sizeof(client_addr);
         int client_sock     = mx_accept(server_sock, (struct sockaddr*)&client_addr, &addr_size);
-        
+        if(client_sock) 
+            active_sock++;
         ssl = mx_init_SSL_session(ctx, client_sock);
         pthread_create(&thread_id, NULL, mx_create_server_client_session, (void*)ssl);
-        active_sock++;
     }
 
     close(server_sock);

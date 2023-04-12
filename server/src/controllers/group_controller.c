@@ -181,9 +181,9 @@ int create_message(const char* req, char* res){
     message.user_id = json_object_get_int(juser_id);
     mx_strcpy(message.message_text, json_object_get_string(jmessage));
     mx_strcpy(message.sent_datatime, json_object_get_string(jdtime));
-    if(mx_strstr(res, "message_file_path") != NULL) {
-        struct json_object *jfpath = json_object_object_get(jobj, "message_file_path");
-        mx_strcpy(message.message_file_path, json_object_get_string(jfpath));
+    if(mx_strstr(res, "file_name") != NULL) {
+        struct json_object *jfpath = json_object_object_get(jobj, "file_name");
+        mx_strcpy(message.file_name, json_object_get_string(jfpath));
     }
 
 
