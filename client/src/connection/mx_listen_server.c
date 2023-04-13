@@ -11,7 +11,7 @@ void* mx_listen_server(void* data) {
             mx_log_info(SYSLOG, "Ready to listen");
             
             mx_memset(&buffer, 0, sizeof(buffer));
-            mx_SSL_read(app->serv_connection->ssl, buffer);
+            if(mx_SSL_read(app->serv_connection->ssl, buffer) == -1) break;;
             if(buffer[0] != 0) {
                 mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
                 mx_log_info(SYSLOG, buffer);

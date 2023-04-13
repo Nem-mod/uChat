@@ -116,6 +116,7 @@ int mx_SSL_write(SSL* ssl, char* buffer) {
     if (result <= 0) {
         mx_log_err(SYSLOG, "Unable to write msg");   
         mx_SSL_log_print_error(ssl, result);
+        return -1;
     }
 
     return result;
@@ -128,11 +129,12 @@ int mx_SSL_read(SSL* ssl, char* buffer) {
     if (result <= 0) {
         mx_log_err(SYSLOG, "Unable to read msg");   
         mx_SSL_log_print_error(ssl, result);
+        return -1;
     }
     return result;
 }
 
-int mx_SSL_sendfile(SSL* ssl, char* path) {
+unsigned int mx_SSL_sendfile(SSL* ssl, char* path, unsigned int prepsize) {
     FILE* fd = fopen(path, "r");
     char buffer[MAXBUFFER];
     int len;
@@ -141,8 +143,8 @@ int mx_SSL_sendfile(SSL* ssl, char* path) {
         return -1;
     }
 
-    int as = 0;
-    while ((len = fread(buffer, 1, MAXBUFFER, fd)) > 0) {
+    unsigned int as = 0;
+    while ((len = fread(buffer, 1, MAXBUFFER, fd)) > 0 && as < prepsize) {
         int sent = SSL_write(ssl, buffer, len);
         as += sent;
         if (sent < 0) 
@@ -163,7 +165,7 @@ unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size) {
     //     mx_strjoin(path, "1");
     //     mx_log_err("rec.txt", "File ex");
     // }
-    mx_log_err("rec.txt", mx_itoa((int)size));
+    //mx_log_err("rec.txt", mx_itoa((int)size));
     FILE* fd = fopen(path, "w+");
     if (fd == NULL) {
         fclose(fd);
@@ -174,20 +176,20 @@ unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size) {
     unsigned int bytes_received;
     unsigned int total_bytes_received = 0;
     total_bytes_received = 0 ;
-    mx_log_err("rec.txt", "Rec start");
+    //mx_log_err("rec.txt", "Rec start");
     while (total_bytes_received < size) {
         mx_memset(&buffer, 0, sizeof(buffer));
         bytes_received = SSL_read(ssl, buffer, MAXBUFFER);
         
-        mx_log_err("rec.txt", mx_itoa(bytes_received));
-        mx_log_err("rec.txt", "\n");
+        //mx_log_err("rec.txt", mx_itoa(bytes_received));
+        //mx_log_err("rec.txt", "\n");
         if ((int)fwrite(buffer, sizeof(char), bytes_received, fd) != (int)bytes_received) {
             fclose(fd);
             return -1;
         }
         total_bytes_received += bytes_received;
-        mx_log_err("rec.txt", mx_itoa(total_bytes_received));
-        mx_log_err("rec.txt", buffer);
+        // mx_log_err("rec.txt", mx_itoa(total_bytes_received));
+        // mx_log_err("rec.txt", buffer);
         
         
     }

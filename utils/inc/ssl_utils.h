@@ -29,5 +29,5 @@ int mx_SSL_write(SSL* ssl, char* buffer);
 
 int mx_SSL_read(SSL* ssl, char* buffer);
 
-int mx_SSL_sendfile(SSL* ssl, char* path);
+unsigned int mx_SSL_sendfile(SSL* ssl, char* path, unsigned int prepsize);
 unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size);

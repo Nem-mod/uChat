@@ -72,28 +72,29 @@ void* mx_create_server_client_session(void *server_ssl) {
     if (hs_result != 0) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
-            switch (file_flag)
-            {
-            case 0:
-                mx_SSL_read(ssl, buffer);
-                mx_log_info(SYSLOG, buffer);
-                break;
             
-            case 1:
+            if(file_flag == 0){
+                if(mx_SSL_read(ssl, buffer) == -1) break;
+                //mx_log_info(SYSLOG, buffer);
+            }
+            else {
                 mx_SSL_readfile(ssl, mx_strjoin("res/" , filename), filesize);
                 file_flag = 0;
-                mx_log_info(SYSLOG, mx_itoa(file_flag));
+                //mx_log_info(SYSLOG, mx_itoa(file_flag));
                 // mx_log_info(SYSLOG, mx_itoa(file_flag));
                 continue;
-                break;
-            }
+            }  
+               
+            
+            
+                
             
             if(mx_strcmp(buffer, ":exit") == 0)
                 break;
             
             if((filesize = mx_handle_post_file(buffer, &filename)) > 0) {
                 file_flag = 1;
-                mx_log_info(SYSLOG, mx_itoa(file_flag));
+                //mx_log_info(SYSLOG, mx_itoa(file_flag));
                 continue;
             }
             
