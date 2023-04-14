@@ -22,11 +22,12 @@ t_response *init_res(char* json){
     t_response* response_s = malloc(sizeof(t_response));
     response_s->type = json_object_get_string(jtype);
     response_s->url = json_object_get_string(jurl);
-    response_s->property = malloc(sizeof(char) * 4096);
+    response_s->property = NULL;
     return response_s;
 }
 
 const char* main_handler(SSL* ssl, char* json){
+    //if(ssl && json){}
     t_SERVER_API* api = malloc(sizeof(t_SERVER_API));
     api->req = get_req(json);
     api->res = init_res(json);
@@ -54,10 +55,19 @@ const char* main_handler(SSL* ssl, char* json){
 
     api->get("/auth/me", api->req, api->res, login_validation, login);
     api->post("/auth/register", api->req, api->res, register_validation, registration);
+    const char *json_res;
+    struct json_object *jobj = json_tokener_parse(api->res->property);
+    mx_log_info("jsf.txt",  "sss\n");
+    for(size_t i = 0; i < json_object_array_length(jobj); i++) {
+        struct json_object *jtmp = json_object_array_get_idx(jobj, i);
+         mx_log_info("jsf.txt",  "sss\n");
+        mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jtmp));
+        json_res = create_json_response(api->res, (char*)json_object_to_json_string(jtmp));
+        mx_SSL_write(ssl, (char*)json_res);
+    }
 
-
-    const char *json_res = create_json_response(api->res);
-    mx_SSL_write(ssl, (char*)json_res);
     
-    return json_res;
+    if(api->res->property)
+        mx_strdel(&api->res->property);
+    return NULL;
 }

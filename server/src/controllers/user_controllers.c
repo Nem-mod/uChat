@@ -1,6 +1,6 @@
 #include "server.h"
 
-int getAll_users(const char* req, char* res) {
+int getAll_users(const char* req, char** res) {
     if(req == NULL)
         return -1;
     
@@ -9,14 +9,14 @@ int getAll_users(const char* req, char* res) {
     mx_openDB(DATABASE_NAME, &db);
     mx_select_data(db, "USERS", "*", NULL, json);
     const char *json_str = json_object_to_json_string(json);
-    mx_strcpy(res, json_str);
+    *res = mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
 
-int get_users_by_name(const char* req, char* res){
+int get_users_by_name(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -39,13 +39,13 @@ int get_users_by_name(const char* req, char* res){
     mx_openDB(DATABASE_NAME, &db);
     mx_select_data(db, "USERS", "*", temp, json);
     const char *json_str = json_object_to_json_string(json);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int get_users_by_id(const char* req, char* res){
+int get_users_by_id(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -65,13 +65,13 @@ int get_users_by_id(const char* req, char* res){
     mx_openDB(DATABASE_NAME, &db);
     mx_select_data(db, "USERS", "*", temp, json);
     const char *json_str = json_object_to_json_string(json);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int add_contact(const char* req, char* res){
+int add_contact(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -84,7 +84,7 @@ int add_contact(const char* req, char* res){
     mx_openDB(DATABASE_NAME, &db);
     mx_insert_contact(db, json_object_get_int(juser_id), json_object_get_int(juser_contact_id));
     const char *json_str = json_object_to_json_string(jobj);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;

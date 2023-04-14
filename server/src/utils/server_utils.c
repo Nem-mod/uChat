@@ -46,7 +46,7 @@ int mx_init_daemon() {
     return 0;
 }
 
-unsigned int mx_handle_post_file(char* req, char** filename) {
+unsigned long mx_handle_post_file(char* req, char** filename) {
     struct json_object *jobj = json_tokener_parse(req);
     struct json_object *jtype = json_object_object_get(jobj, "type");
     mx_log_info(SYSLOG, (req));
@@ -68,7 +68,7 @@ void* mx_create_server_client_session(void *server_ssl) {
     int file_flag = 0;
     char* filename = NULL;
     hs_result = mx_handshake(ssl, SERVER);
-    int filesize;
+    unsigned long  filesize;
     if (hs_result != 0) {
         while (1) {
             mx_memset(&buffer, 0, sizeof(buffer));
@@ -78,7 +78,7 @@ void* mx_create_server_client_session(void *server_ssl) {
                 //mx_log_info(SYSLOG, buffer);
             }
             else {
-                mx_SSL_readfile(ssl, mx_strjoin("res/" , filename), filesize);
+                mx_SSL_readfile(ssl, mx_strjoin(RESPATH , filename), filesize);
                 file_flag = 0;
                 //mx_log_info(SYSLOG, mx_itoa(file_flag));
                 // mx_log_info(SYSLOG, mx_itoa(file_flag));

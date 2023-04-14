@@ -46,7 +46,7 @@ void mx_create_users_table(sqlite3 *db) {
         "first_name     VARCHAR(64)     NOT NULL," \
         "last_name      VARCHAR(64)     NOT NULL," \
         "user_token      VARCHAR(255)     NOT NULL," \
-        "file_size      INTEGER," \
+        "file_size      UNSIGNED BIG INT," \
         "file_name  VARCHAR(255))";
     mx_create_table(db, sql, mx_callback);
 }
@@ -66,7 +66,7 @@ void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
         "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
         "group_name   VARCHAR(64)         NOT NULL," \
-        "file_size      INTEGER," \
+        "file_size      UNSIGNED BIG INT," \
         "file_name  VARCHAR(255))";
 
     mx_create_table(db, sql, mx_callback); 
@@ -94,7 +94,7 @@ void mx_create_messages_table(sqlite3* db) {
         "message_text   TEXT        NOT NULL," \
         "sent_datatime  TEXT        NOT NULL," \
         "file_name   VARCHAR(225)," \
-        "file_size      INTEGER,"
+        "file_size      UNSIGNED BIG INT,"
         "CONSTRAINT FK1_MESSAGES \
             FOREIGN KEY (group_id) \
             REFERENCES GROUPS(group_id)" \
