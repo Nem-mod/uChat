@@ -26,6 +26,7 @@
 
 #define RESOURCE_GUI_PATH "client/Resources/gui/"
 
+
 typedef struct s_callback_data t_callback_data;
 
 /* Enum for scene representation */

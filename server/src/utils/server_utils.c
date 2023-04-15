@@ -54,9 +54,9 @@ unsigned long mx_handle_post_file(char* req, char** filename) {
         return 0;
     }
 
-    struct json_object *jfilename = json_object_object_get(jobj, "filename");
+    struct json_object *jfilename = json_object_object_get(jobj, "file_name");
     *filename = (char*)json_object_get_string(jfilename);
-    struct json_object *jsize = json_object_object_get(jobj, "size");
+    struct json_object *jsize = json_object_object_get(jobj, "file_size");
     mx_log_info(SYSLOG, (req));
     return json_object_get_uint64(jsize);
 }
@@ -84,10 +84,6 @@ void* mx_create_server_client_session(void *server_ssl) {
                 // mx_log_info(SYSLOG, mx_itoa(file_flag));
                 continue;
             }  
-               
-            
-            
-                
             
             if(mx_strcmp(buffer, ":exit") == 0)
                 break;
@@ -99,7 +95,7 @@ void* mx_create_server_client_session(void *server_ssl) {
             }
             
             // mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
-            mx_log_info(SYSLOG, (char*)main_handler(ssl, buffer));
+            main_handler(ssl, buffer);
 
         }
         

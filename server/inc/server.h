@@ -21,7 +21,7 @@
 #define CERTPATH "server/cert+key/server.crt"
 #define KEYPATH "server/cert+key/server.key"
 
-#define RESPATH "server/Resources"
+#define RESPATH "server/Resources/"
 #define SEED 2454193
 #define SUCCESSFUL_RES 200
 #define BAD_REQ 400

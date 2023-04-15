@@ -166,6 +166,7 @@ unsigned long mx_SSL_readfile(SSL* ssl, char* path, unsigned long size) {
     //     mx_log_err("rec.txt", "File ex");
     // }
     //mx_log_err("rec.txt", mx_itoa((int)size));
+
     FILE* fd = fopen(path, "w+");
     if (fd == NULL) {
         fclose(fd);
@@ -194,7 +195,7 @@ unsigned long mx_SSL_readfile(SSL* ssl, char* path, unsigned long size) {
         
     }
 
-    mx_log_err("rec.txt", "Rec end");
+    //mx_log_err("rec.txt", "Rec end");
     fclose(fd);
     return total_bytes_received;
 }
