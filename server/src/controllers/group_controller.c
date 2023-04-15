@@ -1,5 +1,5 @@
 #include "server.h"
-int get_group(const char* req, char* res){
+int get_group(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -22,14 +22,15 @@ int get_group(const char* req, char* res){
     mx_select_data(db, "GROUPS", "*", temp, json);
     if(res != NULL){
         const char *json_str = json_object_to_json_string(json);
-        mx_strcpy(res, json_str);
+        *res =  mx_strdup((char*)json_str);
     }
             
     sqlite3_close(db);
 
     return group_id;
 }
-int create_group(const char* req, char* res){
+
+int create_group(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -47,13 +48,13 @@ int create_group(const char* req, char* res){
     group.group_id = mx_insert_group(db, &group);
     mx_insert_group_member(db, &group, &user);
     const char *json_str = json_object_to_json_string(jobj);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int delete_group(const char* req, char* res){
+int delete_group(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -69,13 +70,13 @@ int delete_group(const char* req, char* res){
     );
     mx_delete_data(db, "GROUPS", temp);
     const char *json_str = json_object_to_json_string(jobj);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int get_group_members(const char* req, char* res){
+int get_group_members(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -96,23 +97,24 @@ int get_group_members(const char* req, char* res){
     json_object *json_user_arr =  json_object_new_array();
     int arr_len = json_object_array_length(json_arr);
     for(int i = 0; i < arr_len; i++) {
-        char json_user_str[256];
+        char* json_user_str = NULL;
         json_object* jarray_obj = json_object_array_get_idx(json_arr, i);
         const char* arr_obj_str = json_object_to_json_string(jarray_obj);
-        get_users_by_id(arr_obj_str, json_user_str);
+        get_users_by_id(arr_obj_str, &json_user_str);
         struct json_object *juser = json_tokener_parse(json_user_str);
         json_object_array_add(json_user_arr, juser);
+        mx_strdel(&json_user_str);
     }
 
     const char *group_members_json_str = json_object_to_json_string(json_user_arr);
-    mx_strcpy(res, group_members_json_str);
+    *res =  mx_strdup((char*)group_members_json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
 
-int insert_group_members(const char* req, char* res){
+int insert_group_members(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -132,13 +134,13 @@ int insert_group_members(const char* req, char* res){
 
 
     const char *group_members_json_str = json_object_to_json_string(jobj);
-    mx_strcpy(res, group_members_json_str);
+    *res =  mx_strdup((char*)group_members_json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int get_messages(const char* req, char* res) {
+int get_messages(const char* req, char** res) {
     if(req == NULL)
         return -1;
     
@@ -157,13 +159,13 @@ int get_messages(const char* req, char* res) {
     mx_openDB(DATABASE_NAME, &db);
     mx_select_data(db, "MESSAGES", "*", temp, json);
     const char *json_str = json_object_to_json_string(json);
-    mx_strcpy(res, json_str);
+    *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
     return 0;
 }
 
-int create_message(const char* req, char* res){
+int create_message(const char* req, char** res){
     if(req == NULL)
         return -1;
     
@@ -181,7 +183,7 @@ int create_message(const char* req, char* res){
     message.user_id = json_object_get_int(juser_id);
     mx_strcpy(message.message_text, json_object_get_string(jmessage));
     mx_strcpy(message.sent_datatime, json_object_get_string(jdtime));
-    if(mx_strstr(res, "file_name") != NULL) {
+    if(mx_strstr(req, "file_name") != NULL) {
         struct json_object *jfpath = json_object_object_get(jobj, "file_name");
         mx_strcpy(message.file_name, json_object_get_string(jfpath));
     }
@@ -191,7 +193,7 @@ int create_message(const char* req, char* res){
     mx_insert_message(db, &message);
     
     const char *group_members_json_str = json_object_to_json_string(jobj);
-    mx_strcpy(res, group_members_json_str);
+    *res =  mx_strdup((char*)group_members_json_str);
     sqlite3_close(db);
     
     return 0;

@@ -134,7 +134,7 @@ int mx_SSL_read(SSL* ssl, char* buffer) {
     return result;
 }
 
-unsigned int mx_SSL_sendfile(SSL* ssl, char* path, unsigned int prepsize) {
+unsigned long  mx_SSL_sendfile(SSL* ssl, char* path, unsigned long  prepsize) {
     FILE* fd = fopen(path, "r");
     char buffer[MAXBUFFER];
     int len;
@@ -143,7 +143,7 @@ unsigned int mx_SSL_sendfile(SSL* ssl, char* path, unsigned int prepsize) {
         return -1;
     }
 
-    unsigned int as = 0;
+    unsigned long  as = 0;
     while ((len = fread(buffer, 1, MAXBUFFER, fd)) > 0 && as < prepsize) {
         int sent = SSL_write(ssl, buffer, len);
         as += sent;
@@ -160,12 +160,13 @@ unsigned int mx_SSL_sendfile(SSL* ssl, char* path, unsigned int prepsize) {
 //   return (stat (filename, &buffer) == 0);
 // }
 
-unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size) {
+unsigned long mx_SSL_readfile(SSL* ssl, char* path, unsigned long size) {
     // if(file_exists(path)) {
     //     mx_strjoin(path, "1");
     //     mx_log_err("rec.txt", "File ex");
     // }
     //mx_log_err("rec.txt", mx_itoa((int)size));
+
     FILE* fd = fopen(path, "w+");
     if (fd == NULL) {
         fclose(fd);
@@ -173,8 +174,8 @@ unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size) {
     }
 
     char buffer[MAXBUFFER];
-    unsigned int bytes_received;
-    unsigned int total_bytes_received = 0;
+    unsigned long bytes_received;
+    unsigned long total_bytes_received = 0;
     total_bytes_received = 0 ;
     //mx_log_err("rec.txt", "Rec start");
     while (total_bytes_received < size) {
@@ -194,7 +195,7 @@ unsigned int mx_SSL_readfile(SSL* ssl, char* path, unsigned int size) {
         
     }
 
-    mx_log_err("rec.txt", "Rec end");
+    //mx_log_err("rec.txt", "Rec end");
     fclose(fd);
     return total_bytes_received;
 }

@@ -46,7 +46,7 @@ void mx_create_users_table(sqlite3 *db) {
         "first_name     VARCHAR(64)     NOT NULL," \
         "last_name      VARCHAR(64)     NOT NULL," \
         "user_token      VARCHAR(255)     NOT NULL," \
-        "file_size      INTEGER," \
+        "file_size      UNSIGNED BIG INT," \
         "file_name  VARCHAR(255))";
     mx_create_table(db, sql, mx_callback);
 }
@@ -66,7 +66,7 @@ void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
         "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
         "group_name   VARCHAR(64)         NOT NULL," \
-        "file_size      INTEGER," \
+        "file_size      UNSIGNED BIG INT," \
         "file_name  VARCHAR(255))";
 
     mx_create_table(db, sql, mx_callback); 
@@ -94,7 +94,7 @@ void mx_create_messages_table(sqlite3* db) {
         "message_text   TEXT        NOT NULL," \
         "sent_datatime  TEXT        NOT NULL," \
         "file_name   VARCHAR(225)," \
-        "file_size      INTEGER,"
+        "file_size      UNSIGNED BIG INT,"
         "CONSTRAINT FK1_MESSAGES \
             FOREIGN KEY (group_id) \
             REFERENCES GROUPS(group_id)" \
@@ -134,11 +134,23 @@ int mx_insert_user(sqlite3* db, t_user* data, char** errMsg) {
     char sql[255];
     int last_row_id = 0;
     char* token = create_token(strlen(data->login) * 3);
-    sprintf(sql, "INSERT INTO USERS(login, password, nick_name, first_name, last_name, user_token)"  \
-    "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");",
-    data->login, data->password, 
-    data->login, data->first_name, 
-    data->last_name, token);
+
+    if(data->size != 0) {
+        sprintf(sql, "INSERT INTO USERS(login, password, nick_name, first_name, last_name, user_token, file_name, file_size)"  \
+        "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%d\");",
+        data->login, data->password, 
+        data->login, data->first_name, 
+        data->last_name, token,
+        data->file_name, data->size);
+    } else {
+        sprintf(sql, "INSERT INTO USERS(login, password, nick_name, first_name, last_name, user_token)"  \
+        "VALUES(\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");",
+        data->login, data->password, 
+        data->login, data->first_name, 
+        data->last_name, token);
+    }
+    
+    
     int rt = sqlite3_exec(db, sql, mx_callback, 0, errMsg);
     if( rt != SQLITE_OK){
         return -1;
@@ -191,10 +203,10 @@ int mx_insert_message(sqlite3* db, t_message* message) {
     char sql[255];
     int last_row_id = 0;
     if(message->file_name[0] != 0) {
-        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime, file_name)"  \
-            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\", \"%s\");",
+        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime, file_name, file_size)"  \
+            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\", \"%s\", \"%d\");",
             message->group_id, message->user_id, message->message_text,
-            message->sent_datatime, message->file_name);
+            message->sent_datatime, message->file_name, message->size);
 
     } else {
         sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \

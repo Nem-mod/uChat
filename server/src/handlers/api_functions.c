@@ -6,7 +6,7 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-         if(controller(req->property, res->property) == -1){
+         if(controller(req->property, &res->property) == -1){
             res->status = BAD_REQ;
         } 
         else
@@ -14,7 +14,7 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
     } 
     else {
         mx_strcpy(res->property, "Error");
-        //controller(req->property, res->property);
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -26,7 +26,7 @@ int post(char* url,  t_request* req, t_response* res, t_validator validator, t_c
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        if(controller(req->property, res->property) == -1){
+        if(controller(req->property, &res->property) == -1){
             res->status = BAD_REQ;
         } 
         else
@@ -34,7 +34,7 @@ int post(char* url,  t_request* req, t_response* res, t_validator validator, t_c
     } 
     else {
         mx_strcpy(res->property, "Error");
-        //controller(req->property, res->property);
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -46,7 +46,7 @@ int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-         if(controller(req->property, res->property) == -1){
+         if(controller(req->property, &res->property) == -1){
             res->status = BAD_REQ;
         } 
         else
@@ -54,7 +54,7 @@ int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_
     } 
     else {
         mx_strcpy(res->property, "Error");
-        //controller(req->property, res->property);
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
 
@@ -67,7 +67,7 @@ int delete(char* url,  t_request* req, t_response* res, t_validator validator, t
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-         if(controller(req->property, res->property) == -1){
+         if(controller(req->property, &res->property) == -1){
             res->status = BAD_REQ;
         } 
         else
@@ -75,7 +75,7 @@ int delete(char* url,  t_request* req, t_response* res, t_validator validator, t
     } 
     else {
         mx_strcpy(res->property, "Error");
-        //controller(req->property, res->property);
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
