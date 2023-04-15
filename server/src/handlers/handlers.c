@@ -27,7 +27,6 @@ t_response *init_res(char* json){
 }
 
 const char* main_handler(SSL* ssl, char* json){
-    //if(ssl && json){}
     t_SERVER_API* api = malloc(sizeof(t_SERVER_API));
     api->req = get_req(json);
     api->res = init_res(json);
@@ -55,17 +54,29 @@ const char* main_handler(SSL* ssl, char* json){
 
     api->get("/auth/me", api->req, api->res, login_validation, login);
     api->post("/auth/register", api->req, api->res, register_validation, registration);
-    const char *json_res;
+    char *json_res;
+   
     struct json_object *jobj = json_tokener_parse(api->res->property);
-    mx_log_info("jsf.txt",  "sss\n");
-    for(size_t i = 0; i < json_object_array_length(jobj); i++) {
-        struct json_object *jtmp = json_object_array_get_idx(jobj, i);
-         mx_log_info("jsf.txt",  "sss\n");
-        mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jtmp));
-        json_res = create_json_response(api->res, (char*)json_object_to_json_string(jtmp));
+    // mx_log_info("jsf.txt",  "sss\n");
+    
+    if (json_object_is_type(jobj, json_type_array)) {
+        // mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jobj)); 
+
+        for(size_t i = 0; i < json_object_array_length(jobj); i++) {
+            struct json_object *jtmp = json_object_array_get_idx(jobj, i);
+            // mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jobj)); 
+            // mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jtmp));
+            json_res = (char*)create_json_response(api->res, (char*)json_object_to_json_string(jtmp));
+            mx_SSL_write(ssl, (char*)json_res);
+            mx_strdel(&json_res);
+        }
+    } 
+    else {
+        json_res = (char*)create_json_response(api->res, (char*)(api->res->property));
         mx_SSL_write(ssl, (char*)json_res);
     }
-
+    
+    
     
     if(api->res->property)
         mx_strdel(&api->res->property);
