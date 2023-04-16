@@ -21,12 +21,4 @@ void mx_callback_auth(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "password", json_object_new_string(password));
     mx_log_err("client_log.txt", mx_create_request("GET","/auth/me", jobj));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/auth/me", jobj));
-    
-    char *json = mx_strdup( "{ \"type\": \"POST-FILE\"," \
-        "\"file_name\": \"C_GUI_Programming.pdf\"," \
-        "\"file_size\": \"9424463 \"," \
-        "}") ;
-    mx_log_err("client_log.txt", json);
-    mx_write_to_server(app->serv_connection->ssl,  json);
-    mx_SSL_sendfile(app->serv_connection->ssl, "C_GUI_Programming.pdf", 9424463);
 }

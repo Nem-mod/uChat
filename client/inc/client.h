@@ -66,6 +66,7 @@ typedef struct s_signup_scene {
 /* Struct which contains GtkWidgets for SignIn Scene*/
 typedef struct s_signin_scene {
     GtkWidget *w_signin;        // Window signIn
+    GtkWidget *gr_signin;
     GtkWidget *e_f_login;       // Enter field {login}    
     GtkWidget *e_f_password;    // Enter field {password}
     GtkWidget *b_signin;        // Buttin signIn

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.40.0 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkListStore"/>
@@ -404,6 +404,99 @@
     </child>
   </object>
   <object class="GtkWindow" id="signin_window">
+    <property name="width-request">800</property>
+    <property name="height-request">400</property>
+    <property name="can-focus">False</property>
+    <property name="default-width">800</property>
+    <property name="default-height">450</property>
+    <child>
+      <object class="GtkFixed" id="signin_fixed">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="signin_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-bottom">9</property>
+            <property name="label" translatable="yes">Welcome to the CumChut</property>
+            <attributes>
+              <attribute name="font-desc" value="Umpush 19"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Sign in</property>
+            <attributes>
+              <attribute name="font-desc" value="Umpush 15"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">580</property>
+            <property name="y">115</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="login_entry1">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="placeholder-text" translatable="yes">login</property>
+          </object>
+          <packing>
+            <property name="x">580</property>
+            <property name="y">175</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="password_entry1">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="placeholder-text" translatable="yes">password</property>
+          </object>
+          <packing>
+            <property name="x">580</property>
+            <property name="y">225</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="signin_button">
+            <property name="label" translatable="yes">sign in</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">580</property>
+            <property name="y">275</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLinkButton" id="signin_link1">
+            <property name="label" translatable="yes">still not sign up?</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="margin-right">5</property>
+            <property name="relief">none</property>
+            <property name="uri">NULL</property>
+          </object>
+          <packing>
+            <property name="x">580</property>
+            <property name="y">310</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="signin_window3">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">CUMCHAT</property>
     <child>
@@ -412,7 +505,7 @@
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkEntry" id="login_entry1">
+          <object class="GtkEntry" id="login_entry3">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-top">21</property>
@@ -420,7 +513,6 @@
             <property name="max-length">32</property>
             <property name="width-chars">1</property>
             <property name="max-width-chars">32</property>
-            <property name="text" translatable="yes">L</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -429,14 +521,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="password_entry1">
+          <object class="GtkEntry" id="password_entry3">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="margin-bottom">28</property>
             <property name="max-length">18</property>
             <property name="width-chars">1</property>
             <property name="max-width-chars">18</property>
-            <property name="text" translatable="yes">P</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -449,7 +540,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkButton" id="signin_button">
+              <object class="GtkButton" id="signin_button2">
                 <property name="label" translatable="yes">Signin</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -470,7 +561,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkButton" id="signin_link1">
+              <object class="GtkButton" id="signin_link3">
                 <property name="label" translatable="yes">Don't have an account?</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -507,7 +598,6 @@
             <property name="max-length">32</property>
             <property name="width-chars">1</property>
             <property name="max-width-chars">32</property>
-            <property name="text" translatable="yes">L</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -523,7 +613,6 @@
             <property name="max-length">18</property>
             <property name="width-chars">1</property>
             <property name="max-width-chars">18</property>
-            <property name="text" translatable="yes">P</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -539,7 +628,6 @@
             <property name="max-length">18</property>
             <property name="width-chars">1</property>
             <property name="max-width-chars">18</property>
-            <property name="text" translatable="yes">P2</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -553,7 +641,6 @@
             <property name="can-focus">True</property>
             <property name="margin-bottom">23</property>
             <property name="max-length">64</property>
-            <property name="text" translatable="yes">Fname</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -567,7 +654,6 @@
             <property name="can-focus">True</property>
             <property name="margin-bottom">27</property>
             <property name="max-length">64</property>
-            <property name="text" translatable="yes">Lname</property>
           </object>
           <packing>
             <property name="expand">False</property>
