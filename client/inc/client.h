@@ -24,7 +24,10 @@
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 
-#define RESOURCE_GUI_PATH "client/Resources/gui/"
+#define RESOURCE_GUI_PATH       "client/Resources/gui/"
+#define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_CHAT_PATH      (RESOURCE_GUI_PATH "chats_window.glade")
 
 
 typedef struct s_callback_data t_callback_data;
@@ -138,34 +141,35 @@ typedef struct s_callback_data {
 // }               t_chat;
 
 
-//  ===Callbacks===
+//  =============================================Callbacks=============================================
 void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
 
-//  ===Cleaners===
+//  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_server_connection(t_serv_connection* s_con);
 
-//  ===Connection===
+//  =============================================Connection=============================================
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
 
-//  ===Creators===
+//  =============================================Creators=============================================
 t_uchat_application* mx_create_app(char* argv[]);
 t_callback_data* mx_create_callback_data(t_uchat_application* app, void* data);
 void mx_create_scenes(t_uchat_application* app);
 GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
-void mx_init_scene_signin(GtkBuilder *builder, t_uchat_application* app);
-void mx_init_scene_signup(GtkBuilder *builder, t_uchat_application* app);
-void mx_init_scene_chat(GtkBuilder *builder, t_uchat_application* app);
+void mx_init_callbacks_signin(t_uchat_application* app);
+void mx_init_callbacks_signup(t_uchat_application* app);
+void mx_init_callbacks_chat(t_uchat_application* app);
+void mx_init_scene_signin(t_uchat_application* app);
+void mx_init_scene_signup(t_uchat_application* app);
+void mx_init_scene_chat(t_uchat_application* app);
 void mx_init_server_connection(t_uchat_application* app, int port);
 
-//  ===Handlers===
+//  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
-
-
 
 //  =============================================Json=============================================
 /* Creates request for the server */
@@ -174,7 +178,7 @@ char* mx_create_request(char* type, char* url, json_object* prop);
 /* Disassemble given JSON and puts information in t_response */
 t_response *mx_get_response(char* json);    
 
-//  ===Validators===
+//  =============================================Validators=============================================
 
 //  =============================================Other=============================================
 /* Hide current scene and show another */

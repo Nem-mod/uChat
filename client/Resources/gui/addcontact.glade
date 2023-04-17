@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkWindow" id="addcontact_window">
+    <property name="can-focus">False</property>
+    <property name="default-width">300</property>
+    <property name="default-height">400</property>
+    <child>
+      <object class="GtkFixed">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="label" translatable="yes">Add contact</property>
+            <attributes>
+              <attribute name="font-desc" value="Umpush 15"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">95</property>
+            <property name="y">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="contact_image">
+            <property name="width-request">80</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">110</property>
+            <property name="y">95</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="lname_entry_contact">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">last name</property>
+          </object>
+          <packing>
+            <property name="x">68</property>
+            <property name="y">240</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="fname_entry_contact">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">first name</property>
+          </object>
+          <packing>
+            <property name="x">68</property>
+            <property name="y">200</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="number_entry">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">number</property>
+          </object>
+          <packing>
+            <property name="x">68</property>
+            <property name="y">280</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="addcontact_button">
+            <property name="label" translatable="yes">Add</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">120</property>
+            <property name="y">333</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
