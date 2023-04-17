@@ -42,6 +42,10 @@ int create_group(const char* req, char** res){
     
     t_group group;
     t_user user;
+    mx_memset(&group.file_name, 0, sizeof(group.file_name));
+    group.size = 0;
+    mx_memset(&user.file_name, 0, sizeof(user.file_name));
+    user.size = 0;
     strcpy(group.group_name, json_object_get_string(jgroup_name));
     user.user_id = json_object_get_int(juser_id);
     mx_openDB(DATABASE_NAME, &db);
@@ -126,6 +130,10 @@ int insert_group_members(const char* req, char** res){
 
     t_user user;
     t_group group;
+    mx_memset(&group.file_name, 0, sizeof(group.file_name));
+    group.size = 0;
+    mx_memset(&user.file_name, 0, sizeof(user.file_name));
+    user.size = 0;
     group.group_id = json_object_get_int(jgroup_id);
     user.user_id = json_object_get_int(juser_id);
 
@@ -181,6 +189,8 @@ int create_message(const char* req, char** res){
     t_message message;
     message.group_id = json_object_get_int(jgroup_id);
     message.user_id = json_object_get_int(juser_id);
+    mx_memset(&message.file_name, 0, sizeof(message.file_name));
+    message.size = 0;
     mx_strcpy(message.message_text, json_object_get_string(jmessage));
     mx_strcpy(message.sent_datatime, json_object_get_string(jdtime));
     if(mx_strstr(req, "file_name") != NULL) {
