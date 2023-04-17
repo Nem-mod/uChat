@@ -56,6 +56,7 @@ void mx_create_contacts_table(sqlite3 *db) {
         "contact_id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," \
         "user_id         INTEGER         NOT NULL," \
         "user_contact_id INTEGER         NOT NULL," \
+        "UNIQUE(user_id, user_contact_id),"\
         "CONSTRAINT FK_USERS \
             FOREIGN KEY (user_id) \
             REFERENCES USERS(user_id))";
@@ -64,9 +65,10 @@ void mx_create_contacts_table(sqlite3 *db) {
 
 void mx_create_groups_table(sqlite3* db) {
     char* sql = "CREATE TABLE IF NOT EXISTS GROUPS(" \
-        "group_id     INTEGER PRIMARY KEY AUTOINCREMENT," \
-        "group_name   VARCHAR(64)         NOT NULL," \
-        "file_size      UNSIGNED BIG INT," \
+        "group_id      INTEGER PRIMARY KEY AUTOINCREMENT," \
+        "group_name    VARCHAR(64)         NOT NULL," \
+        "group_privacy INT                NOT NULL," \
+        "file_size     UNSIGNED            BIG INT," \
         "file_name  VARCHAR(255))";
 
     mx_create_table(db, sql, mx_callback); 
@@ -160,6 +162,9 @@ int mx_insert_user(sqlite3* db, t_user* data, char** errMsg) {
 }
 
 int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id){
+    if(user_id == contact_user_id || contact_user_id == 0) {
+        return -1;
+    }
     char sql[255];
     sprintf(sql, "INSERT INTO CONTACTS(user_id, user_contact_id)"  \
     "VALUES(\"%d\", \"%d\");",
@@ -174,9 +179,11 @@ int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id){
 int mx_insert_group(sqlite3* db, t_group* data){
     char sql[255];
     int last_row_id = 0;
-    sprintf(sql, "INSERT INTO GROUPS(group_name)"  \
-    "VALUES(\"%s\");",
-    data->group_name);
+   
+    
+    sprintf(sql, "INSERT INTO GROUPS(group_name, group_privacy)"  \
+    "VALUES(\"%s\",\"%d\");",
+    data->group_name, data->privacy);
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
         return -1;

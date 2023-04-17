@@ -126,6 +126,7 @@ typedef struct s_uchat_application {
     //GtkCssProvider *css_provider;         // Link to CSS provider
     t_uchat_scenes* scenes;                 // Link to gui scenes
     t_SCENE active_scene;                   // Flag which one scene is active
+    int user_id;
 
 }              t_uchat_application;
 
@@ -159,7 +160,7 @@ void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
 void mx_hide_window(UNUSED GtkButton *button, gpointer data);
-
+void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_server_connection(t_serv_connection* s_con);
@@ -176,6 +177,7 @@ GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 void mx_init_callbacks_signin(t_uchat_application* app);
 void mx_init_callbacks_signup(t_uchat_application* app);
 void mx_init_callbacks_chat(t_uchat_application* app);
+
 void mx_init_add_cont(t_uchat_application* app);
 
 void mx_init_scene_signin(t_uchat_application* app);

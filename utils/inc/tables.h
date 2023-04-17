@@ -31,6 +31,7 @@ typedef struct s_group {
     int group_id;
     char group_name[MAX_NAME_LEN + 1];
     char file_name[MAX_NAME_LEN + 1];
+    int privacy;
     unsigned int size;
 }              t_group;
 
@@ -47,7 +48,7 @@ typedef struct s_message {
     char message_text[MAX_MESSAGE_TEXT_LEN + 1];
     char sent_datatime[MAX_SENT_DATATIME_LEN + 1];
     char file_name[MAX_NAME_LEN + 1];
-    int size;
+    unsigned int size;
 }              t_message;
 
 

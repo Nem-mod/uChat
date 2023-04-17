@@ -49,7 +49,9 @@ int create_group(const char* req, char** res){
     strcpy(group.group_name, json_object_get_string(jgroup_name));
     user.user_id = json_object_get_int(juser_id);
     mx_openDB(DATABASE_NAME, &db);
+    group.privacy = 0;
     group.group_id = mx_insert_group(db, &group);
+
     mx_insert_group_member(db, &group, &user);
     const char *json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)json_str);
@@ -195,7 +197,9 @@ int create_message(const char* req, char** res){
     mx_strcpy(message.sent_datatime, json_object_get_string(jdtime));
     if(mx_strstr(req, "file_name") != NULL) {
         struct json_object *jfpath = json_object_object_get(jobj, "file_name");
+        struct json_object *jfsize = json_object_object_get(jobj, "file_size");
         mx_strcpy(message.file_name, json_object_get_string(jfpath));
+        message.size = json_object_get_int64(jfsize);
     }
 
 

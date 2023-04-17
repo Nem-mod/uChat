@@ -79,10 +79,42 @@ int add_contact(const char* req, char** res){
 
     struct json_object *jobj = json_tokener_parse(req);
     struct json_object *juser_id= json_object_object_get(jobj, "user_id"); 
-    struct json_object *juser_contact_id= json_object_object_get(jobj, "user_contact_id"); 
-
+    struct json_object *juser_login= json_object_object_get(jobj, "login"); 
+    
     mx_openDB(DATABASE_NAME, &db);
-    mx_insert_contact(db, json_object_get_int(juser_id), json_object_get_int(juser_contact_id));
+
+    char temp[256];
+
+    sprintf(temp, "login = \'%s\' ;",
+        json_object_get_string(juser_login)
+    );
+
+    json_object *json =  json_object_new_array();
+    mx_select_data(db, "USERS", "*", temp, json);
+
+    json_object *jcont_id = json_object_object_get(json_object_array_get_idx(json, 0), "user_id");
+    int user1_id = json_object_get_int(juser_id);
+    int user2_id = json_object_get_int(jcont_id);
+
+    if (user2_id == 0) {
+        return -1;
+    }
+    
+
+    mx_insert_contact(db, user1_id, user2_id);
+
+    t_group group;
+    mx_strcpy(group.group_name, json_object_get_string(juser_login));
+    group.privacy = 1;
+
+    group.group_id = mx_insert_group(db, &group);
+
+    t_user user1, user2;
+    user1.user_id = user1_id;
+    user2.user_id = user2_id;
+    mx_insert_group_member(db, &group, &user1);
+    mx_insert_group_member(db, &group, &user2);
+    
     const char *json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
