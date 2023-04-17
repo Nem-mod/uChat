@@ -27,8 +27,8 @@ int login(const char* req, char** res) {
         return -1;
     }
    
-    
     *res =  mx_strdup((char*)json_str);
+    
     sqlite3_close(db);
     return 0;
     
@@ -49,6 +49,8 @@ int registration(const char* req, char** res) {
     strcpy(user.password, json_object_get_string(jpass));
     strcpy(user.first_name, json_object_get_string(jfname));
     strcpy(user.last_name, json_object_get_string(jlname));
+    mx_memset(&user.file_name, 0, sizeof(user.file_name));
+    user.size = 0;
 
     mx_openDB(DATABASE_NAME, &db);
     int id = mx_insert_user(db, &user, NULL);
