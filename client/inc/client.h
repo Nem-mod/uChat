@@ -14,7 +14,7 @@
 #include "ssl_utils.h"
 #include "log_utils.h"
 #include "libmx.h"
-#include "tables.h"
+// #include "tables.h"
 
 #define UNUSED __attribute__((unused))
 
@@ -146,7 +146,46 @@ typedef struct s_callback_data {
 
 }              t_callback_data;
 
-// typedef struct s_
+typedef struct s_file {
+
+    char* name;
+    unsigned int size;
+
+}              t_file;
+
+typedef struct s_contact {
+    
+    char* name;
+    // char* first_name;
+    // char* last_name;
+    t_file* icon;
+
+}              t_contact;
+
+typedef struct s_user {
+    
+    t_contact* user_info;
+    char* login;
+    char* password;
+
+}              t_user;
+
+typedef struct s_message {
+    
+    char* text;
+    t_file* file;
+    t_contact* owner;
+
+}              t_message;
+
+typedef struct s_chat {
+
+    char* name;
+    t_file* icon;
+    t_contact** members;
+    t_message** messages;
+
+}              t_chat;
 
 // typedef struct s_chat {
 //     t_group* group_info;
