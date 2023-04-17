@@ -76,6 +76,10 @@ const char* main_handler(SSL* ssl, char* json){
     } 
     else {
         json_res = (char*)create_json_response(api->res, (char*)(api->res->property));
+        
+        mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
+        mx_log_info(SYSLOG, (char*)json_res);
+
         mx_SSL_write(ssl, (char*)json_res);
     }
     

@@ -38,12 +38,14 @@ void* mx_listen_server(void* data) {
             
             if((filesize = mx_handle_post_file(buffer, &filename)) > 0) {
                 file_flag = 1;
-                //mx_log_info(SYSLOG, mx_itoa(file_flag));
                 continue;
             }
             
 
             if(buffer[0] != 0) {
+                mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
+                mx_log_info(SYSLOG, buffer);
+
                 mx_strcpy(app->serv_connection->lbuffer, buffer);
                 mx_main_handler(buffer, app);
             }
