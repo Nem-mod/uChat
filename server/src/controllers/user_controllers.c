@@ -115,6 +115,7 @@ int add_contact(const char* req, char** res){
     mx_insert_group_member(db, &group, &user1);
     mx_insert_group_member(db, &group, &user2);
     
+    json_object_object_add(jobj, "group_id", json_object_new_int(group.group_id));
     const char *json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
