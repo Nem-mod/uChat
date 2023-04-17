@@ -10,4 +10,5 @@ void mx_create_scenes(t_uchat_application* app) {
     mx_init_callbacks_chat(app);
     mx_init_callbacks_signin(app);
     mx_init_callbacks_signup(app);
+    mx_init_add_cont(app);
 }

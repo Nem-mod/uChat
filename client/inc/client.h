@@ -158,6 +158,7 @@ typedef struct s_callback_data {
 void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
+void mx_hide_window(UNUSED GtkButton *button, gpointer data);
 
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
@@ -175,6 +176,8 @@ GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 void mx_init_callbacks_signin(t_uchat_application* app);
 void mx_init_callbacks_signup(t_uchat_application* app);
 void mx_init_callbacks_chat(t_uchat_application* app);
+void mx_init_add_cont(t_uchat_application* app);
+
 void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);

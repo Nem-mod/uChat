@@ -199,17 +199,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkImage">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="stock">gtk-missing-image</property>
-          </object>
-          <packing>
-            <property name="x">50</property>
-            <property name="y">38</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkEntry" id="chats_entry">
             <property name="width-request">226</property>
             <property name="visible">True</property>
@@ -367,15 +356,40 @@
         </child>
         <child>
           <object class="GtkButton" id="add_contact_button">
-            <property name="label" translatable="yes">Add ct</property>
-            <property name="width-request">20</property>
+            <property name="width-request">15</property>
             <property name="height-request">10</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+            </child>
           </object>
           <packing>
-            <property name="x">-2</property>
+            <property name="y">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="width-request">20</property>
+            <property name="height-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">35</property>
             <property name="y">30</property>
           </packing>
         </child>
