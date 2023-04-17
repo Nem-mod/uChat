@@ -4,6 +4,7 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="addcontact_window">
     <property name="can-focus">False</property>
+    <property name="resizable">False</property>
     <property name="default-width">300</property>
     <property name="default-height">400</property>
     <child>
@@ -39,40 +40,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="lname_entry_contact">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="placeholder-text" translatable="yes">last name</property>
-          </object>
-          <packing>
-            <property name="x">68</property>
-            <property name="y">240</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="fname_entry_contact">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="placeholder-text" translatable="yes">first name</property>
-          </object>
-          <packing>
-            <property name="x">68</property>
-            <property name="y">200</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="number_entry">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="placeholder-text" translatable="yes">number</property>
-          </object>
-          <packing>
-            <property name="x">68</property>
-            <property name="y">280</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="addcontact_button">
+          <object class="GtkButton" id="add_contact_button">
             <property name="label" translatable="yes">Add</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -81,6 +49,17 @@
           <packing>
             <property name="x">120</property>
             <property name="y">333</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="login_entry_contact">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">login</property>
+          </object>
+          <packing>
+            <property name="x">68</property>
+            <property name="y">200</property>
           </packing>
         </child>
       </object>

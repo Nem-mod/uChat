@@ -28,7 +28,7 @@
 #define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
 #define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
 #define RESOURCE_CHAT_PATH      (RESOURCE_GUI_PATH "chats_window.glade")
-
+#define RESOURCE_ADD_CONT_PATH      (RESOURCE_GUI_PATH "addcontact.glade")
 
 typedef struct s_callback_data t_callback_data;
 
@@ -36,7 +36,8 @@ typedef struct s_callback_data t_callback_data;
 typedef enum s_SCENE {
     SIGNUP,
     SIGNIN,
-    CHAT
+    CHAT,
+    ADD_CONTACT
 }            t_SCENE;
 
 /* Struct for openSSL connection */
@@ -77,6 +78,16 @@ typedef struct s_signin_scene {
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
+/* Struct which contains GtkWidgets for SignIn Scene*/
+typedef struct s_add_contact {
+    GtkWidget *w_add_contact; 
+    GtkWidget *e_f_login;       // Enter field {login}    
+    GtkWidget *b_add_contact;        // Buttin signIn
+    GtkWidget *b_close;       // Button-link on signUp window
+    t_callback_data* cbdata;    // Callback data
+}              t_add_contact;
+
+
 /* Struct wich contains GtkWidgets for chat Scene*/
 typedef struct s_chat_scene {
     GtkWidget *w_chat;     
@@ -85,7 +96,7 @@ typedef struct s_chat_scene {
     GtkWidget *w_sc_chats;  // Window of scrollbar
     GtkWidget *v_sc_chats;  // Viewport of scrollbar
     GtkWidget *l_sc_chats;  // List of objects of scrollbar
-    
+    GtkWidget *b_add_contact;
     
     
     GtkWidget *w_sc_messages;  // Window of scrollbar
@@ -103,6 +114,8 @@ typedef struct s_uchat_scenes {
     t_signup_scene* signup_scene; // Sign up scene
     t_signin_scene* signin_scene; // Sign in scene
     t_chat_scene* chat_scene;
+    t_add_contact* add_contact_dwindow;
+
 }              t_uchat_scenes;
 
 
@@ -166,6 +179,7 @@ void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);
 void mx_init_server_connection(t_uchat_application* app, int port);
+void mx_init_scene_add_contact(t_uchat_application* app);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
