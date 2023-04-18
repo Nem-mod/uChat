@@ -204,6 +204,7 @@ void mx_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
+void mx_clear_entry(GtkEntry *entry);
 void mx_clear_server_connection(t_serv_connection* s_con);
 
 //  =============================================Connection=============================================
