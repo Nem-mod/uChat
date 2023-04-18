@@ -202,6 +202,7 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
 void mx_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
+void mx_display_chat(t_uchat_application* app, t_response* res); 
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -233,6 +234,7 @@ t_file* mx_create_file(char* path, int size);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
+gboolean mx_handle_display_chat(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
 
 //  =============================================Json=============================================

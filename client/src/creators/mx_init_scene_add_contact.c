@@ -24,6 +24,6 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     app->scenes->add_contact_dwindow->b_add_contact = mx_get_widget(builder, "add_contact_button");
     app->scenes->add_contact_dwindow->b_close = mx_get_widget(builder, "cancel_button");
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
-   
+    gtk_window_set_transient_for(GTK_WINDOW(app->scenes->add_contact_dwindow->w_add_contact), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }

@@ -24,5 +24,4 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/contact/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
-
 }
