@@ -27,4 +27,5 @@ void mx_init_scene_signup(t_uchat_application* app) {
     app->scenes->signup_scene->bl_signin = mx_get_widget(builder, "signin_link");
 
     gtk_widget_hide(app->scenes->signup_scene->w_signup);
+    g_object_unref(builder);
 }

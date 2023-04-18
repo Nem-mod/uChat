@@ -26,4 +26,5 @@ void mx_init_scene_signin(t_uchat_application* app) {
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
    
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
+    g_object_unref(builder);
 }

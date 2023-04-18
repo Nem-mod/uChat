@@ -34,4 +34,5 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
     
     gtk_widget_hide(app->scenes->chat_scene->w_chat);
+    g_object_unref(builder);
 }
