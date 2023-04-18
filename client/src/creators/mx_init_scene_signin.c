@@ -27,6 +27,7 @@ void mx_init_scene_signin(t_uchat_application* app) {
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
 
     mx_set_style(path, app->scenes->signin_scene->e_f_login);
+    mx_set_style(path, app->scenes->signin_scene->e_f_password);
     mx_set_style(path, app->scenes->signin_scene->b_signin);
     //GtkStyleContext *context = gtk_widget_get_style_context(app->scenes->signin_scene->e_f_login);
     
