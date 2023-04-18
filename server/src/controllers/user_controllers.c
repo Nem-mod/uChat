@@ -161,11 +161,14 @@ int get_user_groups(const char* req, char** res){
             
             mx_select_data(db, "GROUPS", "*", temp, json_g);
 
-            json_object *jprivacy = json_object_object_get(json_object_array_get_idx(json_g, 0), "group_privacy");
+            if(json_object_array_length(json_g) < 1) 
+                continue;
+            
+            json_object *jobj_g = json_object_array_get_idx(json_g, 0);
+            json_object *jprivacy = json_object_object_get(jobj_g, "group_privacy");
 
-            if(json_object_get_int(jprivacy) == 0) {
-                
-                json_object_array_add(json_finaly, json_object_array_get_idx(json_g, 0));
+            if(json_object_get_int(jprivacy) == 0 && !json_object_is_type(jobj_g, json_type_null)) {
+                json_object_array_add(json_finaly, jobj_g);
             } 
             else {
                 json_object *json_u =  json_object_new_array();

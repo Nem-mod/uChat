@@ -57,6 +57,7 @@ const char* main_handler(SSL* ssl, char* json){
    
     struct json_object *jobj = json_tokener_parse(api->res->property);
     // mx_log_info("jsf.txt",  "sss\n");
+    if(api->res->property == NULL) return NULL;
     
     if (json_object_is_type(jobj, json_type_array)) {
         mx_log_info(SYSLOG, "vvv Pass BIG JSON to the client vvv");

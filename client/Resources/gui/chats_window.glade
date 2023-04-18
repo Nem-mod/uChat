@@ -9,6 +9,8 @@
     <property name="can-focus">False</property>
     <child>
       <object class="GtkImage" id="chat_img">
+        <property name="width-request">10</property>
+        <property name="height-request">10</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="stock">gtk-missing-image</property>
@@ -21,6 +23,8 @@
     </child>
     <child>
       <object class="GtkLabel" id="chat_name">
+        <property name="width-request">20</property>
+        <property name="height-request">30</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-right">104</property>
