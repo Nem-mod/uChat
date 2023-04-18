@@ -40,6 +40,48 @@ typedef enum s_SCENE {
     ADD_CONTACT
 }            t_SCENE;
 
+typedef struct s_file {
+
+    char* path;
+    unsigned int size;
+
+}              t_file;
+
+typedef struct s_contact {
+    
+    char* name;
+    // char* first_name;
+    // char* last_name;
+    t_file* icon;
+
+}              t_contact;
+
+typedef struct s_user {
+    
+    t_contact* user_info;
+    unsigned int id;
+    char* login;
+    char* password;
+
+}              t_user;
+
+typedef struct s_message {
+    
+    char* text;
+    t_file* file;
+    t_contact* owner;
+
+}              t_message;
+
+typedef struct s_chat {
+
+    char* name;
+    t_file* icon;
+    t_contact** members;
+    t_message** messages;
+
+}              t_chat;
+
 /* Struct for openSSL connection */
 typedef struct s_serv_connection {
     int port;                       // 
@@ -126,7 +168,8 @@ typedef struct s_uchat_application {
     //GtkCssProvider *css_provider;         // Link to CSS provider
     t_uchat_scenes* scenes;                 // Link to gui scenes
     t_SCENE active_scene;                   // Flag which one scene is active
-    int user_id;
+    t_user* user;                           // Information about the user
+    // int user_id;
 
 }              t_uchat_application;
 
@@ -145,47 +188,6 @@ typedef struct s_callback_data {
     void* data;                 // Additional data to transfer 
 
 }              t_callback_data;
-
-typedef struct s_file {
-
-    char* name;
-    unsigned int size;
-
-}              t_file;
-
-typedef struct s_contact {
-    
-    char* name;
-    // char* first_name;
-    // char* last_name;
-    t_file* icon;
-
-}              t_contact;
-
-typedef struct s_user {
-    
-    t_contact* user_info;
-    char* login;
-    char* password;
-
-}              t_user;
-
-typedef struct s_message {
-    
-    char* text;
-    t_file* file;
-    t_contact* owner;
-
-}              t_message;
-
-typedef struct s_chat {
-
-    char* name;
-    t_file* icon;
-    t_contact** members;
-    t_message** messages;
-
-}              t_chat;
 
 // typedef struct s_chat {
 //     t_group* group_info;
@@ -218,12 +220,15 @@ void mx_init_callbacks_signup(t_uchat_application* app);
 void mx_init_callbacks_chat(t_uchat_application* app);
 
 void mx_init_add_cont(t_uchat_application* app);
-
 void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);
 void mx_init_server_connection(t_uchat_application* app, int port);
 void mx_init_scene_add_contact(t_uchat_application* app);
+
+t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
+t_contact* mx_create_contact(char* name, char* icon_path, int size);
+t_file* mx_create_file(char* path, int size);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
@@ -234,7 +239,11 @@ int mx_main_handler(char* json, t_uchat_application* app);
 char* mx_create_request(char* type, char* url, json_object* prop);  
 
 /* Disassemble given JSON and puts information in t_response */
-t_response *mx_get_response(char* json);    
+t_response *mx_get_response(char* json);
+// int mx_get_user_data(char* property);
+char* mx_json_get_str(const char* property, char* id);
+int mx_json_get_int(const char* property, char* id);
+t_user* mx_json_create_user(const char* property);
 
 //  =============================================Validators=============================================
 

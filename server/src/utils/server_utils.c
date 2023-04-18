@@ -49,11 +49,9 @@ int mx_init_daemon() {
 unsigned long mx_handle_post_file(char* req, char** filename) {
     struct json_object *jobj = json_tokener_parse(req);
     struct json_object *jtype = json_object_object_get(jobj, "type");
-    mx_log_info(SYSLOG, (req));
     if(mx_strcmp(json_object_get_string(jtype), "POST-FILE")){
         return 0;
     }
-
     struct json_object *jfilename = json_object_object_get(jobj, "file_name");
     *filename = (char*)json_object_get_string(jfilename);
     struct json_object *jsize = json_object_object_get(jobj, "file_size");
@@ -75,10 +73,13 @@ void* mx_create_server_client_session(void *server_ssl) {
             
             if(file_flag == 0){
                 if(mx_SSL_read(ssl, buffer) == -1) break;
-                //mx_log_info(SYSLOG, buffer);
+                mx_log_info(SYSLOG, "vvv Get JSON from the client vvv");
+                mx_log_info(SYSLOG, buffer);
             }
             else {
+                mx_log_info(SYSLOG, "Start reading by parts");
                 mx_SSL_readfile(ssl, mx_strjoin(RESPATH , filename), filesize);
+                mx_log_info(SYSLOG, "Stop reading by parts");
                 file_flag = 0;
                 //mx_log_info(SYSLOG, mx_itoa(file_flag));
                 // mx_log_info(SYSLOG, mx_itoa(file_flag));
@@ -94,7 +95,6 @@ void* mx_create_server_client_session(void *server_ssl) {
                 continue;
             }
             
-            // mx_log_info(SYSLOG, "vvv Pass JSON to the client vvv");
             main_handler(ssl, buffer);
 
         }

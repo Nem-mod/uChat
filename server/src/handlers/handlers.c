@@ -38,7 +38,6 @@ const char* main_handler(SSL* ssl, char* json){
     api->get("/users/", api->req, api->res, NULL, getAll_users);
     api->get("/users/name:", api->req, api->res, NULL, get_users_by_name);
 
-
     api->post("/contact/", api->req, api->res, NULL, add_contact);
 
     api->get("/group/", api->req, api->res, NULL, get_group);
@@ -47,7 +46,6 @@ const char* main_handler(SSL* ssl, char* json){
 
     api->get("/group/members", api->req, api->res, NULL, get_group_members);
     api->post("/group/members", api->req, api->res, NULL, insert_group_members);
-
 
     api->get("/group/message", api->req, api->res, NULL, get_messages);
     api->post("/group/message", api->req, api->res, NULL, create_message);
@@ -60,7 +58,8 @@ const char* main_handler(SSL* ssl, char* json){
     // mx_log_info("jsf.txt",  "sss\n");
     
     if (json_object_is_type(jobj, json_type_array)) {
-        // mx_log_info("jsf.txt",  (char*)json_object_to_json_string(jobj)); 
+        mx_log_info(SYSLOG, "vvv Pass BIG JSON to the client vvv");
+        mx_log_info(SYSLOG, (char*)json_object_to_json_string(jobj)); 
 
         for(size_t i = 0; i < json_object_array_length(jobj); i++) {
             struct json_object *jtmp = json_object_array_get_idx(jobj, i);
@@ -82,8 +81,6 @@ const char* main_handler(SSL* ssl, char* json){
 
         mx_SSL_write(ssl, (char*)json_res);
     }
-    
-    
     
     if(api->res->property)
         mx_strdel(&api->res->property);
