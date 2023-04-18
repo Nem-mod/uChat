@@ -4,7 +4,7 @@
 int getAll_users(const char* req, char** res); 
 int get_users_by_name(const char* req, char** res); 
 int get_users_by_id(const char* req, char** res);
-
+int get_user_groups(const char* req, char** res);
 int add_contact(const char* req, char** res); 
 
 int get_group(const char* req, char** res);

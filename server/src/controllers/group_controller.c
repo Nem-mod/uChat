@@ -1,4 +1,5 @@
 #include "server.h"
+
 int get_group(const char* req, char** res){
     if(req == NULL)
         return -1;
@@ -7,16 +8,13 @@ int get_group(const char* req, char** res){
     json_object *json =  json_object_new_array();
 
     struct json_object *jobj = json_tokener_parse(req);
-    struct json_object *jgroup_name = json_object_object_get(jobj, "group_name"); 
-    const char* group_name = json_object_get_string(jgroup_name);
     int group_id = json_object_get_int(json_object_object_get(jobj, "group_id"));
     
 
     mx_openDB(DATABASE_NAME, &db);
     char temp[256];
-    sprintf(temp, "group_name = \'%s\'" \
-        "AND group_id = \'%d\'",
-        group_name, group_id
+    sprintf(temp, "group_id = \'%d\'",
+        group_id
     );
     
     mx_select_data(db, "GROUPS", "*", temp, json);
@@ -29,7 +27,6 @@ int get_group(const char* req, char** res){
 
     return group_id;
 }
-
 int create_group(const char* req, char** res){
     if(req == NULL)
         return -1;

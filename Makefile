@@ -25,7 +25,6 @@ uninstall: clean
 	@make uninstall -sC $(CLIENT_DIR)
 	rm -rf $(NAME_CLIENT)
 	rm -rf $(NAME_SERV)
-	rm -rf *.db
 	rm -rf *.txt
 
 reinstall: uninstall all
