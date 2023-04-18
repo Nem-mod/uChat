@@ -70,8 +70,8 @@
           <object class="GtkButton" id="signin_button">
             <property name="label" translatable="yes">sign in</property>
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
+            <!--<property name="can-focus">True</property>-->
+            <!--<property name="receives-default">True</property>-->
           </object>
           <packing>
             <property name="x">560</property>
