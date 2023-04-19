@@ -170,6 +170,8 @@ typedef struct s_uchat_application {
     t_SCENE active_scene;                   // Flag which one scene is active
     //t_user* user;                           // Information about the user
     int user_id;
+    int current_group_id;
+    int last_message_id;
 
 }              t_uchat_application;
 

@@ -153,18 +153,28 @@ int get_messages(const char* req, char** res) {
     
     json_object *json =  json_object_new_array();
     sqlite3* db;
+    char temp[256];
 
     struct json_object *jobj = json_tokener_parse(req);
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
     int group_id = json_object_get_int(jgroup_id);
-
-    char temp[256];
-    sprintf(temp, "group_id = \'%d\'; " ,
-        group_id
-    );
-
     mx_openDB(DATABASE_NAME, &db);
-    mx_select_data(db, "MESSAGES", "*", temp, json);
+    if(mx_strstr("message_id")) {
+        struct json_object *jmessage_id = json_object_object_get(jobj, "message_id"); 
+        int message_id = json_object_get_int(jmessage_id);
+        mx_select_data(db, "MESSAGES", "*", temp, json);
+        sprintf(temp, "group_id = \'%d\', message_id > \'%d\'" \
+        "; " , group_id, message_id);
+        mx_select_data(db, "MESSAGES", "*", temp, json);
+    } 
+    else {
+        sprintf(temp, "group_id = \'%d\'; " , group_id);
+
+        mx_select_data(db, "MESSAGES", "*", temp, json);
+    }
+
+   
+    
     const char *json_str = json_object_to_json_string(json);
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
