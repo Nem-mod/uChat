@@ -258,4 +258,4 @@ t_user* mx_json_create_user(const char* property);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 void mx_set_style(const gchar *path, GtkWidget *widget);
-int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+
