@@ -391,7 +391,7 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">370</property>
+            <property name="x">719</property>
             <property name="y">30</property>
           </packing>
         </child>
