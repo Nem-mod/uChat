@@ -172,6 +172,7 @@ typedef struct s_uchat_application {
     int user_id;
     int current_group_id;
     int last_message_id;
+    int last_message_indx;
 
 }              t_uchat_application;
 
@@ -240,6 +241,8 @@ void mx_set_style(const gchar *path, GtkWidget *widget);
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
 gboolean mx_handler_display_chat(gpointer data);
+gboolean mx_handler_display_messages(gpointer data);
+void mx_handle_messages_res(t_uchat_application* app, t_response* res);
 int mx_main_handler(char* json, t_uchat_application* app);
 
 //  =============================================Json=============================================
