@@ -43,6 +43,7 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
     gtk_widget_set_name(chat_button,  mx_itoa(json_object_get_int(jgroup_id)));
     gtk_widget_set_name(chat_name, "chat_name");
+    gtk_widget_set_name(chat_img, file_name);
     gtk_image_set_from_file(GTK_IMAGE(chat_img), file_name);
     gtk_widget_set_size_request(chat_box, 10, 10);
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), chat_button, -1);

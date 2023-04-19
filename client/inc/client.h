@@ -143,6 +143,7 @@ typedef struct s_chat_scene {
     GtkWidget *w_sc_messages;  // Window of scrollbar
     GtkWidget *v_sc_messages;  // Viewport of scrollbar
     GtkWidget *l_sc_messages;  // List of objects of scrollbar
+    GtkWidget *img_chat;
     GtkWidget *l_chatname;
     GtkWidget *e_f_chat;
     GtkWidget *b_send_message;

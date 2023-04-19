@@ -25,6 +25,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->l_sc_chats = mx_get_widget(builder, "chats_list");
     app->scenes->chat_scene->b_add_contact = mx_get_widget(builder, "add_contact_button");
 
+    app->scenes->chat_scene->img_chat = mx_get_widget(builder, "chat_image");
     app->scenes->chat_scene->l_chatname = mx_get_widget(builder, "chat_name_label");
     app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
     app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
