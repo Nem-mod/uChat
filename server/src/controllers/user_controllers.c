@@ -104,20 +104,22 @@ int add_contact(const char* req, char** res){
     }
     
 
-    mx_insert_contact(db, user1_id, user2_id);
-    t_group group;
-    mx_strcpy(group.group_name, json_object_get_string(juser_login));
-    group.privacy = 1;
+    if(mx_insert_contact(db, user1_id, user2_id) != -1) {
+        t_group group;
+        mx_strcpy(group.group_name, json_object_get_string(juser_login));
+        group.privacy = 1;
 
-    group.group_id = mx_insert_group(db, &group);
+        group.group_id = mx_insert_group(db, &group);
 
-    t_user user1, user2;
-    user1.user_id = user1_id;
-    user2.user_id = user2_id;
-    mx_insert_group_member(db, &group, &user1);
-    mx_insert_group_member(db, &group, &user2);
+        t_user user1, user2;
+        user1.user_id = user1_id;
+        user2.user_id = user2_id;
+        mx_insert_group_member(db, &group, &user1);
+        mx_insert_group_member(db, &group, &user2);
+
+        json_object_object_add(jobj, "group_id", json_object_new_int(group.group_id));
+    }
     
-    json_object_object_add(jobj, "group_id", json_object_new_int(group.group_id));
     const char *json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
