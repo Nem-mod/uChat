@@ -3,9 +3,9 @@
 void mx_chat_box_callback(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application* app = (t_uchat_application*)data;
     //g_print("%s",  gtk_widget_get_name(GTK_WIDGET( button)));
-    app->current_group_id = mx_itoa(gtk_widget_get_name(GTK_WIDGET(button)));
+   // app->current_group_id = mx_itoa(gtk_widget_get_name(GTK_WIDGET(button)));
     struct json_object* jobj = json_object_new_object();
-    json_object_object_add(jobj, "group_id", json_object_new_string(gtk_widget_get_name(GTK_WIDGET( button))));
+  //  json_object_object_add(jobj, "group_id", json_object_new_string(gtk_widget_get_name(GTK_WIDGET( button))));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/message", jobj));
     
 }
@@ -55,6 +55,6 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
     gtk_image_set_from_file(GTK_IMAGE(chat_img), file_name);
     gtk_widget_set_size_request(chat_box, 10, 10);
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), chat_button, -1);
-    g_signal_connect(chat_button, "clicked", G_CALLBACK (calla), app);
+    g_signal_connect(chat_button, "clicked", G_CALLBACK (mx_chat_box_callback), app);
     g_object_unref(builder);
 }

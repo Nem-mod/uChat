@@ -159,11 +159,11 @@ int get_messages(const char* req, char** res) {
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
     int group_id = json_object_get_int(jgroup_id);
     mx_openDB(DATABASE_NAME, &db);
-    if(mx_strstr("message_id")) {
+    if(mx_strstr(req, "message_id")) {
         struct json_object *jmessage_id = json_object_object_get(jobj, "message_id"); 
         int message_id = json_object_get_int(jmessage_id);
         mx_select_data(db, "MESSAGES", "*", temp, json);
-        sprintf(temp, "group_id = \'%d\', message_id > \'%d\'" \
+        sprintf(temp, "group_id = \'%d\'AND message_id > \'%d\'" \
         "; " , group_id, message_id);
         mx_select_data(db, "MESSAGES", "*", temp, json);
     } 
