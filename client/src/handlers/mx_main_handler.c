@@ -13,7 +13,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
     if (mx_strcmp(res->url, "/auth/me") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Auth success");
         // app->user->id = mx_get_user_data((char*)res->property);
-        app->user_id  = mx_get_user_data((char*)res->property);
+        // app->user_id  = mx_get_user_data((char*)res->property);
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->chat_scene->cbdata);
     } else if (mx_strcmp(res->url, "/auth/me") == 0) {
         mx_log_err(SYSLOG, "Auth is failed");

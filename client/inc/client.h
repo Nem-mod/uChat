@@ -202,9 +202,9 @@ typedef struct s_callback_data {
 void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
-void mx_hide_window(UNUSED GtkButton *button, gpointer data);
+void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
-void mx_display_chat(t_uchat_application* app, t_response* res); 
+
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -213,6 +213,7 @@ void mx_clear_server_connection(t_serv_connection* s_con);
 //  =============================================Connection=============================================
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
+unsigned long mx_handle_post_file(char* req, char** filename);
 
 //  =============================================Creators=============================================
 t_uchat_application* mx_create_app(char* argv[]);
@@ -238,6 +239,7 @@ t_file* mx_create_file(char* path, int size);
 gboolean mx_handler_change_scene(gpointer data);
 gboolean mx_handle_display_chat(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
+void mx_display_chat(t_uchat_application* app, t_response* res); 
 
 //  =============================================Json=============================================
 /* Creates request for the server */
@@ -245,7 +247,7 @@ char* mx_create_request(char* type, char* url, json_object* prop);
 
 /* Disassemble given JSON and puts information in t_response */
 t_response *mx_get_response(char* json);
-// int mx_get_user_data(char* property);
+int mx_get_user_data(char* property);
 char* mx_json_get_str(const char* property, char* id);
 int mx_json_get_int(const char* property, char* id);
 t_user* mx_json_create_user(const char* property);
