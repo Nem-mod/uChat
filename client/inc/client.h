@@ -202,9 +202,9 @@ typedef struct s_callback_data {
 void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data);
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data);
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data);
-void mx_hide_window(UNUSED GtkButton *button, gpointer data);
+void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
-void mx_display_chat(t_uchat_application* app, t_response* res); 
+void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -213,6 +213,7 @@ void mx_clear_server_connection(t_serv_connection* s_con);
 //  =============================================Connection=============================================
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);
+unsigned long mx_handle_post_file(char* req, char** filename);
 
 //  =============================================Creators=============================================
 t_uchat_application* mx_create_app(char* argv[]);
@@ -233,10 +234,11 @@ void mx_init_scene_add_contact(t_uchat_application* app);
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
+void mx_set_style(const gchar *path, GtkWidget *widget);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
-gboolean mx_handle_display_chat(gpointer data);
+gboolean mx_handler_display_chat(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
 
 //  =============================================Json=============================================
@@ -251,9 +253,9 @@ int mx_json_get_int(const char* property, char* id);
 t_user* mx_json_create_user(const char* property);
 
 //  =============================================Validators=============================================
+int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
 
 //  =============================================Other=============================================
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
-void mx_set_style(const gchar *path, GtkWidget *widget);
-int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+void mx_display_chat(t_uchat_application* app, t_response* res); 
