@@ -237,7 +237,7 @@ t_file* mx_create_file(char* path, int size);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
-gboolean mx_handle_display_chat(gpointer data);
+gboolean mx_handler_display_chat(gpointer data);
 int mx_main_handler(char* json, t_uchat_application* app);
 void mx_display_chat(t_uchat_application* app, t_response* res); 
 

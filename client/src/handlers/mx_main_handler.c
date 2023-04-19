@@ -29,7 +29,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         t_callback_data* cb = mx_create_callback_data(app, res);
         mx_log_info(SYSLOG, "Get grp  success");
         //mx_display_chat(app,res);
-        gdk_threads_add_idle((GSourceFunc)mx_handle_display_chat, cb);
+        gdk_threads_add_idle((GSourceFunc)mx_handler_display_chat, cb);
     } else if (mx_strcmp(res->url, "/user/groups") == 0)
         mx_log_err(SYSLOG, "Get grp is failed");
 
