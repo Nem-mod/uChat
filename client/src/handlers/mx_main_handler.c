@@ -12,7 +12,11 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         return 400;
     if (mx_strcmp(res->url, "/auth/me") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Auth success");
+
         app->user_id  = mx_get_user_data((char*)res->property);
+        // mx_log_info(SYSLOG, "Your user id is: vvv");
+        // mx_log_info(SYSLOG, mx_itoa(app->user_id));
+
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         struct json_object *jobj = json_object_new_object();
         json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));

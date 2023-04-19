@@ -140,10 +140,10 @@ typedef struct s_chat_scene {
     GtkWidget *l_sc_chats;  // List of objects of scrollbar
     GtkWidget *b_add_contact;
     
-    
     GtkWidget *w_sc_messages;  // Window of scrollbar
     GtkWidget *v_sc_messages;  // Viewport of scrollbar
     GtkWidget *l_sc_messages;  // List of objects of scrollbar
+    GtkWidget *l_chatname;
     GtkWidget *e_f_chat;
     GtkWidget *b_send_message;
     
@@ -263,3 +263,4 @@ int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 void mx_display_chat(t_uchat_application* app, t_response* res); 
+GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
