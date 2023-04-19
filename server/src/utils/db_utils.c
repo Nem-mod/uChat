@@ -56,10 +56,10 @@ void mx_create_contacts_table(sqlite3 *db) {
         "contact_id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," \
         "user_id         INTEGER         NOT NULL," \
         "user_contact_id INTEGER         NOT NULL," \
+        "FOREIGN KEY(user_id) REFERENCES users(id)," \
+        "FOREIGN KEY(user_contact_id) REFERENCES users(id)," \
         "UNIQUE(user_id, user_contact_id),"\
-        "CONSTRAINT FK_USERS \
-            FOREIGN KEY (user_id) \
-            REFERENCES USERS(user_id))";
+        "CHECK(user_id < user_contact_id));";
     mx_create_table(db, sql, mx_callback);
 }
 
