@@ -23,7 +23,7 @@
 #define CLIENT 0
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
-
+#define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
 #define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
 #define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
@@ -254,4 +254,4 @@ t_user* mx_json_create_user(const char* property);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 void mx_set_style(const gchar *path, GtkWidget *widget);
-
+int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);

@@ -8,6 +8,8 @@ int mx_get_user_data(char* property) {
 
 int mx_main_handler(char* json, t_uchat_application* app) {
     t_response* res = mx_get_response(json);
+    if(res->property == NULL)
+        return 400;
     if (mx_strcmp(res->url, "/auth/me") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Auth success");
         // app->user->id = mx_get_user_data((char*)res->property);
