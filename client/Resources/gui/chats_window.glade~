@@ -2,38 +2,44 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkBox" id="chat_box">
-    <property name="width-request">20</property>
-    <property name="height-request">30</property>
+  <object class="GtkButton" id="chat_button">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
+    <property name="can-focus">True</property>
+    <property name="receives-default">True</property>
     <child>
-      <object class="GtkImage" id="chat_img">
-        <property name="width-request">10</property>
-        <property name="height-request">10</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="stock">gtk-missing-image</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="chat_name">
+      <object class="GtkBox" id="chat_box">
         <property name="width-request">20</property>
         <property name="height-request">30</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-right">104</property>
+        <child>
+          <object class="GtkImage" id="chat_img">
+            <property name="width-request">10</property>
+            <property name="height-request">10</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="chat_name">
+            <property name="width-request">20</property>
+            <property name="height-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
     </child>
   </object>
   <object class="GtkWindow" id="chat_window">
