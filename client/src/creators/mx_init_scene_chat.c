@@ -25,11 +25,18 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->l_sc_chats = mx_get_widget(builder, "chats_list");
     app->scenes->chat_scene->b_add_contact = mx_get_widget(builder, "add_contact_button");
 
-    
+    app->scenes->chat_scene->l_chatname = mx_get_widget(builder, "chat_name_label");
     app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
     app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
     app->scenes->chat_scene->l_sc_messages = mx_get_widget(builder, "messages_list");
     
+<<<<<<< HEAD
+    app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
+    app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
+    app->scenes->chat_scene->l_sc_messages = mx_get_widget(builder, "messages_list");
+    
+=======
+>>>>>>> c353c35 (feat: mx_gtk_find_child | feat: changing chat name on click)
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
     
