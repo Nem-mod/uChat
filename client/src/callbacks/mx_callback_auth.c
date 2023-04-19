@@ -14,6 +14,8 @@ void mx_callback_auth(UNUSED GtkButton *button, gpointer data) {
 
    
     struct json_object *jobj = json_object_new_object();
+    mx_clear_entry(app->scenes->signin_scene->e_f_login);
+    mx_clear_entry(app->scenes->signin_scene->e_f_password);
 
     json_object_object_add(jobj, "login", json_object_new_string(login));
     json_object_object_add(jobj, "password", json_object_new_string(password));

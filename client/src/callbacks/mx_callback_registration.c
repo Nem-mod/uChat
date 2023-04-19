@@ -29,6 +29,13 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
        return;
     }
 
+    mx_clear_entry(app->scenes->signup_scene->e_f_login);
+    mx_clear_entry(app->scenes->signup_scene->e_f_password);
+    mx_clear_entry(app->scenes->signup_scene->e_f_password2);
+    mx_clear_entry(app->scenes->signup_scene->e_f_firstName);
+    mx_clear_entry(app->scenes->signup_scene->e_f_lastName);
+    
+
     struct json_object *jobj = json_object_new_object();
 
     json_object_object_add(jobj, "login", json_object_new_string(login));
