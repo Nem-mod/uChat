@@ -1,5 +1,4 @@
 #include "db_utils.h"
-
 void mx_openDB(const char* filename, sqlite3** ppDB) {
     int rc = sqlite3_open(filename, ppDB);
     
@@ -59,7 +58,7 @@ void mx_create_contacts_table(sqlite3 *db) {
         "FOREIGN KEY(user_id) REFERENCES users(id)," \
         "FOREIGN KEY(user_contact_id) REFERENCES users(id)," \
         "UNIQUE(user_id, user_contact_id),"\
-        "CHECK(user_id < user_contact_id));";
+        "CHECK(user_id > user_contact_id));";
     mx_create_table(db, sql, mx_callback);
 }
 
@@ -109,7 +108,7 @@ void mx_create_messages_table(sqlite3* db) {
 
 /*====================Insert====================*/
 
-static char* create_token(int length) {\
+char* create_token(int length) {\
     int seed = 2454193;
     char *string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     size_t stringLen = strlen(string);
@@ -165,14 +164,22 @@ int mx_insert_contact(sqlite3* db, int user_id, int contact_user_id){
     if(user_id == contact_user_id || contact_user_id == 0) {
         return -1;
     }
+    
+    if(user_id < contact_user_id) {
+        int tmp = contact_user_id;
+        contact_user_id = user_id;
+        user_id = tmp;
+    }
     char sql[255];
     sprintf(sql, "INSERT INTO CONTACTS(user_id, user_contact_id)"  \
-    "VALUES(\"%d\", \"%d\");",
+    "VALUES(\'%d\', \'%d\');",
     user_id, contact_user_id);
-    int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
+    char* err;
+    int rt = sqlite3_exec(db, sql, mx_callback, 0, &err);
     if( rt != SQLITE_OK){
         return -1;
     }
+
     return 0;
 }
 
