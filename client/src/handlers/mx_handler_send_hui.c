@@ -12,7 +12,7 @@ gboolean mx_handler_send_hui(gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     // json_object_object_add(jobj, "sent_datatime", json_object_new_string(mx_get_formatted_time()));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/user/groups", jobj));
-    if (app->current_group_id != 0) // FIXME: CHANGE TO 0 AFTER MERGE
+    if (app->current_group_id != 0)
         mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
 
     return true;

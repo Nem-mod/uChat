@@ -8,8 +8,10 @@ int mx_get_user_data(char* property) {
 
 int mx_main_handler(char* json, t_uchat_application* app) {
     t_response* res = mx_get_response(json);
+
     if(res->property == NULL)
         return 400;
+
     if (mx_strcmp(res->url, "/auth/me") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Auth success");
 
@@ -18,12 +20,11 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         // mx_log_info(SYSLOG, mx_itoa(app->user_id));
 
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->chat_scene->cbdata);
-        g_timeout_add_seconds(PING_SERVER_INTERAL_SECONDS, mx_handler_send_hui, app);
+        // g_timeout_add_seconds(PING_SERVER_INTERAL_SECONDS, mx_handler_send_hui, app);
 
         struct json_object *jobj = json_object_new_object();
         json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
         mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
-        
     } else if (mx_strcmp(res->url, "/auth/me") == 0) {
         mx_log_err(SYSLOG, "Auth is failed");
     }
@@ -31,7 +32,6 @@ int mx_main_handler(char* json, t_uchat_application* app) {
     if (mx_strcmp(res->url, "/auth/register") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Registration success");
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->signin_scene->cbdata);
-        
     } else if (mx_strcmp(res->url, "/auth/register") == 0)
         mx_log_err(SYSLOG, "Registration is failed");
 
