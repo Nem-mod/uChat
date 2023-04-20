@@ -8,7 +8,7 @@
 #include <strings.h>
 #include <sys/stat.h>
 #include <json.h>
-// #include <regex.h>
+#include <regex.h>
 
 #include "connect_utils.h"
 #include "ssl_utils.h"
@@ -160,6 +160,7 @@ typedef struct s_chat_scene {
     GtkWidget *img_chat;
     GtkWidget *l_chatname;
     GtkWidget *e_f_chat;
+    GtkWidget *e_f_file;
     GtkWidget *b_send_message;
     GtkWidget *b_chat_profile;
     
@@ -274,6 +275,8 @@ t_user* mx_json_create_user(const char* property);
 
 //  =============================================Validators=============================================
 int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+int mx_validate_password_digits(const char *password);
+int mx_validate_password_letters(const char *password);
 
 //  =============================================Other=============================================
 /* Hide current scene and show another */
