@@ -44,25 +44,3 @@ entry::placeholder {
 label {
     color:red;
 }
-
-/* Also doesn't work, just like entry::placeholder */
-#signin-link1 {
-    color: #0069d9;
-    font-weight: 600;
-    font-size: 15px;
-    transition: 0.3s;
-}
-
-#signin-link1::before {
-    content: "";
-    top: 10px;
-    width: 0%;
-    background-color: #0069d9;
-    transition: 0.3s;
-}
-
-#signin-link1:hover {
-    color:black;
-    width: 100%;
-}
-

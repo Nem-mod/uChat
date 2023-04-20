@@ -12,11 +12,12 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         return 400;
     if (mx_strcmp(res->url, "/auth/me") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Auth success");
+        
+        gtk_label_set_text(GTK_LABEL(app->scenes->signin_scene->l_err_msg), "");
 
         app->user_id  = mx_get_user_data((char*)res->property);
         // mx_log_info(SYSLOG, "Your user id is: vvv");
         // mx_log_info(SYSLOG, mx_itoa(app->user_id));
-
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         struct json_object *jobj = json_object_new_object();
         json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
@@ -24,6 +25,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         
     } else if (mx_strcmp(res->url, "/auth/me") == 0) {
         mx_log_err(SYSLOG, "Auth is failed");
+        gtk_label_set_text(GTK_LABEL(app->scenes->signin_scene->l_err_msg), "Wrong login or password");
     }
         
     if (mx_strcmp(res->url, "/auth/register") == 0 && res->status == 200) {

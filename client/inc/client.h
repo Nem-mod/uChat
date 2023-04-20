@@ -105,6 +105,12 @@ typedef struct s_signup_scene {
     GtkWidget *e_f_lastName;    // Entry field {lastName}
     GtkWidget *b_signup;        // Button signUp
     GtkWidget *bl_signin;       // Button-link on signIn window
+
+    GtkWidget *l_first_name_err;
+    GtkWidget *l_second_name_err;
+    GtkWidget *l_login_err;
+    GtkWidget *l_password_err;
+    GtkWidget *l_repeat_password_err;
     t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
@@ -117,6 +123,7 @@ typedef struct s_signin_scene {
     GtkWidget *e_f_password;    // Enter field {password}
     GtkWidget *b_signin;        // Buttin signIn
     GtkWidget *bl_signup;       // Button-link on signUp window
+    GtkWidget *l_err_msg;       // Error message label ("Wrong password or login")
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
