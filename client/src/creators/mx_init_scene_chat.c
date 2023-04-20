@@ -30,6 +30,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
     app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
     app->scenes->chat_scene->l_sc_messages = mx_get_widget(builder, "messages_list");
+    app->scenes->chat_scene->bc_file = mx_get_widget(builder, "file_choose_button");
     
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");

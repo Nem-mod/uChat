@@ -98,13 +98,14 @@ int add_contact(const char* req, char** res){
     }
     int user1_id = json_object_get_int(juser_id);
     int user2_id = json_object_get_int(jcont_id);
-
+    
     if (user2_id == 0 || user1_id == user2_id) {
         return -1;
     }
     
 
     if(mx_insert_contact(db, user1_id, user2_id) != -1) {
+       
         t_group group;
         mx_strcpy(group.group_name, json_object_get_string(juser_login));
         group.privacy = 1;

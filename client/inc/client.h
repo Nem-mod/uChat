@@ -147,6 +147,7 @@ typedef struct s_chat_scene {
     GtkWidget *l_chatname;
     GtkWidget *e_f_chat;
     GtkWidget *b_send_message;
+    GtkWidget *bc_file;
     
     t_callback_data* cbdata;
 
@@ -174,6 +175,7 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
+    char* choosed_file_name;
 
 }              t_uchat_application;
 
@@ -208,6 +210,8 @@ void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
 void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_send_message(UNUSED GtkButton *button, gpointer data);
+
+void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);

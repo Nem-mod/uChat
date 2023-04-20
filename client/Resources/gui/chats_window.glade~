@@ -312,7 +312,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="chat_image">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
@@ -459,7 +459,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="messsage_text_label">
+          <object class="GtkLabel" id="message_text_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>

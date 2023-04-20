@@ -14,6 +14,7 @@
 // #include <openssl/evp.h>
 #define MAXBUFFER 8192
 
+unsigned long get_file_size(char *filename);
 
 SSL_CTX* mx_init_context(bool is_server);
 

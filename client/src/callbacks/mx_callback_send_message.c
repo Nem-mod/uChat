@@ -15,10 +15,25 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
   
     struct json_object *jobj = json_object_new_object();
 
+    
+
     json_object_object_add(jobj, "message_text", json_object_new_string(message_text_entry));
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "sent_datatime", json_object_new_string(mx_get_formatted_time()));
+
+    if(app->choosed_file_name) {
+        unsigned int file_size = get_file_size(app->choosed_file_name);
+        if(file_size > 0) {
+            json_object_object_add(jobj, "file_name", json_object_new_string(app->choosed_file_name));
+            json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
+        }
+    }
+    
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/message", jobj));
+    
+    if(app->choosed_file_name != NULL) {
+            mx_strdel(&app->choosed_file_name);
+    }
     //mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
 }
