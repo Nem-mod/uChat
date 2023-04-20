@@ -59,18 +59,20 @@ const char* main_handler(SSL* ssl, char* json){
     // mx_log_info("jsf.txt",  "sss\n");
     
     if (json_object_is_type(jobj, json_type_array)) {
-        mx_log_info(SYSLOG, "vvv Pass BIG JSON to the client vvv");
-        mx_log_info(SYSLOG, (char*)json_object_to_json_string(jobj)); 
-
         for(size_t i = 0; i < json_object_array_length(jobj); i++) {
             struct json_object *jtmp = json_object_array_get_idx(jobj, i);
             json_res = (char*)create_json_response(api->res, (char*)json_object_to_json_string(jtmp));
-            mx_SSL_write(ssl, (char*)json_res);
             struct json_object *jfname = json_object_object_get(jtmp, "file_name");
             struct json_object *jfsize = json_object_object_get(jtmp, "file_size");
             if(json_object_get_uint64(jfsize) > 0 && json_object_get_string(jfname)) {
-                mx_SSL_sendfile(ssl, mx_strjoin("./" , (char*)json_object_get_string(jfname)), json_object_get_uint64(jfsize));
+                json_object* jfres = json_object_new_object();
+                json_object_object_add(jfres, "type", json_object_new_string("POST-FILE"));
+                json_object_object_add(jfres, "file_name", jfname);
+                json_object_object_add(jfres, "file_size", jfsize);
+                mx_SSL_write(ssl, (char*)json_object_to_json_string(jfres));
+                mx_SSL_sendfile(ssl, mx_strjoin(RESPATH, (char*)json_object_get_string(jfname)), json_object_get_uint64(jfsize));
             }
+            mx_SSL_write(ssl, (char*)json_res);
             mx_strdel(&json_res);
         }
     } 

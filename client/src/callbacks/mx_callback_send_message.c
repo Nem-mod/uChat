@@ -22,18 +22,27 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "sent_datatime", json_object_new_string(mx_get_formatted_time()));
 
-    if(app->choosed_file_name) {
-        unsigned int file_size = get_file_size(app->choosed_file_name);
+    if(app->choosed_file_pname) {
+        unsigned int file_size = get_file_size(app->choosed_file_pname);
         if(file_size > 0) {
-            json_object_object_add(jobj, "file_name", json_object_new_string(app->choosed_file_name));
+            char filename[50];
+            char *pos = strrchr(app->choosed_file_pname, '/');
+            strcpy(filename, pos + 1);
+            struct json_object *jfobj = json_object_new_object();
+            json_object_object_add(jfobj, "file_name", json_object_new_string(filename));
+            json_object_object_add(jfobj, "file_size", json_object_new_uint64(file_size));
+            json_object_object_add(jfobj, "type", json_object_new_string("POST-FILE"));
+            mx_write_to_server(app->serv_connection->ssl,  (char*)json_object_to_json_string(jfobj));
+            mx_SSL_sendfile(app->serv_connection->ssl, app->choosed_file_pname, file_size);
+            json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
         }
     }
     
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/message", jobj));
     
-    if(app->choosed_file_name != NULL) {
-            mx_strdel(&app->choosed_file_name);
+    if(app->choosed_file_pname != NULL) {
+            mx_strdel(&app->choosed_file_pname);
     }
     //mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
 }

@@ -14,7 +14,7 @@ void* mx_listen_server(void* data) {
                 if(mx_SSL_read(app->serv_connection->ssl, buffer) == -1) break;
             }
             else {
-                mx_SSL_readfile(app->serv_connection->ssl, mx_strjoin(RESOURCE_GUI_PATH , filename), filesize);
+                mx_SSL_readfile(app->serv_connection->ssl, mx_strjoin(RESOURCE_PATH , filename), filesize);
                 file_flag = 0;
 
                 continue;

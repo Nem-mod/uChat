@@ -24,6 +24,7 @@
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
+#define RESOURCE_PATH       "./client/Resources/"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
 #define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
 #define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
@@ -175,7 +176,7 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
-    char* choosed_file_name;
+    char* choosed_file_pname;
 
 }              t_uchat_application;
 
