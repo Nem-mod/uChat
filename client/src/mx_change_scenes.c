@@ -18,6 +18,12 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_first_name_err), "");
             gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_second_name_err), "");
             gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_repeat_password_err), "");
+            
+            mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_login));
+            mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_password));
+            mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_password2));
+            mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_firstName));
+            mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_lastName));
 
             gtk_widget_show(app->scenes->signin_scene->w_signin);
             break;

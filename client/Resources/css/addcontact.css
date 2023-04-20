@@ -5,17 +5,19 @@ button {
     font-size: 15px;
     font-weight: 600;
     /*padding: 7px 20px;*/
-    /*border: 1px solid #0069d9;*/
-    border: none;
-    border-radius: 5px;
+    border: 1px solid #77b6fa; 
+    /* border: none; */
+    border-radius: 20px;
     transition: 0.3s;
     /* border-radius: 5px; */
     /*font: Comic Sans 12;*/
 }
 
 button:hover {
-    /*background-image: image(#0069d9);*/
     color: red;
+    border-color: #0069d9;
+    border-radius: 3px;
+    /* border-width: 2px; */
 }
 
 entry {

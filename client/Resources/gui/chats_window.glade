@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkButton" id="chat_button">
@@ -116,6 +116,7 @@
             <property name="height-request">384</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="halign">start</property>
             <property name="shadow-type">in</property>
             <child>
               <object class="GtkViewport" id="messages_viewport">
@@ -165,8 +166,10 @@
             <property name="can-focus">False</property>
             <property name="layout-style">start</property>
             <child>
-              <object class="GtkFileChooserButton">
+              <object class="GtkFileChooserButton" id="file_entry">
+                <property name="name">cf</property>
                 <property name="visible">True</property>
+                <property name="app-paintable">True</property>
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes"/>
               </object>

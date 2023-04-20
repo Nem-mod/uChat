@@ -27,6 +27,14 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_password_err), "Invalid password (> 18)");
         err = true;
     }
+    else if (mx_validate_password_digits((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password))) != 0) {
+        gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_password_err), "Invalid password (must contain digits)");
+        err = true;
+    }
+    else if (mx_validate_password_letters((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password))) != 0) {
+        gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_password_err), "Invalid password (must contain letters)");
+        err = true;
+    }
     else {
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_password_err), "");        
     }
