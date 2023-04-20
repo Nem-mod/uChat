@@ -59,7 +59,7 @@ void mx_log_msg(char* file, char* str) {
 
     if ((fd = fopen(file, "a+")) == NULL) 
         return;
-    time = mx_get_formatted_time();
+    time = mx_get_formatted_date();
 
     fprintf(fd, "%s %s\n", time, str);
 
