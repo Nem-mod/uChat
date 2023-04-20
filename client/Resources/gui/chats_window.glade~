@@ -54,206 +54,30 @@
         <child>
           <object class="GtkSeparator">
             <property name="width-request">1</property>
-            <property name="height-request">420</property>
+            <property name="height-request">452</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="vexpand">True</property>
           </object>
           <packing>
             <property name="x">300</property>
-            <property name="y">30</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkMenuBar" id="chat_menu_bar">
-            <property name="height-request">30</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <child>
-              <object class="GtkMenuItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_File</property>
-                <property name="use-underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-new</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-open</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-save</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-save-as</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-quit</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_Edit</property>
-                <property name="use-underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-cut</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-copy</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-paste</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-delete</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_View</property>
-                <property name="use-underline">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_Help</property>
-                <property name="use-underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="width-request">800</property>
-            <property name="height-request">1</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="y">30</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="width-request">800</property>
-            <property name="height-request">1</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="y">63</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="chats_entry">
-            <property name="width-request">226</property>
+            <property name="width-request">225</property>
+            <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
           </object>
           <packing>
             <property name="x">75</property>
-            <property name="y">30</property>
           </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="chats_sc_window">
             <property name="width-request">300</property>
-            <property name="height-request">389</property>
+            <property name="height-request">419</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
@@ -271,12 +95,12 @@
             </child>
           </object>
           <packing>
-            <property name="y">63</property>
+            <property name="y">33</property>
           </packing>
         </child>
         <child>
           <object class="GtkSeparator">
-            <property name="width-request">500</property>
+            <property name="width-request">501</property>
             <property name="height-request">1</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -288,8 +112,8 @@
         </child>
         <child>
           <object class="GtkScrolledWindow" id="messages_sc_window">
-            <property name="width-request">500</property>
-            <property name="height-request">353</property>
+            <property name="width-request">501</property>
+            <property name="height-request">384</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
@@ -308,18 +132,18 @@
           </object>
           <packing>
             <property name="x">300</property>
-            <property name="y">63</property>
+            <property name="y">33</property>
           </packing>
         </child>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="chat_image">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
             <property name="x">310</property>
-            <property name="y">38</property>
+            <property name="y">8</property>
           </packing>
         </child>
         <child>
@@ -330,7 +154,7 @@
           </object>
           <packing>
             <property name="x">335</property>
-            <property name="y">38</property>
+            <property name="y">8</property>
           </packing>
         </child>
         <child>
@@ -384,15 +208,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="chat_edit_button">
-            <property name="label" translatable="yes">button</property>
+          <object class="GtkButton" id="chat_profile_button">
+            <property name="label" translatable="yes">Profile</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">719</property>
-            <property name="y">30</property>
+            <property name="x">722</property>
           </packing>
         </child>
         <child>
@@ -410,12 +233,9 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="y">30</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="add_group_button">
             <property name="width-request">20</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>
@@ -430,8 +250,18 @@
             </child>
           </object>
           <packing>
-            <property name="x">35</property>
-            <property name="y">30</property>
+            <property name="x">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="width-request">801</property>
+            <property name="height-request">1</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="y">34</property>
           </packing>
         </child>
       </object>
@@ -459,7 +289,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="messsage_text_label">
+          <object class="GtkLabel" id="message_text_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>

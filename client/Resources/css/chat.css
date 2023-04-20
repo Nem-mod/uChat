@@ -4,8 +4,9 @@ button {
     
     font-size: 15px;
     font-weight: 600;
-    padding: 7px 20px;
-    border: 2px solid #0069d9;
+    /*padding: 7px 20px;*/
+    /*border: 1px solid #0069d9;*/
+    border: none;
     border-radius: 5px;
     transition: 0.3s;
     /* border-radius: 5px; */
@@ -13,8 +14,8 @@ button {
 }
 
 button:hover {
-    background-image: image(#0069d9);
-    color: white;
+    /*background-image: image(#0069d9);*/
+    color: red;
 }
 
 entry {
@@ -33,14 +34,4 @@ entry:focus {
 
 entry:hover {
     border: 2px solid #74b2f5;
-}
-
-/* Doesn't work for unknown reason (I love C) */
-/*entry::placeholder {
-    color:#74b2f5;
-    font-weight: 400;
-}*/
-
-label {
-    color:red;
 }

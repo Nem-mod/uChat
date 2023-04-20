@@ -35,25 +35,25 @@ entry:hover {
     border: 2px solid #74b2f5;
 }
 
-/* Doesn't work for unknown reason (I love C) */
-entry::placeholder {
+/*entry::placeholder {
     color:#74b2f5;
     font-weight: 400;
-}
+}*/
 
 label {
     color:red;
 }
 
-/* Also doesn't work, just like entry::placeholder */
-#signin-link1 {
+/*Also doesn't work, just like entry::placeholder 
+.button.linkbutton, .linkbutton, GtkLinkButton {
     color: #0069d9;
     font-weight: 600;
     font-size: 15px;
     transition: 0.3s;
+    text-decoration: none;
 }
 
-#signin-link1::before {
+.button.linkbutton::before {
     content: "";
     top: 10px;
     width: 0%;
@@ -61,8 +61,8 @@ label {
     transition: 0.3s;
 }
 
-#signin-link1:hover {
+.button.linkbutton:hover {
     color:black;
     width: 100%;
-}
+}*/
 
