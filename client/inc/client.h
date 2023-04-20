@@ -21,6 +21,7 @@
 #define IP "127.0.0.1"
 #define SERVER 1
 #define CLIENT 0
+#define PING_SERVER_INTERAL_SECONDS 1
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
@@ -249,6 +250,7 @@ gboolean mx_handler_display_chat(gpointer data);
 gboolean mx_handler_display_messages(gpointer data);
 void mx_handle_messages_res(t_uchat_application* app, t_response* res);
 int mx_main_handler(char* json, t_uchat_application* app);
+gboolean mx_handler_send_hui(gpointer data);    // TODO: change name
 
 //  =============================================Json=============================================
 /* Creates request for the server */
