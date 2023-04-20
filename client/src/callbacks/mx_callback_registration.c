@@ -16,7 +16,7 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     else {
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_login_err), "");
     }
-    const char *login = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_login));
+    const char *login = mx_strdup((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_login)));
 
     int pass_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_password)); 
     if (pass_len < 8) {
@@ -30,8 +30,8 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     else {
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_password_err), "");        
     }
-    const char *password = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password));
-    const char *password2 = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password2));
+    const char *password = mx_strdup((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password)));
+    const char *password2 = mx_strdup((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_password2)));
 
     int fname_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_firstName)); 
     if (fname_len < 3) {
@@ -45,7 +45,7 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     else {  
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_first_name_err), "");
     }
-    const char *first_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_firstName));
+    const char *first_name = mx_strdup((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_firstName)));
 
     int lname_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_lastName)); 
     if (lname_len < 3) {
@@ -59,7 +59,7 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     else {  
         gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_second_name_err), "");
     }
-    const char *last_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_lastName));
+    const char *last_name = mx_strdup((char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signup_scene->e_f_lastName)));
  
     if(mx_strcmp(password, password2) != 0) {
         /*
