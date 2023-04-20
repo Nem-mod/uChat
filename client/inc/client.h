@@ -21,7 +21,7 @@
 #define IP "127.0.0.1"
 #define SERVER 1
 #define CLIENT 0
-#define PING_SERVER_INTERAL_SECONDS 1
+#define PING_SERVER_INTERAL_SECONDS 5
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
@@ -214,6 +214,7 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_send_message(UNUSED GtkButton *button, gpointer data);
 
 void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
+void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
