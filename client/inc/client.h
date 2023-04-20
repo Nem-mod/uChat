@@ -127,7 +127,8 @@ typedef struct s_signin_scene {
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
-/* Struct which contains GtkWidgets for SignIn Scene*/
+
+/* Struct which contains GtkWidgets for Addcontact Scene*/
 typedef struct s_add_contact {
     GtkWidget *w_add_contact; 
     GtkWidget *e_f_login;       // Enter field {login}    
@@ -136,6 +137,11 @@ typedef struct s_add_contact {
     t_callback_data* cbdata;    // Callback data
 }              t_add_contact;
 
+// typedef struct s_profile {
+//     GtkWidget *w_profile;
+//     GtkWidget *b_logout;
+//     t_callback_data* cbdata;
+// }               t_prifile;
 
 /* Struct wich contains GtkWidgets for chat Scene*/
 typedef struct s_chat_scene {
