@@ -19,6 +19,9 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "sent_datatime", json_object_new_string(mx_get_formatted_time()));
+
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/message", jobj));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
+
+    mx_clear_entry(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
 }
