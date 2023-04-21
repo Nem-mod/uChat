@@ -19,7 +19,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         // mx_log_info(SYSLOG, "Your user id is: vvv");
         // mx_log_info(SYSLOG, mx_itoa(app->user_id));
 
-        gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->chat_scene->cbdata);
+        gdk_threads_add_idle(mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         g_timeout_add_seconds(PING_SERVER_INTERAL_SECONDS, mx_handler_send_hui, app);
 
         struct json_object *jobj = json_object_new_object();
@@ -31,21 +31,21 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         
     if (mx_strcmp(res->url, "/auth/register") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Registration success");
-        gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->signin_scene->cbdata);
+        gdk_threads_add_idle(mx_handler_change_scene, app->scenes->signin_scene->cbdata);
     } else if (mx_strcmp(res->url, "/auth/register") == 0)
         mx_log_err(SYSLOG, "Registration is failed");
 
     if (mx_strcmp(res->url, "/user/groups") == 0 && res->status == 200) {
         t_callback_data* cb = mx_create_callback_data(app, res);
         mx_log_info(SYSLOG, "Get grp  success");
-        gdk_threads_add_idle((GSourceFunc)mx_handler_display_chat, cb);
+        gdk_threads_add_idle(mx_handler_display_chat, cb);
     } else if (mx_strcmp(res->url, "/user/groups") == 0)
         mx_log_err(SYSLOG, "Get grp is failed");
 
     if (mx_strcmp(res->url, "/group/message") == 0 && res->status == 200 && mx_strcmp(res->type, "GET") == 0) {
         t_callback_data* cb = mx_create_callback_data(app, res);
         mx_log_info(SYSLOG, "Get msg  success");
-        gdk_threads_add_idle((GSourceFunc)mx_handler_display_messages, cb);
+        gdk_threads_add_idle(mx_handler_display_messages, cb);
     } else if (mx_strcmp(res->url, "/group/message") == 0 && mx_strcmp(res->type, "GET") == 0)
         mx_log_err(SYSLOG, "Get msg is failed");
 

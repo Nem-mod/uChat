@@ -263,6 +263,7 @@ gboolean mx_handler_display_messages(gpointer data);
 void mx_handle_messages_res(t_uchat_application* app, t_response* res);
 int mx_main_handler(char* json, t_uchat_application* app);
 gboolean mx_handler_send_hui(gpointer data);    // TODO: change name
+gboolean mx_handler_chat_scroll_down(gpointer data);
 
 //  =============================================Json=============================================
 /* Creates request for the server */
