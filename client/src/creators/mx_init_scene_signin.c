@@ -3,6 +3,7 @@
 void mx_init_scene_signin(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     const gchar *path = "client/Resources/css/signin.css";
+    // const gchar *path = "client/Resources/css/gtk.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNIN_PATH, &error) == 0) {
@@ -31,7 +32,8 @@ void mx_init_scene_signin(t_uchat_application* app) {
     mx_set_style(path, app->scenes->signin_scene->e_f_password);
     mx_set_style(path, app->scenes->signin_scene->b_signin);
     mx_set_style(path, app->scenes->signin_scene->l_err_msg);
-    //mx_set_style(path, app->scenes->signin_scene->bl_signup);
+    mx_set_style(path, app->scenes->signin_scene->bl_signup);
+    mx_set_style(path, app->scenes->signin_scene->w_signin);
 
     
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
