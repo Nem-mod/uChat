@@ -10,6 +10,7 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     app->current_group_id = mx_atoi(gtk_widget_get_name(GTK_WIDGET(button)));
     app->last_message_indx = 0;
     app->last_message_id = 0;
+    // TODO: don't destroy. create struct for each chat, hide/show messages. don't get them from server every time
     gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_messages), (GtkCallback)gtk_widget_destroy, NULL);
 
     GtkWidget *chat_image = children->data;

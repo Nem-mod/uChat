@@ -47,15 +47,10 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);
     app->last_message_indx += 1;
-
-    // SCROLL TO THE END DOESNTWORK
-    // Get the vertical adjustment of the GtkViewport
-    GtkAdjustment *vadjustment = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(app->scenes->chat_scene->v_sc_messages));
-
-
-    gtk_adjustment_set_value(vadjustment, gtk_adjustment_get_upper(vadjustment) - gtk_adjustment_get_page_size(vadjustment));
     
     gtk_widget_queue_draw(GTK_WIDGET(app->scenes->chat_scene->v_sc_messages));
+    gdk_threads_add_idle(mx_handler_chat_scroll_down, app);
+    
     //g_signal_connect(chat_button, "clicked", G_CALLBACK (mx_callback_chatbox), app);
     g_object_unref(builder);
 }
