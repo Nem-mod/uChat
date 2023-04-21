@@ -2,6 +2,7 @@
 
 void mx_init_scene_chat(t_uchat_application* app){
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+    const gchar *path = "client/Resources/css/chat.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
@@ -26,16 +27,26 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->b_add_contact = mx_get_widget(builder, "add_contact_button");
     app->scenes->chat_scene->b_add_group = mx_get_widget(builder, "add_group_button");
 
-
     app->scenes->chat_scene->img_chat = mx_get_widget(builder, "chat_image");
     app->scenes->chat_scene->l_chatname = mx_get_widget(builder, "chat_name_label");
+    app->scenes->chat_scene->b_chat_profile = mx_get_widget(builder, "chat_profile_button");
     app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
     app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
     app->scenes->chat_scene->l_sc_messages = mx_get_widget(builder, "messages_list");
     app->scenes->chat_scene->bc_file = mx_get_widget(builder, "file_choose_button");
     
+    app->scenes->chat_scene->e_f_file = mx_get_widget(builder, "file_entry");
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
+
+    mx_set_style(path, app->scenes->chat_scene->e_f_chats);
+    mx_set_style(path, app->scenes->chat_scene->b_add_contact);
+    mx_set_style(path, app->scenes->chat_scene->b_add_group);
+    mx_set_style(path, app->scenes->chat_scene->e_f_file);
+    mx_set_style(path, app->scenes->chat_scene->b_chat_profile);
+
+    mx_set_style(path, app->scenes->chat_scene->e_f_chat);
+    mx_set_style(path, app->scenes->chat_scene->b_send_message);
     
     GtkWidget* add_contact_icon =mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon =mx_get_widget(builder, "add_group_icon");

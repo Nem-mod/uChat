@@ -48,6 +48,7 @@ typedef struct s_message {
     char message_text[MAX_MESSAGE_TEXT_LEN + 1];
     char sent_datatime[MAX_SENT_DATATIME_LEN + 1];
     char file_name[MAX_NAME_LEN + 1];
+    char user_nick_name[MAX_NAME_LEN + 1];
     unsigned int size;
 }              t_message;
 

@@ -92,6 +92,7 @@ void mx_create_messages_table(sqlite3* db) {
         "message_id     INTEGER PRIMARY KEY     NOT NULL,"
         "group_id       INTEGER     NOT NULL," \
         "user_id        INTEGER     NOT NULL," \
+        "user_nick_name VARCHAR(64)     NOT NULL," \
         "message_text   TEXT        NOT NULL," \
         "sent_datatime  TEXT        NOT NULL," \
         "file_name   VARCHAR(225)," \
@@ -214,18 +215,19 @@ int mx_insert_group_member(sqlite3* db, t_group* group, t_user* user){
 }
 
 int mx_insert_message(sqlite3* db, t_message* message) {
+    
     char sql[255];
     int last_row_id = 0;
     if(message->file_name[0] != 0) {
-        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime, file_name, file_size)"  \
-            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\", \"%s\", \"%d\");",
-            message->group_id, message->user_id, message->message_text,
+        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, user_nick_name, message_text, sent_datatime, file_name, file_size)"  \
+            "VALUES(\"%d\", \"%d\",  \"%s\", \"%s\", \"%s\", \"%s\", \"%d\");",
+            message->group_id, message->user_id, message->user_nick_name, message->message_text,
             message->sent_datatime, message->file_name, message->size);
 
     } else {
-        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, message_text, sent_datatime)"  \
-            "VALUES(\"%d\", \"%d\", \"%s\", \"%s\");",
-            message->group_id, message->user_id, message->message_text, message->sent_datatime);
+        sprintf(sql, "INSERT INTO MESSAGES(group_id, user_id, user_nick_name, message_text, sent_datatime)"  \
+            "VALUES(\"%d\", \"%d\",  \"%s\", \"%s\", \"%s\");",
+            message->group_id, message->user_id, message->user_nick_name, message->message_text, message->sent_datatime);
     }
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){

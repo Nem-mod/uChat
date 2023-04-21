@@ -1,0 +1,39 @@
+button {
+    color: #0069d9;
+    background-image: image(white);
+    
+    font-size: 15px;
+    font-weight: 600;
+    /*padding: 7px 20px;*/
+    border: 1px solid #77b6fa; 
+    /* border: none; */
+    border-radius: 20px;
+    transition: 0.3s;
+    /* border-radius: 5px; */
+    /*font: Comic Sans 12;*/
+}
+
+button:hover {
+    color: red;
+    border-color: #0069d9;
+    border-radius: 3px;
+    /* border-width: 2px; */
+}
+
+entry {
+    border: 2px solid #0069d9;
+    border-radius: 5px;
+    font-weight: 400;
+    background-color: white;
+    color:#0069d9;
+    transition: 0.3s;
+}
+
+entry:focus {
+    /*background-image: image(#74b2f5);*/
+    color: white;
+}
+
+entry:hover {
+    border: 2px solid #74b2f5;
+}
