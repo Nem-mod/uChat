@@ -1,6 +1,6 @@
 #include "client.h"
 
-gboolean mx_handler_send_hui(gpointer data) {
+gboolean mx_handler_ping_server(gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
 
     mx_log_info(SYSLOG, "send HUI is called!");
