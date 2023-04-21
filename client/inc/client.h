@@ -8,7 +8,7 @@
 #include <strings.h>
 #include <sys/stat.h>
 #include <json.h>
-// #include <regex.h>
+#include <regex.h>
 
 #include "connect_utils.h"
 #include "ssl_utils.h"
@@ -110,6 +110,12 @@ typedef struct s_signup_scene {
     GtkWidget *e_f_lastName;    // Entry field {lastName}
     GtkWidget *b_signup;        // Button signUp
     GtkWidget *bl_signin;       // Button-link on signIn window
+
+    GtkWidget *l_first_name_err;
+    GtkWidget *l_second_name_err;
+    GtkWidget *l_login_err;
+    GtkWidget *l_password_err;
+    GtkWidget *l_repeat_password_err;
     t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
@@ -122,6 +128,7 @@ typedef struct s_signin_scene {
     GtkWidget *e_f_password;    // Enter field {password}
     GtkWidget *b_signin;        // Buttin signIn
     GtkWidget *bl_signup;       // Button-link on signUp window
+    GtkWidget *l_err_msg;       // Error message label ("Wrong password or login")
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
@@ -151,14 +158,18 @@ typedef struct s_chat_scene {
     GtkWidget *l_sc_chats;  // List of objects of scrollbar
     GtkWidget *b_add_contact;
     GtkWidget *b_add_group;
+    
+    
     GtkWidget *w_sc_messages;  // Window of scrollbar
     GtkWidget *v_sc_messages;  // Viewport of scrollbar
     GtkWidget *l_sc_messages;  // List of objects of scrollbar
     GtkWidget *img_chat;
     GtkWidget *l_chatname;
     GtkWidget *e_f_chat;
+    GtkWidget *e_f_file;
     GtkWidget *b_send_message;
     GtkWidget *bc_file;
+    GtkWidget *b_chat_profile;
     
     t_callback_data* cbdata;
 
@@ -279,6 +290,8 @@ t_user* mx_json_create_user(const char* property);
 
 //  =============================================Validators=============================================
 int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+int mx_validate_password_digits(const char *password);
+int mx_validate_password_letters(const char *password);
 
 //  =============================================Other=============================================
 /* Hide current scene and show another */

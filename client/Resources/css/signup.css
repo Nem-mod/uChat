@@ -1,4 +1,4 @@
-button:not(:link):not(:visited) {
+button {
     color: #0069d9;
     background-image: image(white);
     
@@ -8,10 +8,11 @@ button:not(:link):not(:visited) {
     border: 2px solid #0069d9;
     border-radius: 5px;
     transition: 0.3s;
-    /* font: Comic Sans 12; */
+    /* border-radius: 5px; */
+    /*font: Comic Sans 12;*/
 }
 
-button:not(:link):not(:visited):hover {
+button:hover {
     background-image: image(#0069d9);
     color: white;
 }
@@ -34,17 +35,12 @@ entry:hover {
     border: 2px solid #74b2f5;
 }
 
+/* Doesn't work for unknown reason (I love C) */
+/*entry::placeholder {
+    color:#74b2f5;
+    font-weight: 400;
+}*/
 
 label {
     color:red;
 }
-
-.background {
-    background-color: #9ac8f8;
-}
-
-
-/* button:hover:link, button:hover:link:visited {
-    background-color:#74b2f5;
-    transition: 0.3s;
-} */
