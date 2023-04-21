@@ -7,6 +7,8 @@ t_uchat_application* mx_create_app(char* argv[]) {
     app->current_group_id = 0;
     app->last_message_id = 0;
     app->choosed_file_pname = NULL;
+    // app->skip_json_log = false;
+    
     mx_create_scenes(app);
     mx_init_server_connection(app, mx_atoi(argv[1]));
 

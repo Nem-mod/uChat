@@ -21,7 +21,8 @@
 #define IP "127.0.0.1"
 #define SERVER 1
 #define CLIENT 0
-#define PING_SERVER_INTERAL_SECONDS 5
+#define PING_SERVER_LONG_INTERAL_SECONDS 5
+#define PING_SERVER_SHORT_INTERVAL_MILISECONDS 200
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 
@@ -192,14 +193,15 @@ typedef struct s_uchat_application {
     //GtkCssProvider *css_provider;         // Link to CSS provider
     t_uchat_scenes* scenes;                 // Link to gui scenes
     t_SCENE active_scene;                   // Flag which one scene is active
-    //t_user* user;                           // Information about the user
+   
     int user_id;
     int current_group_id;
     int last_message_id;
     int last_message_indx;
     char* choosed_file_pname;
-    
 
+    // bool skip_json_log;
+    // TODO: add current position of scene
 }              t_uchat_application;
 
 /* JSON response structure */
@@ -275,7 +277,8 @@ gboolean mx_handler_display_chat(gpointer data);
 gboolean mx_handler_display_messages(gpointer data);
 void mx_handle_messages_res(t_uchat_application* app, t_response* res);
 int mx_main_handler(char* json, t_uchat_application* app);
-gboolean mx_handler_ping_server(gpointer data);    // TODO: change name
+gboolean mx_handler_ping_server_get_chats(gpointer data);
+gboolean mx_handler_ping_server_get_messages(gpointer data);
 gboolean mx_handler_chat_scroll_down(gpointer data);
 
 //  =============================================Json=============================================
