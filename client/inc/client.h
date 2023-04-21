@@ -187,6 +187,7 @@ typedef struct s_uchat_application {
     int last_message_id;
     int last_message_indx;
     char* choosed_file_pname;
+    
 
 }              t_uchat_application;
 

@@ -16,8 +16,9 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     GtkWidget *message_button_box = mx_get_widget(builder, "message_button_box");
     GtkWidget *message_img = mx_get_widget(builder, "message_img");
     GtkWidget *messsage_text_label = mx_get_widget(builder, "message_text_label");
+    GtkWidget *messsage_user_nick_name = mx_get_widget(builder, " message_user_name");
     GtkWidget *messsage_sent_time_label = mx_get_widget(builder, "message_sent_time_label");
-
+    
     struct json_object* jobj = json_tokener_parse(res->property);
     if(res->property == NULL) 
         return;
@@ -27,6 +28,7 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
 
     struct json_object *jtext = json_object_object_get(jobj, "message_text");
+    struct json_object *jnick_name = json_object_object_get(jobj, "user_nick_name");
     struct json_object *jsent_time = json_object_object_get(jobj, "sent_datatime");
 
     char* file_name = RESOURCE_BASE_ICON;
@@ -39,8 +41,9 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         gtk_container_remove(GTK_CONTAINER(message_box), message_img);
     }
     
-    
+    g_print("%s", json_object_get_string(jnick_name));
     gtk_label_set_text(GTK_LABEL(messsage_text_label), (char*)json_object_get_string(jtext));
+    gtk_label_set_text(GTK_LABEL(messsage_user_nick_name), (char*)json_object_get_string(jnick_name));
     gtk_label_set_text(GTK_LABEL(messsage_sent_time_label), (char*)json_object_get_string(jsent_time));
 
     gtk_widget_set_name(message_button_box,  mx_itoa(json_object_get_int(jmessage_id)));

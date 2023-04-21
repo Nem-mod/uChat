@@ -172,6 +172,8 @@ int get_messages(const char* req, char** res) {
 
         mx_select_data(db, "MESSAGES", "*", temp, json);
     }
+    
+    
 
    
     
@@ -198,6 +200,17 @@ int create_message(const char* req, char** res){
     t_message message;
     message.group_id = json_object_get_int(jgroup_id);
     message.user_id = json_object_get_int(juser_id);
+    char temp[256];
+    json_object *json =  json_object_new_array();
+    sprintf(temp, "user_id = \'%d\'", message.user_id );
+    mx_openDB(DATABASE_NAME, &db);
+    
+    mx_select_data(db, "USERS", "nick_name", temp, json);
+    json_object *json_nick = json_object_array_get_idx(json, 0);
+    mx_strcpy(message.user_nick_name, json_object_get_string(json_object_object_get(json_nick, "nick_name")));
+
+    sqlite3_close(db);
+    
     mx_memset(&message.file_name, 0, sizeof(message.file_name));
     message.size = 0;
     mx_strcpy(message.message_text, json_object_get_string(jmessage));
