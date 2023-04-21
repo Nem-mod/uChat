@@ -41,7 +41,6 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         gtk_container_remove(GTK_CONTAINER(message_box), message_img);
     }
     
-    g_print("%s", json_object_get_string(jnick_name));
     gtk_label_set_text(GTK_LABEL(messsage_text_label), (char*)json_object_get_string(jtext));
     gtk_label_set_text(GTK_LABEL(messsage_user_nick_name), (char*)json_object_get_string(jnick_name));
     gtk_label_set_text(GTK_LABEL(messsage_sent_time_label), (char*)json_object_get_string(jsent_time));

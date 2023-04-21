@@ -8,9 +8,9 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
         return;
     
     int message_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->chat_scene->e_f_chat)); 
-    if(message_len < 0 || message_len > 256) {return;}
+    if(message_len <= 0 || message_len > 256) {return;}
     char *message_text_entry = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
-
+    g_print("%d", message_len);
     
   
     struct json_object *jobj = json_object_new_object();
