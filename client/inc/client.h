@@ -33,7 +33,7 @@
 #define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
 #define RESOURCE_CHAT_PATH      (RESOURCE_GUI_PATH "chats_window.glade")
 #define RESOURCE_ADD_CONT_PATH      (RESOURCE_GUI_PATH "addcontact.glade")
-
+#define RESOURCE_CREATE_GROUP_PATH      (RESOURCE_GUI_PATH "addgroup.glade")
 typedef struct s_callback_data t_callback_data;
 
 /* Enum for scene representation */
@@ -41,7 +41,8 @@ typedef enum s_SCENE {
     SIGNUP,
     SIGNIN,
     CHAT,
-    ADD_CONTACT
+    ADD_CONTACT,
+    CREATE_GROUP
 }            t_SCENE;
 
 typedef struct s_file {
@@ -124,15 +125,21 @@ typedef struct s_signin_scene {
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
-/* Struct which contains GtkWidgets for SignIn Scene*/
 typedef struct s_add_contact {
     GtkWidget *w_add_contact; 
-    GtkWidget *e_f_login;       // Enter field {login}    
-    GtkWidget *b_add_contact;        // Buttin signIn
-    GtkWidget *b_close;       // Button-link on signUp window
-    t_callback_data* cbdata;    // Callback data
+    GtkWidget *e_f_login;       
+    GtkWidget *b_add_contact;        
+    GtkWidget *b_close;       
+    t_callback_data* cbdata;    
 }              t_add_contact;
 
+typedef struct s_create_group {
+    GtkWidget *w_create_group; 
+    GtkWidget *e_f_group_name;            
+    GtkWidget *b_create_group;        
+    GtkWidget *b_close;       
+    t_callback_data* cbdata;    
+}               t_create_group;
 
 /* Struct wich contains GtkWidgets for chat Scene*/
 typedef struct s_chat_scene {
@@ -163,7 +170,7 @@ typedef struct s_uchat_scenes {
     t_signin_scene* signin_scene; // Sign in scene
     t_chat_scene* chat_scene;
     t_add_contact* add_contact_dwindow;
-
+    t_create_group* create_group_dwindow;
 }              t_uchat_scenes;
 
 
@@ -214,7 +221,7 @@ void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data);
 void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_send_message(UNUSED GtkButton *button, gpointer data);
-
+void mx_callback_create_group(UNUSED GtkButton *button, gpointer data);
 void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 //  =============================================Cleaners=============================================
@@ -235,14 +242,15 @@ GtkWidget *mx_get_widget(GtkBuilder *builder, char *id);
 void mx_init_callbacks_signin(t_uchat_application* app);
 void mx_init_callbacks_signup(t_uchat_application* app);
 void mx_init_callbacks_chat(t_uchat_application* app);
-
+void mx_init_scene_create_group(t_uchat_application* app);
 void mx_init_add_cont(t_uchat_application* app);
+void mx_init_create_group(t_uchat_application* app);
 void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);
 void mx_init_server_connection(t_uchat_application* app, int port);
 void mx_init_scene_add_contact(t_uchat_application* app);
-
+void mx_init_scene_create_group(t_uchat_application* app);
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);

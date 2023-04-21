@@ -13,7 +13,7 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     }
 
     t_SCENE *new_scene = malloc(sizeof(t_SCENE));
-    app->scenes->add_contact_dwindow = malloc(sizeof(t_signin_scene));
+    app->scenes->add_contact_dwindow = malloc(sizeof(t_add_contact));
 
     *new_scene = ADD_CONTACT;
     app->scenes->add_contact_dwindow->cbdata = mx_create_callback_data(app, new_scene);
