@@ -16,7 +16,6 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     GtkWidget *chat_image = children->data;
     children = g_list_next(children);
     GtkLabel *chat_label = GTK_LABEL(children->data);
-    // children = g_list_next(children);
     
 
     // mx_log_info(SYSLOG, "current_group_id = vvv");
@@ -26,9 +25,8 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     // mx_log_info(SYSLOG, (char*)gtk_label_get_text(chat_label));
     gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), gtk_label_get_text(chat_label));
 
-    gtk_image_set_from_file(GTK_IMAGE(app->scenes->chat_scene->img_chat), gtk_widget_get_name(chat_image));
-    // gtk_image_get_image()
-    // gtk_image_set_from_file(, )
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat), chat_image, gtk_widget_get_name(chat_image));
+    // gtk_image_set_from_file(GTK_IMAGE(app->scenes->chat_scene->img_chat), gtk_widget_get_name(chat_image));
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/message", jobj));
