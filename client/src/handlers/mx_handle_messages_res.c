@@ -33,6 +33,10 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
         file_name = (char*)json_object_get_string(jfname);
+        gtk_image_set_from_file(GTK_IMAGE(message_img), mx_strjoin(RESOURCE_PATH, file_name));
+
+    } else {
+        gtk_container_remove(GTK_CONTAINER(message_box), message_img);
     }
     
     
@@ -40,7 +44,6 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     gtk_label_set_text(GTK_LABEL(messsage_sent_time_label), (char*)json_object_get_string(jsent_time));
 
     gtk_widget_set_name(message_button_box,  mx_itoa(json_object_get_int(jmessage_id)));
-    gtk_image_set_from_file(GTK_IMAGE(message_img), mx_strjoin(RESOURCE_PATH, file_name));
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);
     app->last_message_indx += 1;
@@ -51,7 +54,7 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 
 
     gtk_adjustment_set_value(vadjustment, gtk_adjustment_get_upper(vadjustment) - gtk_adjustment_get_page_size(vadjustment));
-
+    
     gtk_widget_queue_draw(GTK_WIDGET(app->scenes->chat_scene->v_sc_messages));
     //g_signal_connect(chat_button, "clicked", G_CALLBACK (mx_callback_chatbox), app);
     g_object_unref(builder);
