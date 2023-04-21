@@ -20,7 +20,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         // mx_log_info(SYSLOG, mx_itoa(app->user_id));
 
         gdk_threads_add_idle(mx_handler_change_scene, app->scenes->chat_scene->cbdata);
-        g_timeout_add_seconds(PING_SERVER_INTERAL_SECONDS, mx_handler_send_hui, app);
+        g_timeout_add_seconds(PING_SERVER_INTERAL_SECONDS, mx_handler_ping_server, app);
 
         struct json_object *jobj = json_object_new_object();
         json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
