@@ -12,7 +12,7 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
     }
 
-    //GtkWidget *message_box = mx_get_widget(builder, "message_box");
+    GtkWidget *message_box = mx_get_widget(builder, "message_box");
     GtkWidget *message_button_box = mx_get_widget(builder, "message_button_box");
     GtkWidget *message_img = mx_get_widget(builder, "message_img");
     GtkWidget *messsage_text_label = mx_get_widget(builder, "message_text_label");

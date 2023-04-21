@@ -2,6 +2,11 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkFileChooserButton">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes"/>
+  </object>
   <object class="GtkButton" id="chat_button">
     <property name="visible">True</property>
     <property name="can-focus">True</property>
@@ -341,7 +346,7 @@
             <property name="can-focus">False</property>
             <property name="layout-style">start</property>
             <child>
-              <object class="GtkFileChooserButton">
+              <object class="GtkFileChooserButton" id="file_choose_button">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes"/>
@@ -415,7 +420,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="add_group_button">
             <property name="width-request">20</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>

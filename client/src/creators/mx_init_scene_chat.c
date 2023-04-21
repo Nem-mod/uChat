@@ -24,6 +24,8 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->v_sc_chats = mx_get_widget(builder, "chats_viewport");
     app->scenes->chat_scene->l_sc_chats = mx_get_widget(builder, "chats_list");
     app->scenes->chat_scene->b_add_contact = mx_get_widget(builder, "add_contact_button");
+    app->scenes->chat_scene->b_add_group = mx_get_widget(builder, "add_group_button");
+
 
     app->scenes->chat_scene->img_chat = mx_get_widget(builder, "chat_image");
     app->scenes->chat_scene->l_chatname = mx_get_widget(builder, "chat_name_label");
@@ -35,6 +37,10 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
     
+    GtkWidget* add_contact_icon =mx_get_widget(builder, "add_contact_icon");
+    GtkWidget* add_group_icon =mx_get_widget(builder, "add_group_icon");
+    gtk_image_set_from_file(GTK_IMAGE(add_contact_icon), mx_strjoin(RESOURCE_ICONS_PATH, "add-user.png"));
+    gtk_image_set_from_file(GTK_IMAGE(add_group_icon), mx_strjoin(RESOURCE_ICONS_PATH, "add-group.png"));
     gtk_widget_hide(app->scenes->chat_scene->w_chat);
     g_object_unref(builder);
 }

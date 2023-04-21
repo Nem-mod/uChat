@@ -408,7 +408,7 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkImage" id="add_contact_icon">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>
@@ -420,14 +420,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="add_group_button">
             <property name="width-request">20</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkImage" id="add_group_icon">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>

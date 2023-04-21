@@ -24,6 +24,8 @@
 #define PING_SERVER_INTERAL_SECONDS 5
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
+
+#define RESOURCE_ICONS_PATH "client/Resources/icons/"
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
 #define RESOURCE_PATH       "./client/Resources/"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
@@ -141,7 +143,7 @@ typedef struct s_chat_scene {
     GtkWidget *v_sc_chats;  // Viewport of scrollbar
     GtkWidget *l_sc_chats;  // List of objects of scrollbar
     GtkWidget *b_add_contact;
-    
+    GtkWidget *b_add_group;
     GtkWidget *w_sc_messages;  // Window of scrollbar
     GtkWidget *v_sc_messages;  // Viewport of scrollbar
     GtkWidget *l_sc_messages;  // List of objects of scrollbar
