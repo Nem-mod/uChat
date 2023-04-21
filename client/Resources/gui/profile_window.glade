@@ -50,66 +50,32 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">First name:</property>
-          </object>
-          <packing>
-            <property name="x">35</property>
-            <property name="y">202</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes"> Last name:</property>
-          </object>
-          <packing>
-            <property name="x">35</property>
-            <property name="y">230</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <property name="label" translatable="yes">            Login:</property>
           </object>
           <packing>
-            <property name="x">35</property>
-            <property name="y">258</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="fn_label">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">label</property>
-          </object>
-          <packing>
-            <property name="x">130</property>
-            <property name="y">202</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="ln_label">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">label</property>
-          </object>
-          <packing>
-            <property name="x">130</property>
-            <property name="y">230</property>
+            <property name="x">30</property>
+            <property name="y">270</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="login_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">label</property>
           </object>
           <packing>
             <property name="x">130</property>
-            <property name="y">258</property>
+            <property name="y">278</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFileChooserButton" id="change_user_image">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes"/>
+          </object>
+          <packing>
+            <property name="x">117</property>
+            <property name="y">199</property>
           </packing>
         </child>
       </object>
