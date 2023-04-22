@@ -46,12 +46,11 @@ void mx_init_callbacks_signup(t_uchat_application* app) {
     g_signal_connect(app->scenes->signup_scene->w_signup, "destroy", G_CALLBACK (mx_clear_app), app);
 }
 
-
 void mx_init_user_profile(t_uchat_application* app) {
     g_signal_connect(app->scenes->user_profile_dwindow->wd_user_profile , "delete-event", G_CALLBACK (mx_callback_on_delete_event), app->scenes->user_profile_dwindow->wd_user_profile);
     g_signal_connect(app->scenes->user_profile_dwindow->b_logout, "clicked", G_CALLBACK(mx_callback_log_out), app);
     g_signal_connect(app->scenes->user_profile_dwindow->b_confirm, "clicked", G_CALLBACK(mx_callback_patch_user), app);
     g_signal_connect(app->scenes->user_profile_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_choose_file), app);
-    g_signal_connect(app->scenes->user_profile_dwindow->bc_file, "file-set", G_CALLBACK(mx_set_up_profile_img), app);
+    g_signal_connect(app->scenes->user_profile_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_set_up_profile_image), app);
 }
 

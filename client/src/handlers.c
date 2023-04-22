@@ -64,12 +64,38 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 }
 
 gboolean mx_handler_auth(gpointer data) {
-    t_callback_data *cbdata = (t_callback_data*)data; 
+    t_callback_data *cbdata = (t_callback_data*)data;
+    t_uchat_application* app = cbdata->app;
+    t_response* res = cbdata->data;
 
-    mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+    // mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+    struct json_object* jobj = json_tokener_parse(res->property);
+    char* file_name = NULL;
+
+    if(mx_strstr(res->property, "file_name")) {
+        struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
+
+        file_name = (char*)json_object_get_string(jfname);
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+                                (app->scenes->chat_scene->img_user),  
+                                mx_strjoin(RESOURCE_PATH, file_name));
+
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+                                (app->scenes->user_profile_dwindow->img_user),  
+                                mx_strjoin(RESOURCE_PATH, file_name));
+    } else {
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+                                (app->scenes->chat_scene->b_send_message),  
+                                RESOURCE_BASE_ICON);
+
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+                                (app->scenes->user_profile_dwindow->img_user),  
+                                RESOURCE_BASE_ICON);
+    }
 
     return false;
 }
+
 gboolean mx_handler_change_scene(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 
