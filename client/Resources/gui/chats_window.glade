@@ -308,6 +308,8 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkImage" id="message_img">
+            <property name="width-request">400</property>
+            <property name="height-request">400</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>

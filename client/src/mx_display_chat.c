@@ -28,18 +28,20 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
     if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id)))
         return;
     struct json_object *jname;
-    char* file_name = RESOURCE_BASE_ICON;
 
     if(mx_strstr(res->property, "group_name"))
         jname = json_object_object_get(jobj, "group_name"); 
     else
         jname = json_object_object_get(jobj, "nick_name"); 
 
+    char* file_name = NULL;
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
-        file_name = (char*)json_object_get_string(jfname);
+        file_name = mx_strjoin(RESOURCE_PATH, (char*)json_object_get_string(jfname));
+    } 
+    else {
+        file_name = RESOURCE_BASE_ICON;
     }
-    
     
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
     gtk_widget_set_name(chat_button,  mx_itoa(json_object_get_int(jgroup_id)));

@@ -35,7 +35,8 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
         file_name = (char*)json_object_get_string(jfname);
-        gtk_image_set_from_file(GTK_IMAGE(message_img), mx_strjoin(RESOURCE_PATH, file_name));
+        mx_set_image_limit_size(GTK_IMAGE(message_img), message_img, mx_strjoin(RESOURCE_PATH, file_name));
+        // gtk_image_set_from_file(GTK_IMAGE(message_img), mx_strjoin(RESOURCE_PATH, file_name));
 
     } else {
         gtk_container_remove(GTK_CONTAINER(message_box), message_img);
@@ -62,6 +63,13 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     g_object_unref(builder);
 }
 
+gboolean mx_handler_auth(gpointer data) {
+    t_callback_data *cbdata = (t_callback_data*)data; 
+
+    mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+
+    return false;
+}
 gboolean mx_handler_change_scene(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 

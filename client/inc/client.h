@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <json.h>
 #include <regex.h>
+#include <math.h>
 
 #include "connect_utils.h"
 #include "ssl_utils.h"
@@ -158,6 +159,7 @@ typedef struct s_user_profile {
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
     GtkWidget *b_logout;       
+    GtkWidget *b_confirm;
     t_callback_data* cbdata;    
 }               t_user_profile;
 
@@ -256,6 +258,10 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data);
+void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
+void mx_auth_callback(t_uchat_application* app, t_response* res);
+void mx_set_up_profile_img(UNUSED GtkButton *button, UNUSED gpointer data);
+gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -291,7 +297,11 @@ t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
 void mx_set_style(const gchar *path, GtkWidget *widget);
 void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
+<<<<<<< HEAD
 void mx_add_css_class(GtkWidget *widget, const char *classname);
+=======
+void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
+>>>>>>> c2eb59af9fa18e3dd054a15e99c2666b59e93fdd
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
@@ -302,6 +312,7 @@ int mx_main_handler(char* json, t_uchat_application* app);
 gboolean mx_handler_ping_server_get_chats(gpointer data);
 gboolean mx_handler_ping_server_get_messages(gpointer data);
 gboolean mx_handler_chat_scroll_down(gpointer data);
+gboolean mx_handler_auth(gpointer data);
 
 //  =============================================Json=============================================
 /* Creates request for the server */
