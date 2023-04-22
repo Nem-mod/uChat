@@ -297,11 +297,8 @@ t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
 void mx_set_style(const gchar *path, GtkWidget *widget);
 void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
-<<<<<<< HEAD
 void mx_add_css_class(GtkWidget *widget, const char *classname);
-=======
 void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
->>>>>>> c2eb59af9fa18e3dd054a15e99c2666b59e93fdd
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
