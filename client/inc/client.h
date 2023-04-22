@@ -164,6 +164,7 @@ typedef struct s_user_profile {
     GtkWidget *bc_file;            
     GtkWidget *b_logout;       
     GtkWidget *b_confirm;
+    GtkWidget *b_cancel;
     t_callback_data* cbdata;    
 }               t_user_profile_scene;
 
@@ -292,6 +293,7 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
 void mx_init_callbacks_group_info(t_uchat_application* app);
 void mx_auth_callback(t_uchat_application* app, t_response* res);
 void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer data);
+void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data);
 gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
@@ -361,3 +363,4 @@ int mx_validate_password_letters(const char *password);
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 void mx_create_new_chat_widget(t_uchat_application* app, t_response* res); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
+
