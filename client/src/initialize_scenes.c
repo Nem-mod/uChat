@@ -57,7 +57,6 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->cbdata = mx_create_callback_data(app, new_scene);
     
     app->scenes->chat_scene->w_chat = mx_get_widget(builder, "chat_window");
-    app->scenes->chat_scene->m_box = mx_get_widget(builder, "main_chat_box");
     app->scenes->chat_scene->e_f_chats = mx_get_widget(builder, "chats_entry");
     app->scenes->chat_scene->w_sc_chats = mx_get_widget(builder, "chats_sc_window");
     app->scenes->chat_scene->v_sc_chats = mx_get_widget(builder, "chats_viewport");
@@ -67,13 +66,11 @@ void mx_init_scene_chat(t_uchat_application* app){
 
     app->scenes->chat_scene->img_chat = mx_get_widget(builder, "chat_image");
     app->scenes->chat_scene->l_chatname = mx_get_widget(builder, "chat_name_label");
-    app->scenes->chat_scene->b_chat_profile = mx_get_widget(builder, "chat_profile_button");
     app->scenes->chat_scene->w_sc_messages = mx_get_widget(builder, "messages_sc_window");
     app->scenes->chat_scene->v_sc_messages = mx_get_widget(builder, "messages_viewport");
     app->scenes->chat_scene->l_sc_messages = mx_get_widget(builder, "messages_list");
     app->scenes->chat_scene->bc_file = mx_get_widget(builder, "file_choose_button");
     
-    app->scenes->chat_scene->e_f_file = mx_get_widget(builder, "file_entry");
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
     app->scenes->chat_scene->b_chat_settings = mx_get_widget(builder, "edit_chat_button");
@@ -85,7 +82,6 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_add_css_class(app->scenes->chat_scene->b_add_contact, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_group, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_send_message, "button1");
-    mx_add_css_class(app->scenes->chat_scene->b_chat_profile, "button1");
     mx_add_css_class(app->scenes->chat_scene->bc_file, "button1");
     mx_add_css_class(app->scenes->chat_scene->w_chat, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_chats, "background");
@@ -97,11 +93,8 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_set_style(path, app->scenes->chat_scene->e_f_chats);
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);
     mx_set_style(path, app->scenes->chat_scene->b_add_group);
-    mx_set_style(path, app->scenes->chat_scene->e_f_file);
-    mx_set_style(path, app->scenes->chat_scene->b_chat_profile);
     mx_set_style(path, app->scenes->chat_scene->w_chat);
     mx_set_style(path, app->scenes->chat_scene->l_sc_chats);
-    mx_set_style(path, app->scenes->chat_scene->m_box);
     mx_set_style(path, app->scenes->chat_scene->e_f_chat);
     mx_set_style(path, app->scenes->chat_scene->b_send_message);
     mx_set_style(path, app->scenes->chat_scene->bc_file);
