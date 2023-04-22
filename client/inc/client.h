@@ -29,6 +29,7 @@
 
 #define RESOURCE_ICONS_PATH "client/Resources/icons/"
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
+#define RESOURCE_BASE_GROUP_ICON "client/Resources/icons/base-group.png"
 #define RESOURCE_PATH       "./client/Resources/"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
 

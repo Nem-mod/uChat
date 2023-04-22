@@ -14,8 +14,8 @@
         <property name="can-focus">False</property>
         <child>
           <object class="GtkImage" id="chat_img">
-            <property name="width-request">10</property>
-            <property name="height-request">10</property>
+            <property name="width-request">40</property>
+            <property name="height-request">40</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
@@ -32,6 +32,7 @@
             <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-left">10</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -45,8 +46,8 @@
   <object class="GtkWindow" id="chat_window">
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
-    <property name="default-width">800</property>
-    <property name="default-height">450</property>
+    <property name="default-width">1080</property>
+    <property name="default-height">720</property>
     <child>
       <object class="GtkFixed">
         <property name="visible">True</property>
@@ -54,19 +55,19 @@
         <child>
           <object class="GtkSeparator">
             <property name="width-request">1</property>
-            <property name="height-request">452</property>
+            <property name="height-request">720</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="vexpand">True</property>
           </object>
           <packing>
-            <property name="x">300</property>
+            <property name="x">375</property>
           </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="chats_sc_window">
-            <property name="width-request">300</property>
-            <property name="height-request">385</property>
+            <property name="width-request">375</property>
+            <property name="height-request">620</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
@@ -84,24 +85,24 @@
             </child>
           </object>
           <packing>
-            <property name="y">33</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
           <object class="GtkSeparator">
-            <property name="width-request">801</property>
+            <property name="width-request">1080</property>
             <property name="height-request">1</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>
           <packing>
-            <property name="y">415</property>
+            <property name="y">670</property>
           </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="messages_sc_window">
-            <property name="width-request">501</property>
-            <property name="height-request">384</property>
+            <property name="width-request">705</property>
+            <property name="height-request">620</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
@@ -119,43 +120,46 @@
             </child>
           </object>
           <packing>
-            <property name="x">300</property>
-            <property name="y">33</property>
+            <property name="x">375</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
           <object class="GtkImage" id="chat_image">
-            <property name="width-request">30</property>
-            <property name="height-request">30</property>
+            <property name="width-request">40</property>
+            <property name="height-request">40</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-top">5</property>
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
-            <property name="x">303</property>
-            <property name="y">2</property>
+            <property name="x">380</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="chat_name_label">
+            <property name="height-request">40</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="label" translatable="yes">Chat</property>
           </object>
           <packing>
-            <property name="x">335</property>
-            <property name="y">8</property>
+            <property name="x">440</property>
+            <property name="y">5</property>
           </packing>
         </child>
         <child>
           <object class="GtkButtonBox">
-            <property name="width-request">500</property>
-            <property name="height-request">36</property>
+            <property name="width-request">705</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="layout-style">start</property>
             <child>
               <object class="GtkFileChooserButton" id="file_choose_button">
+                <property name="width-request">0</property>
+                <property name="height-request">50</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes"/>
@@ -168,7 +172,7 @@
             </child>
             <child>
               <object class="GtkEntry" id="chat_send_entry">
-                <property name="width-request">323</property>
+                <property name="width-request">527</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="placeholder-text" translatable="yes">Type message...</property>
@@ -194,30 +198,34 @@
             </child>
           </object>
           <packing>
-            <property name="x">300</property>
-            <property name="y">416</property>
+            <property name="x">375</property>
+            <property name="y">670</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="edit_chat_button">
             <property name="label" translatable="yes">Info</property>
+            <property name="width-request">60</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">740</property>
+            <property name="x">1019</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="add_contact_button">
-            <property name="width-request">15</property>
-            <property name="height-request">10</property>
+            <property name="width-request">50</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
               <object class="GtkImage" id="add_contact_icon">
+                <property name="width-request">40</property>
+                <property name="height-request">40</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>
@@ -227,13 +235,15 @@
         </child>
         <child>
           <object class="GtkButton" id="add_group_button">
-            <property name="width-request">20</property>
-            <property name="height-request">30</property>
+            <property name="width-request">50</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
               <object class="GtkImage" id="add_group_icon">
+                <property name="width-request">40</property>
+                <property name="height-request">40</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>
@@ -241,49 +251,54 @@
             </child>
           </object>
           <packing>
-            <property name="x">38</property>
+            <property name="x">65</property>
           </packing>
         </child>
         <child>
           <object class="GtkSeparator">
-            <property name="width-request">801</property>
+            <property name="width-request">1080</property>
             <property name="height-request">1</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>
           <packing>
-            <property name="y">35</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="profile_button">
             <property name="label" translatable="yes">Profile</property>
+            <property name="width-request">80</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">40</property>
-            <property name="y">417</property>
+            <property name="x">55</property>
+            <property name="y">670</property>
           </packing>
         </child>
         <child>
           <object class="GtkImage" id="user_image">
-            <property name="width-request">30</property>
-            <property name="height-request">30</property>
+            <property name="width-request">50</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
+            <style>
+              <class name="n"/>
+            </style>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">420</property>
+            <property name="x">3</property>
+            <property name="y">670</property>
           </packing>
         </child>
         <child>
           <object class="GtkSearchEntry" id="chats_entry">
-            <property name="width-request">225</property>
-            <property name="height-request">30</property>
+            <property name="width-request">245</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="primary-icon-name">edit-find-symbolic</property>
@@ -291,7 +306,7 @@
             <property name="primary-icon-sensitive">False</property>
           </object>
           <packing>
-            <property name="x">75</property>
+            <property name="x">130</property>
           </packing>
         </child>
       </object>
@@ -308,6 +323,8 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkImage" id="message_img">
+            <property name="width-request">400</property>
+            <property name="height-request">400</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
@@ -349,6 +366,7 @@
               <object class="GtkLabel" id="message_sent_time_label">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-left">20</property>
               </object>
               <packing>
                 <property name="expand">False</property>
