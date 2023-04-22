@@ -65,6 +65,7 @@ int get_users_by_id(const char* req, char** res){
     mx_openDB(DATABASE_NAME, &db);
     mx_select_data(db, "USERS", "*", temp, json);
     const char *json_str = json_object_to_json_string(json);
+
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);
     
@@ -197,6 +198,40 @@ int get_user_groups(const char* req, char** res){
     *res =  mx_strdup((char*)json_str);
             
     sqlite3_close(db);
+
+    return 0;
+}
+
+
+int patch_user(const char* req, char** res){
+    if(req == NULL)
+        return -1;
+    
+    sqlite3* db;
+    struct json_object *jobj = json_tokener_parse(req);
+    struct json_object *juser_id = json_object_object_get(jobj, "user_id"); 
+    if(mx_strstr(req, "file_name") != NULL) {
+        struct json_object *jfpath = json_object_object_get(jobj, "file_name");
+        struct json_object *jfsize = json_object_object_get(jobj, "file_size");
+        char* file_name =  (char*)json_object_get_string(jfpath);
+        char temp[256];
+        char where[256];
+        int user_id = json_object_get_int(juser_id);
+
+        unsigned int file_size = (unsigned int)json_object_get_int64(jfsize);
+        sprintf(temp, "file_name = \'%s\', file_size = %d",
+                file_name, file_size
+        );
+        sprintf(where, "user_id = \'%d\'",
+                user_id
+        );
+        mx_openDB(DATABASE_NAME, &db);
+        mx_update_data(db, "USERS", where, temp, NULL);
+        sqlite3_close(db);
+
+    }
+
+    get_users_by_id(req, res);
 
     return 0;
 }

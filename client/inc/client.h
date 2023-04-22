@@ -256,6 +256,8 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data);
+void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
+void mx_auth_callback(t_uchat_application* app, t_response* res);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -301,6 +303,7 @@ int mx_main_handler(char* json, t_uchat_application* app);
 gboolean mx_handler_ping_server_get_chats(gpointer data);
 gboolean mx_handler_ping_server_get_messages(gpointer data);
 gboolean mx_handler_chat_scroll_down(gpointer data);
+gboolean mx_handler_auth(gpointer data);
 
 //  =============================================Json=============================================
 /* Creates request for the server */
