@@ -108,18 +108,6 @@
             <property name="y">140</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkButton" id="lb">
-            <property name="label" translatable="yes">button</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-          </object>
-          <packing>
-            <property name="x">240</property>
-            <property name="y">310</property>
-          </packing>
-        </child>
       </object>
     </child>
   </object>

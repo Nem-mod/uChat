@@ -158,7 +158,7 @@ typedef struct s_create_group {
 }               t_create_group_scene;
 
 typedef struct s_user_profile {
-    GtkWidget *wd_user_profile; 
+    GtkWidget *w_user_profile; 
     GtkWidget *l_user_login;        
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
@@ -288,6 +288,7 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data);
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data);
+void mx_callback_hide_window_group_info(UNUSED GtkButton *button, gpointer data);
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
 void mx_init_callbacks_group_info(t_uchat_application* app);
 void mx_auth_callback(t_uchat_application* app, t_response* res);

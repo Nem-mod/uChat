@@ -22,6 +22,7 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/contact/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
@@ -117,6 +118,7 @@ void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
 void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data; 
 
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
@@ -124,6 +126,12 @@ void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data; 
 
     gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
+}
+
+void mx_callback_hide_window_group_info(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data; 
+
+    gtk_widget_hide(app->scenes->group_info_dwindow->w_group_info);
 }
 
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
@@ -313,7 +321,7 @@ void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TO
     gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_chats), (GtkCallback)gtk_widget_destroy, NULL);
     gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_messages), (GtkCallback)gtk_widget_destroy, NULL);
     gdk_threads_add_idle(mx_handler_change_scene, app->scenes->signin_scene->cbdata);
-    gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
+    gtk_widget_hide(app->scenes->user_profile_dwindow->w_user_profile);
     gtk_widget_hide(app->scenes->chat_scene->w_chat);
    
 }
@@ -350,8 +358,8 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
         }
         mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
-        (app->scenes->chat_scene->img_user),  
-        app->choosed_file_pname);
+                                (app->scenes->chat_scene->img_user),  
+                                app->choosed_file_pname);
 
         if(app->choosed_file_pname != NULL) {
                 mx_strdel(&app->choosed_file_pname);
