@@ -37,14 +37,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="logout_button">
-            <property name="label" translatable="yes">Log Out</property>
+          <object class="GtkButton" id="cancel_button">
+            <property name="label" translatable="yes">Cancel</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">107</property>
+            <property name="x">113</property>
             <property name="y">345</property>
           </packing>
         </child>
@@ -92,8 +92,20 @@
             </style>
           </object>
           <packing>
-            <property name="x">62</property>
+            <property name="x">58</property>
             <property name="y">304</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="width-request">40</property>
+            <property name="height-request">40</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">260</property>
           </packing>
         </child>
       </object>
