@@ -358,11 +358,30 @@ void mx_auth_callback(t_uchat_application* app, t_response* res) {
         (app->scenes->chat_scene->img_user),  
         mx_strjoin(RESOURCE_PATH, file_name));
 
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+        (app->scenes->user_profile_dwindow->img_user),  
+        mx_strjoin(RESOURCE_PATH, file_name));
+
+
     } else {
         mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
         (app->scenes->chat_scene->b_send_message),  
         RESOURCE_BASE_ICON);
 
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+        (app->scenes->user_profile_dwindow->img_user),  
+        RESOURCE_BASE_ICON);
     }
+
+    
    
 }
+
+
+void mx_set_up_profile_img(UNUSED GtkButton *button, UNUSED gpointer data) { 
+    t_uchat_application *app = (t_uchat_application*)data;
+     mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+        (app->scenes->user_profile_dwindow->img_user),  
+        app->choosed_file_pname);
+}
+
