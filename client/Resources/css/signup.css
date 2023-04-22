@@ -1,4 +1,4 @@
-button {
+button:not(:link) {
     color: #0069d9;
     background-image: image(white);
     
@@ -12,7 +12,7 @@ button {
     /*font: Comic Sans 12;*/
 }
 
-button:hover {
+button:not(:link):hover {
     background-image: image(#0069d9);
     color: white;
 }
