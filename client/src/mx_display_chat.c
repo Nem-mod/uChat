@@ -50,9 +50,6 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
         else
             file_name = RESOURCE_BASE_ICON;
     }
-
-   
-    
     
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
     gtk_widget_set_name(chat_button,  mx_itoa(json_object_get_int(jgroup_id)));
