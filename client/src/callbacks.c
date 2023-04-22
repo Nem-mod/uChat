@@ -120,6 +120,12 @@ void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data) {
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
+void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data; 
+
+    gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
+}
+
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     bool err = false;
