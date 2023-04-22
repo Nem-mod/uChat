@@ -2,7 +2,7 @@
 
 void mx_init_scene_signin(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    const gchar *path = "client/Resources/css/signin.css";
+    const gchar *path = "client/Resources/css/main.css";
     // const gchar *path = "client/Resources/css/gtk.css";
     GError *error = NULL;
 
@@ -27,6 +27,9 @@ void mx_init_scene_signin(t_uchat_application* app) {
     app->scenes->signin_scene->bl_signup = mx_get_widget(builder, "signin_link1");
     app->scenes->signin_scene->l_err_msg = mx_get_widget(builder, "err_msg");
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
+
+    // gtk_widget_set_name(app->scenes->signin_scene->b_signin, "button1");
+    mx_add_css_class(app->scenes->signin_scene->b_signin, "button1");
 
     mx_set_style(path, app->scenes->signin_scene->e_f_login);
     mx_set_style(path, app->scenes->signin_scene->e_f_password);

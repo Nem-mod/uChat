@@ -111,6 +111,8 @@ typedef struct s_signup_scene {
     GtkWidget *l_login_err;
     GtkWidget *l_password_err;
     GtkWidget *l_repeat_password_err;
+    GtkWidget *l_usr_exists;
+    
     t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
@@ -254,7 +256,7 @@ t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_pat
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
 void mx_set_style(const gchar *path, GtkWidget *widget);
-
+void mx_add_css_class(GtkWidget *widget, const char *classname);
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
 gboolean mx_handler_display_chat(gpointer data);

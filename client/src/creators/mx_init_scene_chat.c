@@ -2,7 +2,7 @@
 
 void mx_init_scene_chat(t_uchat_application* app){
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    const gchar *path = "client/Resources/css/chat.css";
+    const gchar *path = "client/Resources/css/main.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
@@ -38,6 +38,10 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
 
+    gtk_widget_set_name(app->scenes->chat_scene->w_chat, "chat_window");
+
+    printf("Window name(id): \"%s\"\n", gtk_widget_get_name(app->scenes->chat_scene->w_chat));
+
     mx_set_style(path, app->scenes->chat_scene->e_f_chats);
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);
     mx_set_style(path, app->scenes->chat_scene->b_add_group);
@@ -46,6 +50,7 @@ void mx_init_scene_chat(t_uchat_application* app){
 
     mx_set_style(path, app->scenes->chat_scene->e_f_chat);
     mx_set_style(path, app->scenes->chat_scene->b_send_message);
+    mx_set_style(path, app->scenes->chat_scene->w_chat);
     
     gtk_widget_hide(app->scenes->chat_scene->w_chat);
     g_object_unref(builder);

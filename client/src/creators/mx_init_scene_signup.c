@@ -3,7 +3,7 @@
 void mx_init_scene_signup(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
-    const gchar *path = "client/Resources/css/signup.css";
+    const gchar *path = "client/Resources/css/main.css";
 
 
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNUP_PATH, &error) == 0) {
@@ -33,6 +33,9 @@ void mx_init_scene_signup(t_uchat_application* app) {
     app->scenes->signup_scene->l_login_err = mx_get_widget(builder, "login_err");
     app->scenes->signup_scene->l_password_err = mx_get_widget(builder, "password_err");
     app->scenes->signup_scene->l_repeat_password_err = mx_get_widget(builder, "repeat_password_err");
+    app->scenes->signup_scene->l_usr_exists = mx_get_widget(builder, "usr_exists_msg");
+
+    mx_add_css_class(app->scenes->signup_scene->b_signup, "button1");
 
     mx_set_style(path, app->scenes->signup_scene->w_signup);
     mx_set_style(path, app->scenes->signup_scene->e_f_login);
@@ -47,6 +50,7 @@ void mx_init_scene_signup(t_uchat_application* app) {
     mx_set_style(path, app->scenes->signup_scene->l_login_err);
     mx_set_style(path, app->scenes->signup_scene->l_password_err);
     mx_set_style(path, app->scenes->signup_scene->l_repeat_password_err);
+    mx_set_style(path, app->scenes->signup_scene->l_usr_exists);
 
     gtk_widget_hide(app->scenes->signup_scene->w_signup);
     g_object_unref(builder);

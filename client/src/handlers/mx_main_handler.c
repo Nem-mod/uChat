@@ -33,6 +33,7 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         gdk_threads_add_idle((GSourceFunc)mx_handler_change_scene, app->scenes->signin_scene->cbdata);
         
     } else if (mx_strcmp(res->url, "/auth/register") == 0)
+        gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_usr_exists), "Such user already exists");
         mx_log_err(SYSLOG, "Registration is failed");
 
     if (mx_strcmp(res->url, "/user/groups") == 0 && res->status == 200) {
