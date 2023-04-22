@@ -22,6 +22,7 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/contact/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
@@ -117,6 +118,7 @@ void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
 void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data; 
 
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
