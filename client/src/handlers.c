@@ -1,7 +1,7 @@
 #include "client.h"
 
 void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
-    
+    const gchar *path = "client/Resources/css/main.css";
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
 
@@ -46,6 +46,11 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     gtk_label_set_text(GTK_LABEL(messsage_sent_time_label), (char*)json_object_get_string(jsent_time));
 
     gtk_widget_set_name(message_button_box,  mx_itoa(json_object_get_int(jmessage_id)));
+    mx_set_style(path, message_box);
+    mx_set_style(path, message_button_box);
+    mx_add_css_class(message_box, "message-box");
+    mx_add_css_class(message_button_box, "message");
+
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);
     app->last_message_indx += 1;
