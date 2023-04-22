@@ -76,17 +76,15 @@ gboolean mx_handler_auth(gpointer data) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
 
         file_name = (char*)json_object_get_string(jfname);
-        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
-                                (app->scenes->chat_scene->img_user),  
-                                mx_strjoin(RESOURCE_PATH, file_name));
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(mx_strjoin(RESOURCE_PATH, file_name), 40, 40, NULL);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(app->scenes->chat_scene->img_user), pixbuf);
 
         mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
                                 (app->scenes->user_profile_dwindow->img_user),  
                                 mx_strjoin(RESOURCE_PATH, file_name));
     } else {
-        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
-                                (app->scenes->chat_scene->b_send_message),  
-                                RESOURCE_BASE_ICON);
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(RESOURCE_BASE_ICON, 40, 40, NULL);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(app->scenes->chat_scene->img_user), pixbuf);
 
         mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
                                 (app->scenes->user_profile_dwindow->img_user),  
