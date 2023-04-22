@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkListStore"/>
@@ -86,6 +86,8 @@
             <property name="visible">True</property>
             <property name="app-paintable">True</property>
             <property name="can-focus">True</property>
+            <property name="can-default">True</property>
+            <property name="has-default">True</property>
             <property name="receives-default">True</property>
             <property name="margin-right">5</property>
             <property name="relief">none</property>
@@ -288,6 +290,17 @@
           <packing>
             <property name="x">610</property>
             <property name="y">195</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="usr_exists_msg">
+            <property name="width-request">150</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">524</property>
+            <property name="y">85</property>
           </packing>
         </child>
       </object>
