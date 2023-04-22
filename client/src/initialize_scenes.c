@@ -1,7 +1,6 @@
 #include "client.h"
 
 void mx_init_scene_add_contact(t_uchat_application* app) {
-    if(app){}
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     const gchar *path = "client/Resources/css/main.css";
     GError *error = NULL;
@@ -14,7 +13,7 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     }
 
     t_SCENE *new_scene = malloc(sizeof(t_SCENE));
-    app->scenes->add_contact_dwindow = malloc(sizeof(t_add_contact));
+    app->scenes->add_contact_dwindow = malloc(sizeof(t_add_contact_scene));
 
     *new_scene = ADD_CONTACT;
     app->scenes->add_contact_dwindow->cbdata = mx_create_callback_data(app, new_scene);
@@ -116,7 +115,6 @@ void mx_init_scene_chat(t_uchat_application* app){
 }
 
 void mx_init_scene_create_group(t_uchat_application* app) {
-    if(app){}
     const gchar *path = "client/Resources/css/main.css";
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
@@ -127,7 +125,7 @@ void mx_init_scene_create_group(t_uchat_application* app) {
     }
 
     t_SCENE *new_scene = malloc(sizeof(t_SCENE));
-    app->scenes->create_group_dwindow = malloc(sizeof(t_create_group));
+    app->scenes->create_group_dwindow = malloc(sizeof(t_create_group_scene));
 
     *new_scene = CREATE_GROUP;
     app->scenes->create_group_dwindow->cbdata = mx_create_callback_data(app, new_scene);
@@ -247,7 +245,6 @@ void mx_init_scene_signup(t_uchat_application* app) {
 }
 
 void mx_init_scene_user_profile(t_uchat_application* app) {
-    if(app){}
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
 
@@ -257,7 +254,7 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     }
 
     t_SCENE *new_scene = malloc(sizeof(t_SCENE));
-    app->scenes->user_profile_dwindow = malloc(sizeof(t_user_profile));
+    app->scenes->user_profile_dwindow = malloc(sizeof(t_user_profile_scene));
 
     *new_scene = PROFILE;
     app->scenes->user_profile_dwindow->cbdata = mx_create_callback_data(app, new_scene);
@@ -271,4 +268,37 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->wd_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
+}
+
+void mx_init_scene_group_info(t_uchat_application* app) {
+    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+    GError *error = NULL;
+
+    if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
+        mx_log_err(SYSLOG, "gtk: Error loading file");
+        return;
+    }
+
+    t_SCENE *new_scene = malloc(sizeof(t_SCENE));
+    app->scenes->group_info_dwindow = malloc(sizeof(t_group_info_scene));
+
+    *new_scene = GROUP_INFO;
+    app->scenes->group_info_dwindow->cbdata = mx_create_callback_data(app, new_scene);
+
+    app->scenes->group_info_dwindow->w_group_info = mx_get_widget(builder, "group_info_window");
+    app->scenes->group_info_dwindow->e_f_new_group_member = mx_get_widget(builder, "group_user_entry");
+    app->scenes->group_info_dwindow->b_add_member = mx_get_widget(builder, "add_user_togroup_button");
+    app->scenes->group_info_dwindow->b_close = mx_get_widget(builder, "close_button");
+
+    app->scenes->group_info_dwindow->w_sc_members = mx_get_widget(builder, "group_edit_cs_window");
+    app->scenes->group_info_dwindow->v_sc_members = mx_get_widget(builder, "group_edit_add_viewport");
+    app->scenes->group_info_dwindow->l_sc_members = mx_get_widget(builder, "user_list");
+
+    app->scenes->group_info_dwindow->img_group = mx_get_widget(builder, "group_image");
+    app->scenes->group_info_dwindow->e_f_new_group_name = mx_get_widget(builder, "group_name_entry");
+    app->scenes->group_info_dwindow->b_confirm = mx_get_widget(builder, "name_group_confirm_button");
+    app->scenes->group_info_dwindow->bc_file = mx_get_widget(builder, "group_image_change_button");
+
+    gtk_widget_hide(app->scenes->group_info_dwindow->w_group_info);
+    g_object_unref(builder);
 }
