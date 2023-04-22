@@ -83,6 +83,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_add_css_class(app->scenes->chat_scene->b_add_group, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_send_message, "button1");
     mx_add_css_class(app->scenes->chat_scene->bc_file, "button1");
+    mx_add_css_class(app->scenes->chat_scene->b_profile, "button1");
     mx_add_css_class(app->scenes->chat_scene->w_chat, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_chats, "background");
     mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
@@ -98,6 +99,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_set_style(path, app->scenes->chat_scene->e_f_chat);
     mx_set_style(path, app->scenes->chat_scene->b_send_message);
     mx_set_style(path, app->scenes->chat_scene->bc_file);
+    mx_set_style(path, app->scenes->chat_scene->b_profile);
     
     GtkWidget* add_contact_icon =mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon =mx_get_widget(builder, "add_group_icon");
