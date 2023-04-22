@@ -349,17 +349,18 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
             json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
         }
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+        (app->scenes->chat_scene->img_user),  
+        app->choosed_file_pname);
+
+        if(app->choosed_file_pname != NULL) {
+                mx_strdel(&app->choosed_file_pname);
+        }
     }
     
     
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/user/", jobj));
-    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
-        (app->scenes->chat_scene->img_user),  
-        app->choosed_file_pname);
-
-    if(app->choosed_file_pname != NULL) {
-            mx_strdel(&app->choosed_file_pname);
-    }
+    
 }
 
 void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer data) { 

@@ -14,8 +14,8 @@
         <property name="can-focus">False</property>
         <child>
           <object class="GtkImage" id="chat_img">
-            <property name="width-request">50</property>
-            <property name="height-request">50</property>
+            <property name="width-request">40</property>
+            <property name="height-request">40</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
@@ -32,6 +32,7 @@
             <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-left">10</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -125,10 +126,11 @@
         </child>
         <child>
           <object class="GtkImage" id="chat_image">
-            <property name="width-request">50</property>
-            <property name="height-request">50</property>
+            <property name="width-request">40</property>
+            <property name="height-request">40</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-top">5</property>
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
@@ -284,6 +286,9 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
+            <style>
+              <class name="n"/>
+            </style>
           </object>
           <packing>
             <property name="x">3</property>
