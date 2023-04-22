@@ -78,7 +78,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->img_user = mx_get_widget(builder, "user_image");
     app->scenes->chat_scene->b_profile =  mx_get_widget(builder, "profile_button");
 
-
+    mx_add_css_class(app->scenes->chat_scene->b_chat_settings, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_contact, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_group, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_send_message, "button1");
@@ -86,10 +86,10 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_add_css_class(app->scenes->chat_scene->b_profile, "button1");
     mx_add_css_class(app->scenes->chat_scene->w_chat, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_chats, "background");
-    mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
-    mx_add_css_class(app->scenes->chat_scene->w_sc_chats, "background");
+    //mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
+    mx_add_css_class(app->scenes->chat_scene->l_sc_messages, "background-light");
 
-    mx_set_style(path, app->scenes->chat_scene->l_sc_messages);
+    mx_set_style(path, app->scenes->chat_scene->l_sc_messages); 
     mx_set_style(path, app->scenes->chat_scene->l_sc_chats);
     mx_set_style(path, app->scenes->chat_scene->e_f_chats);
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);
@@ -101,6 +101,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_set_style(path, app->scenes->chat_scene->b_send_message);
     mx_set_style(path, app->scenes->chat_scene->bc_file);
     mx_set_style(path, app->scenes->chat_scene->b_profile);
+    mx_set_style(path, app->scenes->chat_scene->b_chat_settings);
     
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");
@@ -269,10 +270,10 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     mx_add_css_class(app->scenes->user_profile_dwindow->bc_file, "button2");
     mx_add_css_class(app->scenes->user_profile_dwindow->b_confirm, "button2");
     mx_add_css_class(app->scenes->user_profile_dwindow->b_logout, "button2");
-    mx_add_css_class(app->scenes->user_profile_dwindow->wd_user_profile, "background");
+    mx_add_css_class(app->scenes->user_profile_dwindow->w_user_profile, "background");
 
     mx_set_style(path, app->scenes->user_profile_dwindow->b_cancel);
-    mx_set_style(path, app->scenes->user_profile_dwindow->wd_user_profile);
+    mx_set_style(path, app->scenes->user_profile_dwindow->w_user_profile);
     mx_set_style(path, app->scenes->user_profile_dwindow->bc_file);
     mx_set_style(path, app->scenes->user_profile_dwindow->b_confirm);
     mx_set_style(path, app->scenes->user_profile_dwindow->b_logout);
@@ -280,13 +281,14 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     // GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
     // gtk_image_set_from_file(GTK_IMAGE(log_out_icon), mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
 
-    gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->wd_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
-    gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
+    gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->w_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
+    gtk_widget_hide(app->scenes->user_profile_dwindow->w_user_profile);
 }
 
 void mx_init_scene_group_info(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
+    const gchar *path = "client/Resources/css/main.css";
 
     mx_log_info(SYSLOG, RESOURCE_GROUP_INFO_PATH);
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
@@ -313,6 +315,20 @@ void mx_init_scene_group_info(t_uchat_application* app) {
     app->scenes->group_info_dwindow->e_f_new_group_name = mx_get_widget(builder, "group_name_entry");
     app->scenes->group_info_dwindow->b_confirm = mx_get_widget(builder, "name_group_confirm_button");
     app->scenes->group_info_dwindow->bc_file = mx_get_widget(builder, "group_image_change_button");
+
+    mx_add_css_class(app->scenes->group_info_dwindow->w_group_info, "background");
+    mx_add_css_class(app->scenes->group_info_dwindow->b_add_member, "button2");
+    mx_add_css_class(app->scenes->group_info_dwindow->b_close, "button2");
+    mx_add_css_class(app->scenes->group_info_dwindow->b_confirm, "button2");
+
+    mx_set_style(path, app->scenes->group_info_dwindow->w_group_info);
+    mx_set_style(path, app->scenes->group_info_dwindow->b_add_member);
+    mx_set_style(path, app->scenes->group_info_dwindow->b_close);
+    mx_set_style(path, app->scenes->group_info_dwindow->b_confirm);
+    mx_set_style(path, app->scenes->group_info_dwindow->b_confirm);
+    mx_set_style(path, app->scenes->group_info_dwindow->e_f_new_group_name);
+    mx_set_style(path, app->scenes->group_info_dwindow->e_f_new_group_member);
+
 
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->group_info_dwindow->w_group_info), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->group_info_dwindow->w_group_info);
