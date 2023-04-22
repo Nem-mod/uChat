@@ -64,12 +64,38 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 }
 
 gboolean mx_handler_auth(gpointer data) {
-    t_callback_data *cbdata = (t_callback_data*)data; 
+    t_callback_data *cbdata = (t_callback_data*)data;
+    t_uchat_application* app = cbdata->app;
+    t_response* res = cbdata->data;
 
-    mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+    // mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+    struct json_object* jobj = json_tokener_parse(res->property);
+    char* file_name = NULL;
+
+    if(mx_strstr(res->property, "file_name")) {
+        struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
+
+        file_name = (char*)json_object_get_string(jfname);
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+                                (app->scenes->chat_scene->img_user),  
+                                mx_strjoin(RESOURCE_PATH, file_name));
+
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+                                (app->scenes->user_profile_dwindow->img_user),  
+                                mx_strjoin(RESOURCE_PATH, file_name));
+    } else {
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+                                (app->scenes->chat_scene->b_send_message),  
+                                RESOURCE_BASE_ICON);
+
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->img_user), 
+                                (app->scenes->user_profile_dwindow->img_user),  
+                                RESOURCE_BASE_ICON);
+    }
 
     return false;
 }
+
 gboolean mx_handler_change_scene(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 
@@ -100,13 +126,17 @@ gboolean mx_handler_display_messages(gpointer data) {
 
     //mx_display_chat(cbdata->app, (t_response*)cbdata->data);
     mx_handle_messages_res(cbdata->app, (t_response*)cbdata->data);
+
     return false;
 }
 
 gboolean mx_handler_ping_server_get_chats(gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     struct json_object *jobj = json_object_new_object();
-    
+mx_log_info(SYSLOG, "Ping for chats");
+    if (app->user_id == 0)
+        return false;
+
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/user/groups", jobj));
@@ -116,6 +146,9 @@ gboolean mx_handler_ping_server_get_chats(gpointer data) {
 
 gboolean mx_handler_ping_server_get_messages(UNUSED gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
+mx_log_info(SYSLOG, "Ping for messages");
+    if (app->user_id == 0)
+        return false;
 
     if (app->current_group_id != 0) {
         struct json_object *jobj = json_object_new_object();
