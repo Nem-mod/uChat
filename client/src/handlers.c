@@ -126,13 +126,17 @@ gboolean mx_handler_display_messages(gpointer data) {
 
     //mx_display_chat(cbdata->app, (t_response*)cbdata->data);
     mx_handle_messages_res(cbdata->app, (t_response*)cbdata->data);
+
     return false;
 }
 
 gboolean mx_handler_ping_server_get_chats(gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     struct json_object *jobj = json_object_new_object();
-    
+mx_log_info(SYSLOG, "Ping for chats");
+    if (app->user_id == 0)
+        return false;
+
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/user/groups", jobj));
@@ -142,6 +146,9 @@ gboolean mx_handler_ping_server_get_chats(gpointer data) {
 
 gboolean mx_handler_ping_server_get_messages(UNUSED gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
+mx_log_info(SYSLOG, "Ping for messages");
+    if (app->user_id == 0)
+        return false;
 
     if (app->current_group_id != 0) {
         struct json_object *jobj = json_object_new_object();

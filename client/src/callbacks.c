@@ -319,7 +319,6 @@ gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointe
     return TRUE;
 }
 
-
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
 
@@ -356,7 +355,6 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
             mx_strdel(&app->choosed_file_pname);
     }
 }
-
 
 void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer data) { 
     t_uchat_application *app = (t_uchat_application*)data;
