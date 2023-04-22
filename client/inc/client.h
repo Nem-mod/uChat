@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <json.h>
 #include <regex.h>
+#include <math.h>
 
 #include "connect_utils.h"
 #include "ssl_utils.h"
@@ -295,6 +296,7 @@ t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
 void mx_set_style(const gchar *path, GtkWidget *widget);
 void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
+void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);

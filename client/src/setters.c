@@ -16,6 +16,46 @@ void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, cons
     gtk_image_set_from_pixbuf(image, pixbuf);
 }
 
+void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename) {
+    GdkPixbuf *given_image = gdk_pixbuf_new_from_file(filename, NULL);
+    int widget_width;
+    int widget_height;
+
+    int image_width = gdk_pixbuf_get_width(given_image);
+    int image_height = gdk_pixbuf_get_height(given_image); 
+
+    float width_ratio;
+    float height_ratio;
+    float max_ratio;
+
+    gtk_widget_get_size_request(widget_to_shrink, &widget_width, &widget_height);
+
+    width_ratio = image_width / widget_width;
+    height_ratio = image_height / widget_height;
+    
+    if (width_ratio > height_ratio)
+        max_ratio = width_ratio;
+    else
+        max_ratio = height_ratio;
+    
+    if (max_ratio > 1) {
+        image_height /= max_ratio;
+        image_width /= max_ratio;
+    }
+
+    // mx_log_info(SYSLOG, "Image info: width, height, path vvv" );
+    // mx_log_info(SYSLOG, mx_itoa(widget_width));
+    // mx_log_info(SYSLOG, mx_itoa(widget_height));
+    // mx_log_info(SYSLOG, mx_itoa(image_width));
+    // mx_log_info(SYSLOG, mx_itoa(image_height));
+    // mx_log_info(SYSLOG, (char*)filename);
+
+    GdkPixbuf *new_image = gdk_pixbuf_new_from_file_at_size(filename, image_width, image_height, NULL);
+
+    gtk_widget_set_size_request(widget_to_shrink, image_width, image_height);    
+    gtk_image_set_from_pixbuf(image, new_image);
+}
+
 void mx_set_style(const gchar *path, GtkWidget *widget) {
     GtkCssProvider *provider = gtk_css_provider_new();
     gtk_css_provider_load_from_path(provider, path, NULL);
