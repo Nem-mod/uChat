@@ -2,90 +2,34 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkWindow" id="add_user_modal_window">
-    <property name="can-focus">False</property>
-    <property name="default-width">300</property>
-    <property name="default-height">100</property>
-    <child>
-      <object class="GtkFixed">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <child>
-          <object class="GtkEntry" id="add_user_entry">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-          </object>
-          <packing>
-            <property name="x">15</property>
-            <property name="y">30</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="confirm_button">
-            <property name="label" translatable="yes">Confirm</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-          </object>
-          <packing>
-            <property name="x">195</property>
-            <property name="y">30</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkWindow" id="chat_info_window">
     <property name="can-focus">False</property>
-    <property name="default-width">300</property>
+    <property name="default-width">380</property>
     <property name="default-height">400</property>
     <child>
       <object class="GtkFixed">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkImage" id="group_image">
-            <property name="width-request">100</property>
-            <property name="height-request">100</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="stock">gtk-missing-image</property>
-          </object>
-          <packing>
-            <property name="x">97</property>
-            <property name="y">50</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Info</property>
+            <property name="label" translatable="yes">Group Info</property>
           </object>
           <packing>
-            <property name="x">135</property>
-            <property name="y">24</property>
+            <property name="x">155</property>
+            <property name="y">20</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="group_name_entry">
+          <object class="GtkEntry" id="group_user_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">add user..</property>
           </object>
           <packing>
             <property name="x">65</property>
-            <property name="y">205</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkFileChooserButton" id="chose_group_image_button">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="title" translatable="yes"/>
-          </object>
-          <packing>
-            <property name="x">115</property>
-            <property name="y">160</property>
+            <property name="y">60</property>
           </packing>
         </child>
         <child>
@@ -96,32 +40,97 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">110</property>
-            <property name="y">355</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="add_user_button">
-            <property name="label" translatable="yes">Add user</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">300</property>
+            <property name="x">150</property>
+            <property name="y">350</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="confirm_button1">
-            <property name="label" translatable="yes">Confirm</property>
+            <property name="label" translatable="yes">Add</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">103</property>
-            <property name="y">245</property>
+            <property name="x">245</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="group_edit_cs_window">
+            <property name="width-request">330</property>
+            <property name="height-request">210</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkViewport" id="group_edit_add_viewport">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="user_list">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkListBoxRow" id="user_ingroup_row">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="user_ingroup_image">
+                                <property name="width-request">50</property>
+                                <property name="height-request">50</property>
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="stock">gtk-missing-image</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="user_ingroup_login">
+                                <property name="width-request">196</property>
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">label</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="delete_user_button">
+                                <property name="label" translatable="yes">Delete</property>
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                                <property name="receives-default">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">25</property>
+            <property name="y">120</property>
           </packing>
         </child>
       </object>

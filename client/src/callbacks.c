@@ -272,6 +272,20 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     }
     
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/message", jobj));
+
+    mx_clear_entry(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
+
+    if (app->choosed_file_pname) {
+        // gtk_file_chooser_unselect_filename(GTK_FILE_CHOOSER(app->scenes->chat_scene->e_f_file), app->choosed_file_pname);
+        // gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(app->scenes->chat_scene->e_f_file));
+        // gtk_file_chooser_button_set_title(GTK_FILE_CHOOSER_BUTTON(app->scenes->chat_scene->e_f_file), "Cock");
+        
+        // gtk_file_chooser_remove_choice(  FIXME: fix
+        //     app->scenes->chat_scene->e_f_file, 
+        //     gtk_file_chooser_get_choice(app->scenes->chat_scene->e_f_file)
+        // );
+    }
+    // gtk_file_chooser_button_set_title(app->scenes->chat_scene->e_f_file, "");
     
     if(app->choosed_file_pname != NULL) {
             mx_strdel(&app->choosed_file_pname);

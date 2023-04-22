@@ -38,8 +38,10 @@ int mx_main_handler(char* json, t_uchat_application* app) {
     if (mx_strcmp(res->url, "/auth/register") == 0 && res->status == 200) {
         mx_log_info(SYSLOG, "Registration success");
         gdk_threads_add_idle(mx_handler_change_scene, app->scenes->signin_scene->cbdata);
-    } else if (mx_strcmp(res->url, "/auth/register") == 0)
+    } else if (mx_strcmp(res->url, "/auth/register") == 0) {
+        gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_login_err), "Login taken");
         mx_log_err(SYSLOG, "Registration is failed");
+    }
 
     if (mx_strcmp(res->url, "/user/groups") == 0 && res->status == 200) {
         t_callback_data* cb = mx_create_callback_data(app, res);
