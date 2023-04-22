@@ -80,6 +80,19 @@
             <property name="y">199</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkButton" id="confirm_changes_button">
+            <property name="label" translatable="yes">Confirm changes button</property>
+            <property name="width-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">62</property>
+            <property name="y">304</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>

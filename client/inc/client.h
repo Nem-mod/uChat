@@ -158,6 +158,7 @@ typedef struct s_user_profile {
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
     GtkWidget *b_logout;       
+    GtkWidget *b_confirm;
     t_callback_data* cbdata;    
 }               t_user_profile;
 

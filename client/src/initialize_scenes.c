@@ -231,6 +231,8 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     app->scenes->user_profile_dwindow->img_user = mx_get_widget(builder, "user_image");
     app->scenes->user_profile_dwindow->bc_file = mx_get_widget(builder, "change_user_image");
     app->scenes->user_profile_dwindow->b_logout = mx_get_widget(builder, "logout_button");
+    app->scenes->user_profile_dwindow->b_confirm = mx_get_widget(builder, "confirm_changes_button");
+    
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->wd_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
 }
