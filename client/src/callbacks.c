@@ -304,6 +304,7 @@ gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointe
     if(event || widget){} 
     gtk_widget_hide(window);
     return TRUE;
+}
 
 
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {

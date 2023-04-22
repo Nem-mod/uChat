@@ -259,6 +259,7 @@ void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data);
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
 void mx_auth_callback(t_uchat_application* app, t_response* res);
+gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
