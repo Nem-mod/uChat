@@ -306,3 +306,9 @@ void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TO
    
 }
 
+gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
+    GtkWidget *window = (GtkWidget*)data; 
+    if(event || widget){} 
+    gtk_widget_hide(window);
+    return TRUE;
+}
