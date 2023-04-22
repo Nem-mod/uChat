@@ -45,6 +45,7 @@ const char* main_handler(SSL* ssl, char* json){
     api->get("/group/", api->req, api->res, NULL, get_group);
     api->post("/group/", api->req, api->res, NULL, create_group);
     api->delete("/group/", api->req, api->res, NULL, delete_group);
+    api->patch("/group/", api->req, api->res, NULL, patch_group);
 
     api->get("/group/members", api->req, api->res, NULL, get_group_members);
     api->post("/group/members", api->req, api->res, NULL, insert_group_members);

@@ -233,3 +233,53 @@ int create_message(const char* req, char** res){
     
     return 0;
 }
+
+int patch_group(const char* req, char** res){
+    if(req == NULL)
+        return -1;
+    
+    sqlite3* db;
+    struct json_object *jobj = json_tokener_parse(req);
+    struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
+    int group_id = json_object_get_int(jgroup_id);
+    char temp[256];
+    char where[256];
+    sprintf(where, "group_id = \'%d\'",
+            group_id
+    );
+
+    if(mx_strstr(req, "group_name") != NULL) {
+        struct json_object *jgname = json_object_object_get(jobj, "group_name");
+        char* group_name =  (char*)json_object_get_string(jgname);
+
+        sprintf(temp, "group_name = \'%s\'",
+                group_name
+        );
+       
+        mx_openDB(DATABASE_NAME, &db);
+        mx_update_data(db, "GROUPS", where, temp, NULL);
+        sqlite3_close(db);
+        mx_memset(temp, 0, sizeof(temp));
+    }
+    
+    if(mx_strstr(req, "file_name") != NULL) {
+        struct json_object *jfpath = json_object_object_get(jobj, "file_name");
+        struct json_object *jfsize = json_object_object_get(jobj, "file_size");
+        char* file_name =  (char*)json_object_get_string(jfpath);
+        unsigned int file_size = (unsigned int)json_object_get_int64(jfsize);
+        sprintf(temp, "file_name = \'%s\', file_size = %d",
+                file_name, file_size
+        );
+        sprintf(where, "group_id = \'%d\'",
+                group_id
+        );
+        mx_openDB(DATABASE_NAME, &db);
+        mx_update_data(db, "GROUPS", where, temp, NULL);
+        sqlite3_close(db);
+        mx_memset(temp, 0, sizeof(temp));
+    }
+
+    get_group(req, res);
+
+    return 0;
+}

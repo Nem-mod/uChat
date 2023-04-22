@@ -15,6 +15,7 @@ int delete_group(const char* req, char** res);
 int get_group_members(const char* req, char** res);
 int insert_group_members(const char* req, char** res);
 int add_group_members(const char* req, char** res);
+int patch_group(const char* req, char** res);
 
 int get_messages(const char* req, char** res);
 int create_message(const char* req, char** res);
