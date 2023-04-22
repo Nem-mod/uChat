@@ -24,6 +24,7 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
     if(res->property == NULL) 
         return;
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
+    struct json_object *jgroup_privacy = json_object_object_get(jobj, "group_privacy"); 
     if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id)))
         return;
     struct json_object *jname;
@@ -42,6 +43,8 @@ void mx_display_chat(t_uchat_application* app, t_response* res) {
     
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
     gtk_widget_set_name(chat_button,  mx_itoa(json_object_get_int(jgroup_id)));
+    g_print("%d", (json_object_get_int(jgroup_privacy)));
+    gtk_widget_set_name(chat_box,  mx_itoa(json_object_get_int(jgroup_privacy)));
     gtk_widget_set_name(chat_name, "chat_name");
 
     gtk_widget_set_name(chat_img, file_name);

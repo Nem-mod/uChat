@@ -72,6 +72,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->e_f_file = mx_get_widget(builder, "file_entry");
     app->scenes->chat_scene->e_f_chat = mx_get_widget(builder, "chat_send_entry");
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
+    app->scenes->chat_scene->b_chat_settings = mx_get_widget(builder, "edit_chat_button");
 
     mx_set_style(path, app->scenes->chat_scene->e_f_chats);
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);

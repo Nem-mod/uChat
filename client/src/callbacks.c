@@ -56,8 +56,14 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     struct json_object* jobj = json_object_new_object();
 
     GList *children = gtk_container_get_children(GTK_CONTAINER(button));
-    children = gtk_container_get_children(GTK_CONTAINER(children->data));
+    
+    if(mx_atoi((char*)gtk_widget_get_name((GTK_WIDGET(children->data)))) != 0)
+        gtk_widget_hide(app->scenes->chat_scene->b_chat_settings);
+    else    
+        gtk_widget_show(app->scenes->chat_scene->b_chat_settings);
 
+    children = gtk_container_get_children(GTK_CONTAINER(children->data));
+   
     app->current_group_id = mx_atoi(gtk_widget_get_name(GTK_WIDGET(button)));
     app->last_message_indx = 0;
     app->last_message_id = 0;

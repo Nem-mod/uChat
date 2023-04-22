@@ -50,6 +50,7 @@ int create_group(const char* req, char** res){
     group.group_id = mx_insert_group(db, &group);
 
     mx_insert_group_member(db, &group, &user);
+    json_object_object_add(jobj, "group_privacy", json_object_new_int(group.privacy));
     const char *json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)json_str);
     sqlite3_close(db);

@@ -119,6 +119,7 @@ int add_contact(const char* req, char** res){
         mx_insert_group_member(db, &group, &user2);
 
         json_object_object_add(jobj, "group_id", json_object_new_int(group.group_id));
+        json_object_object_add(jobj, "group_privacy", json_object_new_int(group.privacy));
     }
     
     const char *json_str = json_object_to_json_string(jobj);
@@ -184,6 +185,7 @@ int get_user_groups(const char* req, char** res){
                 mx_select_data(db, "USERS", "user_id, nick_name, first_name, last_name, file_name, file_size", temp, json_u);
                 json_object *json_c = json_object_array_get_idx(json_u, 0);
                 json_object_object_add(json_c, "group_id", json_object_new_int(group_id));
+                json_object_object_add(json_c, "group_privacy", json_object_new_int(1));
                 json_object_array_add(json_finaly, json_c);
             }
         }
