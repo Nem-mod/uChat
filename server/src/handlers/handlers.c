@@ -38,7 +38,8 @@ const char* main_handler(SSL* ssl, char* json){
     api->get("/user/", api->req, api->res, NULL, getAll_users);
     api->get("/user/name:", api->req, api->res, NULL, get_users_by_name);
     api->get("/user/groups", api->req, api->res, NULL, get_user_groups);
-
+    api->patch("/user/", api->req, api->res, NULL, patch_user);
+    
     api->post("/contact/", api->req, api->res, NULL, add_contact);
 
     api->get("/group/", api->req, api->res, NULL, get_group);

@@ -57,6 +57,13 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     g_object_unref(builder);
 }
 
+gboolean mx_handler_auth(gpointer data) {
+    t_callback_data *cbdata = (t_callback_data*)data; 
+
+    mx_auth_callback(cbdata->app, (t_response*)cbdata->data);
+
+    return false;
+}
 gboolean mx_handler_change_scene(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 

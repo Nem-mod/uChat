@@ -74,12 +74,6 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     children = g_list_next(children);
     GtkLabel *chat_label = GTK_LABEL(children->data);
     
-
-    // mx_log_info(SYSLOG, "current_group_id = vvv");
-    // mx_log_info(SYSLOG, (char*)gtk_widget_get_name(GTK_WIDGET(button)));
-
-    // mx_log_info(SYSLOG, "button label = vvv");
-    // mx_log_info(SYSLOG, (char*)gtk_label_get_text(chat_label));
     gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), gtk_label_get_text(chat_label));
 
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat), chat_image, gtk_widget_get_name(chat_image));
@@ -102,7 +96,7 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data) {
         app->choosed_file_pname = mx_strdup((char*)filename);
         g_free(filename);
     }
-    g_print("Selected file %s\n", app->choosed_file_pname);
+    //g_print("Selected file %s\n", app->choosed_file_pname);
 }
 
 void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
@@ -249,7 +243,6 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     int message_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->chat_scene->e_f_chat)); 
     if(message_len <= 0 || message_len > 256) {return;}
     char *message_text_entry = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
-    g_print("%d", message_len);
     
   
     struct json_object *jobj = json_object_new_object();
@@ -306,9 +299,72 @@ void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TO
    
 }
 
+<<<<<<< HEAD
 gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
     GtkWidget *window = (GtkWidget*)data; 
     if(event || widget){} 
     gtk_widget_hide(window);
     return TRUE;
+=======
+
+
+void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data;
+
+    
+    struct json_object *jobj = json_object_new_object();
+
+    json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
+    
+
+    if(app->choosed_file_pname) {
+        unsigned int file_size = get_file_size(app->choosed_file_pname);
+        if(file_size > 0) {
+            char filename[50];
+            char *pos = strrchr(app->choosed_file_pname, '/');
+            strcpy(filename, pos + 1);
+            struct json_object *jfobj = json_object_new_object();
+            json_object_object_add(jfobj, "file_name", json_object_new_string(filename));
+            json_object_object_add(jfobj, "file_size", json_object_new_uint64(file_size));
+            json_object_object_add(jfobj, "type", json_object_new_string("POST-FILE"));
+            mx_write_to_server(app->serv_connection->ssl,  (char*)json_object_to_json_string(jfobj));
+            mx_SSL_sendfile(app->serv_connection->ssl, app->choosed_file_pname, file_size);
+            json_object_object_add(jobj, "file_name", json_object_new_string(filename));
+            json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
+        }
+    }
+    
+    
+    mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/user/", jobj));
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+        (app->scenes->chat_scene->img_user),  
+        app->choosed_file_pname);
+
+    if(app->choosed_file_pname != NULL) {
+            mx_strdel(&app->choosed_file_pname);
+    }
+}
+
+
+void mx_auth_callback(t_uchat_application* app, t_response* res) {
+    
+    
+    struct json_object* jobj = json_tokener_parse(res->property);
+    
+    char* file_name = NULL;
+    if(mx_strstr(res->property, "file_name")) {
+        struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
+        file_name = (char*)json_object_get_string(jfname);
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+        (app->scenes->chat_scene->img_user),  
+        mx_strjoin(RESOURCE_PATH, file_name));
+
+    } else {
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+        (app->scenes->chat_scene->b_send_message),  
+        RESOURCE_BASE_ICON);
+
+    }
+   
+>>>>>>> 5e5fb7d01113b2eea2eaa794a928f329add0d8f9
 }
