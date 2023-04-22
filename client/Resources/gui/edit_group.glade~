@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="group_info_window">
-    <property name="can_focus">False</property>
-    <property name="default_width">380</property>
-    <property name="default_height">600</property>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
+    <property name="can-focus">False</property>
+    <property name="default-width">380</property>
+    <property name="default-height">600</property>
     <child>
       <object class="GtkFixed">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="label" translatable="yes">Group Info</property>
           </object>
           <packing>
@@ -27,8 +24,8 @@
         <child>
           <object class="GtkEntry" id="group_user_entry">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="placeholder_text" translatable="yes">add user..</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">add user..</property>
           </object>
           <packing>
             <property name="x">65</property>
@@ -39,8 +36,8 @@
           <object class="GtkButton" id="close_button">
             <property name="label" translatable="yes">Close</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
           </object>
           <packing>
             <property name="x">150</property>
@@ -51,8 +48,8 @@
           <object class="GtkButton" id="add_user_togroup_button">
             <property name="label" translatable="yes">Add</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
           </object>
           <packing>
             <property name="x">245</property>
@@ -61,15 +58,15 @@
         </child>
         <child>
           <object class="GtkScrolledWindow" id="group_edit_cs_window">
-            <property name="width_request">330</property>
-            <property name="height_request">210</property>
+            <property name="width-request">330</property>
+            <property name="height-request">210</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="shadow_type">in</property>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
             <child>
               <object class="GtkViewport" id="group_edit_add_viewport">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <child>
                   <object class="GtkListBox" id="user_list">
                     <property name="visible">True</property>
@@ -86,10 +83,10 @@
         </child>
         <child>
           <object class="GtkImage" id="group_image">
-            <property name="width_request">100</property>
-            <property name="height_request">100</property>
+            <property name="width-request">100</property>
+            <property name="height-request">100</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
@@ -112,8 +109,8 @@
           <object class="GtkButton" id="name_group_confirm_button">
             <property name="label" translatable="yes">Confirm</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
           </object>
           <packing>
             <property name="x">245</property>
@@ -123,7 +120,7 @@
         <child>
           <object class="GtkFileChooserButton" id="group_image_change_button">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="title" translatable="yes"/>
           </object>
           <packing>
