@@ -49,12 +49,15 @@ void mx_create_scenes(t_uchat_application* app) {
     mx_init_scene_signup(app);
     mx_init_scene_add_contact(app);
     mx_init_scene_create_group(app);
+    mx_init_scene_user_profile(app);
+
 
     mx_init_callbacks_chat(app);
     mx_init_callbacks_signin(app);
     mx_init_callbacks_signup(app);
     mx_init_callbacks_add_contact(app);
     mx_init_create_group(app);
+    mx_init_user_profile(app);
 }
 
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size) {

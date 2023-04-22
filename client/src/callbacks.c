@@ -289,3 +289,20 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
     mx_log_info(SYSLOG, "CALLBACK TEST is called!");
 }
+
+void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
+    t_uchat_application *app = (t_uchat_application*)data;
+    app->choosed_file_pname = NULL;
+    app->current_group_id = 0;
+    app->last_message_id = 0;
+    app->last_message_indx = 0;
+    app->user_id = 0;
+    app->active_scene = SIGNIN;
+    gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_chats), (GtkCallback)gtk_widget_destroy, NULL);
+    gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_messages), (GtkCallback)gtk_widget_destroy, NULL);
+    gdk_threads_add_idle(mx_handler_change_scene, app->scenes->signin_scene->cbdata);
+    gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
+    gtk_widget_hide(app->scenes->chat_scene->w_chat);
+   
+}
+

@@ -74,6 +74,9 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->b_send_message = mx_get_widget(builder, "message_send_button");
     app->scenes->chat_scene->b_chat_settings = mx_get_widget(builder, "edit_chat_button");
 
+    app->scenes->chat_scene->img_user = mx_get_widget(builder, "user_image");
+    app->scenes->chat_scene->b_profile =  mx_get_widget(builder, "profile_button");
+
     mx_set_style(path, app->scenes->chat_scene->e_f_chats);
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);
     mx_set_style(path, app->scenes->chat_scene->b_add_group);
@@ -207,3 +210,27 @@ void mx_init_scene_signup(t_uchat_application* app) {
     g_object_unref(builder);
 }
 
+void mx_init_scene_user_profile(t_uchat_application* app) {
+    if(app){}
+    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+    GError *error = NULL;
+
+    if (gtk_builder_add_from_file(builder, RESOURCE_PROFILE_WINDOW_PATH, &error) == 0) {
+        mx_log_err(SYSLOG, "gtk: Error loading file");
+        return;
+    }
+
+    t_SCENE *new_scene = malloc(sizeof(t_SCENE));
+    app->scenes->user_profile_dwindow = malloc(sizeof(t_user_profile));
+
+    *new_scene = PROFILE;
+    app->scenes->user_profile_dwindow->cbdata = mx_create_callback_data(app, new_scene);
+        
+    app->scenes->user_profile_dwindow->wd_user_profile = mx_get_widget(builder, "profile_window");
+    app->scenes->user_profile_dwindow->l_user_login = mx_get_widget(builder, "user_login");
+    app->scenes->user_profile_dwindow->img_user = mx_get_widget(builder, "user_image");
+    app->scenes->user_profile_dwindow->bc_file = mx_get_widget(builder, "change_user_image");
+    app->scenes->user_profile_dwindow->b_logout = mx_get_widget(builder, "logout_button");
+    gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->wd_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
+    gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
+}

@@ -34,7 +34,10 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             gtk_widget_show(app->scenes->add_contact_dwindow->w_add_contact);
             break;
         case CREATE_GROUP:
-        gtk_widget_show(app->scenes->create_group_dwindow->w_create_group);
+            gtk_widget_show(app->scenes->create_group_dwindow->w_create_group);
+            break;
+        case PROFILE:
+            gtk_widget_show(app->scenes->user_profile_dwindow->wd_user_profile);
         break;
         default:
             break;
