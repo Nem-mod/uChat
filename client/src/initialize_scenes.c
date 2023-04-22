@@ -249,6 +249,7 @@ void mx_init_scene_signup(t_uchat_application* app) {
 void mx_init_scene_user_profile(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
+    const gchar *path = "client/Resources/css/main.css";
 
     if (gtk_builder_add_from_file(builder, RESOURCE_PROFILE_WINDOW_PATH, &error) == 0) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
@@ -267,7 +268,23 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     app->scenes->user_profile_dwindow->bc_file = mx_get_widget(builder, "change_user_image");
     app->scenes->user_profile_dwindow->b_logout = mx_get_widget(builder, "logout_button");
     app->scenes->user_profile_dwindow->b_confirm = mx_get_widget(builder, "confirm_changes_button");
+    app->scenes->user_profile_dwindow->b_cancel = mx_get_widget(builder, "cancel_button");
     
+    mx_add_css_class(app->scenes->user_profile_dwindow->b_cancel, "button2");
+    mx_add_css_class(app->scenes->user_profile_dwindow->bc_file, "button2");
+    mx_add_css_class(app->scenes->user_profile_dwindow->b_confirm, "button2");
+    mx_add_css_class(app->scenes->user_profile_dwindow->b_logout, "button2");
+    mx_add_css_class(app->scenes->user_profile_dwindow->wd_user_profile, "background");
+
+    mx_set_style(path, app->scenes->user_profile_dwindow->b_cancel);
+    mx_set_style(path, app->scenes->user_profile_dwindow->wd_user_profile);
+    mx_set_style(path, app->scenes->user_profile_dwindow->bc_file);
+    mx_set_style(path, app->scenes->user_profile_dwindow->b_confirm);
+    mx_set_style(path, app->scenes->user_profile_dwindow->b_logout);
+
+    // GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
+    // gtk_image_set_from_file(GTK_IMAGE(log_out_icon), mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
+
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->wd_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->user_profile_dwindow->wd_user_profile);
 }
