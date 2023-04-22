@@ -274,6 +274,7 @@ void mx_init_scene_group_info(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
 
+    mx_log_info(SYSLOG, RESOURCE_GROUP_INFO_PATH);
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
@@ -284,7 +285,7 @@ void mx_init_scene_group_info(t_uchat_application* app) {
 
     *new_scene = GROUP_INFO;
     app->scenes->group_info_dwindow->cbdata = mx_create_callback_data(app, new_scene);
-
+    
     app->scenes->group_info_dwindow->w_group_info = mx_get_widget(builder, "group_info_window");
     app->scenes->group_info_dwindow->e_f_new_group_member = mx_get_widget(builder, "group_user_entry");
     app->scenes->group_info_dwindow->b_add_member = mx_get_widget(builder, "add_user_togroup_button");

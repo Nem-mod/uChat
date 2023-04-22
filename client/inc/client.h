@@ -39,7 +39,8 @@
 #define RESOURCE_ADD_CONT_PATH      (RESOURCE_GUI_PATH "addcontact.glade")
 #define RESOURCE_CREATE_GROUP_PATH      (RESOURCE_GUI_PATH "addgroup.glade")
 #define RESOURCE_PROFILE_WINDOW_PATH      (RESOURCE_GUI_PATH "profile_window.glade")
-#define RESOURCE_GROUP_INFO_PATH    (RESOURCE_GUI_PATH, "edit_group.glade")
+#define RESOURCE_GROUP_INFO_PATH    (RESOURCE_GUI_PATH "edit_group.glade")
+
 typedef struct s_callback_data t_callback_data;
 
 /* Enum for scene representation */
