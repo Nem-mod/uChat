@@ -299,13 +299,11 @@ void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TO
    
 }
 
-<<<<<<< HEAD
 gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
     GtkWidget *window = (GtkWidget*)data; 
     if(event || widget){} 
     gtk_widget_hide(window);
     return TRUE;
-=======
 
 
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
@@ -366,5 +364,4 @@ void mx_auth_callback(t_uchat_application* app, t_response* res) {
 
     }
    
->>>>>>> 5e5fb7d01113b2eea2eaa794a928f329add0d8f9
 }
