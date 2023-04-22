@@ -95,7 +95,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_set_style(path, app->scenes->chat_scene->b_add_contact);
     mx_set_style(path, app->scenes->chat_scene->b_add_group);
     mx_set_style(path, app->scenes->chat_scene->w_chat);
-    mx_set_style(path, app->scenes->chat_scene->m_box);
+    //mx_set_style(path, app->scenes->chat_scene->m_box);
     mx_set_style(path, app->scenes->chat_scene->l_sc_chats);
     mx_set_style(path, app->scenes->chat_scene->e_f_chat);
     mx_set_style(path, app->scenes->chat_scene->b_send_message);
