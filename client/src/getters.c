@@ -1,5 +1,11 @@
 #include "client.h"
 
+GtkWidget *mx_get_widget(GtkBuilder *builder, char *id) {
+    GtkWidget *out = GTK_WIDGET(gtk_builder_get_object(builder, id));
+    
+    return out;
+}
+
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name) {
     if (mx_strcmp((char*)gtk_widget_get_name((GtkWidget*)parent), (char*)name) == 0) { 
         return parent;
