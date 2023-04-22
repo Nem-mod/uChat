@@ -323,6 +323,7 @@ void mx_init_scene_add_contact(t_uchat_application* app);
 void mx_init_scene_create_group(t_uchat_application* app);
 void mx_init_scene_user_profile(t_uchat_application* app);
 void mx_init_scene_group_info(t_uchat_application* app);
+int mx_get_user_data(char* property);
 
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
@@ -358,5 +359,5 @@ int mx_validate_password_letters(const char *password);
 //  =============================================Other=============================================
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
-void mx_display_chat(t_uchat_application* app, t_response* res); 
+void mx_create_new_chat_widget(t_uchat_application* app, t_response* res); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);

@@ -28,3 +28,9 @@ GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name) {
 
     return NULL;
 }
+
+int mx_get_user_data(char* property) {
+    json_object* jobj = json_tokener_parse(property);
+    struct json_object *juser_id = json_object_object_get(jobj, "user_id");
+    return json_object_get_int(juser_id);
+}
