@@ -20,8 +20,10 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     struct json_object *jobj = json_object_new_object();
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
+
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/contact/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
+
     gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
@@ -77,6 +79,8 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), gtk_label_get_text(chat_label));
 
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat), chat_image, gtk_widget_get_name(chat_image));
+    gtk_widget_set_name(app->scenes->chat_scene->img_chat, gtk_widget_get_name(chat_image));
+    mx_log_err(SYSLOG, (char*)gtk_widget_get_name(app->scenes->chat_scene->img_chat)); // TODO: temp
     // gtk_image_set_from_file(GTK_IMAGE(app->scenes->chat_scene->img_chat), gtk_widget_get_name(chat_image));
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
@@ -120,18 +124,21 @@ void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data) {
 
     gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
+    app->active_scene = CHAT;
 }
 
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data; 
 
     gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
+    app->active_scene = CHAT;
 }
 
 void mx_callback_hide_window_group_info(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data; 
 
     gtk_widget_hide(app->scenes->group_info_dwindow->w_group_info);
+    app->active_scene = CHAT;
 }
 
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
@@ -378,8 +385,6 @@ void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer 
                                         app->choosed_file_pname);
 }
 
-
-
 void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data){
     t_uchat_application* app = (t_uchat_application*)data;
     const gchar *entry_text = gtk_entry_get_text(GTK_ENTRY(app->scenes->chat_scene->e_f_chats));
@@ -407,4 +412,21 @@ void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data){
         }
         g_list_free(row_children);
     }
+}
+
+void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data;
+    // GList *children = gtk_container_get_children(GTK_CONTAINER(button));
+
+    gtk_container_foreach(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members), (GtkCallback)gtk_widget_destroy, NULL);
+
+    GtkWidget *group_image = app->scenes->chat_scene->img_chat;
+    // GtkLabel *chat_label = GTK_LABEL(app->scenes->chat_scene->l_chatname);
+
+    // gtk_label_set_text(GTK_LABEL(app->scenes->group_info->), gtk_label_get_text(chat_label));
+    mx_log_err(SYSLOG, (char*)gtk_widget_get_name(app->scenes->chat_scene->img_chat)); // TODO: temp
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->img_group), app->scenes->group_info_dwindow->img_group, gtk_widget_get_name(group_image));
+
+    mx_handler_ping_server_get_group_members(app);
+    g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_group_members, app);
 }

@@ -13,6 +13,7 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             gtk_entry_set_text(GTK_ENTRY(app->scenes->signin_scene->e_f_password), "");
  
             gtk_widget_show(app->scenes->signup_scene->w_signup);
+            app->active_scene = SIGNUP;
             break;
         case SIGNIN:
             gtk_label_set_text(GTK_LABEL(app->scenes->signin_scene->l_err_msg), "");
@@ -28,21 +29,27 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             mx_clear_entry(GTK_ENTRY(app->scenes->signup_scene->e_f_lastName));
 
             gtk_widget_show(app->scenes->signin_scene->w_signin);
+            app->active_scene = SIGNIN;
             break;
         case CHAT:
             gtk_widget_show(app->scenes->chat_scene->w_chat);
+            app->active_scene = CHAT;
             break;
         case ADD_CONTACT:
             gtk_widget_show(app->scenes->add_contact_dwindow->w_add_contact);
+            app->active_scene = ADD_CONTACT;
             break;
         case CREATE_GROUP:
             gtk_widget_show(app->scenes->create_group_dwindow->w_create_group);
+            app->active_scene = CREATE_GROUP;
             break;
         case PROFILE:
             gtk_widget_show(app->scenes->user_profile_dwindow->w_user_profile);
+            app->active_scene = PROFILE;
         break;
         case GROUP_INFO:
             gtk_widget_show(app->scenes->group_info_dwindow->w_group_info);
+            app->active_scene = GROUP_INFO;
         break;
         default:
             break;

@@ -23,7 +23,7 @@
 #define IP "127.0.0.1"
 #define SERVER 1
 #define CLIENT 0
-#define PING_SERVER_LONG_INTERAL_SECONDS 5
+#define PING_SERVER_LONG_INTERVAL_SECONDS 2
 #define PING_SERVER_SHORT_INTERVAL_MILISECONDS 200
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
@@ -300,6 +300,7 @@ void mx_auth_callback(t_uchat_application* app, t_response* res);
 void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data);
 gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
+void mx_callback_group_info(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -332,6 +333,8 @@ void mx_init_scene_user_profile(t_uchat_application* app);
 void mx_init_scene_group_info(t_uchat_application* app);
 int mx_get_user_data(char* property);
 
+void mx_create_new_chat_widget(t_uchat_application* app, t_response* res); 
+void mx_create_new_member_widget(t_uchat_application* app, t_response* res);
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
@@ -342,12 +345,14 @@ void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const
 
 //  =============================================Handlers=============================================
 gboolean mx_handler_change_scene(gpointer data);
-gboolean mx_handler_display_chat(gpointer data);
+gboolean mx_handler_create_new_chat_widget(gpointer data);
+gboolean mx_handler_create_new_member_widget(gpointer data);
 gboolean mx_handler_display_messages(gpointer data);
 void mx_handle_messages_res(t_uchat_application* app, t_response* res);
 int mx_main_handler(char* json, t_uchat_application* app);
 gboolean mx_handler_ping_server_get_chats(gpointer data);
 gboolean mx_handler_ping_server_get_messages(gpointer data);
+gboolean mx_handler_ping_server_get_group_members(gpointer data);
 gboolean mx_handler_chat_scroll_down(gpointer data);
 gboolean mx_handler_auth(gpointer data);
 
@@ -366,6 +371,5 @@ int mx_validate_password_letters(const char *password);
 //  =============================================Other=============================================
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
-void mx_create_new_chat_widget(t_uchat_application* app, t_response* res); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
 
