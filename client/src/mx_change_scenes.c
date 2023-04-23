@@ -32,7 +32,7 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             app->active_scene = SIGNIN;
             break;
         case CHAT:
-            mx_strdel(&app->choosed_file_pname);
+            // mx_strdel(&app->choosed_file_pname);
             gtk_widget_show(app->scenes->chat_scene->w_chat);
             app->active_scene = CHAT;
             break;
@@ -45,7 +45,7 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             app->active_scene = CREATE_GROUP;
             break;
         case PROFILE:
-            mx_strdel(&app->choosed_file_pname);
+            // mx_strdel(&app->choosed_file_pname);
             gtk_widget_show(app->scenes->user_profile_dwindow->w_user_profile);
             app->active_scene = PROFILE;
         break;

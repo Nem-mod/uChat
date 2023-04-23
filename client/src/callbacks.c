@@ -69,7 +69,7 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     app->current_group_id = mx_atoi(gtk_widget_get_name(GTK_WIDGET(button)));
     app->last_message_indx = 0;
     app->last_message_id = 0;
-    mx_strdel(&app->choosed_file_pname);
+    // mx_strdel(&app->choosed_file_pname);
     // TODO: don't destroy. create struct for each chat, hide/show messages. don't get them from server every time
     gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_messages), (GtkCallback)gtk_widget_destroy, NULL);
 
@@ -92,9 +92,9 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data) {
     GtkFileChooser *chooser = GTK_FILE_CHOOSER(button);
     GtkFileChooserAction action = gtk_file_chooser_get_action(chooser);
 
-    if(app->choosed_file_pname != NULL) {
-            mx_strdel(&app->choosed_file_pname);
-    }
+    // if(app->choosed_file_pname != NULL) {
+    //         // mx_strdel(&app->choosed_file_pname);
+    // }
     if (action == GTK_FILE_CHOOSER_ACTION_OPEN) {
         
         gchar *filename = gtk_file_chooser_get_filename(chooser);
@@ -308,9 +308,9 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     }
     // gtk_file_chooser_button_set_title(app->scenes->chat_scene->e_f_file, "");
     
-    if(app->choosed_file_pname != NULL) {
-            mx_strdel(&app->choosed_file_pname);
-    }
+    // if(app->choosed_file_pname != NULL) {
+    //         mx_strdel(&app->choosed_file_pname);
+    // }
     //mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
 }
 
@@ -369,9 +369,9 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
                                 (app->scenes->chat_scene->img_user),  
                                 app->choosed_file_pname);
 
-        if(app->choosed_file_pname != NULL) {
-                mx_strdel(&app->choosed_file_pname);
-        }
+        // if(app->choosed_file_pname != NULL) {
+        //         mx_strdel(&app->choosed_file_pname);
+        // }
     }
     
     
