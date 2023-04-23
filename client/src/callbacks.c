@@ -430,3 +430,26 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     mx_handler_ping_server_get_group_members(app);
     g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_group_members, app);
 }
+
+void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data;
+    GtkEntry *member_entry = GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_member);
+    
+    // int login_len = gtk_entry_get_text_length(member_entry); 
+    // if(login_len < 3 || login_len > 32) {return;}
+    const char *login = (char*)gtk_entry_get_text(member_entry);
+
+    struct json_object *jobj = json_object_new_object();
+
+    json_object_object_add(jobj, "group_id", json_object_new_int(app->user_id));
+    json_object_object_add(jobj, "login", json_object_new_string((char*)login));
+
+    mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
+    mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
+
+    gtk_entry_set_text(member_entry, "");
+}
+
+// void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
+
+// }
