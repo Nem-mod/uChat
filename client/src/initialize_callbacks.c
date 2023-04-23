@@ -5,6 +5,7 @@ void mx_init_callbacks_add_contact(t_uchat_application* app) {
     g_signal_connect(app->scenes->add_contact_dwindow->b_close , "clicked", G_CALLBACK(mx_callback_hide_window), app);
     g_signal_connect(app->scenes->add_contact_dwindow->b_add_contact, "clicked", G_CALLBACK(mx_callback_add_contact), app);
     //g_signal_connect(app->scenes->add_contact_dwindow->b_add_contact, "clicked", G_CALLBACK(mx_callback_change_scene), app->scenes->add_contact_dwindow->cbdata);
+    g_signal_connect(app->scenes->add_contact_dwindow->e_f_login, "activate", G_CALLBACK(mx_callback_add_contact), app);
 }
 
 void mx_init_callbacks_create_group(t_uchat_application* app) {
