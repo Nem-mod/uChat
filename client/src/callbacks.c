@@ -431,7 +431,6 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_group_members, app);
 }
 
-<<<<<<< HEAD
 void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     GtkEntry *member_entry = GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_member);
@@ -454,7 +453,6 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
 // void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
 
 // }
-=======
 
 void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer data) { 
     t_uchat_application *app = (t_uchat_application*)data;
@@ -509,4 +507,3 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
 }
 
 
->>>>>>> f003240b70d91e525a2187127001007bba86222a
