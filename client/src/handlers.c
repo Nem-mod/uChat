@@ -12,13 +12,13 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
     }
 
-    GtkWidget *message_box = mx_get_widget(builder, "message_box");
-    GtkWidget *message_button_box = mx_get_widget(builder, "message_button_box");
-    GtkWidget *message_img = mx_get_widget(builder, "message_img");
-    GtkWidget *messsage_text_label = mx_get_widget(builder, "message_text_label");
-    GtkWidget *messsage_user_nick_name = mx_get_widget(builder, " message_user_name");
-    GtkWidget *messsage_sent_time_label = mx_get_widget(builder, "message_sent_time_label");
-    
+    GtkWidget *message_box;
+    GtkWidget *message_button_box;
+    GtkWidget *message_img;
+    GtkWidget *message_text_label;
+    GtkWidget *message_user_nick_name;
+    GtkWidget *message_sent_time_label;
+
     struct json_object* jobj = json_tokener_parse(res->property);
     if(res->property == NULL) 
         return;
@@ -26,6 +26,25 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     app->last_message_id = json_object_get_int(jmessage_id);
     if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id)))
         return;
+
+    if (json_object_get_int(json_object_object_get(jobj, "user_id")) == app->user_id) {
+        message_box = mx_get_widget(builder, "message_box1");
+        message_button_box = mx_get_widget(builder, "message_button_box_user");
+        message_img = mx_get_widget(builder, "message_img1");
+        message_text_label = mx_get_widget(builder, "message_text_label1");
+        message_user_nick_name = mx_get_widget(builder, " message_user_name1");
+        message_sent_time_label = mx_get_widget(builder, "message_sent_time_label1");
+    }
+    else {
+        message_box = mx_get_widget(builder, "message_box");
+        message_button_box = mx_get_widget(builder, "message_button_box");
+        message_img = mx_get_widget(builder, "message_img");
+        message_text_label = mx_get_widget(builder, "message_text_label");
+        message_user_nick_name = mx_get_widget(builder, " message_user_name");
+        message_sent_time_label = mx_get_widget(builder, "message_sent_time_label");
+    }
+
+    
 
     struct json_object *jtext = json_object_object_get(jobj, "message_text");
     struct json_object *jnick_name = json_object_object_get(jobj, "user_nick_name");
@@ -42,15 +61,23 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         gtk_container_remove(GTK_CONTAINER(message_box), message_img);
     }
     
-    gtk_label_set_text(GTK_LABEL(messsage_text_label), (char*)json_object_get_string(jtext));
-    gtk_label_set_text(GTK_LABEL(messsage_user_nick_name), (char*)json_object_get_string(jnick_name));
-    gtk_label_set_text(GTK_LABEL(messsage_sent_time_label), (char*)json_object_get_string(jsent_time));
+    gtk_label_set_text(GTK_LABEL(message_text_label), (char*)json_object_get_string(jtext));
+    gtk_label_set_text(GTK_LABEL(message_user_nick_name), (char*)json_object_get_string(jnick_name));
+    gtk_label_set_text(GTK_LABEL(message_sent_time_label), (char*)json_object_get_string(jsent_time));
 
     gtk_widget_set_name(message_button_box,  mx_itoa(json_object_get_int(jmessage_id)));
+    
     mx_set_style(path, message_box);
     mx_set_style(path, message_button_box);
+    mx_set_style(path, message_img);
+    mx_set_style(path, message_text_label);
+    mx_set_style(path, message_user_nick_name);
+    mx_set_style(path, message_sent_time_label);
     mx_add_css_class(message_box, "message-box");
     mx_add_css_class(message_button_box, "message");
+    mx_add_css_class(message_user_nick_name, "message-user");
+    mx_add_css_class(message_sent_time_label, "message-time");
+    mx_add_css_class(message_text_label, "message-text");
 
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);

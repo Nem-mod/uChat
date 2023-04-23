@@ -57,7 +57,7 @@ entry:hover {
 }
 
 
-label {
+.err-label {
     color:red;
 }
 
@@ -78,6 +78,22 @@ label {
 
 .chat-background {
     background-color: #9ac8f8;
+}
+
+.message-text {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.message-user {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.message-time {
+    font-size: 10px;
+    font-weight: 300;
+    color: grey;
 }
 
 #file_entry {
