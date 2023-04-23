@@ -431,6 +431,7 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_group_members, app);
 }
 
+<<<<<<< HEAD
 void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     GtkEntry *member_entry = GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_member);
@@ -453,3 +454,59 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
 // void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
 
 // }
+=======
+
+void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer data) { 
+    t_uchat_application *app = (t_uchat_application*)data;
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->img_group), 
+                                        (app->scenes->group_info_dwindow->img_group),  
+                                        app->choosed_file_pname);
+}
+
+
+
+void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data;
+
+    
+    struct json_object *jobj = json_object_new_object();
+
+    json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
+    
+    char* group_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_name));
+
+    if(mx_strlen(group_name) != 0) {
+        json_object_object_add(jobj, "group_name", json_object_new_string(group_name));
+    }
+
+    if(app->choosed_file_pname) {
+        unsigned int file_size = get_file_size(app->choosed_file_pname);
+        if(file_size > 0) {
+            char filename[50];
+            char *pos = strrchr(app->choosed_file_pname, '/');
+            strcpy(filename, pos + 1);
+            struct json_object *jfobj = json_object_new_object();
+            json_object_object_add(jfobj, "file_name", json_object_new_string(filename));
+            json_object_object_add(jfobj, "file_size", json_object_new_uint64(file_size));
+            json_object_object_add(jfobj, "type", json_object_new_string("POST-FILE"));
+            mx_write_to_server(app->serv_connection->ssl,  (char*)json_object_to_json_string(jfobj));
+            mx_SSL_sendfile(app->serv_connection->ssl, app->choosed_file_pname, file_size);
+            json_object_object_add(jobj, "file_name", json_object_new_string(filename));
+            json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
+        }
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
+                                (app->scenes->chat_scene->img_user),  
+                                app->choosed_file_pname);
+
+        if(app->choosed_file_pname != NULL) {
+                mx_strdel(&app->choosed_file_pname);
+        }
+    }
+    
+    
+    mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/group/", jobj));
+    
+}
+
+
+>>>>>>> f003240b70d91e525a2187127001007bba86222a
