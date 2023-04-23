@@ -1,13 +1,3 @@
-/* @font-face {
-    font-family: 'font-poppins';
-    src: url('client/Resources/fonts/Poppins-Regular.ttf') format('truetype'); 
-} */
-
-/* * {
-    font-family: 'font-poppins', sans-serif;
-    src: url('client/Resources/fonts/Poppins-Regular.ttf') format('truetype'); 
-} */
-
 .button1 {
     color: #0069d9;
     background-image: image(white);

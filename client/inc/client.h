@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include <gtk/gtk.h>
-//#include <pango/pangocairo.h>
 #include <ctype.h>
 #include <strings.h>
 #include <sys/stat.h>
