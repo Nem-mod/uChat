@@ -50,6 +50,7 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
             app->active_scene = PROFILE;
         break;
         case GROUP_INFO:
+            mx_strdel(&app->choosed_file_pname);
             gtk_widget_show(app->scenes->group_info_dwindow->w_group_info);
             app->active_scene = GROUP_INFO;
         break;
