@@ -63,7 +63,7 @@ int get_users_by_id(const char* req, char** res){
     );
 
     mx_openDB(DATABASE_NAME, &db);
-    mx_select_data(db, "USERS", "*", temp, json);
+    mx_select_data(db, "USERS", "user_id, nick_name, fist_name, last_name, file_size, file_name", temp, json);
     const char *json_str = json_object_to_json_string(json);
 
     *res =  mx_strdup((char*)json_str);
