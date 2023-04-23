@@ -43,7 +43,7 @@ void* mx_listen_server(void* data) {
         while (1) {
             if(file_flag == 0){
                 if(mx_SSL_read(app->serv_connection->ssl, buffer) == -1) break;
-                mx_log_info(SYSLOG, buffer);
+                // mx_log_info(SYSLOG, buffer);
             }
             else {
                 mx_SSL_readfile(app->serv_connection->ssl, mx_strjoin(RESOURCE_PATH , filename), filesize);
@@ -59,8 +59,8 @@ void* mx_listen_server(void* data) {
             
 
             if(buffer[0] != 0) {
-                // mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
-                // mx_log_info(SYSLOG, buffer);
+                mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
+                mx_log_info(SYSLOG, buffer);
 
                 mx_strcpy(app->serv_connection->lbuffer, buffer);
                 mx_main_handler(buffer, app);
@@ -77,8 +77,8 @@ void* mx_listen_server(void* data) {
 void mx_write_to_server(SSL* ssl, char* buffer) {
 
     if(buffer != NULL && mx_strlen(buffer) < (int)(sizeof(char) * MAXBUFFER)){
-        // mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
-        // mx_log_info(SYSLOG, buffer);
+        mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
+        mx_log_info(SYSLOG, buffer);
 
         mx_SSL_write(ssl, buffer);
         mx_strdel(&buffer);

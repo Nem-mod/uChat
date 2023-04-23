@@ -290,7 +290,6 @@ void mx_init_scene_group_info(t_uchat_application* app) {
     GError *error = NULL;
     const gchar *path = "client/Resources/css/main.css";
 
-    mx_log_info(SYSLOG, RESOURCE_GROUP_INFO_PATH);
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;

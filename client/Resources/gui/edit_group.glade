@@ -3,7 +3,9 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="group_info_window">
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window-position">center-on-parent</property>
     <property name="default_width">380</property>
     <property name="default_height">600</property>
