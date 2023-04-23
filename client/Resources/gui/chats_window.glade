@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.40.0 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkButton" id="chat_button">
@@ -150,59 +150,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButtonBox">
-            <property name="width-request">705</property>
-            <property name="height-request">50</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="layout-style">start</property>
-            <child>
-              <object class="GtkFileChooserButton" id="file_choose_button">
-                <property name="width-request">0</property>
-                <property name="height-request">50</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="title" translatable="yes"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="chat_send_entry">
-                <property name="width-request">527</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="placeholder-text" translatable="yes">Type message...</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="message_send_button">
-                <property name="label" translatable="yes">Send</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="x">375</property>
-            <property name="y">670</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="edit_chat_button">
             <property name="label" translatable="yes">Info</property>
             <property name="width-request">60</property>
@@ -212,7 +159,7 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">1019</property>
+            <property name="x">1012</property>
           </packing>
         </child>
         <child>
@@ -307,6 +254,56 @@
           </object>
           <packing>
             <property name="x">130</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="width-request">705</property>
+            <property name="height-request">50</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkFileChooserButton" id="file_choose_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" translatable="yes"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="chat_send_entry">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="placeholder-text" translatable="yes">Type message...</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="message_send_button">
+                <property name="label" translatable="yes">Send</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="x">375</property>
+            <property name="y">670</property>
           </packing>
         </child>
       </object>
