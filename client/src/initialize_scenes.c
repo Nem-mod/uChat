@@ -2,7 +2,6 @@
 
 void mx_init_scene_add_contact(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    const gchar *path = "client/Resources/css/main.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_ADD_CONT_PATH, &error) == 0) {
@@ -24,10 +23,10 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     app->scenes->add_contact_dwindow->b_add_contact = mx_get_widget(builder, "add_contact_button");
     app->scenes->add_contact_dwindow->b_close = mx_get_widget(builder, "cancel_button");
 
-    mx_set_style(path, app->scenes->add_contact_dwindow->w_add_contact);
-    mx_set_style(path, app->scenes->add_contact_dwindow->e_f_login);
-    mx_set_style(path, app->scenes->add_contact_dwindow->b_add_contact);
-    mx_set_style(path, app->scenes->add_contact_dwindow->b_close);
+    mx_set_style(app->scenes->add_contact_dwindow->w_add_contact);
+    mx_set_style(app->scenes->add_contact_dwindow->e_f_login);
+    mx_set_style(app->scenes->add_contact_dwindow->b_add_contact);
+    mx_set_style(app->scenes->add_contact_dwindow->b_close);
 
     mx_add_css_class(app->scenes->add_contact_dwindow->b_add_contact, "button2");
     mx_add_css_class(app->scenes->add_contact_dwindow->b_close, "button2");
@@ -40,7 +39,6 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
 
 void mx_init_scene_chat(t_uchat_application* app){
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    const gchar *path = "client/Resources/css/main.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
@@ -89,19 +87,19 @@ void mx_init_scene_chat(t_uchat_application* app){
     //mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_messages, "background-light");
 
-    mx_set_style(path, app->scenes->chat_scene->l_sc_messages); 
-    mx_set_style(path, app->scenes->chat_scene->l_sc_chats);
-    mx_set_style(path, app->scenes->chat_scene->e_f_chats);
-    mx_set_style(path, app->scenes->chat_scene->b_add_contact);
-    mx_set_style(path, app->scenes->chat_scene->b_add_group);
-    mx_set_style(path, app->scenes->chat_scene->w_chat);
+    mx_set_style(app->scenes->chat_scene->l_sc_messages); 
+    mx_set_style(app->scenes->chat_scene->l_sc_chats);
+    mx_set_style(app->scenes->chat_scene->e_f_chats);
+    mx_set_style(app->scenes->chat_scene->b_add_contact);
+    mx_set_style(app->scenes->chat_scene->b_add_group);
+    mx_set_style(app->scenes->chat_scene->w_chat);
     //mx_set_style(path, app->scenes->chat_scene->m_box);
-    mx_set_style(path, app->scenes->chat_scene->l_sc_chats);
-    mx_set_style(path, app->scenes->chat_scene->e_f_chat);
-    mx_set_style(path, app->scenes->chat_scene->b_send_message);
-    mx_set_style(path, app->scenes->chat_scene->bc_file);
-    mx_set_style(path, app->scenes->chat_scene->b_profile);
-    mx_set_style(path, app->scenes->chat_scene->b_chat_settings);
+    mx_set_style(app->scenes->chat_scene->l_sc_chats);
+    mx_set_style(app->scenes->chat_scene->e_f_chat);
+    mx_set_style(app->scenes->chat_scene->b_send_message);
+    mx_set_style(app->scenes->chat_scene->bc_file);
+    mx_set_style(app->scenes->chat_scene->b_profile);
+    mx_set_style(app->scenes->chat_scene->b_chat_settings);
     
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");
@@ -113,7 +111,6 @@ void mx_init_scene_chat(t_uchat_application* app){
 }
 
 void mx_init_scene_create_group(t_uchat_application* app) {
-    const gchar *path = "client/Resources/css/main.css";
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
 
@@ -133,10 +130,10 @@ void mx_init_scene_create_group(t_uchat_application* app) {
     app->scenes->create_group_dwindow->b_create_group = mx_get_widget(builder, "add_group_button");
     app->scenes->create_group_dwindow->b_close = mx_get_widget(builder, "cancel_button");
 
-    mx_set_style(path, app->scenes->create_group_dwindow->w_create_group);
-    mx_set_style(path, app->scenes->create_group_dwindow->e_f_group_name);
-    mx_set_style(path, app->scenes->create_group_dwindow->b_create_group);
-    mx_set_style(path, app->scenes->create_group_dwindow->b_close);
+    mx_set_style(app->scenes->create_group_dwindow->w_create_group);
+    mx_set_style(app->scenes->create_group_dwindow->e_f_group_name);
+    mx_set_style(app->scenes->create_group_dwindow->b_create_group);
+    mx_set_style(app->scenes->create_group_dwindow->b_close);
 
     mx_add_css_class(app->scenes->create_group_dwindow->b_create_group, "button2");
     mx_add_css_class(app->scenes->create_group_dwindow->b_close, "button2");
@@ -148,8 +145,6 @@ void mx_init_scene_create_group(t_uchat_application* app) {
 
 void mx_init_scene_signin(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    const gchar *path = "client/Resources/css/main.css";
-    // const gchar *path = "client/Resources/css/gtk.css";
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNIN_PATH, &error) == 0) {
@@ -172,16 +167,22 @@ void mx_init_scene_signin(t_uchat_application* app) {
     app->scenes->signin_scene->b_signin = mx_get_widget(builder, "signin_button");
     app->scenes->signin_scene->bl_signup = mx_get_widget(builder, "signin_link1");
     app->scenes->signin_scene->l_err_msg = mx_get_widget(builder, "err_msg");
+    app->scenes->signin_scene->l_signin = mx_get_widget(builder, "signin_label");
+    app->scenes->signin_scene->l_welcome = mx_get_widget(builder, "welcome_label");
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
 
     mx_add_css_class(app->scenes->signin_scene->b_signin, "button1");
+    mx_add_css_class(app->scenes->signin_scene->l_signin, "sign-label");
+    mx_add_css_class(app->scenes->signin_scene->l_welcome, "welcome-label");
 
-    mx_set_style(path, app->scenes->signin_scene->e_f_login);
-    mx_set_style(path, app->scenes->signin_scene->e_f_password);
-    mx_set_style(path, app->scenes->signin_scene->b_signin);
-    mx_set_style(path, app->scenes->signin_scene->l_err_msg);
-    mx_set_style(path, app->scenes->signin_scene->bl_signup);
-    mx_set_style(path, app->scenes->signin_scene->w_signin);
+    mx_set_style(app->scenes->signin_scene->e_f_login);
+    mx_set_style(app->scenes->signin_scene->e_f_password);
+    mx_set_style(app->scenes->signin_scene->b_signin);
+    mx_set_style(app->scenes->signin_scene->l_err_msg);
+    mx_set_style(app->scenes->signin_scene->bl_signup);
+    mx_set_style(app->scenes->signin_scene->w_signin);
+    mx_set_style(app->scenes->signin_scene->l_signin);
+    mx_set_style(app->scenes->signin_scene->l_welcome);
 
     mx_add_css_class(app->scenes->signin_scene->l_err_msg, "err-label");
 
@@ -193,7 +194,6 @@ void mx_init_scene_signin(t_uchat_application* app) {
 void mx_init_scene_signup(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
-    const gchar *path = "client/Resources/css/main.css";
 
 
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNUP_PATH, &error) == 0) {
@@ -223,22 +223,27 @@ void mx_init_scene_signup(t_uchat_application* app) {
     app->scenes->signup_scene->l_login_err = mx_get_widget(builder, "login_err");
     app->scenes->signup_scene->l_password_err = mx_get_widget(builder, "password_err");
     app->scenes->signup_scene->l_repeat_password_err = mx_get_widget(builder, "repeat_password_err");
+    app->scenes->signup_scene->l_signup = mx_get_widget(builder, "signup_label");
+    app->scenes->signup_scene->l_welcome = mx_get_widget(builder, "welcome1_label");
 
+    mx_add_css_class(app->scenes->signup_scene->l_signup, "sign-label");
+    mx_add_css_class(app->scenes->signup_scene->l_welcome, "welcome-label");
     mx_add_css_class(app->scenes->signup_scene->b_signup, "button1");
 
-    mx_set_style(path, app->scenes->signup_scene->w_signup);
-    mx_set_style(path, app->scenes->signup_scene->e_f_login);
-    mx_set_style(path, app->scenes->signup_scene->e_f_password);
-    mx_set_style(path, app->scenes->signup_scene->e_f_password2);
-    mx_set_style(path, app->scenes->signup_scene->e_f_firstName);
-    mx_set_style(path, app->scenes->signup_scene->e_f_lastName);
-    mx_set_style(path, app->scenes->signup_scene->b_signup);
-
-    mx_set_style(path, app->scenes->signup_scene->l_first_name_err);
-    mx_set_style(path, app->scenes->signup_scene->l_second_name_err);
-    mx_set_style(path, app->scenes->signup_scene->l_login_err);
-    mx_set_style(path, app->scenes->signup_scene->l_password_err);
-    mx_set_style(path, app->scenes->signup_scene->l_repeat_password_err);
+    mx_set_style(app->scenes->signup_scene->w_signup);
+    mx_set_style(app->scenes->signup_scene->e_f_login);
+    mx_set_style(app->scenes->signup_scene->e_f_password);
+    mx_set_style(app->scenes->signup_scene->e_f_password2);
+    mx_set_style(app->scenes->signup_scene->e_f_firstName);
+    mx_set_style(app->scenes->signup_scene->e_f_lastName);
+    mx_set_style(app->scenes->signup_scene->b_signup);
+    mx_set_style(app->scenes->signup_scene->l_signup);
+    mx_set_style(app->scenes->signup_scene->l_welcome);
+    mx_set_style(app->scenes->signup_scene->l_first_name_err);
+    mx_set_style(app->scenes->signup_scene->l_second_name_err);
+    mx_set_style(app->scenes->signup_scene->l_login_err);
+    mx_set_style(app->scenes->signup_scene->l_password_err);
+    mx_set_style(app->scenes->signup_scene->l_repeat_password_err);
 
     mx_add_css_class(app->scenes->signup_scene->l_first_name_err, "err-label");
     mx_add_css_class(app->scenes->signup_scene->l_second_name_err, "err-label");
@@ -253,7 +258,6 @@ void mx_init_scene_signup(t_uchat_application* app) {
 void mx_init_scene_user_profile(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
-    const gchar *path = "client/Resources/css/main.css";
 
     if (gtk_builder_add_from_file(builder, RESOURCE_PROFILE_WINDOW_PATH, &error) == 0) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
@@ -280,11 +284,11 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     mx_add_css_class(app->scenes->user_profile_dwindow->b_logout, "button2");
     mx_add_css_class(app->scenes->user_profile_dwindow->w_user_profile, "background");
 
-    mx_set_style(path, app->scenes->user_profile_dwindow->b_cancel);
-    mx_set_style(path, app->scenes->user_profile_dwindow->w_user_profile);
-    mx_set_style(path, app->scenes->user_profile_dwindow->bc_file);
-    mx_set_style(path, app->scenes->user_profile_dwindow->b_confirm);
-    mx_set_style(path, app->scenes->user_profile_dwindow->b_logout);
+    mx_set_style(app->scenes->user_profile_dwindow->b_cancel);
+    mx_set_style(app->scenes->user_profile_dwindow->w_user_profile);
+    mx_set_style(app->scenes->user_profile_dwindow->bc_file);
+    mx_set_style(app->scenes->user_profile_dwindow->b_confirm);
+    mx_set_style(app->scenes->user_profile_dwindow->b_logout);
 
     // GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
     // gtk_image_set_from_file(GTK_IMAGE(log_out_icon), mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
@@ -296,7 +300,7 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
 void mx_init_scene_group_info(t_uchat_application* app) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
-    const gchar *path = "client/Resources/css/main.css";
+
 
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
@@ -328,13 +332,13 @@ void mx_init_scene_group_info(t_uchat_application* app) {
     mx_add_css_class(app->scenes->group_info_dwindow->b_close, "button2");
     mx_add_css_class(app->scenes->group_info_dwindow->b_confirm, "button2");
 
-    mx_set_style(path, app->scenes->group_info_dwindow->w_group_info);
-    mx_set_style(path, app->scenes->group_info_dwindow->b_add_member);
-    mx_set_style(path, app->scenes->group_info_dwindow->b_close);
-    mx_set_style(path, app->scenes->group_info_dwindow->b_confirm);
-    mx_set_style(path, app->scenes->group_info_dwindow->b_confirm);
-    mx_set_style(path, app->scenes->group_info_dwindow->e_f_new_group_name);
-    mx_set_style(path, app->scenes->group_info_dwindow->e_f_new_group_member);
+    mx_set_style(app->scenes->group_info_dwindow->w_group_info);
+    mx_set_style(app->scenes->group_info_dwindow->b_add_member);
+    mx_set_style(app->scenes->group_info_dwindow->b_close);
+    mx_set_style(app->scenes->group_info_dwindow->b_confirm);
+    mx_set_style(app->scenes->group_info_dwindow->b_confirm);
+    mx_set_style(app->scenes->group_info_dwindow->e_f_new_group_name);
+    mx_set_style(app->scenes->group_info_dwindow->e_f_new_group_member);
 
 
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->group_info_dwindow->w_group_info), GTK_WINDOW(app->scenes->chat_scene->w_chat));
