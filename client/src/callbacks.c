@@ -441,7 +441,7 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
 
     struct json_object *jobj = json_object_new_object();
 
-    json_object_object_add(jobj, "group_id", json_object_new_int(app->user_id));
+    json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
 
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
@@ -501,7 +501,7 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
         }
     }
     
-    
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_name), "");
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/group/", jobj));
     
 }

@@ -78,6 +78,7 @@ void mx_create_group_members_table(sqlite3* db) {
         "group_member_id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," \
         "group_id     INTEGER       NOT NULL," \
         "user_id      INTEGER       NOT NULL," \
+        "UNIQUE(group_id, user_id)," \
         "CONSTRAINT FK1_GROUP_USERS \
             FOREIGN KEY (group_id) \
             REFERENCES GROUPS(group_id)" \

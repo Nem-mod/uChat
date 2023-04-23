@@ -145,6 +145,8 @@ int insert_group_members(const char* req, char** res){
     json_object *json =  json_object_new_array();
     mx_select_data(db, "USERS", "*", temp, json);
 
+    sqlite3_close(db);
+
     json_object *jcont_id = json_object_object_get(json_object_array_get_idx(json, 0), "user_id");
     if (!jcont_id || json_object_is_type(jcont_id, json_type_null)) {
         return -1;
@@ -159,11 +161,16 @@ int insert_group_members(const char* req, char** res){
     user.user_id = json_object_get_int(jcont_id);
 
     mx_openDB(DATABASE_NAME, &db);
-    mx_insert_group_member(db, &group, &user);
+    if (mx_insert_group_member(db, &group, &user) == -1) {
+        sqlite3_close(db);
+        return -1;
+    }
+        
 
 
     const char *group_members_json_str = json_object_to_json_string(jobj);
     *res =  mx_strdup((char*)group_members_json_str);
+
     sqlite3_close(db);
     
     return 0;
