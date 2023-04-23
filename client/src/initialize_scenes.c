@@ -183,6 +183,8 @@ void mx_init_scene_signin(t_uchat_application* app) {
     mx_set_style(path, app->scenes->signin_scene->bl_signup);
     mx_set_style(path, app->scenes->signin_scene->w_signin);
 
+    mx_add_css_class(app->scenes->signin_scene->l_err_msg, "err-label");
+
     
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
     g_object_unref(builder);
@@ -237,6 +239,12 @@ void mx_init_scene_signup(t_uchat_application* app) {
     mx_set_style(path, app->scenes->signup_scene->l_login_err);
     mx_set_style(path, app->scenes->signup_scene->l_password_err);
     mx_set_style(path, app->scenes->signup_scene->l_repeat_password_err);
+
+    mx_add_css_class(app->scenes->signup_scene->l_first_name_err, "err-label");
+    mx_add_css_class(app->scenes->signup_scene->l_second_name_err, "err-label");
+    mx_add_css_class(app->scenes->signup_scene->l_login_err, "err-label");
+    mx_add_css_class(app->scenes->signup_scene->l_password_err, "err-label");
+    mx_add_css_class(app->scenes->signup_scene->l_repeat_password_err, "err-label");
 
     gtk_widget_hide(app->scenes->signup_scene->w_signup);
     g_object_unref(builder);

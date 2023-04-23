@@ -9,6 +9,8 @@ void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene) {
     switch(new_scene) {
         case SIGNUP:
             gtk_label_set_text(GTK_LABEL(app->scenes->signup_scene->l_login_err), "");
+            gtk_entry_set_text(GTK_ENTRY(app->scenes->signin_scene->e_f_login), "");
+            gtk_entry_set_text(GTK_ENTRY(app->scenes->signin_scene->e_f_password), "");
  
             gtk_widget_show(app->scenes->signup_scene->w_signup);
             app->active_scene = SIGNUP;

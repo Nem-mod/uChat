@@ -2,6 +2,10 @@
 
 void mx_init_server_connection(t_uchat_application* app, int port) {
     struct sockaddr_in client_addr = {0};
+
+    if(app->serv_connection != NULL)
+        app->serv_connection = NULL;
+    
     app->serv_connection = malloc(sizeof(t_serv_connection));
     
     app->serv_connection->port = port;  // TODO: validate port
@@ -12,7 +16,11 @@ void mx_init_server_connection(t_uchat_application* app, int port) {
     mx_use_certificate_key(app->serv_connection->ctx, CERTPATH, KEYPATH);
 
     app->serv_connection->ssl = mx_init_SSL_session(app->serv_connection->ctx, app->serv_connection->socket);
-    mx_connect(app->serv_connection->socket, (struct sockaddr*)&client_addr, sizeof(client_addr));
+    while (1) {
+        if(mx_connect(app->serv_connection->socket, (struct sockaddr*)&client_addr, sizeof(client_addr)) != -1)
+            break;
+    }
+    
     app->serv_connection->hs_result = mx_handshake(app->serv_connection->ssl, CLIENT);
 
     pthread_create(&app->serv_connection->listener_thread, NULL, mx_listen_server, (void*)app); // Listening thread creation
@@ -71,6 +79,7 @@ void* mx_listen_server(void* data) {
         mx_log_err(SYSLOG, "Handshake error");
     mx_log_info(SYSLOG, "Exit the listener");
 
+    mx_init_server_connection(app, app->serv_connection->port);
     return NULL;
 }
 
