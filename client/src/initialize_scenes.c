@@ -76,6 +76,17 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->img_user = mx_get_widget(builder, "user_image");
     app->scenes->chat_scene->b_profile =  mx_get_widget(builder, "profile_button");
 
+    app->scenes->chat_scene->s_separator1 = mx_get_widget(builder, "separator1");
+    app->scenes->chat_scene->s_separator2 = mx_get_widget(builder, "separator2");
+    app->scenes->chat_scene->s_separator3 = mx_get_widget(builder, "separator3");
+    
+    mx_add_css_class(app->scenes->chat_scene->s_separator1, "background");
+    mx_add_css_class(app->scenes->chat_scene->s_separator2, "background");
+    mx_add_css_class(app->scenes->chat_scene->s_separator3, "background");
+    mx_add_css_class(app->scenes->chat_scene->w_sc_chats, "background");
+    mx_add_css_class(app->scenes->chat_scene->w_sc_messages, "background");
+
+
     mx_add_css_class(app->scenes->chat_scene->b_chat_settings, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_contact, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_group, "button2");
@@ -87,6 +98,9 @@ void mx_init_scene_chat(t_uchat_application* app){
     //mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_messages, "background-light");
 
+    mx_set_style(app->scenes->chat_scene->w_sc_messages);
+    mx_set_style(app->scenes->chat_scene->w_sc_chats);
+    mx_set_style(app->scenes->chat_scene->w_chat);
     mx_set_style(app->scenes->chat_scene->l_sc_messages); 
     mx_set_style(app->scenes->chat_scene->l_sc_chats);
     mx_set_style(app->scenes->chat_scene->e_f_chats);
@@ -100,6 +114,10 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_set_style(app->scenes->chat_scene->bc_file);
     mx_set_style(app->scenes->chat_scene->b_profile);
     mx_set_style(app->scenes->chat_scene->b_chat_settings);
+
+    mx_set_style(app->scenes->chat_scene->s_separator1);
+    mx_set_style(app->scenes->chat_scene->s_separator2);
+    mx_set_style(app->scenes->chat_scene->s_separator3);
     
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");

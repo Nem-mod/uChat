@@ -49,7 +49,7 @@
     <property name="default-width">1080</property>
     <property name="default-height">720</property>
     <child>
-      <object class="GtkFixed">
+      <object class="GtkFixed" id="fixed">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
@@ -313,7 +313,6 @@
     </child>
   </object>
   <object class="GtkButton" id="message_button_box">
-    <property name="width-request">700</property>
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="receives-default">True</property>
@@ -397,7 +396,6 @@
     </child>
   </object>
   <object class="GtkButton" id="message_button_box_user">
-    <property name="width-request">700</property>
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="receives-default">True</property>

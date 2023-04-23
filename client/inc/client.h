@@ -194,9 +194,14 @@ typedef struct s_chat_scene {
     GtkWidget *b_send_message;
     GtkWidget *bc_file;
     GtkWidget *b_chat_profile;
+    GtkWidget *f_fixed;
     
     GtkWidget *img_user;
     GtkWidget *b_profile;
+
+    GtkWidget *s_separator1;
+    GtkWidget *s_separator2;
+    GtkWidget *s_separator3;
 
     t_callback_data* cbdata;
 

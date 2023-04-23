@@ -76,21 +76,26 @@ entry:hover {
 
 .background {
     background-color: #9ac8f8;
+    border: none;
 }
 .background-light {
     background-color: #b6d8fc;
+    border: none;
 }
 
 .main-background {
     background-color: #9ac8f8;
+    border: none;
 }
 
 .contacts-background {
     background-color: #9ac8f8;
+    border: none;
 }
 
 .chat-background {
     background-color: #9ac8f8;
+    border: none;
 }
 
 .message-text {
