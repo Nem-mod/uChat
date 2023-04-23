@@ -5,6 +5,7 @@ t_uchat_application* mx_create_app(char* argv[]) {
     
     // app->choosed_files = malloc(t_choosed_files);
 
+    app->choosed_file_pname = NULL;
     app->user_id = 0;
     app->current_group_id = 0;
     app->last_message_id = 0;
