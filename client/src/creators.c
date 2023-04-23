@@ -161,13 +161,13 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     
     struct json_object* juser_id = json_object_object_get(jobj, "user_id");
     struct json_object* juser_name = json_object_object_get(jobj, "nick_name");
-    char* formatted_login = NULL;
+    // char* formatted_login = NULL;
     mx_log_err(SYSLOG, (char*)json_object_get_string(juser_name)); // TODO: tems
 
     if(mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id)))
         return;
 
-    char* file_name = (char*)json_object_get_string(juser_name);
+    char* file_name = NULL;
 
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
@@ -176,10 +176,10 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     else
         file_name = RESOURCE_BASE_ICON;
     
-    if (json_object_get_int(juser_id)== app->user_id)
-        formatted_login = mx_strcat(formatted_login, " (You)");
+    // if (json_object_get_int(juser_id)== app->user_id)
+    //     formatted_login = mx_strcat(formatted_login, " (You)");
 
-    gtk_label_set_text(GTK_LABEL(l_member_name), formatted_login);
+    gtk_label_set_text(GTK_LABEL(l_member_name), json_object_get_string(juser_name));
     gtk_widget_set_name(b_delete,  mx_itoa(json_object_get_int(juser_id)));
     gtk_widget_set_name(member_box,  mx_itoa(json_object_get_int(juser_id)));
     // gtk_widget_set_name(chat_box,  mx_itoa(json_object_get_int(jgroup_privacy)));
