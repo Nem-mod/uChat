@@ -306,4 +306,25 @@ int patch_group(const char* req, char** res){
 }
 
 
-//delete_group_member
+int delete_group_member(const char* req, char** res){
+    if(req == NULL)
+        return -1;
+    
+    sqlite3* db;
+    
+    struct json_object *jobj = json_tokener_parse(req);
+    struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
+    struct json_object *juser_id = json_object_object_get(jobj, "user_id"); 
+
+    mx_openDB(DATABASE_NAME, &db);
+    char temp[256];
+    sprintf(temp, "group_id = \'%d\' AND user_id = \'%d\'; " ,
+        json_object_get_int(jgroup_id), json_object_get_int(juser_id)
+    );
+    mx_delete_data(db, "GROUP_MEMBERS", temp);
+    const char *json_str = json_object_to_json_string(jobj);
+    *res =  mx_strdup((char*)json_str);
+    sqlite3_close(db);
+    
+    return 0;
+}
