@@ -3,12 +3,12 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkWindow" id="signin_window">
-    <property name="width-request">900</property>
-    <property name="height-request">550</property>
+    <property name="width-request">800</property>
+    <property name="height-request">450</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
-    <property name="default-width">900</property>
-    <property name="default-height">550</property>
+    <property name="default-width">800</property>
+    <property name="default-height">450</property>
     <child>
       <object class="GtkFixed" id="signin_fixed">
         <property name="visible">True</property>
@@ -112,8 +112,8 @@
     <property name="default-height">450</property>
     <child>
       <object class="GtkFixed" id="signup_fixed">
-        <property name="width-request">900</property>
-        <property name="height-request">550</property>
+        <property name="width-request">800</property>
+        <property name="height-request">450</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>

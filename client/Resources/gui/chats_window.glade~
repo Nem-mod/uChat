@@ -53,18 +53,6 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkSeparator" id="separator1">
-            <property name="width-request">1</property>
-            <property name="height-request">720</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="vexpand">True</property>
-          </object>
-          <packing>
-            <property name="x">375</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkScrolledWindow" id="chats_sc_window">
             <property name="width-request">375</property>
             <property name="height-request">620</property>
@@ -86,17 +74,6 @@
           </object>
           <packing>
             <property name="y">50</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator" id="separator2">
-            <property name="width-request">1080</property>
-            <property name="height-request">1</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="y">670</property>
           </packing>
         </child>
         <child>
@@ -202,17 +179,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkSeparator" id="separator3">
-            <property name="width-request">1080</property>
-            <property name="height-request">1</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="y">50</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="profile_button">
             <property name="label" translatable="yes">Profile</property>
             <property name="width-request">80</property>
@@ -258,8 +224,8 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="width-request">100</property>
-            <property name="height-request">80</property>
+            <property name="width-request">705</property>
+            <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
@@ -302,8 +268,8 @@
             </child>
           </object>
           <packing>
-            <property name="x">-270</property>
-            <property name="y">119</property>
+            <property name="x">375</property>
+            <property name="y">670</property>
           </packing>
         </child>
       </object>
