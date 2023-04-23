@@ -312,8 +312,12 @@ void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer 
 void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data);
 gboolean mx_callback_on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_callback_group_info(UNUSED GtkButton *button, gpointer data);
+<<<<<<< HEAD
+void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data);
+=======
 void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data);
+>>>>>>> f003240b70d91e525a2187127001007bba86222a
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);

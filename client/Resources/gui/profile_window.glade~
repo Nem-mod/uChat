@@ -92,7 +92,7 @@
             </style>
           </object>
           <packing>
-            <property name="x">58</property>
+            <property name="x">50</property>
             <property name="y">304</property>
           </packing>
         </child>
