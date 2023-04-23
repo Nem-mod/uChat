@@ -59,6 +59,10 @@ void mx_init_callbacks_group_info(t_uchat_application* app) {
     g_signal_connect(app->scenes->group_info_dwindow->w_group_info , "delete-event", G_CALLBACK(mx_callback_on_delete_event), app->scenes->group_info_dwindow->w_group_info);
     // g_signal_connect(app->scenes->group_info_dwindow->b_add_member, "clicked", G_CALLBACK(), app);
     g_signal_connect(app->scenes->group_info_dwindow->b_close, "clicked", G_CALLBACK(mx_callback_hide_window_group_info), app);
+
+    g_signal_connect(app->scenes->group_info_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_choose_file), app);
+    g_signal_connect(app->scenes->group_info_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_set_up_group_image), app);
+    g_signal_connect(app->scenes->group_info_dwindow->b_confirm, "clicked", G_CALLBACK(mx_callback_patch_group), app);
     // g_signal_connect(app->scenes->group_info_dwindow->b_confirm, "clicked", G_CALLBACK(), app);
     // g_signal_connect(app->scenes->group_info_dwindow->bc_file, "file-set", G_CALLBACK(), app);
 }
