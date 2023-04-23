@@ -233,6 +233,11 @@ typedef struct s_uchat_scenes {
     t_group_info_scene* group_info_dwindow;
 }              t_uchat_scenes;
 
+// typedef struct s_choosed_files {
+//     char* message_file;
+//     char* profile_image;
+//     char* group_image;
+// }               t_choosed_files;
 
 /* Struct of client application where main data is stored*/
 typedef struct s_uchat_application {
@@ -246,6 +251,8 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
+
+    // t_choosed_files* choosed_files;
     char* choosed_file_pname;
 
     // bool skip_json_log;

@@ -69,6 +69,7 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     app->current_group_id = mx_atoi(gtk_widget_get_name(GTK_WIDGET(button)));
     app->last_message_indx = 0;
     app->last_message_id = 0;
+    mx_strdel(&app->choosed_file_pname);
     // TODO: don't destroy. create struct for each chat, hide/show messages. don't get them from server every time
     gtk_container_foreach(GTK_CONTAINER(app->scenes->chat_scene->l_sc_messages), (GtkCallback)gtk_widget_destroy, NULL);
 
@@ -80,7 +81,6 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
 
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat), chat_image, gtk_widget_get_name(chat_image));
     gtk_widget_set_name(app->scenes->chat_scene->img_chat, gtk_widget_get_name(chat_image));
-    mx_log_err(SYSLOG, (char*)gtk_widget_get_name(app->scenes->chat_scene->img_chat)); // TODO: temp
     // gtk_image_set_from_file(GTK_IMAGE(app->scenes->chat_scene->img_chat), gtk_widget_get_name(chat_image));
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
@@ -91,6 +91,7 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data) {
     t_uchat_application* app = (t_uchat_application*)data;
     GtkFileChooser *chooser = GTK_FILE_CHOOSER(button);
     GtkFileChooserAction action = gtk_file_chooser_get_action(chooser);
+
     if(app->choosed_file_pname != NULL) {
             mx_strdel(&app->choosed_file_pname);
     }
@@ -424,7 +425,6 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     // GtkLabel *chat_label = GTK_LABEL(app->scenes->chat_scene->l_chatname);
 
     // gtk_label_set_text(GTK_LABEL(app->scenes->group_info->), gtk_label_get_text(chat_label));
-    mx_log_err(SYSLOG, (char*)gtk_widget_get_name(app->scenes->chat_scene->img_chat)); // TODO: temp
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->img_group), app->scenes->group_info_dwindow->img_group, gtk_widget_get_name(group_image));
 
     mx_handler_ping_server_get_group_members(app);
