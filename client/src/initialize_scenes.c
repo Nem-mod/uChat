@@ -87,12 +87,12 @@ void mx_init_scene_chat(t_uchat_application* app){
     mx_add_css_class(app->scenes->chat_scene->w_sc_messages, "background");
 
 
-    mx_add_css_class(app->scenes->chat_scene->b_chat_settings, "button2");
+    mx_add_css_class(app->scenes->chat_scene->b_chat_settings, "button3");
     mx_add_css_class(app->scenes->chat_scene->b_add_contact, "button2");
     mx_add_css_class(app->scenes->chat_scene->b_add_group, "button2");
-    mx_add_css_class(app->scenes->chat_scene->b_send_message, "button1");
+    mx_add_css_class(app->scenes->chat_scene->b_send_message, "button3");
     mx_add_css_class(app->scenes->chat_scene->bc_file, "button1");
-    mx_add_css_class(app->scenes->chat_scene->b_profile, "button1");
+    mx_add_css_class(app->scenes->chat_scene->b_profile, "button3");
     mx_add_css_class(app->scenes->chat_scene->w_chat, "background");
     mx_add_css_class(app->scenes->chat_scene->l_sc_chats, "background");
     //mx_add_css_class(app->scenes->chat_scene->v_sc_chats, "background");
