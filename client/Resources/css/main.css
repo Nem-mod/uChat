@@ -1,14 +1,23 @@
+/* @font-face {
+    font-family: 'font-poppins';
+    src: url('client/Resources/fonts/Poppins-Regular.ttf') format('truetype'); 
+} */
+
+/* * {
+    font-family: 'font-poppins', sans-serif;
+    src: url('client/Resources/fonts/Poppins-Regular.ttf') format('truetype'); 
+} */
+
 .button1 {
     color: #0069d9;
     background-image: image(white);
-    
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
     /* padding: 7px 20px; */
     border: 2px solid #0069d9;
     border-radius: 5px;
     transition: 0.3s;
-    /* font: Comic Sans 12; */
+    font-family: "Poppins-Regular";
 }
 
 .button1:hover {
@@ -27,6 +36,7 @@
     /* border: none; */
     border-radius: 20px;
     transition: 0.3s;
+    font-family: "Poppins-Regular";
     /* border-radius: 5px; */
     /*font: Comic Sans 12;*/
 }
@@ -35,6 +45,7 @@
     color: red;
     border-color: #0069d9;
     border-radius: 3px;
+    font-family: "Poppins-Regular";
     /* border-width: 2px; */
 }
 
@@ -45,6 +56,7 @@ entry {
     background-color: white;
     color:#0069d9;
     transition: 0.3s;
+    font-family: "Poppins-Regular";
 }
 
 entry:focus {
@@ -59,6 +71,17 @@ entry:hover {
 
 .err-label {
     color:red;
+    font-family: "Poppins-Regular";
+}
+
+.welcome-label {
+    font-size: 24px;
+    font-family: "Poppins-Regular";
+}
+
+.sign-label {
+    font-size: 21px;
+    font-family: "Poppins-Regular";
 }
 
 .background {
@@ -83,17 +106,20 @@ entry:hover {
 .message-text {
     font-weight: 300;
     font-size: 13px;
+    font-family: "Poppins-Regular";
 }
 
 .message-user {
     font-size: 14px;
     font-weight: 400;
+    /* font-family: "Poppins-Regular"; */
 }
 
 .message-time {
     font-size: 10px;
     font-weight: 300;
     color: grey;
+    font-family: "Poppins-Regular";
 }
 
 #file_entry {
@@ -103,6 +129,7 @@ entry:hover {
     background-color: white;
     color:#0069d9;
     transition: 0.3s;
+    font-family: "Poppins-Regular";
 }
 
 #chat_window > * {

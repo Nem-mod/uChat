@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include <gtk/gtk.h>
+//#include <pango/pangocairo.h>
 #include <ctype.h>
 #include <strings.h>
 #include <sys/stat.h>
@@ -119,6 +120,8 @@ typedef struct s_signup_scene {
     GtkWidget *e_f_lastName;    // Entry field {lastName}
     GtkWidget *b_signup;        // Button signUp
     GtkWidget *bl_signin;       // Button-link on signIn window
+    GtkWidget *l_signup;        // Label signup field
+    GtkWidget *l_welcome;       // Label welcome field
 
     GtkWidget *l_first_name_err;
     GtkWidget *l_second_name_err;
@@ -138,6 +141,8 @@ typedef struct s_signin_scene {
     GtkWidget *b_signin;        // Buttin signIn
     GtkWidget *bl_signup;       // Button-link on signUp window
     GtkWidget *l_err_msg;       // Error message label ("Wrong password or login")
+    GtkWidget *l_signin;       // Label signin field
+    GtkWidget *l_welcome;       // Label welcome field
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
@@ -330,7 +335,7 @@ int mx_get_user_data(char* property);
 t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_path, int size);
 t_contact* mx_create_contact(char* name, char* icon_path, int size);
 t_file* mx_create_file(char* path, int size);
-void mx_set_style(const gchar *path, GtkWidget *widget);
+void mx_set_style(GtkWidget *widget);
 void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);
 void mx_add_css_class(GtkWidget *widget, const char *classname);
 void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename);

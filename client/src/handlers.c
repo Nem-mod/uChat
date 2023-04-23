@@ -60,7 +60,6 @@ int mx_main_handler(char* json, t_uchat_application* app) {
 }
 
 void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
-    const gchar *path = "client/Resources/css/main.css";
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
 
@@ -126,12 +125,12 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 
     gtk_widget_set_name(message_button_box,  mx_itoa(json_object_get_int(jmessage_id)));
     
-    mx_set_style(path, message_box);
-    mx_set_style(path, message_button_box);
-    mx_set_style(path, message_img);
-    mx_set_style(path, message_text_label);
-    mx_set_style(path, message_user_nick_name);
-    mx_set_style(path, message_sent_time_label);
+    mx_set_style(message_box);
+    mx_set_style(message_button_box);
+    mx_set_style(message_img);
+    mx_set_style(message_text_label);
+    mx_set_style(message_user_nick_name);
+    mx_set_style(message_sent_time_label);
     mx_add_css_class(message_box, "message-box");
     mx_add_css_class(message_button_box, "message");
     mx_add_css_class(message_user_nick_name, "message-user");

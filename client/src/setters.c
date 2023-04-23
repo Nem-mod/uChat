@@ -56,9 +56,28 @@ void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const
     gtk_image_set_from_pixbuf(image, new_image);
 }
 
-void mx_set_style(const gchar *path, GtkWidget *widget) {
+void mx_set_style(GtkWidget *widget) {
+    // PangoFontDescription *font_desc = pango_font_description_new();
+    // pango_font_description_set_family_static(font_desc, "client/Resources/fonts/Poppins-Regular.ttf");
+    // pango_font_description_set_style(font_desc, PANGO_STYLE_NORMAL);
+    // pango_font_description_set_weight(font_desc, PANGO_WEIGHT_NORMAL);
+
+    // // Load the font from a file and add it to the font description
+    // PangoFontMap *font_map = pango_cairo_font_map_get_default();
+    // PangoContext *context = pango_font_map_create_context(font_map);
+    // pango_context_set_font_map(context, font_map);
+    // pango_cairo_context_set_resolution(context, 72.0);
+    // PangoFontFamily *font_family = pango_font_map_load_font(font_map, context, font_desc);
+    // pango_font_description_set_family(font_desc, pango_font_family_get_name(font_family));
+
+    // // Override the font of the widget
+    // gtk_widget_override_font(widget, font_desc);
+    // pango_font_description_free(font_desc);
+
+
+
     GtkCssProvider *provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_path(provider, path, NULL);
+    gtk_css_provider_load_from_path(provider, "client/Resources/css/main.css", NULL);
     GtkStyleContext *context = gtk_widget_get_style_context(widget);
     gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
