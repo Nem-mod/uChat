@@ -110,6 +110,12 @@ int get_group_members(const char* req, char** res){
         mx_strdel(&json_user_str);
     }
 
+    if (json_object_is_type(json_user_arr, json_type_array)) {
+        int array_len = json_object_array_length(json_user_arr);
+        if(array_len == 0)
+            return -1;
+    } 
+
     const char *group_members_json_str = json_object_to_json_string(json_user_arr);
     *res =  mx_strdup((char*)group_members_json_str);
     sqlite3_close(db);
@@ -125,9 +131,24 @@ int insert_group_members(const char* req, char** res){
     sqlite3* db;
 
     struct json_object *jobj = json_tokener_parse(req);
-    struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
-    struct json_object *juser_id = json_object_object_get(jobj, "user_id"); 
+    struct json_object *jgroup_id= json_object_object_get(jobj, "group_id"); 
+    struct json_object *juser_login= json_object_object_get(jobj, "login"); 
+    
+    mx_openDB(DATABASE_NAME, &db);
 
+    char temp[256];
+
+    sprintf(temp, "login = \'%s\' ;",
+        json_object_get_string(juser_login)
+    );
+
+    json_object *json =  json_object_new_array();
+    mx_select_data(db, "USERS", "*", temp, json);
+
+    json_object *jcont_id = json_object_object_get(json_object_array_get_idx(json, 0), "user_id");
+    if (!jcont_id || json_object_is_type(jcont_id, json_type_null)) {
+        return -1;
+    }
     t_user user;
     t_group group;
     mx_memset(&group.file_name, 0, sizeof(group.file_name));
@@ -135,7 +156,7 @@ int insert_group_members(const char* req, char** res){
     mx_memset(&user.file_name, 0, sizeof(user.file_name));
     user.size = 0;
     group.group_id = json_object_get_int(jgroup_id);
-    user.user_id = json_object_get_int(juser_id);
+    user.user_id = json_object_get_int(jcont_id);
 
     mx_openDB(DATABASE_NAME, &db);
     mx_insert_group_member(db, &group, &user);
@@ -283,3 +304,6 @@ int patch_group(const char* req, char** res){
 
     return 0;
 }
+
+
+//delete_group_member
