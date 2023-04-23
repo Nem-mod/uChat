@@ -21,6 +21,7 @@ void mx_init_callbacks_chat(t_uchat_application* app) {
     g_signal_connect(app->scenes->chat_scene->b_profile, "clicked", G_CALLBACK (mx_callback_change_scene), app->scenes->user_profile_dwindow->cbdata);
     g_signal_connect(app->scenes->chat_scene->b_chat_settings, "clicked", G_CALLBACK (mx_callback_change_scene), app->scenes->group_info_dwindow->cbdata);
 
+    g_signal_connect(app->scenes->chat_scene->e_f_chats, "changed", G_CALLBACK (mx_callback_search_by_chats), app);
     g_signal_connect(app->scenes->chat_scene->b_send_message, "clicked", G_CALLBACK (mx_callback_send_message), app);
     g_signal_connect(app->scenes->chat_scene->e_f_chat, "activate", G_CALLBACK(mx_callback_send_message), app);
     g_signal_connect(app->scenes->chat_scene->bc_file, "file-set", G_CALLBACK(mx_callback_choose_file), app);

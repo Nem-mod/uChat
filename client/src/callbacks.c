@@ -378,3 +378,33 @@ void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer 
                                         app->choosed_file_pname);
 }
 
+
+
+void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data){
+    t_uchat_application* app = (t_uchat_application*)data;
+    const gchar *entry_text = gtk_entry_get_text(GTK_ENTRY(app->scenes->chat_scene->e_f_chats));
+
+    
+
+    GtkListBox *listbox = GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats);
+
+    GList *rows = gtk_container_get_children(GTK_CONTAINER(listbox));
+
+    for (GList *iter = rows; iter != NULL; iter = iter->next) {
+        GtkListBoxRow *row = GTK_LIST_BOX_ROW(iter->data);
+        GList *row_children = gtk_container_get_children(GTK_CONTAINER(row));
+        for (GList *child_iter = row_children; child_iter != NULL; child_iter = child_iter->next) {
+            GtkWidget *child = GTK_WIDGET(mx_gtk_find_child(child_iter->data, "chat_name"));
+            if(mx_strlen(entry_text) == 0) {
+                gtk_widget_show(GTK_WIDGET(row));
+                continue;
+            }
+            if(mx_strstr(gtk_label_get_text(GTK_LABEL(child)), entry_text) != 0) {
+                gtk_widget_show(GTK_WIDGET(row));
+            }
+            else
+                gtk_widget_hide(GTK_WIDGET(row));
+        }
+        g_list_free(row_children);
+    }
+}
