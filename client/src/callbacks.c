@@ -115,7 +115,7 @@ void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     
     int login_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->create_group_dwindow->e_f_group_name)); 
-    if(login_len < 3 || login_len > 32) {return;}
+    if(login_len < 3 || login_len > 18) {return;}
     const char *login = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->create_group_dwindow->e_f_group_name));
 
 
@@ -481,7 +481,7 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
     
     char* group_name = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_name));
 
-    if(mx_strlen(group_name) != 0) {
+    if(mx_strlen(group_name) != 0 || mx_strlen(group_name) > 18) {
         json_object_object_add(jobj, "group_name", json_object_new_string(group_name));
         // gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), group_name);
     }
