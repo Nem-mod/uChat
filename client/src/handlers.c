@@ -62,8 +62,8 @@ int mx_main_handler(char* json, t_uchat_application* app) {
 
     
 
-
-    return res->status;
+    gdk_threads_add_idle(mx_clear_res, res);
+    return 0;
 }
 
 void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
@@ -77,20 +77,24 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
     }
 
-    GtkWidget *message_box;
-    GtkWidget *message_button_box;
-    GtkWidget *message_img;
-    GtkWidget *message_text_label;
-    GtkWidget *message_user_nick_name;
-    GtkWidget *message_sent_time_label;
+    
 
     struct json_object* jobj = json_tokener_parse(res->property);
     if(res->property == NULL) 
         return;
     struct json_object *jmessage_id = json_object_object_get(jobj, "message_id"); 
     app->last_message_id = json_object_get_int(jmessage_id);
-    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id)) != NULL)
+    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id)) != NULL) {
+        json_object_put(jobj);
         return;
+    }
+
+    GtkWidget *message_box;
+    GtkWidget *message_button_box;
+    GtkWidget *message_img;
+    GtkWidget *message_text_label;
+    GtkWidget *message_user_nick_name;
+    GtkWidget *message_sent_time_label;
 
     if (json_object_get_int(json_object_object_get(jobj, "user_id")) == app->user_id) {
         message_box = mx_get_widget(builder, "message_box1");
@@ -172,6 +176,7 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     gdk_threads_add_idle(mx_handler_chat_scroll_down, app);
     
     //g_signal_connect(chat_button, "clicked", G_CALLBACK (mx_callback_chatbox), app);
+    json_object_put(jobj);
     g_object_unref(builder);
 }
 
@@ -227,7 +232,8 @@ gboolean mx_handler_create_new_chat_widget(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 
     mx_create_new_chat_widget(cbdata->app, (t_response*)cbdata->data);
-
+    free(cbdata);
+    cbdata = NULL;
     return false;
 }
 
@@ -235,16 +241,18 @@ gboolean mx_handler_create_new_member_widget(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 
     mx_create_new_member_widget(cbdata->app, (t_response*)cbdata->data);
-
+    free(cbdata);
+    cbdata = NULL;
     return false;
 }
 
 gboolean mx_handler_display_messages(gpointer data) {
     t_callback_data *cbdata = (t_callback_data*)data; 
 
-    //mx_create_new_chat_widget(cbdata->app, (t_response*)cbdata->data);
+    mx_create_new_chat_widget(cbdata->app, (t_response*)cbdata->data);
     mx_handle_messages_res(cbdata->app, (t_response*)cbdata->data);
-
+    free(cbdata);
+    cbdata = NULL;
     return false;
 }
 
@@ -258,7 +266,7 @@ gboolean mx_handler_ping_server_get_chats(gpointer data) {
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/user/groups", jobj));
-
+    json_object_put(jobj);
     return true;
 }
 
@@ -275,6 +283,7 @@ gboolean mx_handler_ping_server_get_messages(gpointer data) {
         json_object_object_add(jobj, "message_id", json_object_new_int(app->last_message_id));
     
         mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
+        json_object_put(jobj);
         // mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/members", jobj));
     }
 
@@ -292,7 +301,7 @@ gboolean mx_handler_ping_server_get_group_members(gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/members", jobj));
-
+    json_object_put(jobj);
     return true;
 }
 
