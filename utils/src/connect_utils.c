@@ -44,7 +44,9 @@ int mx_connect(int sockfd, struct sockaddr *addr, socklen_t addrlen) {
     int res = connect(sockfd, addr, addrlen);
 
     if (res == -1) {
-        mx_log_err(SYSLOG, "connect failed");
+       mx_log_err(SYSLOG, "connect failed");
+        return -1;
+
         exit(EXIT_FAILURE);
     }
 

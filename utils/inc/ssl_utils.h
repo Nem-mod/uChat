@@ -1,8 +1,10 @@
 #pragma once
 
+#define _XOPEN_SOURCE 700
 #include <stdlib.h>
 #include <sys/time.h>
-
+#include <sys/stat.h>
+#include <stdio.h>
 #include "log_utils.h"
 
 #include <openssl/ssl.h>
@@ -12,6 +14,7 @@
 // #include <openssl/evp.h>
 #define MAXBUFFER 8192
 
+unsigned long get_file_size(char *filename);
 
 SSL_CTX* mx_init_context(bool is_server);
 
@@ -26,3 +29,6 @@ int mx_handshake(SSL* ssl, int is_server);
 int mx_SSL_write(SSL* ssl, char* buffer);
 
 int mx_SSL_read(SSL* ssl, char* buffer);
+
+unsigned long  mx_SSL_sendfile(SSL* ssl, char* path, unsigned long  prepsize);
+unsigned long  mx_SSL_readfile(SSL* ssl, char* path, unsigned long  size);

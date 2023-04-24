@@ -14,6 +14,7 @@
 #include "log_name.h"
 // #define SYSLOG "server_log.txt"
 
+char* mx_get_formatted_date();
 char* mx_get_formatted_time();
 
 void mx_log_SSL_errors(char* file);

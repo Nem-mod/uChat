@@ -1,0 +1,167 @@
+/*
+9F85FF
+D4ABEF
+FFC2E2
+FF85AB
+F4A4AC
+*/
+
+
+.button1 {
+    color: #9f85ff;
+    background-image: image(white);
+    font-size: 15px;
+    font-weight: 500;
+    /* padding: 7px 20px; */
+    border: 2px solid #9f85ff;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-family: "Poppins-Regular";
+}
+
+.button1:hover {
+    background-image: image(#9f85ff);
+    color: white;
+}
+
+.button2 {
+    color: #9f85ff;
+    background-image: image(white);
+    
+    font-size: 15px;
+    font-weight: 600;
+    /*padding: 7px 20px;*/
+    border: 1px solid #77b6fa; 
+    /* border: none; */
+    border-radius: 20px;
+    transition: 0.3s;
+    font-family: "Poppins-Regular";
+    /* border-radius: 5px; */
+    /*font: Comic Sans 12;*/
+}
+
+.button2:hover {
+    color: #ff85ab;
+    border-color: #9f85ff;
+    font-family: "Poppins-Regular";
+    /* border-width: 2px; */
+}
+
+.button3 {
+    color: #2b2d3a;
+    /* background-image: image(white); */
+    font-size: 15px;
+    font-weight: 600;
+    /* padding: 7px 20px; */
+    border: none;
+    /* border-radius: 5px; */
+    transition: 0.3s;
+    font-family: "Poppins-Regular";
+}
+
+.button3:hover {
+    /* background-image: image(#ea4b4b); */
+    color:#FF85AB;
+}
+
+entry {
+    border: 2px solid #d4abef;
+    border-radius: 5px;
+    font-weight: 400;
+    background-color: white;
+    color:black;
+    transition: 0.3s;
+    font-family: "Poppins-Regular";
+}
+
+entry:focus {
+    background-image: image(#d4abef);
+    border-color: #9f85ff;
+    color: #0F044B;
+}
+
+entry:hover {
+    border: 2px solid #e0e0e0;
+}
+
+
+.err-label {
+    color:rgb(255, 0, 106);
+    font-family: "Poppins-Regular";
+}
+
+.welcome-label {
+    color: #9f85ff;
+    font-weight: 600;
+    font-size: 24px;
+    font-family: "Poppins-Regular";
+}
+
+.sign-label {
+    color: #9f85ff;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Poppins-Regular";
+}
+
+.background {
+    background-color: #FFC2E2;
+}
+.background-light {
+    background-color: #fae5f0;
+}
+
+.main-background {
+    background-color: #FFC2E2;
+}
+
+.contacts-background {
+    background-color: #FFC2E2;
+}
+
+.chat-background {
+    background-color: #FFC2E2;
+}
+
+.message-box, .message {
+    background-image: image(#F4A4AC);
+    border: none;
+}
+
+
+.message-text {
+    font-weight: 300;
+    font-size: 13px;
+    font-family: "Poppins-Regular";
+}
+
+.message-user {
+    font-size: 14px;
+    font-weight: 400;
+    /* font-family: "Poppins-Regular"; */
+}
+
+.message-time {
+    font-size: 10px;
+    font-weight: 300;
+    color: grey;
+    font-family: "Poppins-Regular";
+}
+
+#file_entry {
+    border: none;
+    /* border-radius: 5px; */
+    font-weight: 400;
+    /* background-color: white; */
+    color: #2b2d3a;
+    transition: 0.3s;
+    font-family: "Poppins-Regular";
+}
+
+#file_entry:hover {
+    color: #FF85AB; 
+}
+
+#chat_window > * {
+    background-image: image(#74b2f5);
+}

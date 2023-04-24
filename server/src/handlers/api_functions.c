@@ -6,11 +6,23 @@ int get(char* url,  t_request* req, t_response* res, t_validator validator, t_co
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, &res->property) == -1){
+           struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+            res->status = BAD_REQ;
+            
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+       struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -22,11 +34,22 @@ int post(char* url,  t_request* req, t_response* res, t_validator validator, t_c
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+        if(controller(req->property, &res->property) == -1){
+            struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+       struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;
@@ -38,11 +61,22 @@ int patch(char* url,  t_request* req, t_response* res, t_validator validator, t_
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, &res->property) == -1){
+           struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+       struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
 
@@ -55,11 +89,22 @@ int delete(char* url,  t_request* req, t_response* res, t_validator validator, t
     }
 
     if(validator == NULL || validator(req->property) != 1) {
-        controller(req->property, res->property);
-        res->status = SUCCESSFUL_RES;
+         if(controller(req->property, &res->property) == -1){
+           struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+            res->status = BAD_REQ;
+        } 
+        else
+            res->status = SUCCESSFUL_RES;
     } 
     else {
-        controller(req->property, res->property);
+       struct json_object *jobj = json_tokener_parse(req->property);
+            json_object_object_add(jobj, "message", json_object_new_string("ERROR"));
+            char *err = (char*)json_object_to_json_string(jobj);
+            res->property = err;
+        //controller(req->property, &res->property);
         res->status = SERVER_ERR_RES;
     }
     return 0;

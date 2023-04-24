@@ -21,6 +21,7 @@
 #define CERTPATH "server/cert+key/server.crt"
 #define KEYPATH "server/cert+key/server.key"
 
+#define RESPATH "./server/Resources/"
 #define SEED 2454193
 #define SUCCESSFUL_RES 200
 #define BAD_REQ 400
@@ -39,12 +40,14 @@ typedef struct s_response {
     const char* type;
     const char* url;
     char* property;
+    char* file;
+    int file_size;
     int status;
     
 }              t_response;
 
 typedef int     (*t_validator)(const char* req);
-typedef int     (*t_controller)(const char* req, char* res);
+typedef int     (*t_controller)(const char* req, char** res);
 typedef int   (*Http_req)(char* url, t_request* req, t_response* res, t_validator validator, t_controller  controller);
 
 
@@ -61,7 +64,7 @@ typedef struct s_SERVER_API {
 }              t_SERVER_API;
 
 
-const char* main_handler(char* json); 
+const char* main_handler(SSL* ssl, char* json); 
 
 int get(char* url, t_request* req,  t_response* res, t_validator validator, t_controller  controller);
 int post(char* url, t_request* req,  t_response* res, t_validator validator, t_controller  controller);
@@ -70,7 +73,8 @@ int delete(char* url, t_request* req,  t_response* res, t_validator validator, t
 
 t_request *get_req(char* json);
 t_response *init_res(char* json);
-const char* create_json_response(t_response *res);
+const char* create_json_response(t_response *res, char* property);
 
 
 char* create_token(int length);
+char* mx_create_err_res(char* errMsg);

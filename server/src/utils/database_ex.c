@@ -8,7 +8,7 @@ int mx_delete_data(sqlite3* db, char* from, char* spec) {
     );
     int rt = sqlite3_exec(db, sql, mx_callback, 0, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     return 0; 
 }
@@ -43,7 +43,7 @@ int mx_select_data(sqlite3* db, char* from, char* columns, char*  where, json_ob
     
     int rt = sqlite3_exec(db, sql, select_callback, sqlout, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     return 0; 
 }
@@ -57,7 +57,7 @@ int mx_update_data(sqlite3* db, char* from , char* spec, char* newData, char* sq
     );
     int rt = sqlite3_exec(db, sql, mx_callback, sqlout, NULL);
     if( rt != SQLITE_OK){
-        return 1;
+        return -1;
     }
     return 0; 
 }

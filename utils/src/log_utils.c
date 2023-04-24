@@ -1,6 +1,6 @@
 #include "log_utils.h"
 
-char* mx_get_formatted_time() {
+char* mx_get_formatted_date() {
     time_t rawtime;
     struct tm * timeinfo;
     char *str = mx_strnew(25);
@@ -25,6 +25,24 @@ char* mx_get_formatted_time() {
     return str;
 }
 
+char* mx_get_formatted_time() {
+    time_t rawtime;
+    struct tm * timeinfo;
+    char *str = mx_strnew(25);
+    
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    
+   
+    mx_strcat(str, mx_itoa(timeinfo->tm_hour));
+    mx_strcat(str, ":");
+    mx_strcat(str, mx_itoa(timeinfo->tm_min));
+    mx_strcat(str, ":");
+    mx_strcat(str, mx_itoa(timeinfo->tm_sec));
+
+    return str;
+}
+
 void mx_log_SSL_errors(char* file) {
     FILE *fd;
 
@@ -41,7 +59,7 @@ void mx_log_msg(char* file, char* str) {
 
     if ((fd = fopen(file, "a+")) == NULL) 
         return;
-    time = mx_get_formatted_time();
+    time = mx_get_formatted_date();
 
     fprintf(fd, "%s %s\n", time, str);
 

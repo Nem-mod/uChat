@@ -7,6 +7,10 @@ COLOUR_GREEN	=	\033[32;1m
 # COLOUR_BLUE		=	\033[0;34m
 COLOUR_END		=	\033[0m
 
+# TODO: DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+UNAME_S 	= 	$(shell uname -s)
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
@@ -17,14 +21,24 @@ INCLUDEDIR	=	inc \
 				$(UTILSDIR)/inc
 
 LIBMXDIR	=	$(LIBSDIR)/libmx
-LIBDBDIR	=	$(LIBSDIR)/libdb
 LIBSSLDIR	=	$(LIBSDIR)/libssl
+LIBJSONDIR	=	$(LIBSDIR)/libjson
+
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE									
+ifeq ($(UNAME_S),Darwin)					
+	LIBJSONDIR	=	$(LIBSDIR)/libjson_mac
+	LIBSSLDIR	=	$(LIBSDIR)/libssl_mac
+endif
+# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
 
 INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
-LIBINC		=	$(addprefix -I$(LIBSDIR)/, libmx/inc libdb/inc libssl/include) #refactor
+LIBINC		=	$(addprefix -I, $(LIBMXDIR)/inc $(LIBJSONDIR)/inc $(LIBSSLDIR)/include)
 GTKINC 		= 	`pkg-config --cflags gtk+-3.0`
 
-LIBLINK		=	-L$(LIBMXDIR) -lmx -L$(LIBDBDIR) -ldb  -L$(LIBSSLDIR) -lssl -lcrypto -ldl -lpthread
+LIBLINK		=	-L$(LIBMXDIR) -lmx \
+				-L$(LIBSSLDIR) -lssl -lcrypto \
+				-L$(LIBJSONDIR) -ljson-c \
+				-ldl -lpthread
 GTKLINK 	= 	`pkg-config --cflags  --libs gtk+-3.0`
 
 SRC_FILES	=	$(foreach dir, $(SOURCEDIR), $(wildcard $(dir)/*.c))
@@ -32,21 +46,16 @@ OBJ_FILES	=	$(addprefix $(OBJECTDIR)/, $(notdir $(SRC_FILES:%.c=%.o)))
 INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 all: libs $(NAME) out
+# all: testprint
 
-libs: libmx libdb libssl
+libs: libmx
 
-print:
-	@echo $(INC_FILES)
+testprint:
+	@echo $(LIBINC)
 
 libmx:
 	@make -sC $(LIBMXDIR)
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-libdb:
-	@make -sC $(LIBDBDIR)
-	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-libssl:
 
 $(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -o $@ --debug
@@ -68,13 +77,11 @@ out: $(NAME)
 
 uninstall: clean
 	@make -sC $(LIBMXDIR) $@
-	@make -sC $(LIBDBDIR) $@
 	@rm -rf $(NAME)
 	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
 
 clean:
 	@make -sC $(LIBMXDIR) $@
-	@make -sC $(LIBDBDIR) $@
 	@rm -rf $(OBJECTDIR)
 	@rm -rf *.txt
 	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
