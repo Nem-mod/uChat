@@ -7,7 +7,7 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     if (gtk_builder_add_from_file(builder, RESOURCE_ADD_CONT_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -44,7 +44,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -133,7 +133,7 @@ void mx_init_scene_create_group(t_uchat_application* app) {
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_CREATE_GROUP_PATH, &error) == 0) {
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -168,7 +168,7 @@ void mx_init_scene_signin(t_uchat_application* app) {
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNIN_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -217,7 +217,7 @@ void mx_init_scene_signup(t_uchat_application* app) {
     if (gtk_builder_add_from_file(builder, RESOURCE_SIGNUP_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -278,7 +278,7 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     GError *error = NULL;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_PROFILE_WINDOW_PATH, &error) == 0) {
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 
@@ -321,7 +321,7 @@ void mx_init_scene_group_info(t_uchat_application* app) {
 
 
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
 

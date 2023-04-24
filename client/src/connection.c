@@ -35,7 +35,7 @@ unsigned long mx_handle_post_file(char* req, char** filename) {
     struct json_object *jfilename = json_object_object_get(jobj, "file_name");
     *filename = (char*)json_object_get_string(jfilename);
     struct json_object *jsize = json_object_object_get(jobj, "file_size");
-    mx_log_info(SYSLOG, (req));
+    //mx_log_info(SYSLOG, (req));
     return json_object_get_uint64(jsize);
 }
 
@@ -46,12 +46,12 @@ void* mx_listen_server(void* data) {
     char* filename = NULL;
     unsigned long  filesize;
     if (app->serv_connection->hs_result != 0) {
-        mx_log_info(SYSLOG, "Handshake is done");
+        //mx_log_info(SYSLOG, "Handshake is done");
 
         while (1) {
             if(file_flag == 0){
                 if(mx_SSL_read(app->serv_connection->ssl, buffer) == -1) break;
-                // mx_log_info(SYSLOG, buffer);
+                // //mx_log_info(SYSLOG, buffer);
             }
             else {
                 mx_SSL_readfile(app->serv_connection->ssl, mx_strjoin(RESOURCE_PATH , filename), filesize);
@@ -67,8 +67,8 @@ void* mx_listen_server(void* data) {
             
 
             if(buffer[0] != 0) {
-                mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
-                mx_log_info(SYSLOG, buffer);
+                //mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
+                //mx_log_info(SYSLOG, buffer);
 
                 mx_strcpy(app->serv_connection->lbuffer, buffer);
                 mx_main_handler(buffer, app);
@@ -76,8 +76,8 @@ void* mx_listen_server(void* data) {
             mx_memset(&buffer, 0, sizeof(buffer));
         }
     } else
-        mx_log_err(SYSLOG, "Handshake error");
-    mx_log_info(SYSLOG, "Exit the listener");
+        //mx_log_err(SYSLOG, "Handshake error");
+    //mx_log_info(SYSLOG, "Exit the listener");
 
     mx_init_server_connection(app, app->serv_connection->port);
     return NULL;
@@ -86,8 +86,8 @@ void* mx_listen_server(void* data) {
 void mx_write_to_server(SSL* ssl, char* buffer) {
 
     if(buffer != NULL && mx_strlen(buffer) < (int)(sizeof(char) * MAXBUFFER)){
-        mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
-        mx_log_info(SYSLOG, buffer);
+        //mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
+        //mx_log_info(SYSLOG, buffer);
 
         mx_SSL_write(ssl, buffer);
         mx_strdel(&buffer);
