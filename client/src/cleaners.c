@@ -25,25 +25,3 @@ void mx_clear_server_connection(t_serv_connection* s_con) {
     pthread_cancel(s_con->listener_thread);
     free(s_con);
 }
-
-gboolean mx_clear_res(gpointer data) {
-    t_response* res = (t_response*)data;
-    if(res->type)
-        mx_strdel(&res->type);
-        
-    if(res->url)
-        mx_strdel(&res->url);
-        
-    if(res->property)
-        mx_strdel(&res->property);
-
-    if(res->status)
-       res->status = 0;
-        
-    if(res) {
-        free(res);
-        res = NULL;
-    }
-    return 0;
-}
-

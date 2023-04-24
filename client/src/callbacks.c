@@ -25,7 +25,6 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
 
     gtk_entry_set_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login), "");
-    json_object_put(jobj);
     gtk_widget_hide(app->scenes->add_contact_dwindow->w_add_contact);
 }
 
@@ -46,7 +45,6 @@ void mx_callback_auth(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "login", json_object_new_string(login));
     json_object_object_add(jobj, "password", json_object_new_string(password));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/auth/me", jobj));
-    json_object_put(jobj);
 }
 
 void mx_callback_change_scene(UNUSED GtkButton *button, gpointer data) {
@@ -87,7 +85,6 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/message", jobj));
-    json_object_put(jobj);
 }
 
 void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data) {
@@ -129,7 +126,6 @@ void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
     gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
-    json_object_put(jobj);
 }
 
 void mx_callback_hide_window(UNUSED GtkButton *button, gpointer data) {
@@ -268,7 +264,6 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "last_name", json_object_new_string(last_name));
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/auth/register", jobj));
-    json_object_put(jobj);
 }
 
 void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
@@ -305,7 +300,6 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
             mx_SSL_sendfile(app->serv_connection->ssl, app->choosed_file_pname, file_size);
             json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
-            json_object_put(jfobj);
         }
     }
     
@@ -329,7 +323,6 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
             mx_strdel(&app->choosed_file_pname);
     }
     //mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
-    json_object_put(jobj);
 }
 
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
@@ -394,7 +387,7 @@ void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data) {
     
     
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/user/", jobj));
-    json_object_put(jobj);
+    
 }
 
 void mx_callback_set_up_profile_image(UNUSED GtkButton *button, UNUSED gpointer data) { 
@@ -464,7 +457,7 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
 
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
-    json_object_put(jobj);
+
     gtk_entry_set_text(member_entry, "");
 }
 
@@ -516,7 +509,6 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
             mx_SSL_sendfile(app->serv_connection->ssl, app->choosed_file_pname, file_size);
             json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
-            json_object_put(jfobj);
         }
         // mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat),
         //                         (app->scenes->chat_scene->img_chat),  
@@ -529,7 +521,7 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
     
     gtk_entry_set_text(GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_name), "");
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("PATCH","/group/", jobj));
-    json_object_put(jobj);
+    
 }
 
 

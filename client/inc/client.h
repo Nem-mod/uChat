@@ -270,9 +270,9 @@ typedef struct s_uchat_application {
 
 /* JSON response structure */
 typedef struct s_response {   
-    char* type;       // Type of response (POST, GET, PATCH, DELETE)
-    char* url;        // Url of response (/auth/me, /auth/register and et)
-    char* property;   // Additional Data of response
+    const char* type;       // Type of response (POST, GET, PATCH, DELETE)
+    const char* url;        // Url of response (/auth/me, /auth/register and et)
+    const char* property;   // Additional Data of response
     int status;             // Status of response (200 - OK, 400 - Bad request and et)
     
 }              t_response;
@@ -323,7 +323,7 @@ void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data);
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
 void mx_clear_server_connection(t_serv_connection* s_con);
-gboolean mx_clear_res(gpointer data);
+
 //  =============================================Connection=============================================
 void* mx_listen_server(void* data);
 void mx_write_to_server(SSL* ssl, char* buffer);

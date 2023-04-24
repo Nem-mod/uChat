@@ -194,7 +194,7 @@ unsigned long mx_SSL_readfile(SSL* ssl, char* path, unsigned long size) {
         
         
     }
-    mx_memset(&buffer, 0, sizeof(buffer));
+
     //mx_log_err("rec.txt", "Rec end");
     fclose(fd);
     return total_bytes_received;
