@@ -106,6 +106,7 @@ int get_group_members(const char* req, char** res){
         const char* arr_obj_str = json_object_to_json_string(jarray_obj);
         get_users_by_id(arr_obj_str, &json_user_str);
         struct json_object *juser = json_tokener_parse(json_user_str);
+        // json_object_object_add(juser, "members_count", json_object_new_int(arr_len));
         json_object_array_add(json_user_arr, juser);
         mx_strdel(&json_user_str);
     }

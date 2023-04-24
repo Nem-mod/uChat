@@ -89,7 +89,7 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
     struct json_object *jmessage_id = json_object_object_get(jobj, "message_id"); 
     app->last_message_id = json_object_get_int(jmessage_id);
-    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id)) != NULL)
+    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id), NULL) != NULL)
         return;
 
     if (json_object_get_int(json_object_object_get(jobj, "user_id")) == app->user_id) {
@@ -290,6 +290,8 @@ gboolean mx_handler_ping_server_get_group_members(gpointer data) {
     struct json_object *jobj = json_object_new_object();
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
+
+    app->last_widget_index = 0;
 
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/members", jobj));
 

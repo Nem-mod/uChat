@@ -256,6 +256,7 @@ typedef struct s_uchat_application {
     int last_message_id;
     int last_message_indx;
     bool is_admin;
+    int last_widget_index;
 
     char* choosed_file_pname;
 
@@ -380,7 +381,7 @@ int mx_json_get_int(const char* property, const char* obj);
 char* mx_json_get_string(const char* property, const char* obj);
 
 //  =============================================Validators=============================================
-GtkWidget* mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+GtkWidget* mx_check_widget_exist(GtkWidget *list_box, const char* desired_name, int* index);
 int mx_validate_password_digits(const char *password);
 int mx_validate_password_letters(const char *password);
 

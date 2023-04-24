@@ -455,6 +455,8 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
 
+    app->last_widget_index = 0;
+
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
 
@@ -468,6 +470,8 @@ void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
 
     json_object_object_add(jobj, "group_id", json_object_new_int(cbdata->app->current_group_id));
     json_object_object_add(jobj, "user_id", json_object_new_int(*(int*)cbdata->data));
+
+    cbdata->app->last_widget_index = 0;
 
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("DELETE", "/group/members", jobj));
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));

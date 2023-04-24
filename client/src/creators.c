@@ -10,6 +10,7 @@ t_uchat_application* mx_create_app(char* argv[]) {
     app->current_group_id = 0;
     app->last_message_id = 0;
     app->is_admin = false;
+    app->last_widget_index = 0;
 
     // app->choosed_files->message_file = NULL;
     // app->choosed_files->profile_image = NULL;
@@ -126,7 +127,7 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     GtkWidget *chat_img = NULL;
     GtkWidget *chat_name = NULL;
     
-    chat_button = mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id));
+    chat_button = mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id), NULL);
     if (chat_button != NULL) {        
         is_exist = true;
         GList *children = gtk_container_get_children(GTK_CONTAINER(chat_button));
@@ -223,8 +224,9 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     GtkWidget* img_member = NULL;
     GtkWidget* l_member_name = NULL;
     GtkWidget* b_delete = NULL;
+    int row_index = -1;
 
-    member_box = mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id));
+    member_box = mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id), &row_index);
     if (member_box != NULL) {        
         is_exist = true;
         GList *children = gtk_container_get_children(GTK_CONTAINER(member_box));
@@ -236,6 +238,24 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
         children = g_list_next(children);
 
         b_delete = children->data;
+
+        mx_log_err("test.txt", "row, old winx, new winx");
+        mx_log_err("test.txt", mx_itoa(row_index));
+        mx_log_err("test.txt", mx_itoa(app->last_widget_index));
+        if (row_index < app->last_widget_index) {
+            for (int i = app->last_widget_index; i < (int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members))); i++) {
+                gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), i)));
+            }
+            app->last_widget_index = row_index;
+        }
+        mx_log_err("test.txt", mx_itoa(app->last_widget_index));
+        for (int i = app->last_widget_index; i < row_index; i++) {
+            // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->group_info_dwindow->l_sc_members, i));
+            gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), i)));
+            // gtk_list_box_remove(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), );
+            mx_log_info("test.txt", mx_itoa(i));
+        }
+        app->last_widget_index++;
     } else {        
         is_exist = false;
         member_box = mx_get_widget(builder, "member_box");
