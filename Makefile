@@ -7,7 +7,13 @@ COMP 	= clang
 SERV_DIR 	= server/
 CLIENT_DIR 	= client/
 
-all: userver uclient 
+all:
+	@brew install gtk+3
+	@brew install openssl@3
+	@brew install json-c
+	@brew install sqlite3
+	userver 
+	uclient 
 
 userver: 
 	@make -sC $(SERV_DIR)
