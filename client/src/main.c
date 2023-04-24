@@ -5,7 +5,7 @@ int main(int argc, char* argv[])
     // system("open ~/");
     remove(SYSLOG);
     if(argc != 2){
-        mx_log_info(SYSLOG, "usage: ./uchat [port]");
+        //mx_log_info(SYSLOG, "usage: ./uchat [port]");
         return 0;
     }
 

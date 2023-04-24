@@ -326,7 +326,7 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
 }
 
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
-    mx_log_info(SYSLOG, "CALLBACK TEST is called!");
+    //mx_log_info(SYSLOG, "CALLBACK TEST is called!");
 }
 
 void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) {

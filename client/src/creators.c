@@ -85,7 +85,7 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
     // TODO: change info checker here
@@ -147,7 +147,7 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
         // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
+        //mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
     // TODO: change info checker here

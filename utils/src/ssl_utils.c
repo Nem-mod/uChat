@@ -150,7 +150,7 @@ unsigned long  mx_SSL_sendfile(SSL* ssl, char* path, unsigned long  prepsize) {
         if (sent < 0) 
             mx_log_err("log_err.txt", "SSL_write() error");
     }
-    mx_log_err("sent.txt", mx_itoa(as));
+    //mx_log_err("sent.txt", mx_itoa(as));
     fclose(fd);
     return len;
 }
