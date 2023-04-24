@@ -13,6 +13,7 @@ void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, cons
 
     GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, widget_width, widget_height, NULL);
 
+    gtk_widget_set_size_request(widget_to_shrink, widget_width, widget_height);  
     gtk_image_set_from_pixbuf(image, pixbuf);
 }
 
