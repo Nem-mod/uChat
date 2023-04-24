@@ -217,11 +217,6 @@ typedef struct s_group_info_scene {
     GtkWidget* v_sc_members;
     GtkWidget* l_sc_members;
 
-    // GtkWidget* img_member;
-    // GtkWidget* l_member_name;
-    // GtkWidget* b_delete;
-    // GtkWidget* img_delete_icon;
-
     GtkWidget* img_group;
     GtkWidget* e_f_new_group_name;
     GtkWidget* b_confirm;
@@ -384,7 +379,7 @@ int mx_json_get_int(const char* property, const char* obj);
 char* mx_json_get_string(const char* property, const char* obj);
 
 //  =============================================Validators=============================================
-int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+GtkWidget* mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
 int mx_validate_password_digits(const char *password);
 int mx_validate_password_letters(const char *password);
 

@@ -81,6 +81,7 @@ t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_pat
 void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
+    bool is_exist;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
@@ -88,19 +89,13 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
-    // TODO: change info checker here
-    GtkWidget *chat_box = mx_get_widget(builder, "chat_box");
-    GtkWidget *chat_button = mx_get_widget(builder, "chat_button");
-    GtkWidget *chat_img = mx_get_widget(builder, "chat_img");
-    GtkWidget *chat_name = mx_get_widget(builder, "chat_name");
 
-    struct json_object* jobj = json_tokener_parse(res->property);   // TODO: move this block on 91+ lines
+    struct json_object* jobj = json_tokener_parse(res->property);
     if(res->property == NULL) 
         return;
+
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
     struct json_object *jgroup_privacy = json_object_object_get(jobj, "group_privacy"); 
-    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id)))
-        return;
     struct json_object *jname;
     char* file_name = NULL;
 
@@ -124,25 +119,56 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         else
             file_name = RESOURCE_BASE_ICON;
     }
+
+    GtkWidget *chat_button = NULL;
+    GtkWidget *chat_box = NULL;
+    GtkWidget *chat_img = NULL;
+    GtkWidget *chat_name = NULL;
+    
+    chat_button = mx_check_widget_exist(app->scenes->chat_scene->l_sc_chats, json_object_get_string(jgroup_id));
+    if (chat_button != NULL) {        
+        is_exist = true;
+        GList *children = gtk_container_get_children(GTK_CONTAINER(chat_button));
+
+        chat_box = children->data;
+        children = gtk_container_get_children(GTK_CONTAINER(children->data));
+
+        chat_img = children->data;
+        children = g_list_next(children);
+
+        chat_name = children->data;
+    } else {        
+        is_exist = false;
+        chat_button = mx_get_widget(builder, "chat_button");
+        chat_box = mx_get_widget(builder, "chat_box");
+        chat_img = mx_get_widget(builder, "chat_img");
+        chat_name = mx_get_widget(builder, "chat_name");
+    }
+
+    
     
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
-    gtk_widget_set_name(chat_button,  mx_itoa(json_object_get_int(jgroup_id)));
-    gtk_widget_set_name(chat_box,  mx_itoa(json_object_get_int(jgroup_privacy)));
+    gtk_widget_set_name(chat_button,  json_object_get_string(jgroup_id));
+    gtk_widget_set_name(chat_box, json_object_get_string(jgroup_privacy));
     gtk_widget_set_name(chat_name, "chat_name");
 
     gtk_widget_set_name(chat_img, file_name);
     mx_set_image_widget_size(GTK_IMAGE(chat_img), chat_img, file_name);
 
     gtk_widget_set_size_request(chat_box, 10, 10);
-    gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), chat_button, -1);
-    g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_chatbox), app);
-    g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_show_chatbox), app);
+    if (!is_exist) {                
+        gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), chat_button, -1);
+        g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_chatbox), app);
+        g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_show_chatbox), app);
+    }
+        
     g_object_unref(builder);
 }
 
 void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
     GError *error = NULL;
+    bool is_exist;
 
     if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
         // g_printerr("Error loading file: %s\n", error->message);
@@ -150,25 +176,15 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
-    // TODO: change info checker here
-    GtkWidget* member_box = mx_get_widget(builder, "member_box");
-    GtkWidget* img_member = mx_get_widget(builder, "user_ingroup_image");
-    GtkWidget* l_member_name = mx_get_widget(builder, "user_ingroup_login");
-    GtkWidget* b_delete = mx_get_widget(builder, "delete_user_button");
-    // GtkWidget* img_delete_icon;
 
     struct json_object* jobj = json_object_array_get_idx(json_tokener_parse(res->property), 0); // TODO: move this block on 153+ lines
     if(res->property == NULL) 
         return;
-    
+
     struct json_object* juser_id = json_object_object_get(jobj, "user_id");
     struct json_object* juser_name = json_object_object_get(jobj, "nick_name");
-    // char* formatted_login = NULL;
-
-    if(mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id)))
-        return;
-
     char* file_name = NULL;
+    char* formatted_login = NULL;
 
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
@@ -176,20 +192,48 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     }    
     else
         file_name = RESOURCE_BASE_ICON;
-    
-    // if (json_object_get_int(juser_id)== app->user_id)
-    //     formatted_login = mx_strcat(formatted_login, " (You)");
 
-    gtk_label_set_text(GTK_LABEL(l_member_name), json_object_get_string(juser_name));
-    gtk_widget_set_name(b_delete,  mx_itoa(json_object_get_int(juser_id)));
-    gtk_widget_set_name(member_box,  mx_itoa(json_object_get_int(juser_id)));
-    // gtk_widget_set_name(chat_box,  mx_itoa(json_object_get_int(jgroup_privacy)));
-    // gtk_widget_set_name(chat_name, "chat_name");
+    if (json_object_get_int(juser_id) == app->user_id)
+        formatted_login = mx_strjoin(json_object_get_string(juser_name), " (You)");
+    else
+        formatted_login = (char*)json_object_get_string(juser_name);
+
+    GtkWidget* member_box = NULL;
+    GtkWidget* img_member = NULL;
+    GtkWidget* l_member_name = NULL;
+    GtkWidget* b_delete = NULL;
+
+    member_box = mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id));
+    if (member_box != NULL) {        
+        is_exist = true;
+        GList *children = gtk_container_get_children(GTK_CONTAINER(member_box));
+
+        img_member = children->data;
+        children = g_list_next(children);
+
+        l_member_name = children->data;
+        children = g_list_next(children);
+
+        b_delete = children->data;
+    } else {        
+        is_exist = false;
+        member_box = mx_get_widget(builder, "member_box");
+        img_member = mx_get_widget(builder, "user_ingroup_image");
+        l_member_name = mx_get_widget(builder, "user_ingroup_login");
+        b_delete = mx_get_widget(builder, "delete_user_button");
+    }
+
+    
+    gtk_label_set_text(GTK_LABEL(l_member_name), formatted_login);
+    gtk_widget_set_name(b_delete, mx_itoa(json_object_get_int(juser_id)));
+    gtk_widget_set_name(member_box, mx_itoa(json_object_get_int(juser_id)));
 
     gtk_widget_set_name(img_member, file_name);
     mx_set_image_widget_size(GTK_IMAGE(img_member), img_member, file_name);
 
     // gtk_widget_set_size_request(chat_box, 10, 10);
-    gtk_list_box_insert(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), member_box, -1);
+    if (!is_exist)
+        gtk_list_box_insert(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), member_box, -1);
+
     g_object_unref(builder);
 }
