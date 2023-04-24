@@ -37,8 +37,8 @@ char* mx_get_formatted_time() {
     mx_strcat(str, mx_itoa(timeinfo->tm_hour));
     mx_strcat(str, ":");
     mx_strcat(str, mx_itoa(timeinfo->tm_min));
-    mx_strcat(str, ":");
-    mx_strcat(str, mx_itoa(timeinfo->tm_sec));
+    // mx_strcat(str, ":");
+    // mx_strcat(str, mx_itoa(timeinfo->tm_sec));
 
     return str;
 }

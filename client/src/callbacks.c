@@ -462,7 +462,17 @@ void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
 }
 
 // void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
+//     t_uchat_application *app = (t_uchat_application*)data;
 
+//     struct json_object *jobj = json_object_new_object();
+
+//     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
+//     json_object_object_add(jobj, "user_id", json_object_new_string((char*)login));
+
+//     mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
+//     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
+
+//     gtk_entry_set_text(member_entry, "");
 // }
 
 void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer data) { 
