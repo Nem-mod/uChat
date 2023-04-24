@@ -9,6 +9,7 @@ t_uchat_application* mx_create_app(char* argv[]) {
     app->user_id = 0;
     app->current_group_id = 0;
     app->last_message_id = 0;
+    app->is_admin = false;
 
     // app->choosed_files->message_file = NULL;
     // app->choosed_files->profile_image = NULL;
@@ -211,6 +212,13 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     else
         formatted_login = (char*)json_object_get_string(juser_name);
 
+    GtkWidget* first_member = mx_get_widget_from_list(app->scenes->group_info_dwindow->l_sc_members, 0);
+    if (first_member == NULL || mx_strcmp(gtk_widget_get_name(first_member), json_object_get_string(juser_id)) == 0) {
+        formatted_login = mx_strjoin(formatted_login, " (Admin)");
+        if (json_object_get_int(juser_id) == app->user_id)
+            app->is_admin = true;
+    }
+
     GtkWidget* member_box = NULL;
     GtkWidget* img_member = NULL;
     GtkWidget* l_member_name = NULL;
@@ -245,15 +253,25 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
     
     
     gtk_label_set_text(GTK_LABEL(l_member_name), formatted_login);
-    gtk_widget_set_name(b_delete, mx_itoa(json_object_get_int(juser_id)));
-    gtk_widget_set_name(member_box, mx_itoa(json_object_get_int(juser_id)));
+    gtk_widget_set_name(b_delete, json_object_get_string(juser_id));
+    gtk_widget_set_name(member_box, json_object_get_string(juser_id));
 
     gtk_widget_set_name(img_member, file_name);
     mx_set_image_widget_size(GTK_IMAGE(img_member), img_member, file_name);
 
     // gtk_widget_set_size_request(chat_box, 10, 10);
-    if (!is_exist)
+    if (!app->is_admin && json_object_get_int(juser_id) != app->user_id)
+        gtk_widget_hide(b_delete);
+    if (!is_exist) {
+        int* member_id = malloc(sizeof(int));
+
+        *member_id = json_object_get_int(juser_id);
+        t_callback_data* cbdata = mx_create_callback_data(app, member_id); // TODO: Free this after group info dwindow closure
+
+        g_signal_connect(b_delete, "clicked", G_CALLBACK(mx_callback_remove_group_member), cbdata);
+
         gtk_list_box_insert(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), member_box, -1);
+    }
 
     g_object_unref(builder);
 }
