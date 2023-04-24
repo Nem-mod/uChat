@@ -147,6 +147,7 @@ typedef struct s_signin_scene {
 
 typedef struct s_add_contact {
     GtkWidget *w_add_contact; 
+    GtkWidget *l_add_contact;
     GtkWidget *e_f_login;       
     GtkWidget *b_add_contact;        
     GtkWidget *b_close;       
@@ -155,6 +156,7 @@ typedef struct s_add_contact {
 
 typedef struct s_create_group {
     GtkWidget *w_create_group; 
+    GtkWidget *l_create_group;
     GtkWidget *e_f_group_name;            
     GtkWidget *b_create_group;        
     GtkWidget *b_close;       
@@ -163,6 +165,8 @@ typedef struct s_create_group {
 
 typedef struct s_user_profile {
     GtkWidget *w_user_profile; 
+    GtkWidget *l_profile;
+    GtkWidget *l_login;
     GtkWidget *l_user_login;        
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
@@ -209,10 +213,11 @@ typedef struct s_chat_scene {
 
 typedef struct s_group_info_scene {
     GtkWidget* w_group_info;
+    GtkWidget* l_group_info;
     GtkWidget* e_f_new_group_member;
     GtkWidget* b_add_member;
     GtkWidget* b_close;
-
+    
     GtkWidget* w_sc_members;
     GtkWidget* v_sc_members;
     GtkWidget* l_sc_members;
@@ -255,8 +260,8 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
+    bool is_admin;
 
-    // t_choosed_files* choosed_files;
     char* choosed_file_pname;
 
     // bool skip_json_log;
@@ -313,6 +318,7 @@ void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer da
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data);
 void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_show_chatbox(UNUSED GtkButton *button, gpointer data);
+void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -387,4 +393,5 @@ int mx_validate_password_letters(const char *password);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
+GtkWidget* mx_get_widget_from_list(GtkWidget* list, int index);
 
