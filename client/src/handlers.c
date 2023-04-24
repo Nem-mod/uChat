@@ -291,8 +291,6 @@ gboolean mx_handler_ping_server_get_group_members(gpointer data) {
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
 
-    app->last_widget_index = 0;
-
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/members", jobj));
 
     return true;

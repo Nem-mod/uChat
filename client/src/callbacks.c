@@ -438,6 +438,8 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     // gtk_label_set_text(GTK_LABEL(app->scenes->group_info->), gtk_label_get_text(chat_label));
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->img_group), app->scenes->group_info_dwindow->img_group, gtk_widget_get_name(group_image));
 
+    app->last_widget_index = 0;
+
     mx_handler_ping_server_get_group_members(app);
     g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_group_members, app);
 }
@@ -471,7 +473,6 @@ void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(cbdata->app->current_group_id));
     json_object_object_add(jobj, "user_id", json_object_new_int(*(int*)cbdata->data));
 
-    cbdata->app->last_widget_index = 0;
 
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("DELETE", "/group/members", jobj));
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));

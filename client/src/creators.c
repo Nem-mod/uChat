@@ -239,12 +239,15 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
 
         b_delete = children->data;
 
-        mx_log_err("test.txt", "row, old winx, new winx");
+        mx_log_err("test.txt", "row, list len, old winx, new winx");
         mx_log_err("test.txt", mx_itoa(row_index));
+        mx_log_err("test.txt", mx_itoa((int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members)))));
         mx_log_err("test.txt", mx_itoa(app->last_widget_index));
         if (row_index < app->last_widget_index) {
             for (int i = app->last_widget_index; i < (int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members))); i++) {
+                // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->group_info_dwindow->l_sc_members, i));
                 gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), i)));
+                mx_log_info("test.txt", mx_itoa(i));
             }
             app->last_widget_index = row_index;
         }
