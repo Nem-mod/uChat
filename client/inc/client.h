@@ -255,8 +255,8 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
+    bool is_admin;
 
-    // t_choosed_files* choosed_files;
     char* choosed_file_pname;
 
     // bool skip_json_log;
@@ -387,4 +387,5 @@ int mx_validate_password_letters(const char *password);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
+GtkWidget* mx_get_widget_from_list(GtkWidget* list, int index);
 

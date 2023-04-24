@@ -1,6 +1,6 @@
 #include "client.h"
 
-GtkWidget *mx_get_widget(GtkBuilder *builder, char *id) {
+GtkWidget* mx_get_widget(GtkBuilder *builder, char *id) {
     GtkWidget *out = GTK_WIDGET(gtk_builder_get_object(builder, id));
     
     return out;
@@ -29,8 +29,14 @@ GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name) {
     return NULL;
 }
 
-// int mx_get_user_id(char* property) {
-//     json_object* jobj = json_tokener_parse(property);
-//     struct json_object *juser_id = json_object_object_get(jobj, "user_id");
-//     return json_object_get_int(juser_id);
-// }
+GtkWidget* mx_get_widget_from_list(GtkWidget* list, int index) {
+    GtkListBoxRow *row = gtk_list_box_get_row_at_index(GTK_LIST_BOX(list), index);
+    GList *children = NULL;
+    GtkWidget *member = NULL;
+    
+    if (row != NULL) {
+        children = gtk_container_get_children(GTK_CONTAINER(row));
+        member = children->data;
+    }
+    return member;
+}
