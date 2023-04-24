@@ -119,7 +119,13 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     if(mx_strstr(res->property, "file_name")) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
         file_name = (char*)json_object_get_string(jfname);
-        mx_set_image_limit_size(GTK_IMAGE(message_img), message_img, mx_strjoin(RESOURCE_PATH, file_name));
+        // add gif
+        if(mx_strstr(file_name, ".gif")) {
+            GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(mx_strjoin(RESOURCE_PATH, file_name), NULL);
+            gtk_image_set_from_animation(GTK_IMAGE(message_img), animation);
+        } 
+        else
+            mx_set_image_limit_size(GTK_IMAGE(message_img), message_img, mx_strjoin(RESOURCE_PATH, file_name));
         // gtk_image_set_from_file(GTK_IMAGE(message_img), mx_strjoin(RESOURCE_PATH, file_name));
 
     } else {
