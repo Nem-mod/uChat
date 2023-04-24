@@ -145,8 +145,6 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         chat_name = mx_get_widget(builder, "chat_name");
     }
 
-    
-    
     gtk_label_set_text(GTK_LABEL(chat_name), (char*)json_object_get_string(jname));
     gtk_widget_set_name(chat_button,  json_object_get_string(jgroup_id));
     gtk_widget_set_name(chat_box, json_object_get_string(jgroup_privacy));
@@ -161,6 +159,11 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     mx_add_css_class(chat_box, "contact-background-inner");
     mx_add_css_class(chat_name, "contact-name");
     mx_add_css_class(chat_img, "contact-img");
+    if (json_object_get_int(jgroup_id) == app->current_group_id) {
+        gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), (char*)json_object_get_string(jname));
+        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat), app->scenes->chat_scene->img_chat, file_name);
+        gtk_widget_set_name(app->scenes->chat_scene->img_chat, file_name);
+    }
 
     gtk_widget_set_name(chat_img, file_name);
     mx_set_image_widget_size(GTK_IMAGE(chat_img), chat_img, file_name);
