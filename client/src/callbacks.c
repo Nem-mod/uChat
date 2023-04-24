@@ -87,6 +87,14 @@ void mx_callback_chatbox(UNUSED GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/message", jobj));
 }
 
+void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data) {
+    mx_handler_hide_chatbox(data);
+}
+
+void mx_callback_show_chatbox(UNUSED GtkButton *button, gpointer data) {
+    mx_handler_show_chatbox(data);
+}
+
 void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data) {
     t_uchat_application* app = (t_uchat_application*)data;
     GtkFileChooser *chooser = GTK_FILE_CHOOSER(button);
@@ -460,8 +468,6 @@ void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer da
                                         (app->scenes->group_info_dwindow->img_group),  
                                         app->choosed_file_pname);
 }
-
-
 
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;

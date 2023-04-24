@@ -19,6 +19,8 @@ int mx_main_handler(char* json, t_uchat_application* app) {
             g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_chats, app);
             g_timeout_add(PING_SERVER_SHORT_INTERVAL_MILISECONDS, mx_handler_ping_server_get_messages, app);
         }
+
+        mx_handler_hide_chatbox(app);
         
         struct json_object *jobj = json_object_new_object();
         json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
@@ -273,3 +275,30 @@ gboolean mx_handler_ping_server_get_group_members(gpointer data) {
     return true;
 }
 
+void mx_handler_hide_chatbox(gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data;
+    
+    gtk_widget_hide(app->scenes->chat_scene->img_chat);
+    gtk_widget_hide(app->scenes->chat_scene->l_chatname);
+    gtk_widget_hide(app->scenes->chat_scene->w_sc_messages);
+    // gtk_widget_hide(app->scenes->chat_scene->v_sc_messages);
+    // gtk_widget_hide(app->scenes->chat_scene->l_sc_messages);
+    gtk_widget_hide(app->scenes->chat_scene->bc_file);
+    gtk_widget_hide(app->scenes->chat_scene->e_f_chat);
+    gtk_widget_hide(app->scenes->chat_scene->b_send_message);
+    gtk_widget_hide(app->scenes->chat_scene->b_chat_settings);
+}
+
+void mx_handler_show_chatbox(gpointer data) {
+        t_uchat_application *app = (t_uchat_application*)data;
+    
+    gtk_widget_show(app->scenes->chat_scene->img_chat);
+    gtk_widget_show(app->scenes->chat_scene->l_chatname);
+    gtk_widget_show(app->scenes->chat_scene->w_sc_messages);
+    // gtk_widget_show(app->scenes->chat_scene->v_sc_messages);
+    // gtk_widget_show(app->scenes->chat_scene->l_sc_messages);
+    gtk_widget_show(app->scenes->chat_scene->bc_file);
+    gtk_widget_show(app->scenes->chat_scene->e_f_chat);
+    gtk_widget_show(app->scenes->chat_scene->b_send_message);
+    gtk_widget_show(app->scenes->chat_scene->b_chat_settings);
+}

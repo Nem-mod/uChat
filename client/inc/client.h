@@ -315,6 +315,8 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data);
 void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data);
 void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data);
+void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data);
+void mx_callback_show_chatbox(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -369,6 +371,8 @@ gboolean mx_handler_ping_server_get_messages(gpointer data);
 gboolean mx_handler_ping_server_get_group_members(gpointer data);
 gboolean mx_handler_chat_scroll_down(gpointer data);
 gboolean mx_handler_auth(gpointer data);
+void mx_handler_hide_chatbox(gpointer data);
+void mx_handler_show_chatbox(gpointer data);
 
 //  =============================================Json=============================================
 /* Creates request for the server */
