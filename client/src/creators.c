@@ -158,8 +158,8 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     gtk_widget_set_size_request(chat_box, 10, 10);
     if (!is_exist) {                
         gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), chat_button, -1);
-        g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_chatbox), app);
         g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_show_chatbox), app);
+        g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_chatbox), app);
     }
         
     g_object_unref(builder);
