@@ -152,6 +152,16 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
     gtk_widget_set_name(chat_box, json_object_get_string(jgroup_privacy));
     gtk_widget_set_name(chat_name, "chat_name");
 
+    mx_set_style(chat_button);
+    mx_set_style(chat_box);
+    mx_set_style(chat_name);
+    mx_set_style(chat_img);
+
+    mx_add_css_class(chat_button, "contact-background");
+    mx_add_css_class(chat_box, "contact-background-inner");
+    mx_add_css_class(chat_name, "contact-name");
+    mx_add_css_class(chat_img, "contact-img");
+
     gtk_widget_set_name(chat_img, file_name);
     mx_set_image_widget_size(GTK_IMAGE(chat_img), chat_img, file_name);
 

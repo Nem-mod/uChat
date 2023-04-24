@@ -152,6 +152,20 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);
+
+    mx_set_style(
+        GTK_WIDGET(gtk_list_box_get_row_at_index(
+            GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages),
+            app->last_message_indx))
+    );
+
+    mx_add_css_class(
+        GTK_WIDGET(gtk_list_box_get_row_at_index(
+            GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages),
+            app->last_message_indx)),
+        "message-background"
+    );
+    
     app->last_message_indx += 1;
     
     gtk_widget_queue_draw(GTK_WIDGET(app->scenes->chat_scene->v_sc_messages));

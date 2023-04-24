@@ -128,6 +128,18 @@ entry:hover {
     border: none;
 }
 
+.message {
+    padding: 4px 8px;
+}
+
+.message-background {
+    margin: 3px;
+    background-image: image(#fae5f0);
+}
+
+.message-background:hover {
+    background-image: image(#fae5f0);
+}
 
 .message-text {
     font-weight: 300;
@@ -136,6 +148,7 @@ entry:hover {
 }
 
 .message-user {
+    margin-bottom: 5px;
     font-size: 14px;
     font-weight: 400;
     /* font-family: "Poppins-Regular"; */
@@ -146,6 +159,21 @@ entry:hover {
     font-weight: 300;
     color: grey;
     font-family: "Poppins-Regular";
+}
+
+.contact-background, .contact-background-inner {
+    background-image: image(#FF85AB);
+    border: none;
+}
+
+.contact-name {
+    font-family: "Poppins-Regular";
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.contact-img {
+    border-radius: 9999px;
 }
 
 #file_entry {

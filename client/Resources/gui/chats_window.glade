@@ -148,10 +148,11 @@
             <property name="receives-default">True</property>
             <child>
               <object class="GtkImage" id="add_contact_icon">
-                <property name="width-request">40</property>
-                <property name="height-request">40</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-bottom">1</property>
                 <property name="stock">gtk-missing-image</property>
               </object>
             </child>
@@ -166,8 +167,8 @@
             <property name="receives-default">True</property>
             <child>
               <object class="GtkImage" id="add_group_icon">
-                <property name="width-request">40</property>
-                <property name="height-request">40</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>
@@ -290,6 +291,7 @@
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="receives-default">True</property>
+    <property name="halign">start</property>
     <child>
       <object class="GtkBox" id="message_box">
         <property name="visible">True</property>
@@ -301,7 +303,6 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="margin-start">15</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -332,7 +333,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="margin-start">15</property>
                 <property name="margin-end">8</property>
                 <property name="wrap">True</property>
                 <property name="wrap-mode">char</property>
@@ -373,6 +373,7 @@
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="receives-default">True</property>
+    <property name="halign">end</property>
     <child>
       <object class="GtkBox" id="message_box1">
         <property name="visible">True</property>
@@ -384,7 +385,6 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="margin-end">15</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -410,7 +410,6 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="halign">end</property>
             <child>
               <object class="GtkLabel" id="message_text_label1">
                 <property name="visible">True</property>
@@ -430,7 +429,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="valign">end</property>
-                <property name="margin-end">10</property>
               </object>
               <packing>
                 <property name="expand">False</property>
