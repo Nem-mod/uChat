@@ -313,6 +313,7 @@ void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer da
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data);
 void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_show_chatbox(UNUSED GtkButton *button, gpointer data);
+void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
