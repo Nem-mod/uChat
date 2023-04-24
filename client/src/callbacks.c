@@ -266,10 +266,6 @@ void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/auth/register", jobj));
 }
 
-void mx_callback_select_chat(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
-    g_print("Hello motherfuckers\n");
-}
-
 void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
 
@@ -333,7 +329,7 @@ void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:
     mx_log_info(SYSLOG, "CALLBACK TEST is called!");
 }
 
-void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
+void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     app->choosed_file_pname = NULL;
     app->current_group_id = 0;
@@ -505,9 +501,9 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
             json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
         }
-        mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), 
-                                (app->scenes->chat_scene->img_user),  
-                                app->choosed_file_pname);
+        // mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_user), //TODO: create update info checker for chats and members. 
+        //                         (app->scenes->chat_scene->img_user),  
+        //                         app->choosed_file_pname);
 
         if(app->choosed_file_pname != NULL) {
                 mx_strdel(&app->choosed_file_pname);

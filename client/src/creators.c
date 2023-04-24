@@ -42,7 +42,7 @@ t_file* mx_create_file(char* path, int size) {
     t_file *file = malloc(sizeof(t_file));
 
     file->path = path;
-    file->size = size; // TODO: create func to get file size
+    file->size = size;
 
     return file;
 }
@@ -88,13 +88,13 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
-
+    // TODO: change info checker here
     GtkWidget *chat_box = mx_get_widget(builder, "chat_box");
     GtkWidget *chat_button = mx_get_widget(builder, "chat_button");
     GtkWidget *chat_img = mx_get_widget(builder, "chat_img");
     GtkWidget *chat_name = mx_get_widget(builder, "chat_name");
 
-    struct json_object* jobj = json_tokener_parse(res->property);
+    struct json_object* jobj = json_tokener_parse(res->property);   // TODO: move this block on 91+ lines
     if(res->property == NULL) 
         return;
     struct json_object *jgroup_id = json_object_object_get(jobj, "group_id"); 
@@ -150,21 +150,20 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
         mx_log_err(SYSLOG, "gtk: Error loading file");
         return;
     }
-
+    // TODO: change info checker here
     GtkWidget* member_box = mx_get_widget(builder, "member_box");
     GtkWidget* img_member = mx_get_widget(builder, "user_ingroup_image");
     GtkWidget* l_member_name = mx_get_widget(builder, "user_ingroup_login");
     GtkWidget* b_delete = mx_get_widget(builder, "delete_user_button");
     // GtkWidget* img_delete_icon;
 
-    struct json_object* jobj = json_object_array_get_idx(json_tokener_parse(res->property), 0);
+    struct json_object* jobj = json_object_array_get_idx(json_tokener_parse(res->property), 0); // TODO: move this block on 153+ lines
     if(res->property == NULL) 
         return;
     
     struct json_object* juser_id = json_object_object_get(jobj, "user_id");
     struct json_object* juser_name = json_object_object_get(jobj, "nick_name");
     // char* formatted_login = NULL;
-    mx_log_err(SYSLOG, (char*)json_object_get_string(juser_name)); // TODO: tems
 
     if(mx_check_widget_exist(app->scenes->group_info_dwindow->l_sc_members, json_object_get_string(juser_id)))
         return;
@@ -192,6 +191,5 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
 
     // gtk_widget_set_size_request(chat_box, 10, 10);
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), member_box, -1);
-    // g_signal_connect(b_delete, "clicked", G_CALLBACK(mx_callback_test), app);
     g_object_unref(builder);
 }
