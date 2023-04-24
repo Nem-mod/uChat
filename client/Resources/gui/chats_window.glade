@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.40.0 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkButton" id="chat_button">
@@ -176,7 +176,7 @@
             </child>
           </object>
           <packing>
-            <property name="x">65</property>
+            <property name="x">60</property>
           </packing>
         </child>
         <child>
@@ -211,7 +211,7 @@
         </child>
         <child>
           <object class="GtkSearchEntry" id="chats_entry">
-            <property name="width-request">245</property>
+            <property name="width-request">255</property>
             <property name="height-request">50</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -220,7 +220,7 @@
             <property name="primary-icon-sensitive">False</property>
           </object>
           <packing>
-            <property name="x">130</property>
+            <property name="x">120</property>
           </packing>
         </child>
         <child>

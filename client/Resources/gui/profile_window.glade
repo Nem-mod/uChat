@@ -14,7 +14,7 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkLabel" id="user_login">
+          <object class="GtkLabel" id="profile_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="label" translatable="yes">Profile</property>
@@ -33,7 +33,7 @@
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
-            <property name="x">97</property>
+            <property name="x">105</property>
             <property name="y">75</property>
           </packing>
         </child>
@@ -50,7 +50,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="login_word_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="label" translatable="yes">            Login:</property>
@@ -66,7 +66,7 @@
             <property name="can-focus">False</property>
           </object>
           <packing>
-            <property name="x">130</property>
+            <property name="x">140</property>
             <property name="y">270</property>
           </packing>
         </child>
@@ -77,7 +77,7 @@
             <property name="title" translatable="yes"/>
           </object>
           <packing>
-            <property name="x">117</property>
+            <property name="x">123</property>
             <property name="y">199</property>
           </packing>
         </child>
