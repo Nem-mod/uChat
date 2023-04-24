@@ -150,6 +150,13 @@ void mx_callback_hide_window_group_info(UNUSED GtkButton *button, gpointer data)
     app->active_scene = CHAT;
 }
 
+void mx_callback_hide_profile(UNUSED GtkButton *button, gpointer data) {
+    t_uchat_application *app = (t_uchat_application*)data; 
+
+    gtk_widget_hide(app->scenes->user_profile_dwindow->w_user_profile);
+    app->active_scene = CHAT;
+}
+
 void mx_callback_registration(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     bool err = false;

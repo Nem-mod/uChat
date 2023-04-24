@@ -10,10 +10,11 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         mx_log_info(SYSLOG, "Auth success");
         
         gtk_label_set_text(GTK_LABEL(app->scenes->signin_scene->l_err_msg), "");
+        gtk_label_set_text(GTK_LABEL(app->scenes->user_profile_dwindow->l_user_login ), mx_json_get_string(res->property, "login"));
         t_callback_data* cb = mx_create_callback_data(app, res);
         gdk_threads_add_idle(mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         gdk_threads_add_idle(mx_handler_auth, cb);
-        app->user_id  = mx_get_user_data((char*)res->property);
+        app->user_id = mx_json_get_int(res->property, "user_id");
         
         if(app->user_id != 0) {
             g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_chats, app);

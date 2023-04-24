@@ -26,3 +26,19 @@ t_response *mx_get_response(char* json) {
 
     return response_s;
 }
+
+int mx_json_get_int(const char* property, const char* obj) {
+    json_object* jobj = json_tokener_parse(property);
+
+    struct json_object *jint = json_object_object_get(jobj, obj);
+
+    return json_object_get_int(jint);
+}
+
+char* mx_json_get_string(const char* property, const char* obj) {
+    json_object* jobj = json_tokener_parse(property);
+
+    struct json_object *jstr = json_object_object_get(jobj, obj);
+
+    return (char*)json_object_get_string(jstr);
+}

@@ -305,6 +305,7 @@ void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_log_out(UNUSED GtkButton *button, UNUSED gpointer data);
 void mx_callback_hide_window_crt(UNUSED GtkButton *button, gpointer data);
 void mx_callback_hide_window_group_info(UNUSED GtkButton *button, gpointer data);
+void mx_callback_hide_profile(UNUSED GtkButton *button, gpointer data);
 void mx_callback_patch_user(UNUSED GtkButton *button, gpointer data);
 void mx_init_callbacks_group_info(t_uchat_application* app);
 void mx_auth_callback(t_uchat_application* app, t_response* res);
@@ -347,7 +348,6 @@ void mx_init_scene_add_contact(t_uchat_application* app);
 void mx_init_scene_create_group(t_uchat_application* app);
 void mx_init_scene_user_profile(t_uchat_application* app);
 void mx_init_scene_group_info(t_uchat_application* app);
-int mx_get_user_data(char* property);
 
 void mx_create_new_chat_widget(t_uchat_application* app, t_response* res); 
 void mx_create_new_member_widget(t_uchat_application* app, t_response* res);
@@ -380,6 +380,8 @@ char* mx_create_request(char* type, char* url, json_object* prop);
 
 /* Disassemble given JSON and puts information in t_response */
 t_response *mx_get_response(char* json);
+int mx_json_get_int(const char* property, const char* obj);
+char* mx_json_get_string(const char* property, const char* obj);
 
 //  =============================================Validators=============================================
 int mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);

@@ -289,7 +289,7 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     app->scenes->user_profile_dwindow->cbdata = mx_create_callback_data(app, new_scene);
         
     app->scenes->user_profile_dwindow->w_user_profile = mx_get_widget(builder, "profile_window");
-    app->scenes->user_profile_dwindow->l_user_login = mx_get_widget(builder, "user_login");
+    app->scenes->user_profile_dwindow->l_user_login = mx_get_widget(builder, "login_label");
     app->scenes->user_profile_dwindow->img_user = mx_get_widget(builder, "user_image");
     app->scenes->user_profile_dwindow->bc_file = mx_get_widget(builder, "change_user_image");
     app->scenes->user_profile_dwindow->b_logout = mx_get_widget(builder, "logout_button");
