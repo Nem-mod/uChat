@@ -147,6 +147,7 @@ typedef struct s_signin_scene {
 
 typedef struct s_add_contact {
     GtkWidget *w_add_contact; 
+    GtkWidget *l_add_contact;
     GtkWidget *e_f_login;       
     GtkWidget *b_add_contact;        
     GtkWidget *b_close;       
@@ -155,6 +156,7 @@ typedef struct s_add_contact {
 
 typedef struct s_create_group {
     GtkWidget *w_create_group; 
+    GtkWidget *l_create_group;
     GtkWidget *e_f_group_name;            
     GtkWidget *b_create_group;        
     GtkWidget *b_close;       
@@ -163,6 +165,8 @@ typedef struct s_create_group {
 
 typedef struct s_user_profile {
     GtkWidget *w_user_profile; 
+    GtkWidget *l_profile;
+    GtkWidget *l_login;
     GtkWidget *l_user_login;        
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
@@ -209,10 +213,11 @@ typedef struct s_chat_scene {
 
 typedef struct s_group_info_scene {
     GtkWidget* w_group_info;
+    GtkWidget* l_group_info;
     GtkWidget* e_f_new_group_member;
     GtkWidget* b_add_member;
     GtkWidget* b_close;
-
+    
     GtkWidget* w_sc_members;
     GtkWidget* v_sc_members;
     GtkWidget* l_sc_members;

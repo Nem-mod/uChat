@@ -264,6 +264,13 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
         b_delete = mx_get_widget(builder, "delete_user_button");
     }
 
+    mx_set_style(l_member_name);
+    mx_set_style(b_delete);
+
+    mx_add_css_class(l_member_name, "usual-label");
+    mx_add_css_class(b_delete, "button1");
+    
+    
     
     gtk_label_set_text(GTK_LABEL(l_member_name), formatted_login);
     gtk_widget_set_name(b_delete, json_object_get_string(juser_id));

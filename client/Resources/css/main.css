@@ -31,7 +31,7 @@ F4A4AC
     font-size: 15px;
     font-weight: 600;
     /*padding: 7px 20px;*/
-    border: 1px solid #77b6fa; 
+    border: 1px solid #9f85ff; 
     /* border: none; */
     border-radius: 20px;
     transition: 0.3s;
@@ -49,7 +49,7 @@ F4A4AC
 
 .button3 {
     color: #2b2d3a;
-    /* background-image: image(white); */
+    background-image: image(#fcc9e3);
     font-size: 15px;
     font-weight: 600;
     /* padding: 7px 20px; */
@@ -61,7 +61,8 @@ F4A4AC
 
 .button3:hover {
     /* background-image: image(#ea4b4b); */
-    color:#FF85AB;
+    background-image: image(#fcc9e3);
+    color:#ff2c6f;
 }
 
 entry {
@@ -84,7 +85,14 @@ entry:hover {
     border: 2px solid #e0e0e0;
 }
 
+.usual-label {
+    font-family: "Poppins-Regular";
+}
 
+.for-names-label {
+    font-family: "Poppins-Regular";
+    color:#9e00dd;
+}
 .err-label {
     color:rgb(255, 0, 106);
     font-family: "Poppins-Regular";
@@ -94,7 +102,7 @@ entry:hover {
     color: #9f85ff;
     font-weight: 600;
     font-size: 24px;
-    font-family: "Poppins-Regular";
+    font-family: "Spring";
 }
 
 .sign-label {
@@ -104,28 +112,36 @@ entry:hover {
     font-family: "Poppins-Regular";
 }
 
+.add-label {
+    color:#9f85ff;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Poppins-Regular";
+}
+
 .background {
-    background-color: #FFC2E2;
+    background-color: #fcc9e3;
 }
 .background-light {
     background-color: #fae5f0;
 }
 
 .main-background {
-    background-color: #FFC2E2;
+    background-color: #fcc9e3;
 }
 
 .contacts-background {
-    background-color: #FFC2E2;
+    background-color: #fcc9e3;
 }
 
 .chat-background {
-    background-color: #FFC2E2;
+    background-color: #fcc9e3;
 }
 
 .message-box, .message {
-    background-image: image(#F4A4AC);
+    background-image: image(#fdb2ba);
     border: none;
+    border-radius: 10px;
 }
 
 .message {
@@ -150,7 +166,8 @@ entry:hover {
 .message-user {
     margin-bottom: 5px;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
+    color: #9e00dd;
     /* font-family: "Poppins-Regular"; */
 }
 
@@ -162,7 +179,7 @@ entry:hover {
 }
 
 .contact-background, .contact-background-inner {
-    background-image: image(#FF85AB);
+    background-image: image(#fc7dc3);
     border: none;
 }
 
@@ -173,15 +190,15 @@ entry:hover {
 }
 
 .contact-img {
-    border-radius: 9999px;
+    border-radius: 100px;
 }
 
 #file_entry {
-    border: none;
+    border: 1px solid #d4abef;
     /* border-radius: 5px; */
     font-weight: 400;
     /* background-color: white; */
-    color: #2b2d3a;
+    /* color: #2b2d3a; */
     transition: 0.3s;
     font-family: "Poppins-Regular";
 }
