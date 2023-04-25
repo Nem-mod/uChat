@@ -8,7 +8,7 @@ SERV_DIR 	= server/
 CLIENT_DIR 	= client/
 
 all: 
-	@brew install gtk4 
+	@brew install gtk+3
 	@brew install openssl@3 
 	@brew install json-c 
 	@brew install sqlite3 
