@@ -12,6 +12,7 @@ void mx_init_callbacks_create_group(t_uchat_application* app) {
     g_signal_connect(app->scenes->create_group_dwindow->w_create_group , "delete-event", G_CALLBACK(mx_callback_on_delete_event), app->scenes->create_group_dwindow->w_create_group);
     g_signal_connect(app->scenes->create_group_dwindow->b_close , "clicked", G_CALLBACK(mx_callback_hide_window_crt), app);
     g_signal_connect(app->scenes->create_group_dwindow->b_create_group, "clicked", G_CALLBACK(mx_callback_create_group), app);
+    g_signal_connect(app->scenes->create_group_dwindow->e_f_group_name, "activate", G_CALLBACK(mx_callback_create_group), app);
 }
 
 void mx_init_callbacks_chat(t_uchat_application* app) {
@@ -45,6 +46,12 @@ void mx_init_callbacks_signup(t_uchat_application* app) {
     // g_signal_connect(app->scenes->signup_scene, "activate", G_CALLBACK(mx_callback_test), app);
     g_signal_connect(app->scenes->signup_scene->bl_signin, "clicked", G_CALLBACK(mx_callback_change_scene), app->scenes->signin_scene->cbdata);
     g_signal_connect(app->scenes->signup_scene->w_signup, "destroy", G_CALLBACK(mx_clear_app), app);
+
+    g_signal_connect(app->scenes->signup_scene->e_f_login, "activate", G_CALLBACK(mx_callback_registration), app);
+    g_signal_connect(app->scenes->signup_scene->e_f_password, "activate", G_CALLBACK(mx_callback_registration), app);
+    g_signal_connect(app->scenes->signup_scene->e_f_password2, "activate", G_CALLBACK(mx_callback_registration), app);
+    g_signal_connect(app->scenes->signup_scene->e_f_firstName, "activate", G_CALLBACK(mx_callback_registration), app);
+    g_signal_connect(app->scenes->signup_scene->e_f_lastName, "activate", G_CALLBACK(mx_callback_registration), app);
 }
 
 void mx_init_callbacks_user_profile(t_uchat_application* app) {
