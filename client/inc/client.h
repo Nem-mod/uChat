@@ -31,6 +31,7 @@
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
 #define RESOURCE_BASE_GROUP_ICON "client/Resources/icons/base-group.png"
 #define RESOURCE_PATH       "./client/Resources/"
+#define RESOURCE_DEFAULT_IMAGE "client/Resources/icons/default-image.png"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
 
 #define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
@@ -147,6 +148,7 @@ typedef struct s_signin_scene {
 
 typedef struct s_add_contact {
     GtkWidget *w_add_contact; 
+    GtkWidget *l_add_contact;
     GtkWidget *e_f_login;       
     GtkWidget *b_add_contact;        
     GtkWidget *b_close;       
@@ -155,6 +157,7 @@ typedef struct s_add_contact {
 
 typedef struct s_create_group {
     GtkWidget *w_create_group; 
+    GtkWidget *l_create_group;
     GtkWidget *e_f_group_name;            
     GtkWidget *b_create_group;        
     GtkWidget *b_close;       
@@ -163,6 +166,8 @@ typedef struct s_create_group {
 
 typedef struct s_user_profile {
     GtkWidget *w_user_profile; 
+    GtkWidget *l_profile;
+    GtkWidget *l_login;
     GtkWidget *l_user_login;        
     GtkWidget *img_user;        
     GtkWidget *bc_file;            
@@ -209,10 +214,11 @@ typedef struct s_chat_scene {
 
 typedef struct s_group_info_scene {
     GtkWidget* w_group_info;
+    GtkWidget* l_group_info;
     GtkWidget* e_f_new_group_member;
     GtkWidget* b_add_member;
     GtkWidget* b_close;
-
+    
     GtkWidget* w_sc_members;
     GtkWidget* v_sc_members;
     GtkWidget* l_sc_members;
@@ -255,8 +261,10 @@ typedef struct s_uchat_application {
     int current_group_id;
     int last_message_id;
     int last_message_indx;
+    bool is_admin;
+    int last_member_widget_index;
+    int last_group_widget_index;
 
-    // t_choosed_files* choosed_files;
     char* choosed_file_pname;
 
     // bool skip_json_log;
@@ -265,9 +273,9 @@ typedef struct s_uchat_application {
 
 /* JSON response structure */
 typedef struct s_response {   
-    const char* type;       // Type of response (POST, GET, PATCH, DELETE)
-    const char* url;        // Url of response (/auth/me, /auth/register and et)
-    const char* property;   // Additional Data of response
+    char* type;       // Type of response (POST, GET, PATCH, DELETE)
+    char* url;        // Url of response (/auth/me, /auth/register and et)
+    char* property;   // Additional Data of response
     int status;             // Status of response (200 - OK, 400 - Bad request and et)
     
 }              t_response;
@@ -313,6 +321,8 @@ void mx_callback_set_up_group_image(UNUSED GtkButton *button, UNUSED gpointer da
 void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data);
 void mx_callback_hide_chatbox(UNUSED GtkButton *button, gpointer data);
 void mx_callback_show_chatbox(UNUSED GtkButton *button, gpointer data);
+void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data);
+gboolean mx_clear_res(gpointer data);
 //  =============================================Cleaners=============================================
 void mx_clear_app(UNUSED GtkWindow *window, void* data);
 void mx_clear_entry(GtkEntry *entry);
@@ -379,7 +389,7 @@ int mx_json_get_int(const char* property, const char* obj);
 char* mx_json_get_string(const char* property, const char* obj);
 
 //  =============================================Validators=============================================
-GtkWidget* mx_check_widget_exist(GtkWidget *list_box, const char* desired_name);
+GtkWidget* mx_check_widget_exist(GtkWidget *list_box, const char* desired_name, int* index);
 int mx_validate_password_digits(const char *password);
 int mx_validate_password_letters(const char *password);
 
@@ -387,4 +397,5 @@ int mx_validate_password_letters(const char *password);
 /* Hide current scene and show another */
 void mx_change_scenes(t_uchat_application* app, t_SCENE new_scene); 
 GtkWidget* mx_gtk_find_child(GtkWidget* parent, const gchar* name);
+GtkWidget* mx_get_widget_from_list(GtkWidget* list, int index);
 

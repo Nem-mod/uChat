@@ -19,9 +19,9 @@ t_response *mx_get_response(char* json) {
     struct json_object *jstatus = json_object_object_get(jobj, "status"); 
     t_response* response_s = malloc(sizeof(t_response));
 
-    response_s->type = json_object_get_string(jtype);
-    response_s->url = json_object_get_string(jurl);
-    response_s->property = json_object_get_string(jprop);
+    response_s->type = (char*)json_object_get_string(jtype);
+    response_s->url = (char*)json_object_get_string(jurl);
+    response_s->property = (char*)json_object_get_string(jprop);
     response_s->status = mx_atoi(json_object_get_string(jstatus));
 
     return response_s;

@@ -14,8 +14,10 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         t_callback_data* cb = mx_create_callback_data(app, res);
         gdk_threads_add_idle(mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         gdk_threads_add_idle(mx_handler_auth, cb);
-        app->user_id = mx_json_get_int(res->property, "user_id");
         
+        app->user_id = mx_json_get_int(res->property, "user_id");
+        app->last_group_widget_index = 0;  
+
         if(app->user_id != 0) {
             g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_chats, app);
             g_timeout_add(PING_SERVER_SHORT_INTERVAL_MILISECONDS, mx_handler_ping_server_get_messages, app);
@@ -62,20 +64,11 @@ int mx_main_handler(char* json, t_uchat_application* app) {
 
     
 
-
-    return res->status;
+    //gdk_threads_add_idle(mx_clear_res, res);
+    return 0;
 }
 
 void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
-    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    GError *error = NULL;
-
-    if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
-        // g_printerr("Error loading file: %s\n", error->message);
-        // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
-        return;
-    }
 
     GtkWidget *message_box;
     GtkWidget *message_button_box;
@@ -89,9 +82,18 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         return;
     struct json_object *jmessage_id = json_object_object_get(jobj, "message_id"); 
     app->last_message_id = json_object_get_int(jmessage_id);
-    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id)) != NULL)
+    if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id), NULL) != NULL)
         return;
 
+    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+    GError *error = NULL;
+
+    if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
+        // g_printerr("Error loading file: %s\n", error->message);
+        // g_clear_error(&error);
+        mx_log_err(SYSLOG, "gtk: Error loading file");
+        return;
+    }
     if (json_object_get_int(json_object_object_get(jobj, "user_id")) == app->user_id) {
         message_box = mx_get_widget(builder, "message_box1");
         message_button_box = mx_get_widget(builder, "message_button_box_user");
@@ -120,7 +122,9 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
         struct json_object *jfname = json_object_object_get(jobj, "file_name"); 
         file_name = (char*)json_object_get_string(jfname);
         // add gif
-        if(mx_strstr(file_name, ".gif")) {
+        if (!mx_strstr(file_name, ".jpeg") && !mx_strstr(file_name, ".jpg") && !mx_strstr(file_name, ".png") && !mx_strstr(file_name, ".svg")&& !mx_strstr(file_name, ".gif")) {
+            mx_set_image_limit_size(GTK_IMAGE(message_img), message_img, RESOURCE_DEFAULT_IMAGE);
+        } else if (mx_strstr(file_name, ".gif")) {
             GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(mx_strjoin(RESOURCE_PATH, file_name), NULL);
             gtk_image_set_from_animation(GTK_IMAGE(message_img), animation);
         } 
@@ -152,6 +156,20 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
 
 
     gtk_list_box_insert(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages), message_button_box, app->last_message_indx);
+
+    mx_set_style(
+        GTK_WIDGET(gtk_list_box_get_row_at_index(
+            GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages),
+            app->last_message_indx))
+    );
+
+    mx_add_css_class(
+        GTK_WIDGET(gtk_list_box_get_row_at_index(
+            GTK_LIST_BOX(app->scenes->chat_scene->l_sc_messages),
+            app->last_message_indx)),
+        "message-background"
+    );
+    
     app->last_message_indx += 1;
     
     gtk_widget_queue_draw(GTK_WIDGET(app->scenes->chat_scene->v_sc_messages));
