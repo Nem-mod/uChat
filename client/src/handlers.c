@@ -14,8 +14,10 @@ int mx_main_handler(char* json, t_uchat_application* app) {
         t_callback_data* cb = mx_create_callback_data(app, res);
         gdk_threads_add_idle(mx_handler_change_scene, app->scenes->chat_scene->cbdata);
         gdk_threads_add_idle(mx_handler_auth, cb);
-        app->user_id = mx_json_get_int(res->property, "user_id");
         
+        app->user_id = mx_json_get_int(res->property, "user_id");
+        app->last_group_widget_index = 0;  
+
         if(app->user_id != 0) {
             g_timeout_add_seconds(PING_SERVER_LONG_INTERVAL_SECONDS, mx_handler_ping_server_get_chats, app);
             g_timeout_add(PING_SERVER_SHORT_INTERVAL_MILISECONDS, mx_handler_ping_server_get_messages, app);
