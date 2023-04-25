@@ -127,8 +127,9 @@ void mx_init_scene_chat(t_uchat_application* app){
     
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");
-    gtk_image_set_from_file(GTK_IMAGE(add_contact_icon), mx_strjoin(RESOURCE_ICONS_PATH, "add-user.png"));
-    gtk_image_set_from_file(GTK_IMAGE(add_group_icon), mx_strjoin(RESOURCE_ICONS_PATH, "add-group.png"));
+    
+    mx_set_image_widget_size(GTK_IMAGE(add_contact_icon), add_contact_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-user.png"));
+    mx_set_image_widget_size(GTK_IMAGE(add_group_icon), add_group_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-group.png"));
     gtk_widget_hide(app->scenes->chat_scene->b_chat_settings);
     gtk_widget_hide(app->scenes->chat_scene->w_chat);
     g_object_unref(builder);
