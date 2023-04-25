@@ -57,6 +57,9 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->cbdata = mx_create_callback_data(app, new_scene);
     
     app->scenes->chat_scene->w_chat = mx_get_widget(builder, "chat_window");
+
+    app->scenes->chat_scene->chat_cat1 = mx_get_widget(builder, "chat_cat1");
+
     app->scenes->chat_scene->e_f_chats = mx_get_widget(builder, "chats_entry");
     app->scenes->chat_scene->w_sc_chats = mx_get_widget(builder, "chats_sc_window");
     app->scenes->chat_scene->v_sc_chats = mx_get_widget(builder, "chats_viewport");
@@ -76,7 +79,7 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->b_chat_settings = mx_get_widget(builder, "edit_chat_button");
 
     app->scenes->chat_scene->img_user = mx_get_widget(builder, "user_image");
-    app->scenes->chat_scene->b_profile =  mx_get_widget(builder, "profile_button");
+    app->scenes->chat_scene->b_profile = mx_get_widget(builder, "profile_button");
 
     // app->scenes->chat_scene->s_separator1 = mx_get_widget(builder, "separator1");
     // app->scenes->chat_scene->s_separator2 = mx_get_widget(builder, "separator2");
@@ -127,6 +130,8 @@ void mx_init_scene_chat(t_uchat_application* app){
     
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");
+
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat1), app->scenes->chat_scene->chat_cat1, RESOURCE_HEARTS_CAT_PATH);
     
     mx_set_image_widget_size(GTK_IMAGE(add_contact_icon), add_contact_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-user.png"));
     mx_set_image_widget_size(GTK_IMAGE(add_group_icon), add_group_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-group.png"));
@@ -197,7 +202,9 @@ void mx_init_scene_signin(t_uchat_application* app) {
     app->scenes->signin_scene->l_err_msg = mx_get_widget(builder, "err_msg");
     app->scenes->signin_scene->l_signin = mx_get_widget(builder, "signin_label");
     app->scenes->signin_scene->l_welcome = mx_get_widget(builder, "welcome_label");
-    app->scenes->signin_scene->img_paw = mx_get_widget(builder, "paw_image_signin");
+
+    app->scenes->signin_scene->img_paw1 = mx_get_widget(builder, "paw_image_signin1");
+    app->scenes->signin_scene->img_paw2 = mx_get_widget(builder, "paw_image_signin2");
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
 
     mx_add_css_class(app->scenes->signin_scene->b_signin, "button1");
@@ -215,7 +222,10 @@ void mx_init_scene_signin(t_uchat_application* app) {
 
     mx_add_css_class(app->scenes->signin_scene->l_err_msg, "err-label");
 
-    mx_set_image_widget_size(GTK_IMAGE(app->scenes->signin_scene->img_paw), app->scenes->signin_scene->img_paw, RESOURCE_PAW1_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->signin_scene->img_paw1), app->scenes->signin_scene->img_paw1, RESOURCE_PAW1_PATH);
+    
+    GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(RESOURCE_DANCING_CAT1_PATH, NULL);
+    gtk_image_set_from_animation(GTK_IMAGE(app->scenes->signin_scene->img_paw2), animation);
 
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
     g_object_unref(builder);
@@ -256,6 +266,9 @@ void mx_init_scene_signup(t_uchat_application* app) {
     app->scenes->signup_scene->l_signup = mx_get_widget(builder, "signup_label");
     app->scenes->signup_scene->l_welcome = mx_get_widget(builder, "welcome1_label");
 
+    app->scenes->signup_scene->img_paw1 = mx_get_widget(builder, "paw_image_signup1");
+
+
     mx_add_css_class(app->scenes->signup_scene->l_signup, "sign-label");
     mx_add_css_class(app->scenes->signup_scene->l_welcome, "welcome-label");
     mx_add_css_class(app->scenes->signup_scene->b_signup, "button1");
@@ -280,6 +293,8 @@ void mx_init_scene_signup(t_uchat_application* app) {
     mx_add_css_class(app->scenes->signup_scene->l_login_err, "err-label");
     mx_add_css_class(app->scenes->signup_scene->l_password_err, "err-label");
     mx_add_css_class(app->scenes->signup_scene->l_repeat_password_err, "err-label");
+
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->signup_scene->img_paw1), app->scenes->signup_scene->img_paw1, RESOURCE_SLEEPING_CAT2_PATH);
 
     gtk_widget_hide(app->scenes->signup_scene->w_signup);
     g_object_unref(builder);

@@ -303,6 +303,7 @@ gboolean mx_handler_ping_server_get_group_members(gpointer data) {
 void mx_handler_hide_chatbox(gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     
+    gtk_widget_hide(app->scenes->chat_scene->chat_cat1);
     gtk_widget_hide(app->scenes->chat_scene->img_chat);
     gtk_widget_hide(app->scenes->chat_scene->l_chatname);
     gtk_widget_hide(app->scenes->chat_scene->w_sc_messages);
@@ -317,6 +318,7 @@ void mx_handler_hide_chatbox(gpointer data) {
 void mx_handler_show_chatbox(gpointer data) {
         t_uchat_application *app = (t_uchat_application*)data;
     
+    gtk_widget_show(app->scenes->chat_scene->chat_cat1);
     gtk_widget_show(app->scenes->chat_scene->img_chat);
     gtk_widget_show(app->scenes->chat_scene->l_chatname);
     gtk_widget_show(app->scenes->chat_scene->w_sc_messages);

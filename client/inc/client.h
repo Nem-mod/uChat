@@ -37,6 +37,10 @@
 #define RESOURCE_DEFAULT_IMAGE      (RESOURCE_ICONS_PATH "default-image.png")
 #define RESOURCE_PAW1_PATH          (RESOURCE_ICONS_PATH "paw1-icon.png")
 #define RESOURCE_PAW2_PATH          (RESOURCE_ICONS_PATH "paw2-icon.png")
+#define RESOURCE_DANCING_CAT1_PATH  (RESOURCE_ICONS_PATH "dancing-cat1.gif")
+#define RESOURCE_SLEEPING_CAT1_PATH (RESOURCE_ICONS_PATH "sleeping-cat1.png")
+#define RESOURCE_SLEEPING_CAT2_PATH (RESOURCE_ICONS_PATH "sleeping-cat2.png")
+#define RESOURCE_HEARTS_CAT_PATH    (RESOURCE_ICONS_PATH "hearts-cat.png")
 
 #define RESOURCE_CSS_MAIN_PATH          (RESOURCE_CSS_PATH "main.css")
 #define RESOURCE_SIGNIN_PATH            (RESOURCE_GUI_PATH "builder.ui")
@@ -133,6 +137,9 @@ typedef struct s_signup_scene {
     GtkWidget *l_login_err;
     GtkWidget *l_password_err;
     GtkWidget *l_repeat_password_err;
+
+    GtkWidget *img_paw1;
+
     t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
@@ -149,7 +156,8 @@ typedef struct s_signin_scene {
     GtkWidget *l_signin;       // Label signin field
     GtkWidget *l_welcome;       // Label welcome field
     
-    GtkWidget *img_paw; 
+    GtkWidget *img_paw1; 
+    GtkWidget *img_paw2;
 
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
@@ -211,6 +219,8 @@ typedef struct s_chat_scene {
     
     GtkWidget *img_user;
     GtkWidget *b_profile;
+
+    GtkWidget *chat_cat1;
 
     GtkWidget *s_separator1;
     GtkWidget *s_separator2;

@@ -21,7 +21,7 @@
             <property name="label" translatable="yes">Create group</property>
           </object>
           <packing>
-            <property name="x">75</property>
+            <property name="x">90</property>
             <property name="y">30</property>
           </packing>
         </child>

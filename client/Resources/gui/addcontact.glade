@@ -21,7 +21,7 @@
             <property name="label" translatable="yes">Add contact</property>
           </object>
           <packing>
-            <property name="x">78</property>
+            <property name="x">95</property>
             <property name="y">30</property>
           </packing>
         </child>

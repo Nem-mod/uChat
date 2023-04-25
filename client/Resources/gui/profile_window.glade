@@ -20,7 +20,7 @@
             <property name="label" translatable="yes">Profile</property>
           </object>
           <packing>
-            <property name="x">110</property>
+            <property name="x">120</property>
             <property name="y">25</property>
           </packing>
         </child>
@@ -33,7 +33,7 @@
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
-            <property name="x">110</property>
+            <property name="x">115</property>
             <property name="y">75</property>
           </packing>
         </child>
