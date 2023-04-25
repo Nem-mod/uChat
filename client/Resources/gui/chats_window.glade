@@ -136,7 +136,7 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">1012</property>
+            <property name="x">1019</property>
           </packing>
         </child>
         <child>
@@ -183,14 +183,14 @@
           <object class="GtkButton" id="profile_button">
             <property name="label" translatable="yes">Profile</property>
             <property name="width-request">80</property>
-            <property name="height-request">50</property>
+            <property name="height-request">47</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
           </object>
           <packing>
             <property name="x">55</property>
-            <property name="y">670</property>
+            <property name="y">672</property>
           </packing>
         </child>
         <child>
