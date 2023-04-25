@@ -55,7 +55,7 @@
         <child>
           <object class="GtkScrolledWindow" id="chats_sc_window">
             <property name="width-request">375</property>
-            <property name="height-request">620</property>
+            <property name="height-request">621</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
@@ -195,8 +195,8 @@
         </child>
         <child>
           <object class="GtkImage" id="user_image">
-            <property name="width-request">50</property>
-            <property name="height-request">50</property>
+            <property name="width-request">45</property>
+            <property name="height-request">45</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
