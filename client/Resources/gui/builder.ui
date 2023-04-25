@@ -100,6 +100,19 @@
             <property name="y">140</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkImage" id="paw_image_signin">
+            <property name="width-request">200</property>
+            <property name="height-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">67</property>
+            <property name="y">224</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
@@ -277,6 +290,18 @@ PurrrrrChat</property>
           <packing>
             <property name="x">610</property>
             <property name="y">195</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="paw_image_signup">
+            <property name="width-request">200</property>
+            <property name="height-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">67</property>
+            <property name="y">224</property>
           </packing>
         </child>
       </object>

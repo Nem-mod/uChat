@@ -59,7 +59,7 @@ void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const
 
 void mx_set_style(GtkWidget *widget) {
     GtkCssProvider *provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_path(provider, "client/Resources/css/main.css", NULL);
+    gtk_css_provider_load_from_path(provider, RESOURCE_CSS_MAIN_PATH, NULL);
     GtkStyleContext *context = gtk_widget_get_style_context(widget);
     gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }

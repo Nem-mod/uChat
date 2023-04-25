@@ -197,6 +197,7 @@ void mx_init_scene_signin(t_uchat_application* app) {
     app->scenes->signin_scene->l_err_msg = mx_get_widget(builder, "err_msg");
     app->scenes->signin_scene->l_signin = mx_get_widget(builder, "signin_label");
     app->scenes->signin_scene->l_welcome = mx_get_widget(builder, "welcome_label");
+    app->scenes->signin_scene->img_paw = mx_get_widget(builder, "paw_image_signin");
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
 
     mx_add_css_class(app->scenes->signin_scene->b_signin, "button1");
@@ -214,7 +215,8 @@ void mx_init_scene_signin(t_uchat_application* app) {
 
     mx_add_css_class(app->scenes->signin_scene->l_err_msg, "err-label");
 
-    
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->signin_scene->img_paw), app->scenes->signin_scene->img_paw, RESOURCE_PAW1_PATH);
+
     gtk_widget_hide(app->scenes->signin_scene->w_signin);
     g_object_unref(builder);
 }

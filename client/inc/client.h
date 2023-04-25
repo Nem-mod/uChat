@@ -27,20 +27,25 @@
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 
-#define RESOURCE_ICONS_PATH "client/Resources/icons/"
-#define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
-#define RESOURCE_BASE_GROUP_ICON "client/Resources/icons/base-group.png"
-#define RESOURCE_PATH       "./client/Resources/"
-#define RESOURCE_DEFAULT_IMAGE "client/Resources/icons/default-image.png"
-#define RESOURCE_GUI_PATH       "client/Resources/gui/"
+#define RESOURCE_PATH               "client/Resources/"
+#define RESOURCE_ICONS_PATH         "client/Resources/icons/"
+#define RESOURCE_GUI_PATH           "client/Resources/gui/"
+#define RESOURCE_CSS_PATH           "client/Resources/css/"
 
-#define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
-#define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
-#define RESOURCE_CHAT_PATH      (RESOURCE_GUI_PATH "chats_window.glade")
-#define RESOURCE_ADD_CONT_PATH      (RESOURCE_GUI_PATH "addcontact.glade")
+#define RESOURCE_BASE_ICON          (RESOURCE_ICONS_PATH "base.png")
+#define RESOURCE_BASE_GROUP_ICON    (RESOURCE_ICONS_PATH "base-group.png")
+#define RESOURCE_DEFAULT_IMAGE      (RESOURCE_ICONS_PATH "default-image.png")
+#define RESOURCE_PAW1_PATH          (RESOURCE_ICONS_PATH "paw1-icon.png")
+#define RESOURCE_PAW2_PATH          (RESOURCE_ICONS_PATH "paw2-icon.png")
+
+#define RESOURCE_CSS_MAIN_PATH          (RESOURCE_CSS_PATH "main.css")
+#define RESOURCE_SIGNIN_PATH            (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_SIGNUP_PATH            (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_CHAT_PATH              (RESOURCE_GUI_PATH "chats_window.glade")
+#define RESOURCE_ADD_CONT_PATH          (RESOURCE_GUI_PATH "addcontact.glade")
 #define RESOURCE_CREATE_GROUP_PATH      (RESOURCE_GUI_PATH "addgroup.glade")
-#define RESOURCE_PROFILE_WINDOW_PATH      (RESOURCE_GUI_PATH "profile_window.glade")
-#define RESOURCE_GROUP_INFO_PATH    (RESOURCE_GUI_PATH "edit_group.glade")
+#define RESOURCE_PROFILE_WINDOW_PATH    (RESOURCE_GUI_PATH "profile_window.glade")
+#define RESOURCE_GROUP_INFO_PATH        (RESOURCE_GUI_PATH "edit_group.glade")
 
 typedef struct s_callback_data t_callback_data;
 
@@ -143,6 +148,9 @@ typedef struct s_signin_scene {
     GtkWidget *l_err_msg;       // Error message label ("Wrong password or login")
     GtkWidget *l_signin;       // Label signin field
     GtkWidget *l_welcome;       // Label welcome field
+    
+    GtkWidget *img_paw; 
+
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
