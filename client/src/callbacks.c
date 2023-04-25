@@ -473,7 +473,6 @@ void mx_callback_remove_group_member(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "group_id", json_object_new_int(cbdata->app->current_group_id));
     json_object_object_add(jobj, "user_id", json_object_new_int(*(int*)cbdata->data));
 
-
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("DELETE", "/group/members", jobj));
     mx_write_to_server(cbdata->app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
 }

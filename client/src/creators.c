@@ -141,6 +141,15 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
             // mx_log_err("test.txt", "last group index is higher than row index");
             for (int i = app->last_group_widget_index; i < (int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->chat_scene->l_sc_chats))); i++) {
                 // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->chat_scene->l_sc_chats, i));
+                // if ((int)g_list_length(gtk_container_get_children(GTK_CONTAINER(cbdata->app->scenes->group_info_dwindow->l_sc_members))) == 1) {
+                //     mx_callback_hide_chatbox(NULL, cbdata->app);
+                //     mx_callback_hide_profile(NULL, cbdata->app);
+                // }
+                if (mx_atoi(gtk_widget_get_name(mx_get_widget_from_list(app->scenes->chat_scene->l_sc_chats, i))) == app->current_group_id) {
+                    app->current_group_id = 0;
+                    mx_callback_hide_chatbox(NULL, app);
+                    mx_callback_hide_window_group_info(NULL, app);
+                }
                 gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), i)));
                 // mx_log_info("test.txt", "delete row on index (first loop)");
                 // mx_log_info("test.txt", mx_itoa(i));
@@ -276,26 +285,6 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
             // mx_log_info("test.txt", "delete row on index (second loop)");
             // mx_log_info("test.txt", mx_itoa(i));
         }
-        // mx_log_err("test.txt", "row, list len, old winx, new winx");
-        // mx_log_err("test.txt", mx_itoa(row_index));
-        // mx_log_err("test.txt", mx_itoa((int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members)))));
-        // mx_log_err("test.txt", mx_itoa(app->last_member_widget_index));
-        // if (row_index < app->last_member_widget_index) {
-        //     for (int i = app->last_member_widget_index; i < (int)g_list_length(gtk_container_get_children(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members))); i++) {
-        //         // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->group_info_dwindow->l_sc_members, i));
-        //         gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), i)));
-        //         mx_log_info("test.txt", mx_itoa(i));
-        //     }
-        //     app->last_member_widget_index = row_index;
-        // }
-        // mx_log_err("test.txt", mx_itoa(app->last_member_widget_index));
-        // for (int i = app->last_member_widget_index; i < row_index; i++) {
-        //     // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->group_info_dwindow->l_sc_members, i));
-        //     gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), i)));
-        //     // gtk_list_box_remove(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), );
-        //     mx_log_info("test.txt", mx_itoa(i));
-        // }
-        // app->last_member_widget_index++;
     } else {  
         GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
         GError *error = NULL;
