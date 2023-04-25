@@ -273,7 +273,8 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
         return;
     
     int message_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->chat_scene->e_f_chat)); 
-    if(message_len <= 0 || message_len > 256) {return;}
+    if((message_len <= 0 || message_len > 256) && app->choosed_file_pname == NULL)
+        return;
     char *message_text_entry = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
     
   

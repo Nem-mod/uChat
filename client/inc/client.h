@@ -31,6 +31,7 @@
 #define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
 #define RESOURCE_BASE_GROUP_ICON "client/Resources/icons/base-group.png"
 #define RESOURCE_PATH       "./client/Resources/"
+#define RESOURCE_DEFAULT_IMAGE "client/Resources/icons/default-image.png"
 #define RESOURCE_GUI_PATH       "client/Resources/gui/"
 
 #define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
