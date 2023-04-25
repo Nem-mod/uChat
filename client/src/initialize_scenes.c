@@ -325,9 +325,9 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     mx_set_style(app->scenes->user_profile_dwindow->b_confirm);
     mx_set_style(app->scenes->user_profile_dwindow->b_logout);
 
-    // GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
-    // gtk_image_set_from_file(GTK_IMAGE(log_out_icon), mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
-
+    
+    GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
+    mx_set_image_widget_size(GTK_IMAGE(log_out_icon), log_out_icon, mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->user_profile_dwindow->w_user_profile), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->user_profile_dwindow->w_user_profile);
 }
