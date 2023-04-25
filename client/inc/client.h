@@ -261,7 +261,8 @@ typedef struct s_uchat_application {
     int last_message_id;
     int last_message_indx;
     bool is_admin;
-    int last_widget_index;
+    int last_member_widget_index;
+    int last_group_widget_index;
 
     char* choosed_file_pname;
 
