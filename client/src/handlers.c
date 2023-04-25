@@ -62,20 +62,11 @@ int mx_main_handler(char* json, t_uchat_application* app) {
 
     
 
-
-    return res->status;
+    //gdk_threads_add_idle(mx_clear_res, res);
+    return 0;
 }
 
 void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
-    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    GError *error = NULL;
-
-    if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
-        // g_printerr("Error loading file: %s\n", error->message);
-        // g_clear_error(&error);
-        mx_log_err(SYSLOG, "gtk: Error loading file");
-        return;
-    }
 
     GtkWidget *message_box;
     GtkWidget *message_button_box;
@@ -92,6 +83,15 @@ void mx_handle_messages_res(t_uchat_application* app, t_response* res) {
     if(mx_check_widget_exist(app->scenes->chat_scene->l_sc_messages, json_object_get_string(jmessage_id), NULL) != NULL)
         return;
 
+    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+    GError *error = NULL;
+
+    if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
+        // g_printerr("Error loading file: %s\n", error->message);
+        // g_clear_error(&error);
+        mx_log_err(SYSLOG, "gtk: Error loading file");
+        return;
+    }
     if (json_object_get_int(json_object_object_get(jobj, "user_id")) == app->user_id) {
         message_box = mx_get_widget(builder, "message_box1");
         message_button_box = mx_get_widget(builder, "message_button_box_user");

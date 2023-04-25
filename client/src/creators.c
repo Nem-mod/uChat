@@ -81,17 +81,8 @@ t_user* mx_create_user(char* login, char* pw, int id, char* name, char* icon_pat
 }
 
 void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
-    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    GError *error = NULL;
     bool is_exist;
-
-    if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
-        // g_printerr("Error loading file: %s\n", error->message);
-        // g_clear_error(&error);
-        //mx_log_err(SYSLOG, "gtk: Error loading file");
-        return;
-    }
-
+    
     struct json_object* jobj = json_tokener_parse(res->property);
     if(res->property == NULL) 
         return;
@@ -139,7 +130,16 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         children = g_list_next(children);
 
         chat_name = children->data;
-    } else {        
+    } else {     
+        GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+        GError *error = NULL;
+
+        if (gtk_builder_add_from_file(builder, RESOURCE_CHAT_PATH, &error) == 0) {
+            // g_printerr("Error loading file: %s\n", error->message);
+            // g_clear_error(&error);
+            //mx_log_err(SYSLOG, "gtk: Error loading file");
+            return;
+        }   
         is_exist = false;
         chat_button = mx_get_widget(builder, "chat_button");
         chat_box = mx_get_widget(builder, "chat_box");
@@ -177,21 +177,12 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         g_signal_connect(chat_button, "clicked", G_CALLBACK(mx_callback_chatbox), app);
     }
         
-    g_object_unref(builder);
+    //g_object_unref(builder);
 }
 
 void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
-    GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
-    GError *error = NULL;
     bool is_exist;
-
-    if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
-        // g_printerr("Error loading file: %s\n", error->message);
-        // g_clear_error(&error);
-        //mx_log_err(SYSLOG, "gtk: Error loading file");
-        return;
-    }
-
+    
     struct json_object* jobj = json_object_array_get_idx(json_tokener_parse(res->property), 0); // TODO: move this block on 153+ lines
     if(res->property == NULL) 
         return;
@@ -259,7 +250,16 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
             mx_log_info("test.txt", mx_itoa(i));
         }
         app->last_widget_index++;
-    } else {        
+    } else {  
+        GtkBuilder *builder = gtk_builder_new();    // TODO: Maybe needs free
+        GError *error = NULL;
+        if (gtk_builder_add_from_file(builder, RESOURCE_GROUP_INFO_PATH, &error) == 0) {
+            // g_printerr("Error loading file: %s\n", error->message);
+            // g_clear_error(&error);
+            //mx_log_err(SYSLOG, "gtk: Error loading file");
+            return;
+        }
+      
         is_exist = false;
         member_box = mx_get_widget(builder, "member_box");
         img_member = mx_get_widget(builder, "user_ingroup_image");
@@ -296,5 +296,5 @@ void mx_create_new_member_widget(t_uchat_application* app, t_response* res) {
         gtk_list_box_insert(GTK_LIST_BOX(app->scenes->group_info_dwindow->l_sc_members), member_box, -1);
     }
 
-    g_object_unref(builder);
+    //g_object_unref(builder);
 }
