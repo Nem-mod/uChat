@@ -20,20 +20,20 @@
             <property name="label" translatable="yes">Profile</property>
           </object>
           <packing>
-            <property name="x">127</property>
+            <property name="x">110</property>
             <property name="y">25</property>
           </packing>
         </child>
         <child>
           <object class="GtkImage" id="user_image">
-            <property name="width-request">100</property>
-            <property name="height-request">100</property>
+            <property name="width-request">75</property>
+            <property name="height-request">75</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
-            <property name="x">105</property>
+            <property name="x">110</property>
             <property name="y">75</property>
           </packing>
         </child>
@@ -45,8 +45,8 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">113</property>
-            <property name="y">345</property>
+            <property name="x">150</property>
+            <property name="y">304</property>
           </packing>
         </child>
         <child>
@@ -56,7 +56,7 @@
             <property name="label" translatable="yes">            Login:</property>
           </object>
           <packing>
-            <property name="x">30</property>
+            <property name="x">15</property>
             <property name="y">270</property>
           </packing>
         </child>
@@ -77,13 +77,13 @@
             <property name="title" translatable="yes"/>
           </object>
           <packing>
-            <property name="x">123</property>
+            <property name="x">120</property>
             <property name="y">199</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="confirm_changes_button">
-            <property name="label" translatable="yes">Confirm changes button</property>
+            <property name="label" translatable="yes">Confirm</property>
             <property name="width-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -99,15 +99,15 @@
         </child>
         <child>
           <object class="GtkButton" id="logout_button">
-            <property name="width-request">40</property>
-            <property name="height-request">40</property>
+            <property name="width-request">30</property>
+            <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
               <object class="GtkImage" id="log_out_icon">
-                <property name="width-request">40</property>
-                <property name="height-request">40</property>
+                <property name="width-request">20</property>
+                <property name="height-request">20</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stock">gtk-missing-image</property>
@@ -115,7 +115,8 @@
             </child>
           </object>
           <packing>
-            <property name="x">260</property>
+            <property name="x">250</property>
+            <property name="y">5</property>
           </packing>
         </child>
       </object>

@@ -167,7 +167,7 @@ entry:hover {
     margin-bottom: 5px;
     font-size: 14px;
     font-weight: 500;
-    color: #9e00dd;
+    color: #3B3638;
     /* font-family: "Poppins-Regular"; */
 }
 
@@ -179,7 +179,7 @@ entry:hover {
 }
 
 .contact-background, .contact-background-inner {
-    background-image: image(#fc7dc3);
+    background-image: image(#fae5f0);
     border: none;
 }
 
