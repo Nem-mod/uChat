@@ -51,25 +51,23 @@ all: libs $(NAME) out
 libs: libmx
 
 testprint:
-	@echo $(LIBINC)
+	@echo $(OBJ_FILES)
 
 libmx:
 	@make -sC $(LIBMXDIR)
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
-$(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
+$(NAME): $(OBJ_FILES)
+	@echo "start linking"	
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -o $@ --debug
 
-$(OBJ_FILES): %.o: %.c
+$(OBJ_FILES): $(SRC_FILES) $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) $(GTKINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-copy:
-	@cp -f $(SRC_FILES) $(OBJECTDIR)
 
 out: $(NAME)
 	@cp $(NAME) ../
