@@ -109,6 +109,9 @@ void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
     json_object_object_add(jobj, "group_name", json_object_new_string((char*)login));
     mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/group/", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/user/groups", jobj));
+
+    gtk_entry_set_text(GTK_ENTRY(app->scenes->create_group_dwindow->e_f_group_name), "");
+
     gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
 }
 

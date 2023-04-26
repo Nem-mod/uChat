@@ -71,5 +71,8 @@ void mx_init_callbacks_group_info(t_uchat_application* app) {
     g_signal_connect(app->scenes->group_info_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_choose_file), app);
     g_signal_connect(app->scenes->group_info_dwindow->bc_file, "file-set", G_CALLBACK(mx_callback_set_up_group_image), app);
     g_signal_connect(app->scenes->group_info_dwindow->b_confirm, "clicked", G_CALLBACK(mx_callback_patch_group), app);
+
+    g_signal_connect(app->scenes->group_info_dwindow->e_f_new_group_member, "activate", G_CALLBACK(mx_callback_add_group_member), app);
+    g_signal_connect(app->scenes->group_info_dwindow->e_f_new_group_name, "activate", G_CALLBACK(mx_callback_patch_group), app);
 }
 
