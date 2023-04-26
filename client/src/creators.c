@@ -18,7 +18,7 @@ t_uchat_application* mx_create_app(char* argv[]) {
     // app->choosed_files->group_image = NULL;
     
     mx_create_scenes(app);
-    mx_init_server_connection(app, mx_atoi(argv[1]));
+    mx_init_server_connection(app, argv[1], mx_atoi(argv[2]));
 
     return app;
 }

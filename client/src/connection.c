@@ -1,6 +1,6 @@
 #include "client.h"
 
-void mx_init_server_connection(t_uchat_application* app, int port) {
+void mx_init_server_connection(t_uchat_application* app, char* ip, int port) {
     struct sockaddr_in client_addr = {0};
 
     if(app->serv_connection != NULL)
@@ -9,8 +9,9 @@ void mx_init_server_connection(t_uchat_application* app, int port) {
     app->serv_connection = malloc(sizeof(t_serv_connection));
     
     app->serv_connection->port = port;  // TODO: validate port
+    app->serv_connection->ip = ip;
     app->serv_connection->socket = mx_create_socket(AF_INET, SOCK_STREAM, 0);
-    client_addr = mx_init_address(port, IP, AF_INET);
+    client_addr = mx_init_address(port, ip, AF_INET);
 
     app->serv_connection->ctx = mx_init_context(CLIENT);
     mx_use_certificate_key(app->serv_connection->ctx, CERTPATH, KEYPATH);
@@ -67,8 +68,8 @@ void* mx_listen_server(void* data) {
             
 
             if(buffer[0] != 0) {
-                mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
-                mx_log_info(SYSLOG, buffer);
+               // mx_log_info(SYSLOG, "vvv Get JSON from the server vvv");
+                //mx_log_info(SYSLOG, buffer);
 
                 mx_strcpy(app->serv_connection->lbuffer, buffer);
                 mx_main_handler(buffer, app);
@@ -79,15 +80,15 @@ void* mx_listen_server(void* data) {
         //mx_log_err(SYSLOG, "Handshake error");
     //mx_log_info(SYSLOG, "Exit the listener");
 
-    mx_init_server_connection(app, app->serv_connection->port);
+    mx_init_server_connection(app, app->serv_connection->ip, app->serv_connection->port);
     return NULL;
 }
 
 void mx_write_to_server(SSL* ssl, char* buffer) {
 
     if(buffer != NULL && mx_strlen(buffer) < (int)(sizeof(char) * MAXBUFFER)){
-        mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
-        mx_log_info(SYSLOG, buffer);
+        //mx_log_info(SYSLOG, "vvv Pass JSON to the server vvv");
+        //mx_log_info(SYSLOG, buffer);
 
         mx_SSL_write(ssl, buffer);
         mx_strdel(&buffer);

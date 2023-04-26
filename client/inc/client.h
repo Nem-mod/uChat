@@ -121,6 +121,7 @@ typedef struct s_chat {
 /* Struct for openSSL connection */
 typedef struct s_serv_connection {
     int port;                       // 
+    char* ip;
     int socket;                     // 
     SSL* ssl;                       // 
     SSL_CTX* ctx;                   // SSL Context
@@ -396,7 +397,7 @@ void mx_init_callbacks_create_group(t_uchat_application* app);
 void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);
-void mx_init_server_connection(t_uchat_application* app, int port);
+void mx_init_server_connection(t_uchat_application* app, char* ip, int port);
 void mx_init_scene_add_contact(t_uchat_application* app);
 void mx_init_scene_create_group(t_uchat_application* app);
 void mx_init_scene_user_profile(t_uchat_application* app);
