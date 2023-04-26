@@ -31,10 +31,15 @@ int mx_init_daemon() {
        //mx_log_info(SYSLOG, "pid of child process\n");
        return 1; 
     }
-
+   
+    
     umask(0);
 
     sid = setsid();
+    mx_printstr("PID: ");
+    mx_printint(getpid());
+    mx_printstr("\n");
+    
     if(sid < 0)
     {
         return 1; 
