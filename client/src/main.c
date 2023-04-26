@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
     remove(SYSLOG);
     if(argc != 3){
         mx_log_info(SYSLOG, "usage: ./uchat [ip] [port]");
-        mx_printstr("usage: ./uchat [ip] [port]\n");
+        mx_printerr("usage: ./uchat [ip] [port]\n");
         return 0;
     }
 
