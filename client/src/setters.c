@@ -17,6 +17,26 @@ void mx_set_image_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, cons
     gtk_image_set_from_pixbuf(image, pixbuf);
 }
 
+// void mx_set_gif_widget_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename) {
+//     int widget_width;
+//     int widget_height;
+
+//     GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(RESOURCE_DANCING_CAT1_PATH, NULL);
+//     gtk_image_set_from_animation(GTK_IMAGE(app->scenes->signin_scene->img_paw2), animation);
+
+//     gtk_widget_get_size_request(widget_to_shrink, &widget_width, &widget_height);
+
+//     // //mx_log_info(SYSLOG, "Image info: width, height, path vvv" );
+//     // //mx_log_info(SYSLOG, mx_itoa(widget_width));
+//     // //mx_log_info(SYSLOG, mx_itoa(widget_height));
+//     // //mx_log_info(SYSLOG, (char*)filename);
+
+//     GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, widget_width, widget_height, NULL);
+
+//     gtk_widget_set_size_request(widget_to_shrink, widget_width, widget_height);  
+//     gtk_image_set_from_pixbuf(image, pixbuf);
+// }
+
 void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const char* filename) {
     GdkPixbuf *given_image = gdk_pixbuf_new_from_file(filename, NULL);
     int widget_width;
@@ -59,7 +79,7 @@ void mx_set_image_limit_size(GtkImage* image, GtkWidget* widget_to_shrink, const
 
 void mx_set_style(GtkWidget *widget) {
     GtkCssProvider *provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_path(provider, "client/Resources/css/main.css", NULL);
+    gtk_css_provider_load_from_path(provider, RESOURCE_CSS_MAIN_PATH, NULL);
     GtkStyleContext *context = gtk_widget_get_style_context(widget);
     gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }

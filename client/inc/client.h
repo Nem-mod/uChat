@@ -27,20 +27,41 @@
 #define CERTPATH "client/cert+key/client.crt"
 #define KEYPATH "client/cert+key/client.key"
 
-#define RESOURCE_ICONS_PATH "client/Resources/icons/"
-#define RESOURCE_BASE_ICON "client/Resources/icons/base.png"
-#define RESOURCE_BASE_GROUP_ICON "client/Resources/icons/base-group.png"
-#define RESOURCE_PATH       "./client/Resources/"
-#define RESOURCE_DEFAULT_IMAGE "client/Resources/icons/default-image.png"
-#define RESOURCE_GUI_PATH       "client/Resources/gui/"
+#define RESOURCE_PATH               "client/Resources/"
+#define RESOURCE_ICONS_PATH         "client/Resources/icons/"
+#define RESOURCE_GUI_PATH           "client/Resources/gui/"
+#define RESOURCE_CSS_PATH           "client/Resources/css/"
 
-#define RESOURCE_SIGNIN_PATH    (RESOURCE_GUI_PATH "builder.ui")
-#define RESOURCE_SIGNUP_PATH    (RESOURCE_GUI_PATH "builder.ui")
-#define RESOURCE_CHAT_PATH      (RESOURCE_GUI_PATH "chats_window.glade")
-#define RESOURCE_ADD_CONT_PATH      (RESOURCE_GUI_PATH "addcontact.glade")
+#define RESOURCE_BASE_ICON          (RESOURCE_ICONS_PATH "base.png")
+#define RESOURCE_BASE_GROUP_ICON    (RESOURCE_ICONS_PATH "base-group.png")
+#define RESOURCE_DEFAULT_IMAGE      (RESOURCE_ICONS_PATH "default-image.png")
+#define RESOURCE_PAW1_PATH          (RESOURCE_ICONS_PATH "paw1-icon.png")
+#define RESOURCE_PAW2_PATH          (RESOURCE_ICONS_PATH "paw2-icon.png")
+#define RESOURCE_DANCING_CAT1_PATH  (RESOURCE_ICONS_PATH "dancing-cat1.gif")
+#define RESOURCE_SLEEPING_CAT1_PATH (RESOURCE_ICONS_PATH "sleeping-cat1.png")
+#define RESOURCE_SLEEPING_CAT2_PATH (RESOURCE_ICONS_PATH "sleeping-cat2.png")
+#define RESOURCE_HEARTS_CAT1_PATH   (RESOURCE_ICONS_PATH "hearts-cat1.png")
+#define RESOURCE_HEARTS_CAT2_PATH   (RESOURCE_ICONS_PATH "hearts-cat2.gif")
+#define RESOURCE_HEARTS_CAT3_PATH   (RESOURCE_ICONS_PATH "hearts-cat3.png")
+#define RESOURCE_ICON_CAT1_PATH     (RESOURCE_ICONS_PATH "icon-cat1.png")
+#define RESOURCE_ICON_CAT2_PATH     (RESOURCE_ICONS_PATH "icon-cat2.png")
+#define RESOURCE_ICON_CAT3_PATH     (RESOURCE_ICONS_PATH "icon-cat3.png")
+#define RESOURCE_MAXWELL_PATH       (RESOURCE_ICONS_PATH "maxwell.gif")
+#define RESOURCE_SITTING_CAT1_PATH  (RESOURCE_ICONS_PATH "sitting-cat1.png")
+#define RESOURCE_SITTING_CAT2_PATH  (RESOURCE_ICONS_PATH "sitting-cat2.png")
+#define RESOURCE_HEAD_CAT1_PATH     (RESOURCE_ICONS_PATH "head-cat1.png")
+#define RESOURCE_HEAD_CAT2_PATH     (RESOURCE_ICONS_PATH "head-cat2.png")
+
+// #define RESOURCE_MAXWELL_CAT_PATH    (RESOURCE_ICONS_PATH "hearts-cat.png")
+
+#define RESOURCE_CSS_MAIN_PATH          (RESOURCE_CSS_PATH "main.css")
+#define RESOURCE_SIGNIN_PATH            (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_SIGNUP_PATH            (RESOURCE_GUI_PATH "builder.ui")
+#define RESOURCE_CHAT_PATH              (RESOURCE_GUI_PATH "chats_window.glade")
+#define RESOURCE_ADD_CONT_PATH          (RESOURCE_GUI_PATH "addcontact.glade")
 #define RESOURCE_CREATE_GROUP_PATH      (RESOURCE_GUI_PATH "addgroup.glade")
-#define RESOURCE_PROFILE_WINDOW_PATH      (RESOURCE_GUI_PATH "profile_window.glade")
-#define RESOURCE_GROUP_INFO_PATH    (RESOURCE_GUI_PATH "edit_group.glade")
+#define RESOURCE_PROFILE_WINDOW_PATH    (RESOURCE_GUI_PATH "profile_window.glade")
+#define RESOURCE_GROUP_INFO_PATH        (RESOURCE_GUI_PATH "edit_group.glade")
 
 typedef struct s_callback_data t_callback_data;
 
@@ -100,6 +121,7 @@ typedef struct s_chat {
 /* Struct for openSSL connection */
 typedef struct s_serv_connection {
     int port;                       // 
+    char* ip;
     int socket;                     // 
     SSL* ssl;                       // 
     SSL_CTX* ctx;                   // SSL Context
@@ -128,6 +150,9 @@ typedef struct s_signup_scene {
     GtkWidget *l_login_err;
     GtkWidget *l_password_err;
     GtkWidget *l_repeat_password_err;
+
+    GtkWidget *img_paw1;
+
     t_callback_data* cbdata;    // Callback data
 
 }              t_signup_scene;
@@ -143,6 +168,10 @@ typedef struct s_signin_scene {
     GtkWidget *l_err_msg;       // Error message label ("Wrong password or login")
     GtkWidget *l_signin;       // Label signin field
     GtkWidget *l_welcome;       // Label welcome field
+    
+    GtkWidget *img_paw1; 
+    GtkWidget *img_paw2;
+
     t_callback_data* cbdata;    // Callback data
 }              t_signin_scene;
 
@@ -152,6 +181,10 @@ typedef struct s_add_contact {
     GtkWidget *e_f_login;       
     GtkWidget *b_add_contact;        
     GtkWidget *b_close;       
+
+    GtkWidget *add_contact_cat1;
+    GtkWidget *add_contact_cat2;
+
     t_callback_data* cbdata;    
 }              t_add_contact_scene;
 
@@ -161,6 +194,10 @@ typedef struct s_create_group {
     GtkWidget *e_f_group_name;            
     GtkWidget *b_create_group;        
     GtkWidget *b_close;       
+
+    GtkWidget *create_group_cat1;
+    GtkWidget *create_group_cat2;
+
     t_callback_data* cbdata;    
 }               t_create_group_scene;
 
@@ -174,6 +211,9 @@ typedef struct s_user_profile {
     GtkWidget *b_logout;       
     GtkWidget *b_confirm;
     GtkWidget *b_cancel;
+
+    GtkWidget *profile_cat1;
+
     t_callback_data* cbdata;    
 }               t_user_profile_scene;
 
@@ -204,6 +244,12 @@ typedef struct s_chat_scene {
     GtkWidget *img_user;
     GtkWidget *b_profile;
 
+    GtkWidget *chat_cat1;
+    GtkWidget *chat_cat2;
+    GtkWidget *chat_cat3;
+    GtkWidget *chat_cat4;
+    GtkWidget *chat_cat5;
+
     GtkWidget *s_separator1;
     GtkWidget *s_separator2;
     GtkWidget *s_separator3;
@@ -227,6 +273,9 @@ typedef struct s_group_info_scene {
     GtkWidget* e_f_new_group_name;
     GtkWidget* b_confirm;
     GtkWidget* bc_file;
+
+    GtkWidget* edit_group_cat1;
+    GtkWidget* edit_group_cat2;
 
     t_callback_data* cbdata;
 
@@ -348,7 +397,7 @@ void mx_init_callbacks_create_group(t_uchat_application* app);
 void mx_init_scene_signin(t_uchat_application* app);
 void mx_init_scene_signup(t_uchat_application* app);
 void mx_init_scene_chat(t_uchat_application* app);
-void mx_init_server_connection(t_uchat_application* app, int port);
+void mx_init_server_connection(t_uchat_application* app, char* ip, int port);
 void mx_init_scene_add_contact(t_uchat_application* app);
 void mx_init_scene_create_group(t_uchat_application* app);
 void mx_init_scene_user_profile(t_uchat_application* app);

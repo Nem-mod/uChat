@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkWindow" id="signin_window">
@@ -81,7 +81,7 @@
             <property name="receives-default">True</property>
             <property name="margin-right">5</property>
             <property name="relief">none</property>
-            <property name="uri">NULL</property>
+            <property name="uri">Sign Up</property>
           </object>
           <packing>
             <property name="x">545</property>
@@ -98,6 +98,32 @@
           <packing>
             <property name="x">560</property>
             <property name="y">140</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="paw_image_signin1">
+            <property name="width-request">200</property>
+            <property name="height-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">67</property>
+            <property name="y">224</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="paw_image_signin2">
+            <property name="width-request">150</property>
+            <property name="height-request">150</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">600</property>
+            <property name="y">10</property>
           </packing>
         </child>
       </object>
@@ -134,7 +160,7 @@ PurrrrrChat</property>
           <object class="GtkLabel" id="signup_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Sign up</property>
+            <property name="label" translatable="yes">Sign In</property>
           </object>
           <packing>
             <property name="x">560</property>
@@ -215,7 +241,7 @@ PurrrrrChat</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="relief">none</property>
-            <property name="uri">NULL</property>
+            <property name="uri">Sign Up</property>
           </object>
           <packing>
             <property name="x">525</property>
@@ -277,6 +303,18 @@ PurrrrrChat</property>
           <packing>
             <property name="x">610</property>
             <property name="y">195</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="paw_image_signup1">
+            <property name="width-request">200</property>
+            <property name="height-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">67</property>
+            <property name="y">174</property>
           </packing>
         </child>
       </object>
