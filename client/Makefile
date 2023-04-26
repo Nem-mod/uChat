@@ -1,3 +1,4 @@
+# Oracle is fucking pidoras. To get more pretty version of src structure and makefile - write git switch develop
 NAME	=	uchat
 CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
@@ -14,8 +15,9 @@ UNAME_S 	= 	$(shell uname -s)
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
-SOURCEDIR 	=	src \
-				$(UTILSDIR)/src
+# SOURCEDIR 	=	src \
+# 				$(UTILSDIR)/src
+SOURCEDIR 	=	src
 OBJECTDIR	=	obj
 INCLUDEDIR	=	inc \
 				$(UTILSDIR)/inc
@@ -61,7 +63,7 @@ $(NAME): $(OBJ_FILES)
 	@echo "start linking"	
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) $(GTKLINK) -o $@ --debug
 
-$(OBJ_FILES): $(SRC_FILES) $(OBJECTDIR)
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) $(GTKINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 

@@ -1,3 +1,4 @@
+# Oracle is fucking pidoras. To get more pretty version of src structure and makefile - write git switch develop
 NAME	=	uchat_server
 CFLAGS 	=	-std=c11 $(addprefix -W, all extra error pedantic) 
 COMP 	= 	clang
@@ -14,12 +15,13 @@ UNAME_S 	= 	$(shell uname -s)
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
-SOURCEDIR 	=	src \
-				src/validations \
-				src/utils \
-				src/handlers \
-				src/controllers \
-				$(UTILSDIR)/src
+# SOURCEDIR 	=	src \
+# 				src/validations \
+# 				src/utils \
+# 				src/handlers \
+# 				src/controllers \
+# 				$(UTILSDIR)/src
+SOURCEDIR 	=	src
 OBJECTDIR	=	obj
 INCLUDEDIR	=	inc \
 				$(UTILSDIR)/inc
@@ -66,19 +68,16 @@ libdb:
 	@make -sC $(LIBDBDIR)
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
-$(NAME): $(OBJECTDIR) copy $(OBJ_FILES)
+$(NAME): $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
 
-$(OBJ_FILES): %.o: %.c
+$(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
 	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@
 	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
-
-copy:
-	@cp -f $(SRC_FILES) $(OBJECTDIR)
 
 out: $(NAME)
 	@cp $(NAME) ../
