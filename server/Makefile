@@ -8,10 +8,6 @@ COLOUR_GREEN	=	\033[32;1m
 # COLOUR_BLUE		=	\033[0;34m
 COLOUR_END		=	\033[0m
 
-# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
-UNAME_S 	= 	$(shell uname -s)
-# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
-
 UTILSDIR	=	../utils
 LIBSDIR		=	$(UTILSDIR)/libs
 
@@ -28,15 +24,11 @@ INCLUDEDIR	=	inc \
 
 LIBMXDIR	=	$(LIBSDIR)/libmx
 LIBDBDIR	=	$(LIBSDIR)/libdb
-LIBSSLDIR	=	$(LIBSDIR)/libssl
-LIBJSONDIR	=	$(LIBSDIR)/libjson
-
-# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE									
-ifeq ($(UNAME_S),Darwin)					
-	LIBJSONDIR	=	$(LIBSDIR)/libjson_mac
-	LIBSSLDIR	=	$(LIBSDIR)/libssl_mac
-endif
-# DELEEEEEEEEEEEEEETEEEEEEEEEEE THIIIIIIIIIIIIIIIIIS BEFORE PUSH INTO UCODE GITLAB PLEEEEASEEEEEEEEE
+# LIBSSLDIR	=	$(LIBSDIR)/libssl
+# LIBJSONDIR	=	$(LIBSDIR)/libjson
+	
+LIBJSONDIR	=	$(LIBSDIR)/libjson_mac
+LIBSSLDIR	=	$(LIBSDIR)/libssl_mac
 
 INCLUDEINC	=	$(addprefix -I, $(INCLUDEDIR))
 LIBINC		=	$(addprefix -I, $(LIBMXDIR)/inc $(LIBDBDIR)/inc $(LIBSSLDIR)/include $(LIBJSONDIR)/inc)
@@ -53,47 +45,36 @@ INC_FILES	=	$(foreach dir, $(INCLUDEDIR), $(wildcard $(dir)/*.h))
 
 
 all: libs $(NAME) out
-# all: testprint
 
 libs: libmx libdb
 
-testprint:
-	@echo $(LIBINC)
-
 libmx:
 	@make -sC $(LIBMXDIR)
-	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
 libdb:
 	@make -sC $(LIBDBDIR)
-	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
 $(NAME): $(OBJ_FILES)
 	@$(COMP) $(CFLAGS) $(OBJ_FILES) $(LIBLINK) -o $@ --debug
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.c $(OBJECTDIR)
 	@$(COMP) $(CFLAGS) -c $< -o $@ $(INCLUDEINC) $(LIBINC) --debug
-	@echo "$@ $(COLOUR_GREEN)compiled$(COLOUR_END)"
 
 $(OBJECTDIR):
 	@mkdir -p $@
-	@echo "$@ $(COLOUR_GREEN)created$(COLOUR_END)"
 
 out: $(NAME)
 	@cp $(NAME) ../
-	@echo "$< $(COLOUR_GREEN)moved$(COLOUR_END)"
 
 uninstall: clean
 	@make -sC $(LIBMXDIR) $@
 	@make -sC $(LIBDBDIR) $@
 	@rm -rf $(NAME)
-	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
 
 clean:
 	@make -sC $(LIBMXDIR) $@
 	@make -sC $(LIBDBDIR) $@
 	@rm -rf $(OBJECTDIR)
 	@rm -rf *.txt
-	@echo "$@ $(COLOUR_GREEN)finished$(COLOUR_END)"
 
 reinstall: uninstall all
