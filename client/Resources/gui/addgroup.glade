@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="create_group_window">
@@ -58,6 +58,32 @@
           <packing>
             <property name="x">145</property>
             <property name="y">333</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="create_group_cat1">
+            <property name="width-request">80</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="create_group_cat2">
+            <property name="width-request">80</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">120</property>
+            <property name="y">240</property>
           </packing>
         </child>
       </object>

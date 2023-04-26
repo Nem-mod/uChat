@@ -40,7 +40,19 @@
 #define RESOURCE_DANCING_CAT1_PATH  (RESOURCE_ICONS_PATH "dancing-cat1.gif")
 #define RESOURCE_SLEEPING_CAT1_PATH (RESOURCE_ICONS_PATH "sleeping-cat1.png")
 #define RESOURCE_SLEEPING_CAT2_PATH (RESOURCE_ICONS_PATH "sleeping-cat2.png")
-#define RESOURCE_HEARTS_CAT_PATH    (RESOURCE_ICONS_PATH "hearts-cat.png")
+#define RESOURCE_HEARTS_CAT1_PATH   (RESOURCE_ICONS_PATH "hearts-cat1.png")
+#define RESOURCE_HEARTS_CAT2_PATH   (RESOURCE_ICONS_PATH "hearts-cat2.gif")
+#define RESOURCE_HEARTS_CAT3_PATH   (RESOURCE_ICONS_PATH "hearts-cat3.png")
+#define RESOURCE_ICON_CAT1_PATH     (RESOURCE_ICONS_PATH "icon-cat1.png")
+#define RESOURCE_ICON_CAT2_PATH     (RESOURCE_ICONS_PATH "icon-cat2.png")
+#define RESOURCE_ICON_CAT3_PATH     (RESOURCE_ICONS_PATH "icon-cat3.png")
+#define RESOURCE_MAXWELL_PATH       (RESOURCE_ICONS_PATH "maxwell.gif")
+#define RESOURCE_SITTING_CAT1_PATH  (RESOURCE_ICONS_PATH "sitting-cat1.png")
+#define RESOURCE_SITTING_CAT2_PATH  (RESOURCE_ICONS_PATH "sitting-cat2.png")
+#define RESOURCE_HEAD_CAT1_PATH     (RESOURCE_ICONS_PATH "head-cat1.png")
+#define RESOURCE_HEAD_CAT2_PATH     (RESOURCE_ICONS_PATH "head-cat2.png")
+
+// #define RESOURCE_MAXWELL_CAT_PATH    (RESOURCE_ICONS_PATH "hearts-cat.png")
 
 #define RESOURCE_CSS_MAIN_PATH          (RESOURCE_CSS_PATH "main.css")
 #define RESOURCE_SIGNIN_PATH            (RESOURCE_GUI_PATH "builder.ui")
@@ -168,6 +180,10 @@ typedef struct s_add_contact {
     GtkWidget *e_f_login;       
     GtkWidget *b_add_contact;        
     GtkWidget *b_close;       
+
+    GtkWidget *add_contact_cat1;
+    GtkWidget *add_contact_cat2;
+
     t_callback_data* cbdata;    
 }              t_add_contact_scene;
 
@@ -177,6 +193,10 @@ typedef struct s_create_group {
     GtkWidget *e_f_group_name;            
     GtkWidget *b_create_group;        
     GtkWidget *b_close;       
+
+    GtkWidget *create_group_cat1;
+    GtkWidget *create_group_cat2;
+
     t_callback_data* cbdata;    
 }               t_create_group_scene;
 
@@ -190,6 +210,9 @@ typedef struct s_user_profile {
     GtkWidget *b_logout;       
     GtkWidget *b_confirm;
     GtkWidget *b_cancel;
+
+    GtkWidget *profile_cat1;
+
     t_callback_data* cbdata;    
 }               t_user_profile_scene;
 
@@ -221,6 +244,10 @@ typedef struct s_chat_scene {
     GtkWidget *b_profile;
 
     GtkWidget *chat_cat1;
+    GtkWidget *chat_cat2;
+    GtkWidget *chat_cat3;
+    GtkWidget *chat_cat4;
+    GtkWidget *chat_cat5;
 
     GtkWidget *s_separator1;
     GtkWidget *s_separator2;
@@ -245,6 +272,9 @@ typedef struct s_group_info_scene {
     GtkWidget* e_f_new_group_name;
     GtkWidget* b_confirm;
     GtkWidget* bc_file;
+
+    GtkWidget* edit_group_cat1;
+    GtkWidget* edit_group_cat2;
 
     t_callback_data* cbdata;
 

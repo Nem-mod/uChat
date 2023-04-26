@@ -24,6 +24,9 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     app->scenes->add_contact_dwindow->b_close = mx_get_widget(builder, "cancel_button");
     app->scenes->add_contact_dwindow->l_add_contact = mx_get_widget(builder, "add_contact_label");
 
+    app->scenes->add_contact_dwindow->add_contact_cat1 = mx_get_widget(builder, "add_contact_cat1");
+    app->scenes->add_contact_dwindow->add_contact_cat2 = mx_get_widget(builder, "add_contact_cat2");
+
     mx_set_style(app->scenes->add_contact_dwindow->w_add_contact);
     mx_set_style(app->scenes->add_contact_dwindow->l_add_contact);
     mx_set_style(app->scenes->add_contact_dwindow->e_f_login);
@@ -33,6 +36,11 @@ void mx_init_scene_add_contact(t_uchat_application* app) {
     mx_add_css_class(app->scenes->add_contact_dwindow->b_add_contact, "button2");
     mx_add_css_class(app->scenes->add_contact_dwindow->b_close, "button2");
     mx_add_css_class(app->scenes->add_contact_dwindow->w_add_contact, "background");
+
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->add_contact_dwindow->add_contact_cat2), app->scenes->add_contact_dwindow->add_contact_cat2, RESOURCE_HEARTS_CAT3_PATH);
+
+    GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(RESOURCE_MAXWELL_PATH, NULL);
+    gtk_image_set_from_animation(GTK_IMAGE(app->scenes->add_contact_dwindow->add_contact_cat1), animation);
 
     //gtk_widget_set_visible(app->scenes->signin_scene->gr_signin, TRUE);
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->add_contact_dwindow->w_add_contact), GTK_WINDOW(app->scenes->chat_scene->w_chat));
@@ -59,6 +67,10 @@ void mx_init_scene_chat(t_uchat_application* app){
     app->scenes->chat_scene->w_chat = mx_get_widget(builder, "chat_window");
 
     app->scenes->chat_scene->chat_cat1 = mx_get_widget(builder, "chat_cat1");
+    app->scenes->chat_scene->chat_cat2 = mx_get_widget(builder, "chat_cat2");
+    app->scenes->chat_scene->chat_cat3 = mx_get_widget(builder, "chat_cat3");
+    app->scenes->chat_scene->chat_cat4 = mx_get_widget(builder, "chat_cat4");
+    app->scenes->chat_scene->chat_cat5 = mx_get_widget(builder, "chat_cat5");
 
     app->scenes->chat_scene->e_f_chats = mx_get_widget(builder, "chats_entry");
     app->scenes->chat_scene->w_sc_chats = mx_get_widget(builder, "chats_sc_window");
@@ -131,8 +143,14 @@ void mx_init_scene_chat(t_uchat_application* app){
     GtkWidget* add_contact_icon = mx_get_widget(builder, "add_contact_icon");
     GtkWidget* add_group_icon = mx_get_widget(builder, "add_group_icon");
 
-    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat1), app->scenes->chat_scene->chat_cat1, RESOURCE_HEARTS_CAT_PATH);
-    
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat1), app->scenes->chat_scene->chat_cat1, RESOURCE_HEARTS_CAT1_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat2), app->scenes->chat_scene->chat_cat2, RESOURCE_PAW2_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat4), app->scenes->chat_scene->chat_cat4, RESOURCE_ICON_CAT1_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->chat_cat5), app->scenes->chat_scene->chat_cat5, RESOURCE_ICON_CAT2_PATH);
+
+    GdkPixbufAnimation *animation = gdk_pixbuf_animation_new_from_file(RESOURCE_HEARTS_CAT2_PATH, NULL);
+    gtk_image_set_from_animation(GTK_IMAGE(app->scenes->chat_scene->chat_cat3), animation);
+
     mx_set_image_widget_size(GTK_IMAGE(add_contact_icon), add_contact_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-user.png"));
     mx_set_image_widget_size(GTK_IMAGE(add_group_icon), add_group_icon ,mx_strjoin(RESOURCE_ICONS_PATH, "add-group.png"));
     gtk_widget_hide(app->scenes->chat_scene->b_chat_settings);
@@ -154,7 +172,10 @@ void mx_init_scene_create_group(t_uchat_application* app) {
 
     *new_scene = CREATE_GROUP;
     app->scenes->create_group_dwindow->cbdata = mx_create_callback_data(app, new_scene);
-        
+
+    app->scenes->create_group_dwindow->create_group_cat1 = mx_get_widget(builder, "create_group_cat1");
+    app->scenes->create_group_dwindow->create_group_cat2 = mx_get_widget(builder, "create_group_cat2");
+
     app->scenes->create_group_dwindow->w_create_group = mx_get_widget(builder, "create_group_window");
     app->scenes->create_group_dwindow->e_f_group_name = mx_get_widget(builder, "group_name_entry_contact");
     app->scenes->create_group_dwindow->b_create_group = mx_get_widget(builder, "add_group_button");
@@ -171,6 +192,8 @@ void mx_init_scene_create_group(t_uchat_application* app) {
     mx_add_css_class(app->scenes->create_group_dwindow->b_close, "button2");
     mx_add_css_class(app->scenes->create_group_dwindow->l_create_group, "add-label");
 
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->create_group_dwindow->create_group_cat1), app->scenes->create_group_dwindow->create_group_cat1, RESOURCE_HEAD_CAT1_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->create_group_dwindow->create_group_cat2), app->scenes->create_group_dwindow->create_group_cat2, RESOURCE_SITTING_CAT1_PATH);
 
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->create_group_dwindow->w_create_group), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->create_group_dwindow->w_create_group);
@@ -315,6 +338,8 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     *new_scene = PROFILE;
     app->scenes->user_profile_dwindow->cbdata = mx_create_callback_data(app, new_scene);
         
+    app->scenes->user_profile_dwindow->profile_cat1 = mx_get_widget(builder, "profile_cat1");
+
     app->scenes->user_profile_dwindow->w_user_profile = mx_get_widget(builder, "profile_window");
     app->scenes->user_profile_dwindow->l_profile = mx_get_widget(builder, "profile_label");
     app->scenes->user_profile_dwindow->l_login = mx_get_widget(builder, "login_word_label");
@@ -343,6 +368,7 @@ void mx_init_scene_user_profile(t_uchat_application* app) {
     mx_set_style(app->scenes->user_profile_dwindow->b_confirm);
     mx_set_style(app->scenes->user_profile_dwindow->b_logout);
 
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->user_profile_dwindow->profile_cat1), app->scenes->user_profile_dwindow->profile_cat1, RESOURCE_ICON_CAT3_PATH);
     
     GtkWidget* log_out_icon = mx_get_widget(builder, "log_out_icon");
     mx_set_image_widget_size(GTK_IMAGE(log_out_icon), log_out_icon, mx_strjoin(RESOURCE_ICONS_PATH, "log-out.png"));
@@ -365,6 +391,9 @@ void mx_init_scene_group_info(t_uchat_application* app) {
 
     *new_scene = GROUP_INFO;
     app->scenes->group_info_dwindow->cbdata = mx_create_callback_data(app, new_scene);
+
+    app->scenes->group_info_dwindow->edit_group_cat1 = mx_get_widget(builder, "edit_group_cat1");
+    app->scenes->group_info_dwindow->edit_group_cat2 = mx_get_widget(builder, "edit_group_cat2");
 
     app->scenes->group_info_dwindow->w_group_info = mx_get_widget(builder, "group_info_window");
     app->scenes->group_info_dwindow->l_group_info = mx_get_widget(builder, "group_info_label");
@@ -398,6 +427,8 @@ void mx_init_scene_group_info(t_uchat_application* app) {
     mx_set_style(app->scenes->group_info_dwindow->e_f_new_group_member);
     mx_set_style(app->scenes->group_info_dwindow->bc_file);
 
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->edit_group_cat1), app->scenes->group_info_dwindow->edit_group_cat1, RESOURCE_SITTING_CAT2_PATH);
+    mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->edit_group_cat2), app->scenes->group_info_dwindow->edit_group_cat2, RESOURCE_HEAD_CAT2_PATH);
 
     gtk_window_set_transient_for(GTK_WINDOW(app->scenes->group_info_dwindow->w_group_info), GTK_WINDOW(app->scenes->chat_scene->w_chat));
     gtk_widget_hide(app->scenes->group_info_dwindow->w_group_info);

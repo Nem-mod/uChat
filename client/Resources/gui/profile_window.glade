@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="profile_window">
@@ -45,7 +45,7 @@
             <property name="receives-default">True</property>
           </object>
           <packing>
-            <property name="x">150</property>
+            <property name="x">170</property>
             <property name="y">304</property>
           </packing>
         </child>
@@ -93,7 +93,7 @@
             </style>
           </object>
           <packing>
-            <property name="x">45</property>
+            <property name="x">65</property>
             <property name="y">304</property>
           </packing>
         </child>
@@ -117,6 +117,19 @@
           <packing>
             <property name="x">250</property>
             <property name="y">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="profile_cat1">
+            <property name="width-request">80</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">180</property>
           </packing>
         </child>
       </object>
