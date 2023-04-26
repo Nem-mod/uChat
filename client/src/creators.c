@@ -158,6 +158,11 @@ void mx_create_new_chat_widget(t_uchat_application* app, t_response* res) {
         }
         for (int i = app->last_group_widget_index; i < row_index; i++) {
             // gtk_widget_destroy(mx_get_widget_from_list(app->scenes->chat_scene->l_sc_chats, i));
+            if (mx_atoi(gtk_widget_get_name(mx_get_widget_from_list(app->scenes->chat_scene->l_sc_chats, i))) == app->current_group_id) {
+                app->current_group_id = 0;
+                mx_callback_hide_chatbox(NULL, app);
+                mx_callback_hide_window_group_info(NULL, app);
+            }
             gtk_widget_destroy(GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), i)));
             // gtk_list_box_remove(GTK_LIST_BOX(app->scenes->chat_scene->l_sc_chats), );
             // mx_log_info("test.txt", "delete row on index (second loop)");
