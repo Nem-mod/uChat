@@ -96,6 +96,8 @@ void mx_init_scene_chat(t_uchat_application* app){
     // app->scenes->chat_scene->s_separator1 = mx_get_widget(builder, "separator1");
     // app->scenes->chat_scene->s_separator2 = mx_get_widget(builder, "separator2");
     // app->scenes->chat_scene->s_separator3 = mx_get_widget(builder, "separator3");
+
+    gtk_widget_get_can_focus(app->scenes->chat_scene->b_add_contact);
     
     // mx_add_css_class(app->scenes->chat_scene->s_separator1, "background");
     // mx_add_css_class(app->scenes->chat_scene->s_separator2, "background");
