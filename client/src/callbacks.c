@@ -7,16 +7,6 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
     if(login_len < 3 || login_len > 32) {return;}
     const char *login = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->add_contact_dwindow->e_f_login));
 
-    // int pass_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_password)); 
-    // if(pass_len < 8 || pass_len > 18) {return;}
-
-   
-    // struct json_object *jobj = json_object_new_object();
-    // json_object_object_add(jobj, "user_id", json_object_new_int(app->user->id));
-    // json_object_object_add(jobj, "login", json_object_new_string(login));
-    // mx_write_to_server(app->serv_connection->ssl,  mx_create_request("POST","/contact/", jobj));
-
-
     struct json_object *jobj = json_object_new_object();
     json_object_object_add(jobj, "user_id", json_object_new_int(app->user_id));
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
@@ -31,15 +21,9 @@ void mx_callback_add_contact(UNUSED GtkButton *button, gpointer data) {
 void mx_callback_auth(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     
-    // int login_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_login)); 
-    // if(login_len < 3 || login_len > 32) {return;}
     const char *login = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signin_scene->e_f_login));
-
-    // int pass_len = gtk_entry_get_text_length(GTK_ENTRY(app->scenes->signup_scene->e_f_password)); 
-    // if(pass_len < 8 || pass_len > 18) {return;}
     const char *password = (char*)gtk_entry_get_text(GTK_ENTRY(app->scenes->signin_scene->e_f_password));
 
-   
     struct json_object *jobj = json_object_new_object();
 
     json_object_object_add(jobj, "login", json_object_new_string(login));
@@ -109,7 +93,7 @@ void mx_callback_choose_file(GtkFileChooserButton *button, gpointer data) {
         app->choosed_file_pname = mx_strdup((char*)filename);
         g_free(filename);
     }
-    //g_print("Selected file %s\n", app->choosed_file_pname);
+    
 }
 
 void mx_callback_create_group(UNUSED GtkButton *button, gpointer data) {
@@ -309,21 +293,11 @@ void mx_callback_send_message(UNUSED GtkButton *button, gpointer data) {
     mx_clear_entry(GTK_ENTRY(app->scenes->chat_scene->e_f_chat));
 
     if (app->choosed_file_pname) {
-        // gtk_file_chooser_unselect_filename(GTK_FILE_CHOOSER(app->scenes->chat_scene->e_f_file), app->choosed_file_pname);
-        // gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(app->scenes->chat_scene->e_f_file));
-        // gtk_file_chooser_button_set_title(GTK_FILE_CHOOSER_BUTTON(app->scenes->chat_scene->e_f_file), "Cock");
-        
-        // gtk_file_chooser_remove_choice(  FIXME: fix
-        //     app->scenes->chat_scene->e_f_file, 
-        //     gtk_file_chooser_get_choice(app->scenes->chat_scene->e_f_file)
-        // );
     }
-    // gtk_file_chooser_button_set_title(app->scenes->chat_scene->e_f_file, "");
     
     if(app->choosed_file_pname != NULL) {
             mx_strdel(&app->choosed_file_pname);
     }
-    //mx_write_to_server(app->serv_connection->ssl,  mx_create_request("GET","/group/message", jobj));
 }
 
 void mx_callback_test(UNUSED GtkButton *button, UNUSED gpointer data) { // TODO:: delete this
@@ -429,14 +403,11 @@ void mx_callback_search_by_chats(UNUSED GtkButton *button, gpointer data){
 
 void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
-    // GList *children = gtk_container_get_children(GTK_CONTAINER(button));
+
 
     gtk_container_foreach(GTK_CONTAINER(app->scenes->group_info_dwindow->l_sc_members), (GtkCallback)gtk_widget_destroy, NULL);
 
     GtkWidget *group_image = app->scenes->chat_scene->img_chat;
-    // GtkLabel *chat_label = GTK_LABEL(app->scenes->chat_scene->l_chatname);
-
-    // gtk_label_set_text(GTK_LABEL(app->scenes->group_info->), gtk_label_get_text(chat_label));
     mx_set_image_widget_size(GTK_IMAGE(app->scenes->group_info_dwindow->img_group), app->scenes->group_info_dwindow->img_group, gtk_widget_get_name(group_image));
 
     app->last_member_widget_index = 0;
@@ -448,17 +419,12 @@ void mx_callback_group_info(UNUSED GtkButton *button, gpointer data) {
 void mx_callback_add_group_member(UNUSED GtkButton *button, gpointer data) {
     t_uchat_application *app = (t_uchat_application*)data;
     GtkEntry *member_entry = GTK_ENTRY(app->scenes->group_info_dwindow->e_f_new_group_member);
-    
-    // int login_len = gtk_entry_get_text_length(member_entry); 
-    // if(login_len < 3 || login_len > 32) {return;}
     const char *login = (char*)gtk_entry_get_text(member_entry);
 
     struct json_object *jobj = json_object_new_object();
 
     json_object_object_add(jobj, "group_id", json_object_new_int(app->current_group_id));
     json_object_object_add(jobj, "login", json_object_new_string((char*)login));
-
-    // app->last_member_widget_index = 0;
 
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("POST", "/group/members", jobj));
     mx_write_to_server(app->serv_connection->ssl, mx_create_request("GET", "/group/members", jobj));
@@ -497,7 +463,6 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
 
     if(mx_strlen(group_name) != 0 || mx_strlen(group_name) > 18) {
         json_object_object_add(jobj, "group_name", json_object_new_string(group_name));
-        // gtk_label_set_text(GTK_LABEL(app->scenes->chat_scene->l_chatname), group_name);
     }
 
     if(app->choosed_file_pname) {
@@ -515,10 +480,6 @@ void mx_callback_patch_group(UNUSED GtkButton *button, gpointer data) {
             json_object_object_add(jobj, "file_name", json_object_new_string(filename));
             json_object_object_add(jobj, "file_size", json_object_new_uint64(file_size));
         }
-        // mx_set_image_widget_size(GTK_IMAGE(app->scenes->chat_scene->img_chat),
-        //                         (app->scenes->chat_scene->img_chat),  
-        //                         app->choosed_file_pname);
-
         if(app->choosed_file_pname != NULL) {
                 mx_strdel(&app->choosed_file_pname);
         }
